@@ -26,11 +26,146 @@ body{
     overflow-x:hidden;
 }
 
-/* HEADER */
+/* HEADER MODERNO */
+
+.main-header{
+
+    position:fixed;
+
+    top:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:92%;
+
+    padding:18px 35px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    z-index:999;
+
+    animation:headerFade 1s ease;
+}
+
+@keyframes headerFade{
+
+    from{
+        opacity:0;
+        transform:translateX(-50%) translateY(-30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(-50%) translateY(0);
+    }
+}
+
+.header-logo{
+
+    font-family:'Bebas Neue', sans-serif;
+
+    font-size:2.2rem;
+
+    letter-spacing:3px;
+
+    color:white;
+
+    position:relative;
+}
+
+.header-logo::after{
+
+    content:'';
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-6px;
+
+    width:100%;
+
+    height:2px;
+
+    background:linear-gradient(to right,
+    var(--azul-neon),
+    var(--dourado));
+}
+
+.modern-nav{
+
+    display:flex;
+
+    gap:35px;
+}
+
+.modern-nav a{
+
+    text-decoration:none;
+
+    color:white;
+
+    font-family:'Barlow Condensed', sans-serif;
+
+    text-transform:uppercase;
+
+    font-size:1rem;
+
+    letter-spacing:1px;
+
+    position:relative;
+
+    transition:.3s;
+}
+
+.modern-nav a::before{
+
+    content:'';
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0%;
+
+    height:2px;
+
+    background:var(--azul-neon);
+
+    transition:.4s;
+}
+
+.modern-nav a:hover{
+
+    color:var(--azul-neon);
+}
+
+.modern-nav a:hover::before{
+
+    width:100%;
+}
+
+/* HEADER DA GALERIA */
 
 .gallery-header{
 
-    padding:90px 5% 50px;
+    padding:180px 5% 50px;
 
     text-align:center;
 
@@ -323,6 +458,25 @@ body{
 }
 
 /* RESPONSIVO */
+
+@media(max-width:900px){
+
+    .main-header{
+
+        flex-direction:column;
+
+        gap:20px;
+    }
+
+    .modern-nav{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:15px;
+    }
+}
 
 @media(max-width:768px){
 
