@@ -1,52 +1,180 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galeria</title>
 
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
 
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Galeria - Supercopa de Voleibol 2026</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="galeria.css">
 
 </head>
+
 <body>
 
-<header class="hero">
+    <!-- HEADER -->
 
-<nav class="navbar">
+    <header class="gallery-header">
 
-<div class="logo">SUPERCOPA AFC</div>
+        <h1 class="gallery-title">
+            Galeria
+        </h1>
 
-<ul>
-<li><a href="index.html">Início</a></li>
-<li><a href="quem-somos.html">Quem Somos</a></li>
-<li><a href="historia.html">História</a></li>
-<li><a href="tabela.html">Tabela</a></li>
-<li><a href="galeria.html">Galeria</a></li>
-</ul>
+        <h2 class="gallery-subtitle">
+            Fotos e Vídeos
+        </h2>
 
-</nav>
+        <p class="gallery-description">
 
-<div class="hero-content">
+            Reviva os melhores momentos do campeonato através
+            de nossa galeria exclusiva.
 
-<span class="tag">GALERIA</span>
+            Explore as jogadas, a emoção da torcida
+            e os bastidores da Supercopa 2026.
 
-<h1>
-MOMENTOS<br>
-INESQUECÍVEIS
-</h1>
+        </p>
 
-<p>
-Confira fotos, registros e os melhores momentos da Supercopa AFC.
-</p>
+    </header>
 
-</div>
+    <!-- FILTROS -->
 
-<div class="glow glow1"></div>
-<div class="glow glow2"></div>
+    <div class="filter-container">
 
-</header>
+        <div class="filter-nav" id="filter-nav">
+
+            <div class="filter-pill" id="filter-pill"></div>
+
+            <button class="filter-btn active" data-filter="todos">
+                Todos
+            </button>
+
+            <button class="filter-btn" data-filter="jogos">
+                Jogos
+            </button>
+
+            <button class="filter-btn" data-filter="bastidores">
+                Bastidores
+            </button>
+
+            <button class="filter-btn" data-filter="premiacao">
+                Premiação
+            </button>
+
+            <button class="filter-btn" data-filter="torcida">
+                Torcida
+            </button>
+
+            <button class="filter-btn" data-filter="videos">
+                Vídeos
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- GRID -->
+
+    <div class="gallery-grid" id="gallery-grid">
+
+        <!-- JOGOS -->
+
+        <div class="gallery-item" data-category="jogos">
+
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/loKOvLRYEUCOwJPw.jpg">
+
+            <div class="item-overlay">
+
+                <span class="item-category">
+                    Jogos
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- BASTIDORES -->
+
+        <div class="gallery-item" data-category="bastidores">
+
+            <img src="https://images.unsplash.com/photo-1544698310-74ea9d1c8258?auto=format&fit=crop&w=800&q=80">
+
+            <div class="item-overlay">
+
+                <span class="item-category">
+                    Bastidores
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- VÍDEO -->
+
+        <div class="gallery-item" data-category="videos">
+
+            <div class="video-icon">
+
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+
+                    <path d="M8 5v14l11-7z"/>
+
+                </svg>
+
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1592653310452-757035121141?auto=format&fit=crop&w=800&q=80">
+
+            <div class="item-overlay">
+
+                <span class="item-category">
+                    Vídeos
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- TORCIDA -->
+
+        <div class="gallery-item" data-category="torcida">
+
+            <img src="https://images.unsplash.com/photo-1511406361295-0a5ff814c0ad?auto=format&fit=crop&w=800&q=80">
+
+            <div class="item-overlay">
+
+                <span class="item-category">
+                    Torcida
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- PREMIAÇÃO -->
+
+        <div class="gallery-item" data-category="premiacao">
+
+            <img src="https://images.unsplash.com/photo-1578267153662-c96359dfb245?auto=format&fit=crop&w=800&q=80">
+
+            <div class="item-overlay">
+
+                <span class="item-category">
+                    Premiação
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="galeria.js"></script>
 
 </body>
+
 </html>

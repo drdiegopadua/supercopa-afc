@@ -1,0 +1,342 @@
+:root {
+
+    --azul:#0047AB;
+    --azul-esc:#002B6B;
+    --azul-neon:#3A8EFF;
+    --dourado:#F5C518;
+    --branco:#FFFFFF;
+    --dark-bg:#050d1f;
+    --card-bg:rgba(255,255,255,.05);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:var(--dark-bg);
+
+    color:white;
+
+    font-family:'Barlow', sans-serif;
+
+    overflow-x:hidden;
+}
+
+/* HEADER */
+
+.gallery-header{
+
+    padding:90px 5% 50px;
+
+    text-align:center;
+
+    background:
+    radial-gradient(circle at center,
+    rgba(0,71,171,.2) 0%,
+    transparent 70%);
+}
+
+.gallery-title{
+
+    font-family:'Bebas Neue', sans-serif;
+
+    font-size:clamp(60px,10vw,110px);
+
+    letter-spacing:5px;
+
+    margin-bottom:10px;
+
+    text-shadow:0 0 30px rgba(58,142,255,.4);
+}
+
+.gallery-subtitle{
+
+    font-family:'Barlow Condensed', sans-serif;
+
+    font-size:1.5rem;
+
+    color:var(--azul-neon);
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    margin-bottom:20px;
+}
+
+.gallery-description{
+
+    max-width:700px;
+
+    margin:auto;
+
+    line-height:1.7;
+
+    color:rgba(255,255,255,.7);
+}
+
+/* FILTROS */
+
+.filter-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:40px 0;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    background:#050d1f;
+}
+
+.filter-nav{
+
+    display:flex;
+
+    gap:5px;
+
+    padding:6px;
+
+    border-radius:50px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    position:relative;
+}
+
+.filter-btn{
+
+    border:none;
+
+    background:transparent;
+
+    color:rgba(255,255,255,.6);
+
+    padding:12px 25px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-family:'Barlow Condensed', sans-serif;
+
+    text-transform:uppercase;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    z-index:2;
+
+    transition:.3s;
+}
+
+.filter-btn.active{
+
+    color:black;
+}
+
+.filter-pill{
+
+    position:absolute;
+
+    height:calc(100% - 12px);
+
+    background:var(--azul-neon);
+
+    border-radius:50px;
+
+    transition:.4s cubic-bezier(.175,.885,.32,1.275);
+
+    z-index:1;
+
+    box-shadow:0 0 20px rgba(58,142,255,.5);
+}
+
+/* GRID */
+
+.gallery-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fill,minmax(300px,1fr));
+
+    gap:25px;
+
+    padding:20px 5% 90px;
+
+    max-width:1500px;
+
+    margin:auto;
+}
+
+.gallery-item{
+
+    position:relative;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    aspect-ratio:4/3;
+
+    background:var(--card-bg);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.4s;
+
+    cursor:pointer;
+}
+
+.gallery-item:hover{
+
+    transform:translateY(-10px);
+
+    border-color:var(--azul-neon);
+
+    box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+
+.gallery-item img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:transform .5s ease;
+}
+
+.gallery-item:hover img{
+
+    transform:scale(1.1);
+}
+
+/* OVERLAY */
+
+.item-overlay{
+
+    position:absolute;
+
+    left:0;
+
+    bottom:0;
+
+    width:100%;
+
+    padding:20px;
+
+    background:linear-gradient(transparent,
+    rgba(0,0,0,.85));
+
+    opacity:0;
+
+    transition:.3s;
+}
+
+.gallery-item:hover .item-overlay{
+
+    opacity:1;
+}
+
+.item-category{
+
+    font-family:'Barlow Condensed', sans-serif;
+
+    text-transform:uppercase;
+
+    font-size:.85rem;
+
+    color:var(--azul-neon);
+
+    letter-spacing:2px;
+
+    font-weight:700;
+}
+
+/* VIDEO */
+
+.video-icon{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:rgba(58,142,255,.85);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:2;
+}
+
+/* ANIMAÇÃO */
+
+.gallery-item.hide{
+
+    display:none;
+}
+
+.gallery-item.show{
+
+    animation:fadeScale .5s ease forwards;
+}
+
+@keyframes fadeScale{
+
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+    .filter-nav{
+
+        overflow-x:auto;
+
+        max-width:95%;
+    }
+
+    .filter-btn{
+
+        padding:10px 15px;
+
+        font-size:.8rem;
+    }
+}
