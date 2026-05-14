@@ -1,31 +1,97 @@
-const counters = document.querySelectorAll('.stat-box h2');
+const counters = document.querySelectorAll('.stat-number');
 
-counters.forEach(counter => {
+const speed = 200;
 
-  const updateCounter = () => {
+const startCounters = () => {
 
-    const target = +counter.innerText;
-    const current = +counter.getAttribute('data-count') || 0;
+    counters.forEach(counter => {
 
-    const increment = target / 80;
+        const updateCount = () => {
 
-    if(current < target){
+            const target = +counter.getAttribute('data-target');
 
-      const newValue = Math.ceil(current + increment);
+            const count = +counter.innerText;
 
-      counter.setAttribute('data-count', newValue);
-      counter.innerText = newValue;
+            const inc = target / speed;
 
-      setTimeout(updateCounter, 25);
+            if(count < target){
 
-    }else{
+                counter.innerText = Math.ceil(count + inc);
 
-      counter.innerText = target;
+                setTimeout(updateCount, 10);
+
+            }else{
+
+                counter.innerText = target + (target === 800 ? '+' : '');
+
+            }
+
+        };
+
+        updateCount();
+
+    });
+
+};
+
+const observer = new IntersectionObserver((entries) => {
+
+    if(entries[0].isIntersecting){
+
+        startCounters();
+
+        observer.disconnect();
 
     }
 
-  };
+}, { threshold: 0.5 });
 
-  updateCounter();
+observer.observe(document.querySelector('.stats'));
 
-});
+/* PLACAR */
+
+async function fetchScores(){
+
+    const mockData = [
+
+        { t1: "AFONSO CLÁUDIO", s1: 2, s2: 1, t2: "VENDA NOVA" },
+
+        { t1: "VITÓRIA VÔLEI", s1: 3, s2: 0, t2: "SERRA" },
+
+        { t1: "LARANJA TERRA", s1: 1, s2: 2, t2: "ITARANA" },
+
+        { t1: "DOMINGOS MARTINS", s1: 0, s2: 3, t2: "MARECHAL" }
+
+    ];
+
+    let html = '';
+
+    const displayData = [...mockData, ...mockData];
+
+    displayData.forEach(game => {
+
+        html += `
+
+        <div class="score-card">
+
+            <div class="team-name">${game.t1}</div>
+
+            <div class="score-num">${game.s1}</div>
+
+            <div class="score-separator">x</div>
+
+            <div class="score-num">${game.s2}</div>
+
+            <div class="team-name">${game.t2}</div>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById('ticker-content').innerHTML = html;
+
+}
+
+fetchScores();

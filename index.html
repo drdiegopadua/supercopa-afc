@@ -1,564 +1,212 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Supercopa de Voleibol Afonso Cláudio 2026</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #004aad;
-            --accent-blue: #00c4ff;
-            --white: #ffffff;
-            --dark: #1a1a1a;
-            --live-red: #ff0000;
-            /* Cores do usuário */
-            --azul:       #0047AB;
-            --azul-esc:   #002B6B;
-            --azul-claro: #1A6FD4;
-            --azul-neon:  #3A8EFF;
-            --dourado:    #F5C518;
-            --branco:     #FFFFFF;
-            --cinza-clr:  #E8EDF5;
-            --txt-dark:   #0a0f1e;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="style.css">
 
-        body {
-            background-color: #050d1f;
-            color: var(--white);
-            font-family: 'Barlow', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* --- Topo Ao Vivo --- */
-        .top-bar {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--azul);
-            position: relative;
-            z-index: 10;
-        }
-
-        .top-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-        }
-
-        .live-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .live-dot {
-            width: 12px;
-            height: 12px;
-            background-color: var(--live-red);
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .live-text {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            position: relative;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/loKOvLRYEUCOwJPw.jpg') no-repeat center center;
-            background-size: cover;
-            z-index: 1;
-            animation: athleteMove 10s ease-in-out infinite alternate;
-            transform-origin: center;
-        }
-
-        @keyframes athleteMove {
-            0% { transform: scale(1) translate(0, 0); }
-            100% { transform: scale(1.1) translate(-10px, -10px); }
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(0,71,171,0.8) 0%, rgba(0,71,171,0.3) 50%, rgba(0,0,0,0) 100%);
-            z-index: 2;
-        }
-
-        .hero-content-wrapper {
-            position: relative;
-            z-index: 3;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .logo-container {
-            width: 250px;
-            animation: slideInLeft 1s ease-out;
-        }
-
-        .logo-container img {
-            width: 100%;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
-        }
-
-        /* --- Menu Lateral de Botões --- */
-        .side-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: flex-end; /* Alinha botões à direita */
-            animation: slideInRight 1s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .menu-btn {
-            display: flex;
-            align-items: center;
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: var(--white);
-            text-decoration: none;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            width: fit-content;
-        }
-
-        .menu-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .menu-btn:hover::before {
-            left: 100%;
-        }
-
-        .menu-btn:hover {
-            background: var(--azul-neon);
-            color: #000;
-            transform: translateX(-10px); /* Move para a esquerda ao hover já que está na direita */
-            border-color: var(--azul-neon);
-            box-shadow: 0 0 20px rgba(58, 142, 255, 0.5);
-        }
-
-        @keyframes slideInLeft {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* --- SEÇÃO 3: PLACAR AO VIVO (ESTILO USUÁRIO) --- */
-        #scores {
-            background: #060d22;
-            padding: 40px 0;
-            border-top: 1px solid rgba(58,142,255,.2);
-            border-bottom: 1px solid rgba(58,142,255,.2);
-            overflow: hidden;
-        }
-
-        .scores-label {
-            text-align: center;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--azul-neon);
-            margin-bottom: 20px;
-            opacity: .7;
-        }
-
-        .ticker-wrap {
-            overflow: hidden;
-            position: relative;
-        }
-
-        .ticker-wrap::before,
-        .ticker-wrap::after {
-            content: '';
-            position: absolute;
-            top: 0; bottom: 0;
-            width: 100px;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .ticker-wrap::before { left: 0;  background: linear-gradient(to right, #060d22, transparent); }
-        .ticker-wrap::after  { right: 0; background: linear-gradient(to left,  #060d22, transparent); }
-
-        .ticker-track {
-            display: flex;
-            gap: 20px;
-            width: max-content;
-            animation: ticker-scroll 35s linear infinite;
-        }
-        .ticker-track:hover { animation-play-state: paused; }
-
-        @keyframes ticker-scroll {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-        }
-
-        .score-card {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(58,142,255,.2);
-            border-radius: 12px;
-            padding: 18px 28px;
-            flex-shrink: 0;
-            min-width: 340px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .score-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(to right, var(--azul-neon), var(--dourado));
-        }
-
-        .team-name {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 20px;
-            color: var(--branco);
-            min-width: 110px;
-            text-align: center;
-        }
-
-        .score-separator { color: rgba(255,255,255,.2); font-size: 24px; font-weight: 300; }
-
-        .score-num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 44px;
-            line-height: 1;
-            color: var(--dourado);
-            min-width: 48px;
-            text-align: center;
-        }
-
-        /* --- Stats Section --- */
-        .stats {
-            padding: 80px 5%;
-            background: linear-gradient(135deg, #041230 0%, #001a5e 50%, #041230 100%);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            text-align: center;
-        }
-
-        .stat-card {
-            background: rgba(255,255,255,.04);
-            padding: 40px 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(58,142,255,.15);
-            transition: transform 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--azul-neon);
-        }
-
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(to right, var(--azul-neon), var(--dourado));
-        }
-
-        .stat-number {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 4rem;
-            color: var(--azul-neon);
-            display: block;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(58,142,255,0.4);
-        }
-
-        .stat-text {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.7);
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* --- SEÇÃO 5: CTA CLASSIFICAÇÃO (ESTILO USUÁRIO) --- */
-        #cta {
-            background: #020918;
-            padding: 100px 5%;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 50%, rgba(0,71,171,.25) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        .cta-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(36px, 5vw, 58px);
-            color: var(--branco);
-            margin-bottom: 44px;
-            line-height: 1.1;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--azul-neon);
-            color: #000;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 20px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-decoration: none;
-            padding: 18px 48px;
-            border-radius: 50px;
-            box-shadow: 0 0 30px rgba(58,142,255,.4);
-            transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: pulse-btn 2s infinite;
-        }
-
-        .cta-btn:hover {
-            transform: scale(1.05) translateY(-3px);
-            background: var(--branco);
-            box-shadow: 0 0 50px rgba(255,255,255,.4);
-        }
-
-        @keyframes pulse-btn {
-            0% { box-shadow: 0 0 0 0 rgba(58,142,255,0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(58,142,255,0); }
-            100% { box-shadow: 0 0 0 0 rgba(58,142,255,0); }
-        }
-
-        @media (max-width: 768px) {
-            .hero { height: 350px; }
-            .logo-container { width: 150px; }
-            .stat-number { font-size: 3rem; }
-        }
-    </style>
 </head>
+
 <body>
 
-    <!-- Topo -->
+    <!-- TOPO -->
+
     <div class="top-bar">
-        <div class="top-title">Supercopa 2026</div>
+
+        <div class="top-title">
+            Supercopa 2026
+        </div>
+
         <div class="live-indicator">
+
             <div class="live-dot"></div>
-            <div class="live-text">CLASSIFICAÇÃO AO VIVO E TRANSMISSÃO AO VIVO</div>
+
+            <div class="live-text">
+                CLASSIFICAÇÃO AO VIVO E TRANSMISSÃO AO VIVO
+            </div>
+
         </div>
+
     </div>
 
-    <!-- Hero Area -->
-    <div class="hero">
+    <!-- HERO -->
+
+    <section class="hero">
+
         <div class="hero-bg"></div>
-        <div class="hero-content-wrapper">
-            <div class="logo-container">
-                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/NXdzEyFuWsdfsDEV.png" alt="Logo Supercopa">
+
+        <!-- HEADER MODERNO -->
+
+        <header class="main-header">
+
+            <div class="header-logo">
+                SUPERCOPA AFC
             </div>
-            
-            <!-- Menu Lateral -->
-            <nav class="side-menu">
-                <a href="#quem-somos" class="menu-btn">Quem somos</a>
-                <a href="#historia" class="menu-btn">História</a>
-                <a href="#tabela" class="menu-btn">Tabela e Classificação</a>
-                <a href="#galeria" class="menu-btn">Galeria</a>
+
+            <nav class="modern-nav">
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <a href="quem-somos.html">
+                    Quem Somos
+                </a>
+
+                <a href="historia.html">
+                    História
+                </a>
+
+                <a href="tabela.html">
+                    Tabela & Classificação
+                </a>
+
+                <a href="galeria.html">
+                    Galeria
+                </a>
+
             </nav>
-        </div>
-    </div>
 
-    <!-- SEÇÃO 3: PLACAR AO VIVO (ESTILO USUÁRIO) -->
-    <section id="scores">
-        <div class="scores-label">Resultados do Dia</div>
-        <div class="ticker-wrap">
-            <div class="ticker-track" id="ticker-content">
-                <!-- Carregando... -->
-                <div class="score-card">
-                    <div class="team-name">CARREGANDO</div>
-                    <div class="score-num">--</div>
-                    <div class="score-separator">x</div>
-                    <div class="score-num">--</div>
-                    <div class="team-name">DADOS</div>
-                </div>
+        </header>
+
+        <!-- CONTEÚDO -->
+
+        <div class="hero-content-wrapper">
+
+            <div class="logo-container">
+
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/NXdzEyFuWsdfsDEV.png" alt="Logo Supercopa">
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Estatísticas -->
-    <div class="stats">
-        <div class="stat-card">
-            <span class="stat-number" data-target="12">0</span>
-            <span class="stat-text">Equipes</span>
-        </div>
-        <div class="stat-card">
-            <span class="stat-number" data-target="800">0</span>
-            <span class="stat-text">Atletas já viveram essa experiência</span>
-        </div>
-        <div class="stat-card">
-            <span class="stat-number" data-target="8550">0</span>
-            <span class="stat-text">Minutos de voleibol de alto nível</span>
-        </div>
-        <div class="stat-card">
-            <span class="stat-number" data-target="1">0</span>
-            <span class="stat-text">Campeão para se eternizar na galeria dos vencedores</span>
-        </div>
-    </div>
+    <!-- PLACAR -->
 
-    <!-- SEÇÃO 5: CTA CLASSIFICAÇÃO (ESTILO USUÁRIO) -->
+    <section id="scores">
+
+        <div class="scores-label">
+            Resultados do Dia
+        </div>
+
+        <div class="ticker-wrap">
+
+            <div class="ticker-track" id="ticker-content">
+
+                <div class="score-card">
+
+                    <div class="team-name">
+                        CARREGANDO
+                    </div>
+
+                    <div class="score-num">
+                        --
+                    </div>
+
+                    <div class="score-separator">
+                        x
+                    </div>
+
+                    <div class="score-num">
+                        --
+                    </div>
+
+                    <div class="team-name">
+                        DADOS
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ESTATÍSTICAS -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <span class="stat-number" data-target="12">
+                0
+            </span>
+
+            <span class="stat-text">
+                Equipes
+            </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span class="stat-number" data-target="800">
+                0
+            </span>
+
+            <span class="stat-text">
+                Atletas já viveram essa experiência
+            </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span class="stat-number" data-target="8550">
+                0
+            </span>
+
+            <span class="stat-text">
+                Minutos de voleibol de alto nível
+            </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span class="stat-number" data-target="1">
+                0
+            </span>
+
+            <span class="stat-text">
+                Campeão para se eternizar
+            </span>
+
+        </div>
+
+    </section>
+
+    <!-- CTA -->
+
     <section id="cta">
-        <h2 class="cta-title">Acompanhe a atualização da classificação ao vivo</h2>
-        <a href="#" class="cta-btn">
-            <span>Classificação ao vivo</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+
+        <h2 class="cta-title">
+            Acompanhe a atualização da classificação ao vivo
+        </h2>
+
+        <a href="tabela.html" class="cta-btn">
+
+            <span>
+                Classificação ao vivo
+            </span>
+
         </a>
+
     </section>
 
-    <script>
-        // --- Animação de Contagem ---
-        const counters = document.querySelectorAll('.stat-number');
-        const speed = 200;
+    <script src="script.js"></script>
 
-        const startCounters = () => {
-            counters.forEach(counter => {
-                const updateCount = () => {
-                    const target = +counter.getAttribute('data-target');
-                    const count = +counter.innerText;
-                    const inc = target / speed;
-
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count + inc);
-                        setTimeout(updateCount, 10);
-                    } else {
-                        counter.innerText = target + (target === 800 ? '+' : '');
-                    }
-                };
-                updateCount();
-            });
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) {
-                startCounters();
-                observer.disconnect();
-            }
-        }, { threshold: 0.5 });
-
-        observer.observe(document.querySelector('.stats'));
-
-        // --- Integração com Google Planilhas ---
-        async function fetchScores() {
-            try {
-                // Dados de exemplo (Simulando o que viria da planilha)
-                const mockData = [
-                    { t1: "AFONSO CLÁUDIO", s1: 2, s2: 1, t2: "VENDA NOVA" },
-                    { t1: "VITÓRIA VÔLEI", s1: 3, s2: 0, t2: "SERRA" },
-                    { t1: "LARANJA TERRA", s1: 1, s2: 2, t2: "ITARANA" },
-                    { t1: "DOMINGOS MARTINS", s1: 0, s2: 3, t2: "MARECHAL" }
-                ];
-
-                let html = '';
-                // Duplicamos para o loop infinito
-                const displayData = [...mockData, ...mockData, ...mockData]; 
-                displayData.forEach(game => {
-                    html += `
-                    <div class="score-card">
-                        <div class="team-name">${game.t1}</div>
-                        <div class="score-num">${game.s1}</div>
-                        <div class="score-separator">x</div>
-                        <div class="score-num">${game.s2}</div>
-                        <div class="team-name">${game.t2}</div>
-                    </div>`;
-                });
-
-                document.getElementById('ticker-content').innerHTML = html;
-            } catch (error) {
-                console.error('Erro ao buscar dados:', error);
-            }
-        }
-
-        fetchScores();
-    </script>
 </body>
+
 </html>
