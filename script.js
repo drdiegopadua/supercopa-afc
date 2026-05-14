@@ -1,96 +1,143 @@
-const counters = document.querySelectorAll('.stat-number');
+/* REVEAL */
 
-const speed = 200;
+const obs = new IntersectionObserver(entries => {
 
-const startCounters = () => {
+entries.forEach(entry => {
 
-    counters.forEach(counter => {
+if(entry.isIntersecting){
 
-        const updateCount = () => {
+entry.target.classList.add('visible');
 
-            const target = +counter.getAttribute('data-target');
+obs.unobserve(entry.target);
 
-            const count = +counter.innerText;
+}
 
-            const inc = target / speed;
+});
 
-            if(count < target){
+}, { threshold: 0.12 });
 
-                counter.innerText = Math.ceil(count + inc);
+document.querySelectorAll('.reveal,.reveal-scale')
+.forEach(el => obs.observe(el));
 
-                setTimeout(updateCount, 10);
+/* CONTADORES */
 
-            }else{
+function animCount(el, target){
 
-                counter.innerText = target + (target === 800 ? '+' : '');
+const duration = 1800;
 
-            }
+const frames = 60;
 
-        };
+const step = target / (duration / 1000 * frames);
 
-        updateCount();
+let value = 0;
 
-    });
+(function update(){
 
-};
+value = Math.min(value + step, target);
 
-const observer = new IntersectionObserver((entries) => {
+el.textContent = Math.round(value).toLocaleString('pt-BR');
 
-    if(entries[0].isIntersecting){
+if(value < target){
 
-        startCounters();
+requestAnimationFrame(update);
 
-        observer.disconnect();
+}
 
-    }
+})();
 
-}, { threshold: 0.5 });
+}
 
-observer.observe(document.querySelector('.stats'));
+/* HERO */
 
-/* PLACAR */
+let heroStarted = false;
+
+new IntersectionObserver(entries => {
+
+if(entries[0].isIntersecting && !heroStarted){
+
+heroStarted = true;
+
+animCount(document.getElementById('c1'), 12);
+
+animCount(document.getElementById('c2'), 800);
+
+animCount(document.getElementById('c3'), 8550);
+
+animCount(document.getElementById('c4'), 1);
+
+}
+
+}, { threshold: 0.3 })
+
+.observe(document.querySelector('.hero-stats'));
+
+/* COUNTER SECTION */
+
+let counterStarted = false;
+
+new IntersectionObserver(entries => {
+
+if(entries[0].isIntersecting && !counterStarted){
+
+counterStarted = true;
+
+animCount(document.getElementById('cc1'), 12);
+
+animCount(document.getElementById('cc2'), 800);
+
+animCount(document.getElementById('cc3'), 8550);
+
+animCount(document.getElementById('cc4'), 1);
+
+}
+
+}, { threshold: 0.3 })
+
+.observe(document.querySelector('.counter-section'));
+
+/* PLACARES */
 
 async function fetchScores(){
 
-    const mockData = [
+const mockData = [
 
-        { t1: "AFONSO CLÁUDIO", s1: 2, s2: 1, t2: "VENDA NOVA" },
+{ t1: "AFONSO CLÁUDIO", s1: 2, s2: 1, t2: "VENDA NOVA" },
 
-        { t1: "VITÓRIA VÔLEI", s1: 3, s2: 0, t2: "SERRA" },
+{ t1: "VITÓRIA VÔLEI", s1: 3, s2: 0, t2: "SERRA" },
 
-        { t1: "LARANJA TERRA", s1: 1, s2: 2, t2: "ITARANA" },
+{ t1: "LARANJA TERRA", s1: 1, s2: 2, t2: "ITARANA" },
 
-        { t1: "DOMINGOS MARTINS", s1: 0, s2: 3, t2: "MARECHAL" }
+{ t1: "DOMINGOS MARTINS", s1: 0, s2: 3, t2: "MARECHAL" }
 
-    ];
+];
 
-    let html = '';
+let html = '';
 
-    const displayData = [...mockData, ...mockData];
+const displayData = [...mockData, ...mockData];
 
-    displayData.forEach(game => {
+displayData.forEach(game => {
 
-        html += `
+html += `
 
-        <div class="score-card">
+<div class="score-card">
 
-            <div class="team-name">${game.t1}</div>
+<div class="team-name">${game.t1}</div>
 
-            <div class="score-num">${game.s1}</div>
+<div class="score-num">${game.s1}</div>
 
-            <div class="score-separator">x</div>
+<div class="score-separator">x</div>
 
-            <div class="score-num">${game.s2}</div>
+<div class="score-num">${game.s2}</div>
 
-            <div class="team-name">${game.t2}</div>
+<div class="team-name">${game.t2}</div>
 
-        </div>
+</div>
 
-        `;
+`;
 
-    });
+});
 
-    document.getElementById('ticker-content').innerHTML = html;
+document.getElementById('ticker-content').innerHTML = html;
 
 }
 
