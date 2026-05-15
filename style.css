@@ -196,3 +196,262 @@
     font-size: 2.1rem;
   }
 }
+
+
+
+/* ═══════════════════════════════════════════
+   ALINHAMENTO DE TEXTOS - CORRIGIDO
+   Textos à esquerda, exceto "O MAIOR DA REGIÃO DAS MONTANHAS"
+═══════════════════════════════════════════ */
+
+/* SECTIONS - Alinhamento à esquerda */
+.section {
+  padding: 100px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left; /* ← MUDANÇA: Alinha à esquerda */
+}
+
+/* Títulos H2 - Alinhamento à esquerda */
+h2 {
+  font-family: var(--D);
+  font-size: clamp(42px, 6.5vw, 76px);
+  line-height: 0.95;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  text-align: left; /* ← MUDANÇA: Alinha à esquerda */
+}
+
+h2 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* Subtítulos H3 - Alinhamento à esquerda */
+h3 {
+  text-align: left; /* ← MUDANÇA: Alinha à esquerda */
+}
+
+/* Parágrafos - Alinhamento à esquerda */
+p {
+  text-align: left; /* ← MUDANÇA: Alinha à esquerda */
+}
+
+/* ═══════════════════════════════════════════
+   EXCEÇÃO: TÍTULO PRINCIPAL CENTRALIZADO
+═══════════════════════════════════════════ */
+
+/* Título "O MAIOR DA REGIÃO DAS MONTANHAS" - CENTRALIZADO */
+.hero-h1 {
+  font-family: var(--D);
+  font-size: clamp(2.8rem, 8.5vw, 5.4rem);
+  font-weight: 700;
+  line-height: 1.0;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  text-align: center; /* ← MANTÉM CENTRALIZADO */
+
+  /* Gradiente azul→branco→azul escuro */
+  background: linear-gradient(
+    155deg,
+    #a8d0ff 0%,
+    #3a86f0 22%,
+    #ffffff 50%,
+    #3a86f0 72%,
+    #1a4a9e 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  /* Glow cinematográfico em camadas */
+  filter:
+    drop-shadow(0 0 14px rgba(58, 134, 240, 0.60))
+    drop-shadow(0 0 40px rgba(58, 134, 240, 0.22));
+
+  animation: titleShine 4.5s ease-in-out infinite alternate;
+}
+
+/* ═══════════════════════════════════════════
+   SEÇÕES ESPECÍFICAS - ALINHAMENTO À ESQUERDA
+═══════════════════════════════════════════ */
+
+/* Seção de Fases */
+.section:has(.fases-grid) {
+  text-align: left;
+}
+
+.section:has(.fases-grid) h2 {
+  text-align: left;
+}
+
+.section:has(.fases-grid) p {
+  text-align: left;
+}
+
+/* Seção de Times */
+.section:has(.times-grid) {
+  text-align: left;
+}
+
+.section:has(.times-grid) h2 {
+  text-align: left;
+}
+
+.section:has(.times-grid) p {
+  text-align: left;
+}
+
+/* Seção de Tabela */
+.section:has(.tabela-wrap) {
+  text-align: left;
+}
+
+.section:has(.tabela-wrap) h2 {
+  text-align: left;
+}
+
+.section:has(.tabela-wrap) p {
+  text-align: left;
+}
+
+/* Seção de Transformação */
+.section:has(.transform-grid) {
+  text-align: left;
+}
+
+.section:has(.transform-grid) h2 {
+  text-align: left;
+}
+
+.section:has(.transform-grid) p {
+  text-align: left;
+}
+
+/* Seção de Timeline */
+.section:has(.timeline) {
+  text-align: left;
+}
+
+.section:has(.timeline) h2 {
+  text-align: left;
+}
+
+.section:has(.timeline) p {
+  text-align: left;
+}
+
+/* Seção de Depoimentos */
+.section:has(.dep-slider) {
+  text-align: left;
+}
+
+.section:has(.dep-slider) h2 {
+  text-align: left;
+}
+
+.section:has(.dep-slider) p {
+  text-align: left;
+}
+
+/* Seção de FAQ */
+.section:has(.faq-list) {
+  text-align: left;
+}
+
+.section:has(.faq-list) h2 {
+  text-align: left;
+}
+
+.section:has(.faq-list) p {
+  text-align: left;
+}
+
+/* ═══════════════════════════════════════════
+   ELEMENTOS ESPECÍFICOS
+═══════════════════════════════════════════ */
+
+/* Section tag - Alinhamento à esquerda */
+.section-tag {
+  font-family: var(--M);
+  font-size: 11px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.section-tag::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* Descrições em cards */
+.fase-card p,
+.time-card p,
+.dep-card p,
+.tl-content p {
+  text-align: left;
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE - Manter alinhamento à esquerda
+═══════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .section {
+    text-align: left;
+  }
+
+  h2 {
+    text-align: left;
+  }
+
+  h3 {
+    text-align: left;
+  }
+
+  p {
+    text-align: left;
+  }
+
+  /* Manter título principal centralizado em mobile */
+  .hero-h1 {
+    text-align: center;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   TABLET - Manter alinhamento à esquerda
+═══════════════════════════════════════════ */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .section {
+    text-align: left;
+  }
+
+  h2 {
+    text-align: left;
+  }
+
+  h3 {
+    text-align: left;
+  }
+
+  p {
+    text-align: left;
+  }
+
+  /* Manter título principal centralizado em tablet */
+  .hero-h1 {
+    text-align: center;
+  }
+}
