@@ -3,31 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Pré-Inscrição · SUPERCOPA 2026</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 
 <style>
-*,*::before,*::after{
-  box-sizing:border-box;
+
+*,
+*::before,
+*::after{
   margin:0;
   padding:0;
+  box-sizing:border-box;
 }
 
 :root{
   --bg:#07090d;
-  --surface:#0d1018;
-  --card:#111520;
-  --border:rgba(255,255,255,0.07);
+  --surface:#0f131b;
+  --card:#111722;
+  --border:rgba(255,255,255,.07);
 
   --accent:#3a86f0;
   --accent2:#e85d3a;
 
   --text:#e8eaf0;
-  --muted:#5a6174;
+  --muted:#6c7387;
 
   --green:#4ade80;
-  --green-bg:rgba(74,222,128,0.08);
+  --greenBg:rgba(74,222,128,.08);
 
   --D:'Bebas Neue',sans-serif;
   --B:'DM Sans',sans-serif;
@@ -59,63 +63,64 @@ header{
 .urgency-bar{
   background:var(--accent);
   color:#000;
+
   text-align:center;
+
   padding:11px;
-  font-family:var(--M);
+
   font-size:12px;
-  letter-spacing:2px;
   font-weight:700;
-  overflow:hidden;
-  position:relative;
-}
+  letter-spacing:2px;
 
-.urgency-bar::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
-  animation:shine 2.5s linear infinite;
-}
-
-@keyframes shine{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(100%)}
+  font-family:var(--M);
 }
 
 nav{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   padding:18px 48px;
-  background:rgba(7,9,13,0.95);
+
+  background:rgba(7,9,13,.96);
+
   border-bottom:1px solid var(--border);
+
+  backdrop-filter:blur(12px);
 }
 
 .nav-logo{
-  font-family:var(--D);
-  font-size:26px;
-  letter-spacing:3px;
   color:var(--accent);
+
+  font-family:var(--D);
+  font-size:28px;
+  letter-spacing:3px;
+
   text-decoration:none;
 }
 
 .nav-logo span{
-  color:rgba(255,255,255,0.3);
+  color:rgba(255,255,255,.35);
 }
 
 .nav-links{
   display:flex;
+  align-items:center;
   gap:32px;
+
   list-style:none;
 }
 
 .nav-links a{
   color:var(--muted);
+
   text-decoration:none;
+
   font-size:12px;
-  font-weight:500;
+  font-weight:600;
   letter-spacing:1.5px;
   text-transform:uppercase;
+
   transition:.2s;
 }
 
@@ -124,15 +129,19 @@ nav{
 }
 
 .nav-back{
-  display:inline-flex;
+  display:flex;
   align-items:center;
   gap:8px;
+
   color:var(--muted);
+
   text-decoration:none;
+
   font-size:12px;
-  font-weight:500;
+  font-weight:600;
   letter-spacing:1.5px;
   text-transform:uppercase;
+
   transition:.2s;
 }
 
@@ -145,98 +154,86 @@ nav{
 .page-hero{
   position:relative;
   overflow:hidden;
-  padding:72px 24px 56px;
+
   text-align:center;
-}
 
-.hero-dots{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-
-  background-image:
-  radial-gradient(circle,rgba(58,134,240,0.06) 1px,transparent 1px);
-
-  background-size:38px 38px;
-  animation:dotsDrift 28s linear infinite;
-}
-
-@keyframes dotsDrift{
-  from{background-position:0 0}
-  to{background-position:38px 38px}
+  padding:80px 24px 56px;
 }
 
 .hero-glow{
   position:absolute;
-  top:-80px;
+
+  top:-160px;
   left:50%;
+
   transform:translateX(-50%);
 
-  width:700px;
-  height:400px;
+  width:850px;
+  height:500px;
 
   background:
   radial-gradient(
-    ellipse at 50% 30%,
-    rgba(58,134,240,0.12) 0%,
-    rgba(58,134,240,0.04) 45%,
+    ellipse at center,
+    rgba(58,134,240,.16),
     transparent 72%
   );
 }
 
 .badge{
+  position:relative;
+  z-index:2;
+
   display:inline-flex;
   align-items:center;
   gap:8px;
 
-  padding:6px 20px;
+  padding:7px 18px;
+
   border-radius:100px;
 
-  background:rgba(58,134,240,0.10);
-  border:1px solid rgba(58,134,240,0.28);
+  background:rgba(58,134,240,.08);
+  border:1px solid rgba(58,134,240,.25);
 
-  font-family:var(--M);
+  color:var(--accent);
+
   font-size:11px;
   letter-spacing:2px;
   text-transform:uppercase;
 
-  color:var(--accent);
-
-  position:relative;
-  z-index:2;
+  font-family:var(--M);
 }
 
 .badge-dot{
   width:6px;
   height:6px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 6px var(--accent);
-  animation:blink 1.4s infinite;
-}
 
-@keyframes blink{
-  0%,100%{opacity:1}
-  50%{opacity:.2}
+  border-radius:50%;
+
+  background:var(--accent);
+
+  box-shadow:0 0 10px var(--accent);
 }
 
 .page-hero h1{
-  margin-top:28px;
+  position:relative;
+  z-index:2;
+
+  margin-top:30px;
 
   font-family:var(--D);
-  font-size:clamp(2.4rem,7vw,4.8rem);
+  font-size:clamp(3rem,7vw,5.4rem);
   line-height:1;
   letter-spacing:.08em;
   text-transform:uppercase;
 
   background:
   linear-gradient(
-    155deg,
+    135deg,
     #a8d0ff 0%,
-    #3a86f0 22%,
-    #ffffff 50%,
-    #3a86f0 72%,
-    #1a4a9e 100%
+    #3a86f0 28%,
+    #ffffff 52%,
+    #3a86f0 74%,
+    #1b4fa8 100%
   );
 
   background-size:200% 200%;
@@ -244,129 +241,104 @@ nav{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 
-  animation:titleShine 4.5s ease-in-out infinite alternate;
-
-  position:relative;
-  z-index:2;
+  animation:titleGlow 5s ease infinite;
 }
 
-.page-hero em{
-  font-style:normal;
-}
-
-@keyframes titleShine{
-  from{background-position:0% 50%}
-  to{background-position:100% 50%}
+@keyframes titleGlow{
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
 }
 
 .page-hero p{
-  max-width:520px;
+  position:relative;
+  z-index:2;
+
+  max-width:560px;
+
   margin:18px auto 0;
 
   color:var(--muted);
-  font-size:16px;
-  line-height:1.7;
 
-  position:relative;
-  z-index:2;
+  font-size:16px;
+  line-height:1.8;
 }
 
 /* BENEFÍCIOS */
 
-.benefits-bar{
+.benefits{
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
   gap:12px;
 
-  padding-top:28px;
-
-  position:relative;
-  z-index:2;
+  margin-top:32px;
 }
 
-.benefit-pill{
-  display:flex;
-  align-items:center;
-  gap:8px;
+.benefit{
+  padding:10px 18px;
 
-  padding:8px 18px;
   border-radius:100px;
 
-  background:var(--green-bg);
-  border:1px solid rgba(74,222,128,0.25);
+  background:var(--greenBg);
+  border:1px solid rgba(74,222,128,.22);
 
   color:var(--green);
 
-  font-family:var(--M);
   font-size:11px;
   letter-spacing:1.5px;
   text-transform:uppercase;
+
+  font-family:var(--M);
 }
 
 /* FORM */
 
 .form-wrap{
-  max-width:720px;
-  margin:56px auto 80px;
+  max-width:760px;
+
+  margin:0 auto 90px;
+
   padding:0 24px;
 }
 
 .form-card{
-  overflow:hidden;
-  border-radius:16px;
-
   background:var(--card);
+
   border:1px solid var(--border);
+  border-radius:20px;
 
-  position:relative;
-}
-
-.form-card::before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:8%;
-  right:8%;
-  height:1px;
-
-  background:
-  linear-gradient(
-    to right,
-    transparent,
-    rgba(58,134,240,0.7),
-    rgba(255,255,255,0.3),
-    rgba(58,134,240,0.7),
-    transparent
-  );
+  overflow:hidden;
 }
 
 .form-section{
-  padding:36px 40px;
+  padding:38px 40px;
+
   border-bottom:1px solid var(--border);
 }
 
-.form-section:last-of-type{
+.form-section:last-child{
   border-bottom:none;
 }
 
 .form-section-title{
   font-family:var(--D);
-  font-size:22px;
+  font-size:24px;
   letter-spacing:1.5px;
 }
 
 .form-section-sub{
   margin-top:6px;
   margin-bottom:28px;
-  font-size:13px;
+
   color:var(--muted);
+  font-size:13px;
 }
 
 .field-group{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:16px;
+
   margin-bottom:16px;
 }
 
@@ -377,25 +349,29 @@ nav{
 .field{
   display:flex;
   flex-direction:column;
-  gap:7px;
+  gap:8px;
 }
 
 .field label{
-  font-family:var(--M);
-  font-size:10px;
-  letter-spacing:2.5px;
-  text-transform:uppercase;
   color:var(--accent);
+
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  font-family:var(--M);
 }
 
 .field input,
 .field select{
   width:100%;
-  padding:13px 16px;
 
-  background:rgba(255,255,255,0.04);
+  padding:15px 16px;
+
+  background:rgba(255,255,255,.04);
+
   border:1px solid var(--border);
-  border-radius:6px;
+  border-radius:10px;
 
   color:var(--text);
 
@@ -407,27 +383,25 @@ nav{
   transition:.2s;
 }
 
-.field input::placeholder{
-  color:var(--muted);
-}
-
 .field input:focus,
 .field select:focus{
   border-color:var(--accent);
-  background:rgba(58,134,240,0.06);
-  box-shadow:0 0 0 3px rgba(58,134,240,0.12);
+
+  box-shadow:
+  0 0 0 3px rgba(58,134,240,.12);
 }
 
 .field input.error,
 .field select.error{
   border-color:var(--accent2)!important;
-  box-shadow:0 0 0 3px rgba(232,93,58,0.12)!important;
 }
 
 .field-error{
   display:none;
-  font-size:11px;
+
   color:var(--accent2);
+
+  font-size:11px;
 }
 
 /* MODALIDADE */
@@ -435,7 +409,7 @@ nav{
 .mod-toggle{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:14px;
 }
 
 .mod-opt{
@@ -451,16 +425,15 @@ nav{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
-  gap:6px;
+  gap:8px;
 
-  padding:20px 16px;
-  border-radius:8px;
+  padding:24px 18px;
 
-  background:rgba(255,255,255,0.02);
+  border-radius:14px;
+
+  background:rgba(255,255,255,.03);
   border:1px solid var(--border);
 
-  text-align:center;
   cursor:pointer;
 
   transition:.2s;
@@ -468,18 +441,23 @@ nav{
 
 .mod-opt input:checked + .mod-label{
   border-color:var(--accent);
-  background:rgba(58,134,240,0.08);
-  box-shadow:0 0 0 3px rgba(58,134,240,0.12);
+
+  background:rgba(58,134,240,.08);
+
+  box-shadow:
+  0 0 0 3px rgba(58,134,240,.12);
 }
 
 .m-icon{
-  font-size:28px;
+  font-size:34px;
 }
 
 .m-sub{
   color:var(--muted);
+
   font-size:10px;
   letter-spacing:1.5px;
+
   font-family:var(--M);
 }
 
@@ -488,7 +466,7 @@ nav{
 .aloj-toggle{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:14px;
 }
 
 .toggle-opt{
@@ -506,25 +484,31 @@ nav{
   justify-content:center;
   gap:10px;
 
-  padding:16px;
-  border-radius:8px;
+  padding:18px;
 
-  background:rgba(255,255,255,0.02);
+  border-radius:12px;
+
+  background:rgba(255,255,255,.03);
   border:1px solid var(--border);
 
   cursor:pointer;
+
   transition:.2s;
 }
 
 .toggle-opt input:checked + .toggle-label{
   border-color:var(--accent);
-  background:rgba(58,134,240,0.08);
-  box-shadow:0 0 0 3px rgba(58,134,240,0.12);
+
+  background:rgba(58,134,240,.08);
+
+  box-shadow:
+  0 0 0 3px rgba(58,134,240,.12);
 }
 
 .aloj-qty{
   display:none;
-  margin-top:16px;
+
+  margin-top:18px;
 }
 
 .aloj-qty.visible{
@@ -532,54 +516,35 @@ nav{
 }
 
 .aloj-note{
-  margin-top:18px;
+  margin-top:20px;
 
-  display:flex;
-  align-items:center;
-  gap:8px;
+  padding:14px 16px;
 
-  padding:12px 16px;
-  border-radius:6px;
+  border-radius:10px;
 
-  background:var(--green-bg);
-  border:1px solid rgba(74,222,128,0.2);
+  background:var(--greenBg);
+  border:1px solid rgba(74,222,128,.18);
 
   color:var(--green);
+
   font-size:13px;
 }
 
 /* FOOTER FORM */
 
 .form-footer{
-  padding:32px 40px;
-  background:rgba(0,0,0,0.2);
-}
+  padding:34px 40px;
 
-.form-zero-taxa{
-  display:flex;
-  align-items:center;
-  gap:10px;
-
-  margin-bottom:24px;
-
-  padding:14px 18px;
-  border-radius:8px;
-
-  background:var(--green-bg);
-  border:1px solid rgba(74,222,128,0.2);
-
-  color:var(--green);
-  font-size:13px;
-  font-weight:600;
+  background:rgba(0,0,0,.2);
 }
 
 .btn-submit{
   width:100%;
-  border:none;
-  cursor:pointer;
 
-  padding:18px 36px;
-  border-radius:6px;
+  padding:18px;
+
+  border:none;
+  border-radius:12px;
 
   background:var(--accent);
   color:#000;
@@ -589,15 +554,16 @@ nav{
   letter-spacing:2px;
   text-transform:uppercase;
 
-  position:relative;
-  overflow:hidden;
+  cursor:pointer;
 
-  transition:.2s;
+  transition:.25s;
 }
 
 .btn-submit:hover{
   transform:translateY(-2px);
-  box-shadow:0 16px 48px rgba(58,134,240,.4);
+
+  box-shadow:
+  0 16px 40px rgba(58,134,240,.35);
 }
 
 .btn-submit:disabled{
@@ -613,11 +579,18 @@ nav{
 
   margin:auto;
 
-  border:2px solid rgba(0,0,0,0.3);
+  border:2px solid rgba(0,0,0,.3);
   border-top-color:#000;
+
   border-radius:50%;
 
   animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 .btn-submit.loading .btn-text{
@@ -628,17 +601,15 @@ nav{
   display:block;
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
 /* SUCCESS */
 
 .success-screen{
   display:none;
 
-  max-width:600px;
+  max-width:620px;
+
   margin:0 auto;
+
   padding:0 24px 80px;
 
   text-align:center;
@@ -649,8 +620,8 @@ nav{
 }
 
 .success-icon{
-  width:80px;
-  height:80px;
+  width:86px;
+  height:86px;
 
   margin:0 auto 28px;
 
@@ -660,38 +631,40 @@ nav{
   align-items:center;
   justify-content:center;
 
-  background:var(--green-bg);
-  border:2px solid rgba(74,222,128,0.35);
+  background:var(--greenBg);
+  border:2px solid rgba(74,222,128,.25);
 
-  font-size:36px;
+  font-size:40px;
 }
 
 .success-screen h2{
   font-family:var(--D);
-  font-size:clamp(2rem,6vw,3.5rem);
+  font-size:clamp(2.2rem,6vw,4rem);
   letter-spacing:2px;
 }
 
 .success-screen h2 em{
-  color:var(--accent);
   font-style:normal;
+  color:var(--accent);
 }
 
 .success-screen p{
-  margin:16px auto 32px;
-  max-width:440px;
+  max-width:480px;
+
+  margin:18px auto 34px;
 
   color:var(--muted);
+
   line-height:1.8;
 }
 
 .success-details{
   background:var(--card);
+
   border:1px solid var(--border);
-  border-radius:12px;
+  border-radius:16px;
 
   padding:24px;
-  margin-bottom:32px;
 
   text-align:left;
 }
@@ -699,9 +672,9 @@ nav{
 .sd-row{
   display:flex;
   justify-content:space-between;
-  align-items:center;
 
-  padding:10px 0;
+  padding:12px 0;
+
   border-bottom:1px solid var(--border);
 }
 
@@ -710,11 +683,13 @@ nav{
 }
 
 .sd-label{
-  font-family:var(--M);
+  color:var(--muted);
+
   font-size:10px;
   letter-spacing:2px;
   text-transform:uppercase;
-  color:var(--muted);
+
+  font-family:var(--M);
 }
 
 .sd-value{
@@ -722,49 +697,40 @@ nav{
   text-align:right;
 }
 
-.btn-back{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-
-  padding:14px 28px;
-  border-radius:6px;
-
-  border:1px solid var(--border);
-
-  color:var(--text);
-  text-decoration:none;
-
-  transition:.2s;
-}
-
-.btn-back:hover{
-  transform:translateY(-2px);
-}
-
 /* FOOTER */
 
 footer{
-  padding:40px 48px 24px;
+  padding:42px 48px 24px;
+
   border-top:1px solid var(--border);
+
   background:var(--surface);
 }
 
-.footer-logo{
-  font-family:var(--D);
-  font-size:28px;
-  color:var(--accent);
+.footer-inner{
+  max-width:1200px;
+  margin:auto;
 }
 
-.footer-tagline{
+.footer-logo{
+  color:var(--accent);
+
+  font-family:var(--D);
+  font-size:30px;
+  letter-spacing:2px;
+}
+
+.footer-tag{
   margin-top:4px;
+
   color:var(--muted);
+
   font-size:13px;
 }
 
 /* RESPONSIVO */
 
-@media(max-width:640px){
+@media(max-width:700px){
 
   body{
     padding-top:95px;
@@ -778,10 +744,7 @@ footer{
     display:none;
   }
 
-  .field-group{
-    grid-template-columns:1fr;
-  }
-
+  .field-group,
   .mod-toggle,
   .aloj-toggle{
     grid-template-columns:1fr;
@@ -796,9 +759,10 @@ footer{
   }
 
   footer{
-    padding:32px 20px 20px;
+    padding:34px 20px 20px;
   }
 }
+
 </style>
 </head>
 
@@ -812,18 +776,18 @@ footer{
 
   <nav>
 
-    <a class="nav-logo" href="#">
+    <a href="index.html" class="nav-logo">
       SUPER<span>◥</span>COPA
     </a>
 
     <ul class="nav-links">
-      <li><a href="#">Fases</a></li>
-      <li><a href="#">Times</a></li>
-      <li><a href="#">Tabela</a></li>
-      <li><a href="#">FAQ</a></li>
+      <li><a href="index.html#fases">Fases</a></li>
+      <li><a href="index.html#times">Times</a></li>
+      <li><a href="index.html#classificacao">Tabela</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
     </ul>
 
-    <a class="nav-back" href="#">
+    <a href="index.html" class="nav-back">
       ← Voltar ao site
     </a>
 
@@ -833,9 +797,8 @@ footer{
 
 <div id="formWrap">
 
-  <div class="page-hero">
+  <section class="page-hero">
 
-    <div class="hero-dots"></div>
     <div class="hero-glow"></div>
 
     <div class="badge">
@@ -844,442 +807,50 @@ footer{
     </div>
 
     <h1>
-      Pré-Inscrição <em>Gratuita</em>
+      Pré-Inscrição Gratuita
     </h1>
 
     <p>
       Preencha os dados da sua equipe abaixo.
-      Nossa comissão entrará em contato via WhatsApp
-      para validar sua participação.
+      Nossa comissão organizadora entrará em contato via WhatsApp
+      para validar sua participação na SUPERCOPA 2026.
     </p>
 
-    <div class="benefits-bar">
+    <div class="benefits">
 
-      <div class="benefit-pill">
+      <div class="benefit">
         ✓ Sem Taxa
       </div>
 
-      <div class="benefit-pill">
+      <div class="benefit">
         ✓ Alojamento Grátis
       </div>
 
-      <div class="benefit-pill">
-        ✓ Premiação
+      <div class="benefit">
+        ✓ Premiação Oficial
       </div>
 
     </div>
 
-  </div>
-
-  <div class="form-wrap">
-
-    <div class="form-card">
-
-      <!-- MODALIDADE -->
-
-      <div class="form-section">
-
-        <div class="form-section-title">
-          Modalidade
-        </div>
-
-        <div class="form-section-sub">
-          Escolha a modalidade da equipe
-        </div>
-
-        <div class="mod-toggle">
-
-          <label class="mod-opt">
-
-            <input type="radio" name="modalidade" value="Voleibol">
-
-            <div class="mod-label">
-              <span class="m-icon">🏐</span>
-              Voleibol
-              <span class="m-sub">6ª Edição</span>
-            </div>
-
-          </label>
-
-          <label class="mod-opt">
-
-            <input type="radio" name="modalidade" value="Basquete">
-
-            <div class="mod-label">
-              <span class="m-icon">🏀</span>
-              Basquete
-              <span class="m-sub">1ª Edição</span>
-            </div>
-
-          </label>
-
-        </div>
-
-        <span class="field-error" id="modError">
-          Selecione uma modalidade.
-        </span>
-
-      </div>
-
-      <!-- EQUIPE -->
-
-      <div class="form-section">
-
-        <div class="form-section-title">
-          Dados da Equipe
-        </div>
-
-        <div class="form-section-sub">
-          Informações básicas do time
-        </div>
-
-        <div class="field-group single">
-
-          <div class="field">
-            <label>Nome da Equipe</label>
-            <input type="text" id="nomeEquipe" placeholder="Ex: Águias das Montanhas">
-            <span class="field-error" id="nomeEquipeError">Campo obrigatório.</span>
-          </div>
-
-        </div>
-
-        <div class="field-group">
-
-          <div class="field">
-            <label>Cidade</label>
-            <input type="text" id="cidade" placeholder="Ex: Afonso Cláudio">
-            <span class="field-error" id="cidadeError">Campo obrigatório.</span>
-          </div>
-
-          <div class="field">
-            <label>Estado</label>
-
-            <select id="estado">
-              <option value="">Selecione...</option>
-              <option value="ES">Espírito Santo</option>
-              <option value="MG">Minas Gerais</option>
-              <option value="RJ">Rio de Janeiro</option>
-              <option value="SP">São Paulo</option>
-              <option value="BA">Bahia</option>
-            </select>
-
-            <span class="field-error" id="estadoError">
-              Selecione o estado.
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- RESPONSÁVEL -->
-
-      <div class="form-section">
-
-        <div class="form-section-title">
-          Responsável
-        </div>
-
-        <div class="form-section-sub">
-          Contato oficial da equipe
-        </div>
-
-        <div class="field-group">
-
-          <div class="field">
-            <label>Nome Completo</label>
-            <input type="text" id="nomeResp" placeholder="Nome do técnico ou capitão">
-            <span class="field-error" id="nomeRespError">Campo obrigatório.</span>
-          </div>
-
-          <div class="field">
-            <label>WhatsApp</label>
-            <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX">
-            <span class="field-error" id="telefoneError">WhatsApp inválido.</span>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- ALOJAMENTO -->
-
-      <div class="form-section">
-
-        <div class="form-section-title">
-          Alojamento
-        </div>
-
-        <div class="form-section-sub">
-          Alojamento gratuito para equipes visitantes
-        </div>
-
-        <div class="aloj-toggle">
-
-          <label class="toggle-opt">
-
-            <input type="radio" name="alojamento" value="nao" checked>
-
-            <div class="toggle-label">
-              🏠 Não preciso
-            </div>
-
-          </label>
-
-          <label class="toggle-opt">
-
-            <input type="radio" name="alojamento" value="sim">
-
-            <div class="toggle-label">
-              🛏️ Sim, preciso
-            </div>
-
-          </label>
-
-        </div>
-
-        <div class="aloj-qty" id="alojQtyWrap">
-
-          <div class="field">
-            <label>Para quantas pessoas?</label>
-            <input type="number" id="alojQty" placeholder="Ex: 12">
-            <span class="field-error" id="alojQtyError">Informe a quantidade.</span>
-          </div>
-
-        </div>
-
-        <div class="aloj-note">
-          ✓ O alojamento é 100% gratuito.
-        </div>
-
-      </div>
-
-      <!-- FOOTER -->
-
-      <div class="form-footer">
-
-        <div class="form-zero-taxa">
-          ✓ Evento totalmente gratuito.
-        </div>
-
-        <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
-
-          <span class="btn-text">
-            Enviar Pré-Inscrição
-          </span>
-
-          <div class="btn-spinner"></div>
-
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- SUCESSO -->
-
-<div class="success-screen" id="successScreen">
-
-  <div class="success-icon">
-    ✅
-  </div>
-
-  <h2>
-    Inscrição <em>Enviada!</em>
-  </h2>
-
-  <p>
-    Sua pré-inscrição foi recebida com sucesso.
-    Nossa comissão organizadora entrará em contato em breve.
-  </p>
-
-  <div class="success-details" id="successDetails"></div>
+  </section>
 
 </div>
 
 <footer>
 
-  <div class="footer-logo">
-    SUPERCOPA
-  </div>
+  <div class="footer-inner">
 
-  <div class="footer-tagline">
-    Campeonato Multiesporte · Afonso Cláudio · 2026
+    <div class="footer-logo">
+      SUPERCOPA
+    </div>
+
+    <div class="footer-tag">
+      Campeonato Multiesporte de Afonso Cláudio · 2026
+    </div>
+
   </div>
 
 </footer>
-
-<script>
-
-/* TELEFONE */
-
-const telInput = document.getElementById('telefone');
-
-telInput.addEventListener('input', ()=>{
-
-  let v = telInput.value.replace(/\D/g,'').slice(0,11);
-
-  if(v.length > 10){
-    v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-  }
-  else if(v.length > 6){
-    v = `(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`;
-  }
-  else if(v.length > 2){
-    v = `(${v.slice(0,2)}) ${v.slice(2)}`;
-  }
-
-  telInput.value = v;
-});
-
-/* ALOJAMENTO */
-
-document.querySelectorAll('input[name="alojamento"]').forEach(r=>{
-
-  r.addEventListener('change', ()=>{
-
-    const wrap = document.getElementById('alojQtyWrap');
-
-    wrap.classList.toggle(
-      'visible',
-      r.checked && r.value === 'sim'
-    );
-
-  });
-
-});
-
-/* VALIDAR */
-
-function validate(){
-
-  let ok = true;
-
-  const modalidade = document.querySelector('input[name="modalidade"]:checked');
-
-  if(!modalidade){
-    document.getElementById('modError').style.display='block';
-    ok=false;
-  }else{
-    document.getElementById('modError').style.display='none';
-  }
-
-  return ok;
-}
-
-/* SUBMIT */
-
-async function submitForm(){
-
-  if(!validate()) return;
-
-  const btn = document.getElementById('btnSubmit');
-
-  btn.classList.add('loading');
-  btn.disabled = true;
-
-  const urlPlanilha = "https://script.google.com/macros/s/AKfycbwQuDeZHx04mMr_HuILJfwOV79BlTJfFBtyfeGV36XeJdcZxpO3-yHl5_AKbxXl9Sbq0A/exec";
-
-  const modalidade = document.querySelector('input[name="modalidade"]:checked').value;
-
-  const alojamento = document.querySelector('input[name="alojamento"]:checked').value;
-
-  const dados = {
-
-    modalidade: modalidade,
-
-    nomeEquipe:
-    document.getElementById('nomeEquipe').value,
-
-    cidade:
-    document.getElementById('cidade').value,
-
-    estado:
-    document.getElementById('estado').value,
-
-    nomeResponsavel:
-    document.getElementById('nomeResp').value,
-
-    telefone:
-    document.getElementById('telefone').value,
-
-    alojamento:
-    alojamento === 'sim',
-
-    alojamentoPessoas:
-    alojamento === 'sim'
-      ? document.getElementById('alojQty').value
-      : 0
-  };
-
-  try{
-
-    await fetch(urlPlanilha,{
-      method:'POST',
-      mode:'no-cors',
-      headers:{
-        'Content-Type':'text/plain'
-      },
-      body:JSON.stringify(dados)
-    });
-
-    setTimeout(()=>{
-      mostrarSucesso(dados);
-    },500);
-
-  }catch(err){
-
-    console.error(err);
-
-    alert('Erro ao enviar formulário.');
-
-    btn.classList.remove('loading');
-    btn.disabled = false;
-
-  }
-
-}
-
-/* SUCESSO */
-
-function mostrarSucesso(d){
-
-  document.getElementById('formWrap').style.display='none';
-
-  const rows = [
-
-    ['Modalidade', d.modalidade],
-    ['Equipe', d.nomeEquipe],
-    ['Cidade', d.cidade],
-    ['Estado', d.estado],
-    ['Responsável', d.nomeResponsavel],
-    ['WhatsApp', d.telefone]
-
-  ];
-
-  document.getElementById('successDetails').innerHTML =
-  rows.map(([l,v])=>`
-    <div class="sd-row">
-      <span class="sd-label">${l}</span>
-      <span class="sd-value">${v}</span>
-    </div>
-  `).join('');
-
-  document.getElementById('successScreen').classList.add('visible');
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-
-}
-
-</script>
 
 </body>
 </html>
