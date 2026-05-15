@@ -237,7 +237,7 @@ nav{
   margin-bottom:16px;
 }
 .mod-opt{position:relative;cursor:pointer}
-.mod-opt input[type="checkbox"]{position:absolute;opacity:0;pointer-events:none}
+.mod-opt input[type="radio"]{position:absolute;opacity:0;pointer-events:none}
 .mod-label{
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
   padding:20px 16px;border-radius:8px;
@@ -412,11 +412,11 @@ footer{
       <!-- SEÇÃO 1: Modalidade -->
       <div class="form-section">
         <div class="form-section-title">Modalidade</div>
-        <div class="form-section-sub">Selecione o esporte que sua equipe irá disputar</div>
+        <div class="form-section-sub">Escolha a modalidade que sua equipe irá disputar (Apenas uma)</div>
         
         <div class="mod-toggle">
           <label class="mod-opt">
-            <input type="checkbox" name="modalidade" value="Voleibol" id="modVolei">
+            <input type="radio" name="modalidade" value="Voleibol" id="modVolei">
             <div class="mod-label">
               <span class="m-icon">🏐</span>
               Voleibol
@@ -424,7 +424,7 @@ footer{
             </div>
           </label>
           <label class="mod-opt">
-            <input type="checkbox" name="modalidade" value="Basquete" id="modBasquete">
+            <input type="radio" name="modalidade" value="Basquete" id="modBasquete">
             <div class="mod-label">
               <span class="m-icon">🏀</span>
               Basquete
@@ -432,7 +432,7 @@ footer{
             </div>
           </label>
         </div>
-        <span class="field-error" id="modError" style="text-align:center;margin-top:10px">Selecione pelo menos uma modalidade.</span>
+        <span class="field-error" id="modError" style="text-align:center;margin-top:10px">Selecione uma modalidade para continuar.</span>
       </div>
 
       <!-- SEÇÃO 2: Dados da Equipe -->
@@ -444,7 +444,7 @@ footer{
           <div class="field">
             <label for="nomeEquipe">Nome da Equipe</label>
             <input type="text" id="nomeEquipe" placeholder="Ex: Águias das Montanhas">
-            <span class="field-error" id="nomeEquipeError"></span>
+            <span class="field-error" id="nomeEquipeError">Campo obrigatório.</span>
           </div>
         </div>
 
@@ -452,7 +452,7 @@ footer{
           <div class="field">
             <label for="cidade">Cidade</label>
             <input type="text" id="cidade" placeholder="Ex: Afonso Cláudio">
-            <span class="field-error" id="cidadeError"></span>
+            <span class="field-error" id="cidadeError">Campo obrigatório.</span>
           </div>
           <div class="field">
             <label for="estado">Estado</label>
@@ -465,7 +465,7 @@ footer{
               <option value="BA">Bahia (BA)</option>
               <option value="Outro">Outro</option>
             </select>
-            <span class="field-error" id="estadoError"></span>
+            <span class="field-error" id="estadoError">Selecione o estado.</span>
           </div>
         </div>
       </div>
@@ -479,12 +479,12 @@ footer{
           <div class="field">
             <label for="nomeResp">Nome Completo</label>
             <input type="text" id="nomeResp" placeholder="Nome do capitão ou técnico">
-            <span class="field-error" id="nomeRespError"></span>
+            <span class="field-error" id="nomeRespError">Campo obrigatório.</span>
           </div>
           <div class="field">
             <label for="telefone">WhatsApp</label>
             <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX" maxlength="15">
-            <span class="field-error" id="telefoneError"></span>
+            <span class="field-error" id="telefoneError">Informe um WhatsApp válido.</span>
           </div>
         </div>
       </div>
@@ -515,7 +515,7 @@ footer{
           <div class="field">
             <label for="alojQty">Para quantas pessoas?</label>
             <input type="number" id="alojQty" placeholder="Ex: 12" min="1" max="30">
-            <span class="field-error" id="alojQtyError"></span>
+            <span class="field-error" id="alojQtyError">Informe a quantidade de pessoas.</span>
           </div>
         </div>
 
@@ -592,7 +592,10 @@ footer{
   /* ── Validação ── */
   function showError(id, msg){ 
     const el = document.getElementById(id);
-    if(el){ el.textContent = msg; el.style.display='block'; }
+    if(el){ 
+      if(msg) el.textContent = msg;
+      el.style.display='block'; 
+    }
   }
   function clearError(id){ 
     const el = document.getElementById(id);
@@ -606,42 +609,50 @@ footer{
   function validate(){
     let ok = true;
 
-    // Modalidade
-    const mods = [...document.querySelectorAll('input[name="modalidade"]:checked')];
+    // 1. Modalidade (Apenas 1 via Radio)
+    const mod = document.querySelector('input[name="modalidade"]:checked');
     const modErr = document.getElementById('modError');
-    if(mods.length === 0){ modErr.style.display='block'; ok=false; } 
+    if(!mod){ modErr.style.display='block'; ok=false; } 
     else { modErr.style.display='none'; }
 
-    // Nome da equipe
+    // 2. Nome da equipe
     const ne = document.getElementById('nomeEquipe').value.trim();
-    if(!ne){ showError('nomeEquipeError','Informe o nome da equipe.'); markField('nomeEquipe',true); ok=false; }
+    if(!ne){ showError('nomeEquipeError'); markField('nomeEquipe',true); ok=false; }
     else { clearError('nomeEquipeError'); markField('nomeEquipe',false); }
 
-    // Cidade
+    // 3. Cidade
     const ci = document.getElementById('cidade').value.trim();
-    if(!ci){ showError('cidadeError','Informe a cidade.'); markField('cidade',true); ok=false; }
+    if(!ci){ showError('cidadeError'); markField('cidade',true); ok=false; }
     else { clearError('cidadeError'); markField('cidade',false); }
 
-    // Estado
+    // 4. Estado
     const st = document.getElementById('estado').value;
-    if(!st){ showError('estadoError','Selecione o estado.'); markField('estado',true); ok=false; }
+    if(!st){ showError('estadoError'); markField('estado',true); ok=false; }
     else { clearError('estadoError'); markField('estado',false); }
 
-    // Responsável
+    // 5. Responsável
     const nr = document.getElementById('nomeResp').value.trim();
-    if(!nr){ showError('nomeRespError','Informe o nome do responsável.'); markField('nomeResp',true); ok=false; }
+    if(!nr){ showError('nomeRespError'); markField('nomeResp',true); ok=false; }
     else { clearError('nomeRespError'); markField('nomeResp',false); }
 
-    // Telefone
-    const tel = document.getElementById('telefone').value.replace(/\D/g,'');
-    if(tel.length < 10){ showError('telefoneError','Informe um WhatsApp válido.'); markField('telefone',true); ok=false; }
+    // 6. Telefone (Validar se tem 11 dígitos: DDD + 9 + 8 dígitos)
+    const telRaw = document.getElementById('telefone').value.replace(/\D/g,'');
+    if(telRaw.length !== 11){ 
+      showError('telefoneError', 'Informe um WhatsApp válido (11 dígitos).'); 
+      markField('telefone',true); 
+      ok=false; 
+    }
     else { clearError('telefoneError'); markField('telefone',false); }
 
-    // Alojamento quantidade
+    // 7. Alojamento (Obrigatório apenas se marcar 'sim')
     const alojVal = document.querySelector('input[name="alojamento"]:checked').value;
     if(alojVal === 'sim'){
       const qty = document.getElementById('alojQty').value;
-      if(!qty || qty < 1){ showError('alojQtyError','Informe a quantidade.'); markField('alojQty',true); ok=false; }
+      if(!qty || qty < 1){ 
+        showError('alojQtyError'); 
+        markField('alojQty',true); 
+        ok=false; 
+      }
       else { clearError('alojQtyError'); markField('alojQty',false); }
     }
 
@@ -650,21 +661,27 @@ footer{
 
   /* ── Submit para Google Planilhas ── */
   window.submitForm = async function() {
-    if(!validate()) return;
+    // Executa a validação rigorosa
+    if(!validate()) {
+      // Scroll para o primeiro erro
+      const firstError = document.querySelector('.field-error[style*="display: block"]');
+      if(firstError) firstError.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
 
     const btn = document.getElementById('btnSubmit');
     btn.classList.add('loading');
     btn.disabled = true;
 
     // ▼▼▼ COLE O URL DO SEU GOOGLE APPS SCRIPT ABAIXO ▼▼▼
-    const urlPlanilha = "COLE_AQUI_O_URL_DO_APPS_SCRIPT"; 
+    const urlPlanilha = "https://script.google.com/macros/s/AKfycbwQuDeZHx04mMr_HuILJfwOV79BlTJfFBtyfeGV36XeJdcZxpO3-yHl5_AKbxXl9Sbq0A/exec"; 
 
-    const mods = [...document.querySelectorAll('input[name="modalidade"]:checked')].map(e=>e.value);
+    const mod = document.querySelector('input[name="modalidade"]:checked').value;
     const alojVal = document.querySelector('input[name="alojamento"]:checked').value;
     const alojQty = alojVal === 'sim' ? Number(document.getElementById('alojQty').value) : 0;
 
     const dados = {
-      modalidades: mods,
+      modalidade: mod,
       nomeEquipe: document.getElementById('nomeEquipe').value.trim(),
       cidade: document.getElementById('cidade').value.trim(),
       estado: document.getElementById('estado').value,
@@ -675,7 +692,6 @@ footer{
     };
 
     try {
-      // Envio para o Google Apps Script
       await fetch(urlPlanilha, {
         method: 'POST',
         mode: 'no-cors',
@@ -684,12 +700,11 @@ footer{
         body: JSON.stringify(dados)
       });
       
-      // No modo 'no-cors' não temos resposta, então aguardamos um pouco e mostramos sucesso
       setTimeout(() => mostrarSucesso(dados), 500);
 
     } catch(err) {
       console.error(err);
-      alert('Erro ao enviar. Verifique sua conexão e o URL da planilha.');
+      alert('Erro ao enviar. Verifique sua conexão.');
       btn.classList.remove('loading');
       btn.disabled = false;
     }
@@ -699,7 +714,7 @@ footer{
     document.getElementById('formWrap').style.display = 'none';
 
     const rows = [
-      ['Modalidade(s)', d.modalidades.join(' + ')],
+      ['Modalidade', d.modalidade],
       ['Equipe', d.nomeEquipe],
       ['Cidade / Estado', `${d.cidade} · ${d.estado}`],
       ['Responsável', d.nomeResponsavel],
