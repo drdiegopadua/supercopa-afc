@@ -361,14 +361,57 @@ body {
   </ul>
 </nav></header>
 
+<style>
+  /* Animação de Entrada (Fade-In + Slide Up) */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animação de flutuação contínua */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .hero-logo-animated {
+    height: 200px; /* Atualizado para 200px */
+    width: auto;
+    opacity: 0; /* Começa invisível para o fade-in */
+    animation: 
+      fadeInUp 1s ease-out forwards, 
+      float 4s ease-in-out infinite 1s;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  /* Atraso para a segunda logo (Basquete) */
+  .logo-basquete {
+    animation-delay: 0.3s, 1.3s;
+  }
+
+  /* Efeito ao passar o mouse */
+  .hero-logo-animated:hover {
+    transform: scale(1.05) !important; /* Reduzi levemente o scale para não cortar em telas menores */
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+    cursor: pointer;
+  }
+</style>
+
 <!-- HERO -->
 <div class="hero">
   <div class="hero-glow"></div>
   <div class="hero-badge"><span class="hero-badge-dot"></span>&nbsp;2026 · Transmissão e Classificação em tempo real · Pré-Inscrições Abertas EM BREVE para o Volei</div>
   <div class="hero-title-container">
-    <div class="hero-logos" style="display: flex; gap: 20px; align-items: center; justify-content: center; margin-bottom: 20px;">
-      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/PDfypVqTWbbOxefJ.png" alt="Super Voleibol Copa Logo" class="hero-logo" style="max-height: 120px;">
-      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/vlIeKkKvYyDxjITf.png" alt="Super Basquete Copa Logo" class="hero-logo" style="max-height: 120px;">
+    <div class="hero-logos" style="display: flex; gap: 40px; align-items: center; justify-content: center; margin-bottom: 30px;">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/PDfypVqTWbbOxefJ.png" alt="Super Voleibol Copa Logo" class="hero-logo-animated">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/vlIeKkKvYyDxjITf.png" alt="Super Basquete Copa Logo" class="hero-logo-animated logo-basquete">
     </div>
     <h1>O maior da Região das Montanhas</h1>
   </div>
