@@ -471,11 +471,15 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   .transform-grid{grid-template-columns:1fr}.transform-col+.transform-col{border-left:none;border-top:1px solid var(--border)}
   .dep-card{min-width:calc(100% - 12px)}
   footer{padding:40px 20px 24px}
-  .hero-glass-card{padding:1.5rem 1rem 1.25rem}
-  .hero-ring-wrap{width:176px;height:176px}
-  .hero-logo-img-box{width:124px;height:124px}
-  .hero-logos-mid{padding:0 .6rem}
-  .hero-logos-year{font-size:28px}
+  .hero-glass-card{padding:1.5rem 1rem 1.25rem;max-width:100%}
+
+  /* Logos em coluna no mobile */
+  .hero-logos{flex-direction:column;align-items:center;gap:16px}
+  .hero-logos-mid{flex-direction:row;padding:.4rem 0;gap:16px}
+  .hero-logos-vline{width:22px;height:1px;background:linear-gradient(to right,transparent,rgba(58,134,240,0.35),transparent)}
+  .hero-ring-wrap{width:140px;height:140px}
+  .hero-logo-img-box{width:100px;height:100px;border-radius:16px}
+  .hero-logos-year{font-size:22px}
   .hero-h1{letter-spacing:.04em}
 }
 
