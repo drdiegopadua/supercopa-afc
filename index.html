@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 
 <style>
-
 *,*::before,*::after{
   box-sizing:border-box;
   margin:0;
@@ -39,6 +38,8 @@ body{
   color:var(--text);
   font-family:var(--B);
   overflow-x:hidden;
+  width:100%;
+  max-width:100%;
 }
 
 /* NAV */
@@ -83,7 +84,7 @@ nav{
   font-weight:500;
   letter-spacing:1.5px;
   text-transform:uppercase;
-  transition:0.3s;
+  transition:color .2s;
 }
 
 .nav-links a:hover{
@@ -93,27 +94,61 @@ nav{
 .nav-cta{
   background:var(--accent)!important;
   color:#000!important;
-  padding:10px 22px;
-  border-radius:4px;
+  padding:9px 22px;
+  border-radius:3px;
   font-weight:700!important;
+  transition:transform .2s!important;
 }
+
+.nav-cta:hover{
+  transform:translateY(-2px)!important;
+}
+
+/* URGENCY */
 
 .urgency-bar{
   background:var(--accent);
   color:#000;
   text-align:center;
-  padding:12px;
+  padding:11px;
   font-family:var(--M);
   font-size:12px;
   letter-spacing:2px;
   font-weight:700;
+  position:relative;
+  overflow:hidden;
+}
+
+.urgency-bar::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+
+  animation:shine 2.5s linear infinite;
+}
+
+@keyframes shine{
+  from{
+    transform:translateX(-100%);
+  }
+  to{
+    transform:translateX(100%);
+  }
 }
 
 /* HERO */
 
 .hero{
-  padding:100px 24px 90px;
+  padding:90px 24px 80px;
   text-align:center;
+  background:var(--bg);
   position:relative;
   overflow:hidden;
 }
@@ -123,13 +158,16 @@ nav{
   top:0;
   left:50%;
   transform:translateX(-50%);
-  width:700px;
+
+  width:600px;
   height:400px;
+
   background:radial-gradient(
     ellipse at 50% 0%,
-    rgba(58,134,240,0.15) 0%,
+    rgba(58, 134, 240, 0.12) 0%,
     transparent 70%
   );
+
   pointer-events:none;
 }
 
@@ -138,21 +176,26 @@ nav{
   align-items:center;
   gap:8px;
 
-  background:rgba(58,134,240,0.1);
+  background:rgba(58, 134, 240, 0.1);
 
-  border:1px solid rgba(58,134,240,0.25);
+  border:1px solid rgba(58, 134, 240, 0.25);
 
   border-radius:100px;
 
-  padding:8px 22px;
+  padding:6px 20px;
 
-  margin-bottom:36px;
+  margin-bottom:32px;
 
   font-family:var(--M);
   font-size:11px;
+  color:var(--accent);
   letter-spacing:2px;
   text-transform:uppercase;
-  color:var(--accent);
+
+  opacity:0;
+  transform:translateY(16px);
+
+  animation:fadeUp .7s .1s ease forwards;
 }
 
 .hero-badge-dot{
@@ -160,6 +203,18 @@ nav{
   height:6px;
   border-radius:50%;
   background:var(--accent);
+  display:inline-block;
+  animation:blink 1.4s infinite;
+}
+
+@keyframes blink{
+  0%,100%{
+    opacity:1;
+  }
+
+  50%{
+    opacity:.2;
+  }
 }
 
 .hero-title-container{
@@ -167,20 +222,29 @@ nav{
   align-items:center;
   justify-content:center;
   gap:40px;
+  margin-bottom:24px;
   flex-wrap:wrap;
-  margin-bottom:30px;
 }
 
 .hero-logo{
   width:180px;
-  filter:drop-shadow(0 0 25px rgba(58,134,240,.3));
+  height:auto;
+
+  filter:drop-shadow(
+    0 0 20px rgba(58, 134, 240, 0.3)
+  );
 }
 
 .hero h1{
   font-family:var(--D);
-  font-size:clamp(70px,11vw,140px);
+  font-size:clamp(60px,11vw,130px);
   line-height:.9;
   letter-spacing:2px;
+
+  opacity:0;
+  transform:translateY(30px);
+
+  animation:fadeUp .8s .25s ease forwards;
 }
 
 .hero h1 em{
@@ -189,75 +253,124 @@ nav{
 }
 
 .hero-sub{
-  max-width:650px;
-  margin:0 auto 40px;
+  max-width:520px;
   color:var(--muted);
-  font-size:18px;
-  line-height:1.8;
+  font-size:17px;
+  margin:0 auto 44px;
+
+  opacity:0;
+  animation:fadeUp .7s .45s ease forwards;
 }
 
 .hero-actions{
   display:flex;
   gap:16px;
-  justify-content:center;
   flex-wrap:wrap;
+  justify-content:center;
+
+  opacity:0;
+  animation:fadeUp .7s .6s ease forwards;
 }
 
 .btn-p{
   background:var(--accent);
   color:#000;
-  padding:16px 34px;
-  border-radius:4px;
-  text-decoration:none;
-  font-size:13px;
+
+  padding:16px 36px;
+
+  border-radius:3px;
+
   font-weight:700;
+  font-size:13px;
   letter-spacing:1.5px;
   text-transform:uppercase;
-  transition:0.3s;
+  text-decoration:none;
+
+  display:inline-block;
+  position:relative;
+  overflow:hidden;
+
+  transition:
+    transform .2s,
+    box-shadow .3s;
+}
+
+.btn-p::after{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.3) 50%,
+    transparent 70%
+  );
+
+  transform:translateX(-100%);
+  transition:transform .5s;
+}
+
+.btn-p:hover::after{
+  transform:translateX(100%);
 }
 
 .btn-p:hover{
-  transform:translateY(-4px);
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(58, 134, 240, .4);
 }
 
 .btn-o{
   border:1px solid var(--border);
   color:var(--text);
-  padding:16px 34px;
-  border-radius:4px;
-  text-decoration:none;
+
+  padding:16px 36px;
+
+  border-radius:3px;
+
+  font-weight:500;
   font-size:13px;
   letter-spacing:1.5px;
   text-transform:uppercase;
-  transition:0.3s;
+  text-decoration:none;
+
+  display:inline-block;
+
+  transition:
+    border-color .2s,
+    transform .2s;
 }
 
 .btn-o:hover{
-  border-color:rgba(255,255,255,0.3);
+  border-color:rgba(255,255,255,.3);
+  transform:translateY(-2px);
 }
 
 .hero-stats{
-  margin-top:80px;
-
   display:flex;
-  justify-content:center;
-  gap:70px;
+  gap:60px;
+  margin-top:72px;
   flex-wrap:wrap;
+  justify-content:center;
+
+  opacity:0;
+  animation:fadeUp .7s .75s ease forwards;
 }
 
 .hero-stat-num{
-  display:block;
   font-family:var(--D);
-  font-size:58px;
-  line-height:1;
+  font-size:54px;
   color:var(--accent);
+  line-height:1;
+  display:block;
 }
 
 .hero-stat-label{
   font-size:11px;
   color:var(--muted);
-  letter-spacing:2px;
   text-transform:uppercase;
+  letter-spacing:2.5px;
+  margin-top:4px;
 }
 
 /* MARQUEE */
@@ -265,15 +378,22 @@ nav{
 .marquee-wrap{
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
+
   overflow:hidden;
+
+  padding:13px 0;
+
   background:var(--surface);
-  padding:14px 0;
 }
 
 .marquee-track{
   display:flex;
   width:max-content;
-  animation:marquee 25s linear infinite;
+  animation:marquee 22s linear infinite;
+}
+
+.marquee-track:hover{
+  animation-play-state:paused;
 }
 
 .marquee-item{
@@ -282,6 +402,13 @@ nav{
   letter-spacing:4px;
   padding:0 36px;
   color:var(--muted);
+  white-space:nowrap;
+  transition:color .2s;
+  cursor:default;
+}
+
+.marquee-item:hover{
+  color:var(--accent);
 }
 
 .msep{
@@ -297,138 +424,107 @@ nav{
   }
 }
 
-/* SECTION */
+/* SECTIONS */
 
 .section{
   padding:100px 48px;
   max-width:1200px;
-  margin:auto;
+  margin:0 auto;
 }
 
 .section-tag{
   font-family:var(--M);
   font-size:11px;
   color:var(--accent);
-  letter-spacing:3px;
   text-transform:uppercase;
+  letter-spacing:3px;
   margin-bottom:14px;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.section h2{
+.section-tag::before{
+  content:'';
+  display:block;
+  width:20px;
+  height:1px;
+  background:var(--accent);
+}
+
+h2{
   font-family:var(--D);
-  font-size:clamp(50px,7vw,80px);
+  font-size:clamp(42px,6.5vw,76px);
   line-height:.95;
+  letter-spacing:1px;
   margin-bottom:20px;
 }
 
-.section h2 em{
+h2 em{
   font-style:normal;
   color:var(--accent);
 }
 
-/* FASES */
+/* REVEAL */
 
-.fases-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:2px;
-  margin-top:56px;
-  border:1px solid var(--border);
+.reveal{
+  opacity:0;
+  transform:translateY(32px);
+
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
 }
 
-.fase-card{
-  background:var(--card);
-  padding:36px 26px;
-  position:relative;
-  transition:0.3s;
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
 }
 
-.fase-card:hover{
-  transform:translateY(-5px);
-  background:#181e2c;
+.reveal-left{
+  opacity:0;
+  transform:translateX(-36px);
+
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
 }
 
-.fase-num{
-  position:absolute;
-  top:-10px;
-  right:10px;
-  font-family:var(--D);
-  font-size:90px;
-  color:rgba(58,134,240,.08);
+.reveal-left.visible{
+  opacity:1;
+  transform:translateX(0);
 }
 
-.fase-icon{
-  font-size:32px;
-  margin-bottom:20px;
-  display:block;
+.reveal-right{
+  opacity:0;
+  transform:translateX(36px);
+
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
 }
 
-.fase-card h3{
-  font-family:var(--D);
-  font-size:30px;
-  margin-bottom:12px;
+.reveal-right.visible{
+  opacity:1;
+  transform:translateX(0);
 }
 
-.fase-card p{
-  color:var(--muted);
-  line-height:1.8;
-  font-size:14px;
+.reveal-scale{
+  opacity:0;
+  transform:scale(.93);
+
+  transition:
+    opacity .6s ease,
+    transform .6s ease;
 }
 
-.fase-date{
-  margin-top:20px;
-  color:var(--accent);
-  font-size:11px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  font-family:var(--M);
+.reveal-scale.visible{
+  opacity:1;
+  transform:scale(1);
 }
 
-/* CTA */
-
-.cta-section{
-  text-align:center;
-  padding:120px 30px;
-  background:var(--surface);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-}
-
-.cta-section p{
-  color:var(--muted);
-  max-width:650px;
-  margin:0 auto 40px;
-  line-height:1.8;
-}
-
-/* FOOTER */
-
-footer{
-  background:var(--surface);
-  padding:50px 30px;
-  border-top:1px solid var(--border);
-  text-align:center;
-}
-
-.footer-logo{
-  font-family:var(--D);
-  font-size:34px;
-  color:var(--accent);
-  margin-bottom:10px;
-}
-
-.footer-tagline{
-  color:var(--muted);
-  margin-bottom:30px;
-}
-
-.footer-bottom{
-  margin-top:30px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-/* RESPONSIVO */
+/* MOBILE */
 
 @media(max-width:900px){
 
@@ -436,6 +532,21 @@ footer{
     grid-template-columns:1fr 1fr;
   }
 
+  .counter-inner{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:768px){
+
+  .hero-title-container{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .hero-logo{
+    width:120px;
+  }
 }
 
 @media(max-width:640px){
@@ -448,20 +559,38 @@ footer{
     display:none;
   }
 
-  .hero-logo{
-    width:120px;
-  }
-
   .section{
-    padding:70px 20px;
+    padding:64px 20px;
   }
 
-  .fases-grid{
-    grid-template-columns:1fr;
+  footer{
+    padding:40px 20px 24px;
   }
 
+  .hero-stats{
+    gap:28px;
+  }
+
+  .hero h1{
+    font-size:64px;
+  }
+
+  .hero-sub{
+    font-size:15px;
+  }
 }
 
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(22px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 </style>
 </head>
 
@@ -472,273 +601,186 @@ footer{
 </div>
 
 <nav>
+  <a class="nav-logo" href="#">
+    SPIKE<span>◥</span>CUP
+  </a>
 
-<a class="nav-logo" href="#">
-SPIKE<span>◥</span>CUP
-</a>
-
-<ul class="nav-links">
-<li><a href="#">Fases</a></li>
-<li><a href="#">Times</a></li>
-<li><a href="#">Tabela</a></li>
-<li><a href="#">FAQ</a></li>
-<li><a class="nav-cta" href="#">Inscrição</a></li>
-</ul>
-
+  <ul class="nav-links">
+    <li><a href="#fases">Fases</a></li>
+    <li><a href="#times">Times</a></li>
+    <li><a href="#classificacao">Tabela</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a class="nav-cta" href="#inscricao">Inscrição</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
 
 <div class="hero">
 
-<div class="hero-glow"></div>
+  <div class="hero-glow"></div>
 
-<div class="hero-badge">
-<span class="hero-badge-dot"></span>
-2025 · Décima Edição · Inscrições Abertas
-</div>
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    2025 · Décima Edição · Inscrições Abertas
+  </div>
 
-<div class="hero-title-container">
+  <div class="hero-title-container">
 
-<img
-src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654705761/kxJpkGfIftRjMYWp.png"
-alt="Logo"
-class="hero-logo"
->
+    <img
+      src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654705761/kxJpkGfIftRjMYWp.png"
+      alt="Super Voleibol Copa Logo"
+      class="hero-logo"
+    >
 
-<h1>
-O maior<br>
-<em>campeonato</em><br>
-de vôlei
-</h1>
+    <h1>
+      O maior<br>
+      <em>campeonato</em><br>
+      de vôlei
+    </h1>
 
-</div>
+  </div>
 
-<p class="hero-sub">
-Reúna seu time, mostre o seu jogo e dispute a taça mais cobiçada do circuito estadual. 12 vagas, 6 categorias e R$5.000 em prêmios.
-</p>
+  <p class="hero-sub">
+    Reúna seu time, mostre o seu jogo e dispute a taça mais cobiçada do circuito estadual. 12 vagas, 6 categorias e R$5.000 em prêmios.
+  </p>
 
-<div class="hero-actions">
+  <div class="hero-actions">
+    <a class="btn-p" href="#inscricao">
+      Inscrever Meu Time
+    </a>
 
-<a class="btn-p" href="#">
-Inscrever Meu Time
-</a>
+    <a class="btn-o" href="#fases">
+      Ver Regulamento
+    </a>
+  </div>
 
-<a class="btn-o" href="#">
-Ver Regulamento
-</a>
+  <div class="hero-stats">
 
-</div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" id="c1">0</span>
+      <span class="hero-stat-label">Times</span>
+    </div>
 
-<div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num" id="c2">0</span>
+      <span class="hero-stat-label">Minutos de Vôlei</span>
+    </div>
 
-<div>
-<span class="hero-stat-num">12</span>
-<span class="hero-stat-label">Times</span>
-</div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" id="c3">R$0k</span>
+      <span class="hero-stat-label">Em Prêmios</span>
+    </div>
 
-<div>
-<span class="hero-stat-num">475</span>
-<span class="hero-stat-label">Minutos de Vôlei</span>
-</div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" id="c4">0</span>
+      <span class="hero-stat-label">Chance de fazer história</span>
+    </div>
 
-<div>
-<span class="hero-stat-num">R$5k</span>
-<span class="hero-stat-label">Em Prêmios</span>
-</div>
-
-<div>
-<span class="hero-stat-num">1</span>
-<span class="hero-stat-label">Chance de fazer história</span>
-</div>
-
-</div>
+  </div>
 
 </div>
 
-<!-- MARQUEE -->
+<script>
 
-<div class="marquee-wrap">
+/* REVEAL */
 
-<div class="marquee-track">
+const obs = new IntersectionObserver(entries => {
 
-<div class="marquee-item">
-FASE DE GRUPOS
-<span class="msep"> ◥ </span>
-</div>
+  entries.forEach(e => {
 
-<div class="marquee-item">
-QUARTAS DE FINAL
-<span class="msep"> ◥ </span>
-</div>
+    if(e.isIntersecting){
 
-<div class="marquee-item">
-SEMIFINAL
-<span class="msep"> ◥ </span>
-</div>
+      e.target.classList.add('visible');
 
-<div class="marquee-item">
-GRANDE FINAL
-<span class="msep"> ◥ </span>
-</div>
+      obs.unobserve(e.target);
 
-<div class="marquee-item">
-SPIKE CUP 2025
-<span class="msep"> ◥ </span>
-</div>
+    }
 
-<div class="marquee-item">
-INSCRIÇÕES ABERTAS
-<span class="msep"> ◥ </span>
-</div>
+  });
 
-<div class="marquee-item">
-R$5.000 EM PRÊMIOS
-<span class="msep"> ◥ </span>
-</div>
+},{
+  threshold:0.12
+});
 
-</div>
+document
+.querySelectorAll(
+'.reveal,.reveal-left,.reveal-right,.reveal-scale'
+)
+.forEach(el => obs.observe(el));
 
-</div>
+/* CONTADOR */
 
-<!-- FASES -->
+function animCount(el, target, prefix, suffix){
 
-<section class="section">
+  const dur = 1800;
+  const frames = 60;
+  const step = target / (dur / 1000 * frames);
 
-<div class="section-tag">
-Estrutura do Campeonato
-</div>
+  let v = 0;
 
-<h2>
-Do primeiro saque<br>
-à <em>grande final</em>
-</h2>
+  (function tick(){
 
-<div class="fases-grid">
+    v = Math.min(v + step, target);
 
-<div class="fase-card">
+    el.textContent =
+      (prefix||'') +
+      Math.round(v).toLocaleString('pt-BR') +
+      (suffix||'');
 
-<div class="fase-num">01</div>
+    if(v < target){
+      requestAnimationFrame(tick);
+    }
 
-<span class="fase-icon">🏐</span>
+  })();
+}
 
-<h3>Fase de Grupos</h3>
+let heroFired = false;
 
-<p>
-12 times em 4 grupos. Todos se enfrentam uma vez.
-</p>
+new IntersectionObserver(entries => {
 
-<div class="fase-date">
-Ago 02 → Set 14
-</div>
+  if(entries[0].isIntersecting && !heroFired){
 
-</div>
+    heroFired = true;
 
-<div class="fase-card">
+    animCount(
+      document.getElementById('c1'),
+      12
+    );
 
-<div class="fase-num">02</div>
+    animCount(
+      document.getElementById('c2'),
+      475
+    );
 
-<span class="fase-icon">⚡</span>
+    animCount(
+      document.getElementById('c4'),
+      1
+    );
 
-<h3>Quartas de Final</h3>
+    let v = 0;
 
-<p>
-Os 8 classificados em mata-mata.
-</p>
+    (function t(){
 
-<div class="fase-date">
-Set 20 → Set 28
-</div>
+      v = Math.min(v + 5/108, 5);
 
-</div>
+      document.getElementById('c3').textContent =
+        'R$' + Math.round(v) + 'k';
 
-<div class="fase-card">
+      if(v < 5){
+        requestAnimationFrame(t);
+      }
 
-<div class="fase-num">03</div>
+    })();
 
-<span class="fase-icon">🔥</span>
+  }
 
-<h3>Semifinal</h3>
+},{
+  threshold:0.3
+})
+.observe(document.querySelector('.hero-stats'));
 
-<p>
-Cada ponto vale ouro.
-</p>
-
-<div class="fase-date">
-Out 04 → Out 05
-</div>
-
-</div>
-
-<div class="fase-card">
-
-<div class="fase-num">04</div>
-
-<span class="fase-icon">🏆</span>
-
-<h3>Grande Final</h3>
-
-<p>
-Arena lotada e transmissão ao vivo.
-</p>
-
-<div class="fase-date">
-Out 18 · Ginásio Central
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CTA -->
-
-<div class="cta-section">
-
-<div class="section-tag">
-Inscrições Abertas
-</div>
-
-<h2>
-Pronto para o <em>saque?</em>
-</h2>
-
-<p>
-As inscrições encerram em 25 de julho. Apenas 12 vagas.
-</p>
-
-<div class="hero-actions">
-
-<a class="btn-p" href="#">
-Inscrever Meu Time
-</a>
-
-<a class="btn-o" href="#">
-Baixar Regulamento
-</a>
-
-</div>
-
-</div>
-
-<!-- FOOTER -->
-
-<footer>
-
-<div class="footer-logo">
-SPIKE CUP
-</div>
-
-<div class="footer-tagline">
-Campeonato Estadual de Vôlei · 10ª Edição · 2025
-</div>
-
-<div class="footer-bottom">
-© 2025 Spike Cup. Todos os direitos reservados.
-</div>
-
-</footer>
+</script>
 
 </body>
 </html>
