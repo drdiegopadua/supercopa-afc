@@ -4,736 +4,1281 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pré-Inscrição · SUPERCOPA 2026</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#07090d;--surface:#0d1018;--card:#111520;--border:rgba(255,255,255,0.07);
-  --accent:#3a86f0;--accent2:#e85d3a;--text:#e8eaf0;--muted:#5a6174;
-  --D:'Bebas Neue',sans-serif;--B:'DM Sans',sans-serif;--M:'Space Mono',monospace;
-  --green:#4ade80;--green-bg:rgba(74,222,128,0.08);
-}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);color:var(--text);font-family:var(--B);
-  overflow-x:hidden;width:100%;max-width:100%;
+*,*::before,*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-/* ── HEADER ── */
-.urgency-bar{
-  background:var(--accent);color:#000;text-align:center;
-  padding:11px;font-family:var(--M);font-size:12px;letter-spacing:2px;font-weight:700;
-  position:relative;overflow:hidden;
+:root{
+  --bg:#07090d;
+  --surface:#0d1018;
+  --card:#111520;
+  --border:rgba(255,255,255,0.07);
+
+  --accent:#3a86f0;
+  --accent2:#e85d3a;
+
+  --text:#e8eaf0;
+  --muted:#5a6174;
+
+  --green:#4ade80;
+  --green-bg:rgba(74,222,128,0.08);
+
+  --D:'Bebas Neue',sans-serif;
+  --B:'DM Sans',sans-serif;
+  --M:'Space Mono',monospace;
 }
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--B);
+  overflow-x:hidden;
+  padding-top:105px;
+}
+
+/* HEADER */
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+}
+
+.urgency-bar{
+  background:var(--accent);
+  color:#000;
+  text-align:center;
+  padding:11px;
+  font-family:var(--M);
+  font-size:12px;
+  letter-spacing:2px;
+  font-weight:700;
+  overflow:hidden;
+  position:relative;
+}
+
 .urgency-bar::before{
-  content:'';position:absolute;inset:0;
+  content:'';
+  position:absolute;
+  inset:0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
   animation:shine 2.5s linear infinite;
 }
-@keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 
-header{position:fixed;top:0;left:0;right:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.3)}
-body{padding-top:105px}
+@keyframes shine{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
+}
 
 nav{
-  position:relative;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   padding:18px 48px;
   background:rgba(7,9,13,0.95);
   border-bottom:1px solid var(--border);
 }
-.nav-logo{font-family:var(--D);font-size:26px;letter-spacing:3px;color:var(--accent);text-decoration:none}
-.nav-logo span{color:rgba(255,255,255,0.3)}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s}
-.nav-links a:hover{color:var(--text)}
-.nav-back{
-  display:inline-flex;align-items:center;gap:8px;
-  color:var(--muted);text-decoration:none;font-size:12px;
-  font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
-  transition:color .2s;
-}
-.nav-back:hover{color:var(--accent)}
-.nav-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
 
-/* ── HERO DA PÁGINA ── */
+.nav-logo{
+  font-family:var(--D);
+  font-size:26px;
+  letter-spacing:3px;
+  color:var(--accent);
+  text-decoration:none;
+}
+
+.nav-logo span{
+  color:rgba(255,255,255,0.3);
+}
+
+.nav-links{
+  display:flex;
+  gap:32px;
+  list-style:none;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:.2s;
+}
+
+.nav-links a:hover{
+  color:var(--text);
+}
+
+.nav-back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:.2s;
+}
+
+.nav-back:hover{
+  color:var(--accent);
+}
+
+/* HERO */
+
 .page-hero{
-  padding:72px 24px 56px;
-  text-align:center;
-  background:var(--bg);
   position:relative;
   overflow:hidden;
+  padding:72px 24px 56px;
+  text-align:center;
 }
+
 .hero-dots{
-  position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(circle,rgba(58,134,240,0.06) 1px,transparent 1px);
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background-image:
+  radial-gradient(circle,rgba(58,134,240,0.06) 1px,transparent 1px);
+
   background-size:38px 38px;
   animation:dotsDrift 28s linear infinite;
 }
-@keyframes dotsDrift{from{background-position:0 0}to{background-position:38px 38px}}
+
+@keyframes dotsDrift{
+  from{background-position:0 0}
+  to{background-position:38px 38px}
+}
+
 .hero-glow{
-  position:absolute;top:-80px;left:50%;transform:translateX(-50%);
-  width:700px;height:400px;
-  background:radial-gradient(ellipse at 50% 30%,rgba(58,134,240,0.12) 0%,rgba(58,134,240,0.04) 45%,transparent 72%);
-  pointer-events:none;
+  position:absolute;
+  top:-80px;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:700px;
+  height:400px;
+
+  background:
+  radial-gradient(
+    ellipse at 50% 30%,
+    rgba(58,134,240,0.12) 0%,
+    rgba(58,134,240,0.04) 45%,
+    transparent 72%
+  );
 }
-.page-hero .badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.28);
-  border-radius:100px;padding:6px 20px;margin-bottom:28px;
-  font-family:var(--M);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;
-  position:relative;z-index:2;
-  opacity:0;animation:fadeUp .6s .1s ease forwards;
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  padding:6px 20px;
+  border-radius:100px;
+
+  background:rgba(58,134,240,0.10);
+  border:1px solid rgba(58,134,240,0.28);
+
+  font-family:var(--M);
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  color:var(--accent);
+
+  position:relative;
+  z-index:2;
 }
-.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
-  animation:blink 1.4s infinite;box-shadow:0 0 6px var(--accent)}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.badge-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 6px var(--accent);
+  animation:blink 1.4s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.2}
+}
+
 .page-hero h1{
+  margin-top:28px;
+
   font-family:var(--D);
   font-size:clamp(2.4rem,7vw,4.8rem);
-  line-height:1;text-transform:uppercase;letter-spacing:.08em;
-  background:linear-gradient(155deg,#a8d0ff 0%,#3a86f0 22%,#ffffff 50%,#3a86f0 72%,#1a4a9e 100%);
-  background-size:200% 200%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 14px rgba(58,134,240,0.5));
-  animation:titleShine 4.5s ease-in-out infinite alternate;
-  position:relative;z-index:2;
-  opacity:0;animation:fadeUp .8s .2s ease forwards;
-}
-@keyframes titleShine{from{background-position:0% 50%}to{background-position:100% 50%}}
-.page-hero p{
-  color:var(--muted);font-size:16px;max-width:480px;margin:14px auto 0;
-  position:relative;z-index:2;
-  opacity:0;animation:fadeUp .7s .35s ease forwards;
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  line-height:1;
+  letter-spacing:.08em;
+  text-transform:uppercase;
 
-/* ── PILLS DE BENEFÍCIOS ── */
-.benefits-bar{
-  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
-  padding:28px 24px 0;
-  position:relative;z-index:2;
-  opacity:0;animation:fadeUp .7s .45s ease forwards;
+  background:
+  linear-gradient(
+    155deg,
+    #a8d0ff 0%,
+    #3a86f0 22%,
+    #ffffff 50%,
+    #3a86f0 72%,
+    #1a4a9e 100%
+  );
+
+  background-size:200% 200%;
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation:titleShine 4.5s ease-in-out infinite alternate;
+
+  position:relative;
+  z-index:2;
 }
+
+.page-hero em{
+  font-style:normal;
+}
+
+@keyframes titleShine{
+  from{background-position:0% 50%}
+  to{background-position:100% 50%}
+}
+
+.page-hero p{
+  max-width:520px;
+  margin:18px auto 0;
+
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.7;
+
+  position:relative;
+  z-index:2;
+}
+
+/* BENEFÍCIOS */
+
+.benefits-bar{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+
+  padding-top:28px;
+
+  position:relative;
+  z-index:2;
+}
+
 .benefit-pill{
-  display:inline-flex;align-items:center;gap:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  padding:8px 18px;
+  border-radius:100px;
+
   background:var(--green-bg);
   border:1px solid rgba(74,222,128,0.25);
-  border-radius:100px;padding:8px 18px;
-  font-family:var(--M);font-size:11px;color:var(--green);
-  letter-spacing:1.5px;text-transform:uppercase;
-}
-.benefit-pill svg{width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2.5;flex-shrink:0}
 
-/* ── CONTAINER DO FORMULÁRIO ── */
+  color:var(--green);
+
+  font-family:var(--M);
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+/* FORM */
+
 .form-wrap{
-  max-width:720px;margin:56px auto 80px;
+  max-width:720px;
+  margin:56px auto 80px;
   padding:0 24px;
-  opacity:0;animation:fadeUp .8s .5s ease forwards;
 }
 
-/* Card do form */
 .form-card{
+  overflow:hidden;
+  border-radius:16px;
+
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:16px;
-  overflow:hidden;
+
   position:relative;
 }
+
 .form-card::before{
-  content:'';position:absolute;top:0;left:8%;right:8%;height:1px;
-  background:linear-gradient(to right,transparent,rgba(58,134,240,0.7),rgba(255,255,255,0.3),rgba(58,134,240,0.7),transparent);
+  content:'';
+  position:absolute;
+  top:0;
+  left:8%;
+  right:8%;
+  height:1px;
+
+  background:
+  linear-gradient(
+    to right,
+    transparent,
+    rgba(58,134,240,0.7),
+    rgba(255,255,255,0.3),
+    rgba(58,134,240,0.7),
+    transparent
+  );
 }
 
-/* Seções do formulário */
-.form-section{padding:36px 40px;border-bottom:1px solid var(--border)}
-.form-section:last-of-type{border-bottom:none}
+.form-section{
+  padding:36px 40px;
+  border-bottom:1px solid var(--border);
+}
+
+.form-section:last-of-type{
+  border-bottom:none;
+}
+
 .form-section-title{
-  font-family:var(--D);font-size:22px;letter-spacing:1.5px;
-  margin-bottom:6px;color:var(--text);
+  font-family:var(--D);
+  font-size:22px;
+  letter-spacing:1.5px;
 }
-.form-section-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
 
-/* Grupos de campo */
-.field-group{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.field-group.single{grid-template-columns:1fr}
-.field-group.triple{grid-template-columns:1fr 1fr 1fr}
+.form-section-sub{
+  margin-top:6px;
+  margin-bottom:28px;
+  font-size:13px;
+  color:var(--muted);
+}
 
-.field{display:flex;flex-direction:column;gap:7px}
+.field-group{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:16px;
+}
+
+.field-group.single{
+  grid-template-columns:1fr;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
 .field label{
-  font-family:var(--M);font-size:10px;color:var(--accent);
-  text-transform:uppercase;letter-spacing:2.5px;
+  font-family:var(--M);
+  font-size:10px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--accent);
 }
+
 .field input,
-.field select,
-.field textarea{
+.field select{
+  width:100%;
+  padding:13px 16px;
+
   background:rgba(255,255,255,0.04);
   border:1px solid var(--border);
   border-radius:6px;
+
   color:var(--text);
-  font-family:var(--B);font-size:15px;
-  padding:13px 16px;
+
+  font-size:15px;
+  font-family:var(--B);
+
   outline:none;
-  transition:border-color .2s,background .2s,box-shadow .2s;
-  width:100%;
+
+  transition:.2s;
 }
-.field input::placeholder,
-.field textarea::placeholder{color:var(--muted)}
-.field select option{background:var(--card);color:var(--text)}
+
+.field input::placeholder{
+  color:var(--muted);
+}
+
 .field input:focus,
-.field select:focus,
-.field textarea:focus{
+.field select:focus{
   border-color:var(--accent);
   background:rgba(58,134,240,0.06);
   box-shadow:0 0 0 3px rgba(58,134,240,0.12);
 }
+
 .field input.error,
-.field select.error{border-color:var(--accent2)!important;box-shadow:0 0 0 3px rgba(232,93,58,0.12)!important}
-.field-error{font-size:11px;color:var(--accent2);margin-top:2px;display:none}
-.field-error.visible{display:block}
+.field select.error{
+  border-color:var(--accent2)!important;
+  box-shadow:0 0 0 3px rgba(232,93,58,0.12)!important;
+}
 
-/* Toggle alojamento */
-.aloj-toggle{
-  display:grid;grid-template-columns:1fr 1fr;gap:12px;
-  margin-bottom:16px;
-}
-.toggle-opt{
-  position:relative;cursor:pointer;
-}
-.toggle-opt input[type="radio"]{position:absolute;opacity:0;pointer-events:none}
-.toggle-label{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  padding:16px;border-radius:8px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,0.02);
-  font-weight:600;font-size:15px;
-  transition:border-color .2s,background .2s,box-shadow .2s;
-  cursor:pointer;
-}
-.toggle-opt input:checked + .toggle-label{
-  border-color:var(--accent);
-  background:rgba(58,134,240,0.08);
-  box-shadow:0 0 0 3px rgba(58,134,240,0.12);
-}
-.toggle-label .t-icon{font-size:20px}
-
-/* Campo de quantidade alojamento */
-.aloj-qty{
+.field-error{
   display:none;
-  margin-top:4px;
+  font-size:11px;
+  color:var(--accent2);
 }
-.aloj-qty.visible{display:block}
-.aloj-note{
-  margin-top:10px;padding:12px 16px;
-  background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);
-  border-radius:6px;font-size:13px;color:var(--green);
-  display:flex;align-items:center;gap:8px;
-}
-.aloj-note svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2.5;flex-shrink:0}
 
-/* Modalidade */
+/* MODALIDADE */
+
 .mod-toggle{
-  display:grid;grid-template-columns:1fr 1fr;gap:12px;
-  margin-bottom:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
-.mod-opt{position:relative;cursor:pointer}
-.mod-opt input[type="radio"]{position:absolute;opacity:0;pointer-events:none}
+
+.mod-opt{
+  position:relative;
+}
+
+.mod-opt input{
+  position:absolute;
+  opacity:0;
+}
+
 .mod-label{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  padding:20px 16px;border-radius:8px;
-  border:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+
+  padding:20px 16px;
+  border-radius:8px;
+
   background:rgba(255,255,255,0.02);
-  font-weight:600;font-size:14px;letter-spacing:.5px;
-  transition:border-color .2s,background .2s,box-shadow .2s;
-  cursor:pointer;text-align:center;
+  border:1px solid var(--border);
+
+  text-align:center;
+  cursor:pointer;
+
+  transition:.2s;
 }
+
 .mod-opt input:checked + .mod-label{
   border-color:var(--accent);
   background:rgba(58,134,240,0.08);
   box-shadow:0 0 0 3px rgba(58,134,240,0.12);
 }
-.mod-label .m-icon{font-size:28px}
-.mod-label .m-sub{font-size:10px;color:var(--muted);font-family:var(--M);letter-spacing:1.5px;font-weight:400}
 
-/* Footer do form */
+.m-icon{
+  font-size:28px;
+}
+
+.m-sub{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:1.5px;
+  font-family:var(--M);
+}
+
+/* ALOJAMENTO */
+
+.aloj-toggle{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.toggle-opt{
+  position:relative;
+}
+
+.toggle-opt input{
+  position:absolute;
+  opacity:0;
+}
+
+.toggle-label{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  padding:16px;
+  border-radius:8px;
+
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);
+
+  cursor:pointer;
+  transition:.2s;
+}
+
+.toggle-opt input:checked + .toggle-label{
+  border-color:var(--accent);
+  background:rgba(58,134,240,0.08);
+  box-shadow:0 0 0 3px rgba(58,134,240,0.12);
+}
+
+.aloj-qty{
+  display:none;
+  margin-top:16px;
+}
+
+.aloj-qty.visible{
+  display:block;
+}
+
+.aloj-note{
+  margin-top:18px;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  padding:12px 16px;
+  border-radius:6px;
+
+  background:var(--green-bg);
+  border:1px solid rgba(74,222,128,0.2);
+
+  color:var(--green);
+  font-size:13px;
+}
+
+/* FOOTER FORM */
+
 .form-footer{
   padding:32px 40px;
   background:rgba(0,0,0,0.2);
-  border-top:1px solid var(--border);
 }
+
 .form-zero-taxa{
-  display:flex;align-items:center;gap:10px;
-  background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);
-  border-radius:8px;padding:14px 18px;margin-bottom:24px;
-  font-size:13px;color:var(--green);font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  margin-bottom:24px;
+
+  padding:14px 18px;
+  border-radius:8px;
+
+  background:var(--green-bg);
+  border:1px solid rgba(74,222,128,0.2);
+
+  color:var(--green);
+  font-size:13px;
+  font-weight:600;
 }
-.form-zero-taxa svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:2.5;flex-shrink:0}
 
 .btn-submit{
-  width:100%;background:var(--accent);color:#000;
-  padding:18px 36px;border-radius:6px;
-  font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase;
-  border:none;cursor:pointer;
-  position:relative;overflow:hidden;
-  transition:transform .2s,box-shadow .3s;
-  font-family:var(--B);
-}
-.btn-submit::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);
-  transform:translateX(-100%);transition:transform .5s;
-}
-.btn-submit:hover::after{transform:translateX(100%)}
-.btn-submit:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(58,134,240,.4)}
-.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.btn-submit .btn-spinner{
-  display:none;width:18px;height:18px;
-  border:2px solid rgba(0,0,0,0.3);border-top-color:#000;
-  border-radius:50%;animation:spin .7s linear infinite;
-  margin:0 auto;
-}
-.btn-submit.loading .btn-text{display:none}
-.btn-submit.loading .btn-spinner{display:block}
-@keyframes spin{to{transform:rotate(360deg)}}
+  width:100%;
+  border:none;
+  cursor:pointer;
 
-/* ── TELA DE SUCESSO ── */
+  padding:18px 36px;
+  border-radius:6px;
+
+  background:var(--accent);
+  color:#000;
+
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  position:relative;
+  overflow:hidden;
+
+  transition:.2s;
+}
+
+.btn-submit:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 48px rgba(58,134,240,.4);
+}
+
+.btn-submit:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.btn-spinner{
+  display:none;
+
+  width:18px;
+  height:18px;
+
+  margin:auto;
+
+  border:2px solid rgba(0,0,0,0.3);
+  border-top-color:#000;
+  border-radius:50%;
+
+  animation:spin .7s linear infinite;
+}
+
+.btn-submit.loading .btn-text{
+  display:none;
+}
+
+.btn-submit.loading .btn-spinner{
+  display:block;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* SUCCESS */
+
 .success-screen{
   display:none;
-  max-width:600px;margin:0 auto;padding:0 24px 80px;
+
+  max-width:600px;
+  margin:0 auto;
+  padding:0 24px 80px;
+
   text-align:center;
-  opacity:0;
 }
-.success-screen.visible{display:block;animation:fadeUp .7s ease forwards}
+
+.success-screen.visible{
+  display:block;
+}
+
 .success-icon{
-  width:80px;height:80px;border-radius:50%;
-  background:var(--green-bg);border:2px solid rgba(74,222,128,0.35);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 28px;font-size:36px;
+  width:80px;
+  height:80px;
+
+  margin:0 auto 28px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--green-bg);
+  border:2px solid rgba(74,222,128,0.35);
+
+  font-size:36px;
 }
+
 .success-screen h2{
-  font-family:var(--D);font-size:clamp(2rem,6vw,3.5rem);
-  letter-spacing:2px;margin-bottom:14px;color:var(--text);
+  font-family:var(--D);
+  font-size:clamp(2rem,6vw,3.5rem);
+  letter-spacing:2px;
 }
-.success-screen h2 em{font-style:normal;color:var(--accent)}
-.success-screen p{color:var(--muted);font-size:16px;line-height:1.8;max-width:440px;margin:0 auto 32px}
+
+.success-screen h2 em{
+  color:var(--accent);
+  font-style:normal;
+}
+
+.success-screen p{
+  margin:16px auto 32px;
+  max-width:440px;
+
+  color:var(--muted);
+  line-height:1.8;
+}
+
 .success-details{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:12px;padding:24px;margin-bottom:32px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+
+  padding:24px;
+  margin-bottom:32px;
+
   text-align:left;
 }
-.success-details .sd-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:10px 0;border-bottom:1px solid var(--border);
-  font-size:14px;
+
+.sd-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
 }
-.success-details .sd-row:last-child{border-bottom:none}
-.sd-label{color:var(--muted);font-family:var(--M);font-size:10px;letter-spacing:2px;text-transform:uppercase}
-.sd-value{color:var(--text);font-weight:600;text-align:right;max-width:60%}
+
+.sd-row:last-child{
+  border-bottom:none;
+}
+
+.sd-label{
+  font-family:var(--M);
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.sd-value{
+  font-weight:600;
+  text-align:right;
+}
+
 .btn-back{
-  display:inline-flex;align-items:center;gap:8px;
-  border:1px solid var(--border);color:var(--text);padding:14px 28px;border-radius:6px;
-  font-weight:500;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
-  text-decoration:none;transition:border-color .2s,transform .2s;
-  font-family:var(--B);
-}
-.btn-back:hover{border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
 
-/* ── FOOTER ── */
+  padding:14px 28px;
+  border-radius:6px;
+
+  border:1px solid var(--border);
+
+  color:var(--text);
+  text-decoration:none;
+
+  transition:.2s;
+}
+
+.btn-back:hover{
+  transform:translateY(-2px);
+}
+
+/* FOOTER */
+
 footer{
-  background:var(--surface);border-top:1px solid var(--border);
   padding:40px 48px 24px;
-}
-.footer-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;justify-content:space-between;align-items:flex-start;
-  flex-wrap:wrap;gap:24px;
-}
-.footer-logo{font-family:var(--D);font-size:28px;color:var(--accent);letter-spacing:2px}
-.footer-tagline{font-size:13px;color:var(--muted);margin-top:4px}
-.footer-bottom{
-  max-width:1200px;margin:24px auto 0;
-  border-top:1px solid var(--border);padding-top:18px;
-  display:flex;justify-content:space-between;flex-wrap:wrap;
-  gap:12px;font-size:13px;color:var(--muted);
+  border-top:1px solid var(--border);
+  background:var(--surface);
 }
 
-/* ── RESPONSIVE ── */
+.footer-logo{
+  font-family:var(--D);
+  font-size:28px;
+  color:var(--accent);
+}
+
+.footer-tagline{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* RESPONSIVO */
+
 @media(max-width:640px){
-  nav{padding:14px 20px}.nav-links{display:none}
-  .form-section{padding:28px 20px}
-  .form-footer{padding:24px 20px}
-  .field-group{grid-template-columns:1fr}
-  .field-group.triple{grid-template-columns:1fr}
-  footer{padding:32px 20px 20px}
-  body{padding-top:95px}
+
+  body{
+    padding-top:95px;
+  }
+
+  nav{
+    padding:14px 20px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .field-group{
+    grid-template-columns:1fr;
+  }
+
+  .mod-toggle,
+  .aloj-toggle{
+    grid-template-columns:1fr;
+  }
+
+  .form-section{
+    padding:28px 20px;
+  }
+
+  .form-footer{
+    padding:24px 20px;
+  }
+
+  footer{
+    padding:32px 20px 20px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="urgency-bar">✓ SEM TAXA DE INSCRIÇÃO &nbsp;·&nbsp; ✓ ALOJAMENTO GRATUITO &nbsp;·&nbsp; ✓ 100% GRATUITO</div>
+
+  <div class="urgency-bar">
+    ✓ SEM TAXA DE INSCRIÇÃO · ✓ ALOJAMENTO GRATUITO · ✓ 100% GRATUITO
+  </div>
+
   <nav>
-    <a class="nav-logo" href="index.html">SUPER<span>◥</span>COPA</a>
-    <ul class="nav-links">
-      <li><a href="index.html#fases">Fases</a></li>
-      <li><a href="index.html#times">Times</a></li>
-      <li><a href="index.html#classificacao">Tabela</a></li>
-      <li><a href="index.html#faq">FAQ</a></li>
-    </ul>
-    <a class="nav-back" href="index.html">
-      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      Voltar ao site
+
+    <a class="nav-logo" href="#">
+      SUPER<span>◥</span>COPA
     </a>
+
+    <ul class="nav-links">
+      <li><a href="#">Fases</a></li>
+      <li><a href="#">Times</a></li>
+      <li><a href="#">Tabela</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+
+    <a class="nav-back" href="#">
+      ← Voltar ao site
+    </a>
+
   </nav>
+
 </header>
 
 <div id="formWrap">
+
   <div class="page-hero">
+
     <div class="hero-dots"></div>
     <div class="hero-glow"></div>
+
     <div class="badge">
       <span class="badge-dot"></span>
       Edição 2026 · Afonso Cláudio
     </div>
-    <h1>Pré-Inscrição <em>Gratuita</em></h1>
-    <p>Preencha os dados da sua equipe abaixo. Nossa comissão entrará em contato via WhatsApp para validar sua participação.</p>
-    
+
+    <h1>
+      Pré-Inscrição <em>Gratuita</em>
+    </h1>
+
+    <p>
+      Preencha os dados da sua equipe abaixo.
+      Nossa comissão entrará em contato via WhatsApp
+      para validar sua participação.
+    </p>
+
     <div class="benefits-bar">
-      <div class="benefit-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Sem Taxa</div>
-      <div class="benefit-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Alojamento Grátis</div>
-      <div class="benefit-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Premiação</div>
+
+      <div class="benefit-pill">
+        ✓ Sem Taxa
+      </div>
+
+      <div class="benefit-pill">
+        ✓ Alojamento Grátis
+      </div>
+
+      <div class="benefit-pill">
+        ✓ Premiação
+      </div>
+
     </div>
+
   </div>
 
   <div class="form-wrap">
+
     <div class="form-card">
-      
-      <!-- SEÇÃO 1: Modalidade -->
+
+      <!-- MODALIDADE -->
+
       <div class="form-section">
-        <div class="form-section-title">Modalidade</div>
-        <div class="form-section-sub">Escolha a modalidade que sua equipe irá disputar (Apenas uma)</div>
-        
+
+        <div class="form-section-title">
+          Modalidade
+        </div>
+
+        <div class="form-section-sub">
+          Escolha a modalidade da equipe
+        </div>
+
         <div class="mod-toggle">
+
           <label class="mod-opt">
-            <input type="radio" name="modalidade" value="Voleibol" id="modVolei">
+
+            <input type="radio" name="modalidade" value="Voleibol">
+
             <div class="mod-label">
               <span class="m-icon">🏐</span>
               Voleibol
               <span class="m-sub">6ª Edição</span>
             </div>
+
           </label>
+
           <label class="mod-opt">
-            <input type="radio" name="modalidade" value="Basquete" id="modBasquete">
+
+            <input type="radio" name="modalidade" value="Basquete">
+
             <div class="mod-label">
               <span class="m-icon">🏀</span>
               Basquete
               <span class="m-sub">1ª Edição</span>
             </div>
+
           </label>
+
         </div>
-        <span class="field-error" id="modError" style="text-align:center;margin-top:10px">Selecione uma modalidade para continuar.</span>
+
+        <span class="field-error" id="modError">
+          Selecione uma modalidade.
+        </span>
+
       </div>
 
-      <!-- SEÇÃO 2: Dados da Equipe -->
+      <!-- EQUIPE -->
+
       <div class="form-section">
-        <div class="form-section-title">Dados da Equipe</div>
-        <div class="form-section-sub">Informações básicas do seu time</div>
+
+        <div class="form-section-title">
+          Dados da Equipe
+        </div>
+
+        <div class="form-section-sub">
+          Informações básicas do time
+        </div>
 
         <div class="field-group single">
+
           <div class="field">
-            <label for="nomeEquipe">Nome da Equipe</label>
+            <label>Nome da Equipe</label>
             <input type="text" id="nomeEquipe" placeholder="Ex: Águias das Montanhas">
             <span class="field-error" id="nomeEquipeError">Campo obrigatório.</span>
           </div>
+
         </div>
 
         <div class="field-group">
+
           <div class="field">
-            <label for="cidade">Cidade</label>
+            <label>Cidade</label>
             <input type="text" id="cidade" placeholder="Ex: Afonso Cláudio">
             <span class="field-error" id="cidadeError">Campo obrigatório.</span>
           </div>
+
           <div class="field">
-            <label for="estado">Estado</label>
+            <label>Estado</label>
+
             <select id="estado">
               <option value="">Selecione...</option>
-              <option value="ES">Espírito Santo (ES)</option>
-              <option value="MG">Minas Gerais (MG)</option>
-              <option value="RJ">Rio de Janeiro (RJ)</option>
-              <option value="SP">São Paulo (SP)</option>
-              <option value="BA">Bahia (BA)</option>
-              <option value="Outro">Outro</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="SP">São Paulo</option>
+              <option value="BA">Bahia</option>
             </select>
-            <span class="field-error" id="estadoError">Selecione o estado.</span>
+
+            <span class="field-error" id="estadoError">
+              Selecione o estado.
+            </span>
+
           </div>
+
         </div>
+
       </div>
 
-      <!-- SEÇÃO 3: Responsável -->
+      <!-- RESPONSÁVEL -->
+
       <div class="form-section">
-        <div class="form-section-title">Responsável</div>
-        <div class="form-section-sub">Quem será o contato oficial da equipe</div>
+
+        <div class="form-section-title">
+          Responsável
+        </div>
+
+        <div class="form-section-sub">
+          Contato oficial da equipe
+        </div>
 
         <div class="field-group">
+
           <div class="field">
-            <label for="nomeResp">Nome Completo</label>
-            <input type="text" id="nomeResp" placeholder="Nome do capitão ou técnico">
+            <label>Nome Completo</label>
+            <input type="text" id="nomeResp" placeholder="Nome do técnico ou capitão">
             <span class="field-error" id="nomeRespError">Campo obrigatório.</span>
           </div>
+
           <div class="field">
-            <label for="telefone">WhatsApp</label>
-            <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX" maxlength="15">
-            <span class="field-error" id="telefoneError">Informe um WhatsApp válido.</span>
+            <label>WhatsApp</label>
+            <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX">
+            <span class="field-error" id="telefoneError">WhatsApp inválido.</span>
           </div>
+
         </div>
+
       </div>
 
-      <!-- SEÇÃO 4: Alojamento -->
+      <!-- ALOJAMENTO -->
+
       <div class="form-section">
-        <div class="form-section-title">Alojamento</div>
-        <div class="form-section-sub">Oferecemos alojamento gratuito para equipes que precisam viajar</div>
+
+        <div class="form-section-title">
+          Alojamento
+        </div>
+
+        <div class="form-section-sub">
+          Alojamento gratuito para equipes visitantes
+        </div>
 
         <div class="aloj-toggle">
+
           <label class="toggle-opt">
-            <input type="radio" name="alojamento" value="nao" id="alojNao" checked>
+
+            <input type="radio" name="alojamento" value="nao" checked>
+
             <div class="toggle-label">
-              <span class="t-icon">🏠</span>
-              Não preciso
+              🏠 Não preciso
             </div>
+
           </label>
+
           <label class="toggle-opt">
-            <input type="radio" name="alojamento" value="sim" id="alojSim">
+
+            <input type="radio" name="alojamento" value="sim">
+
             <div class="toggle-label">
-              <span class="t-icon">🛏️</span>
-              Sim, preciso
+              🛏️ Sim, preciso
             </div>
+
           </label>
+
         </div>
 
         <div class="aloj-qty" id="alojQtyWrap">
+
           <div class="field">
-            <label for="alojQty">Para quantas pessoas?</label>
-            <input type="number" id="alojQty" placeholder="Ex: 12" min="1" max="30">
-            <span class="field-error" id="alojQtyError">Informe a quantidade de pessoas.</span>
+            <label>Para quantas pessoas?</label>
+            <input type="number" id="alojQty" placeholder="Ex: 12">
+            <span class="field-error" id="alojQtyError">Informe a quantidade.</span>
           </div>
+
         </div>
 
         <div class="aloj-note">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          O alojamento é <strong>&nbsp;100% gratuito&nbsp;</strong> — sem nenhum custo para a equipe.
+          ✓ O alojamento é 100% gratuito.
         </div>
+
       </div>
 
-      <!-- FOOTER DO FORM -->
+      <!-- FOOTER -->
+
       <div class="form-footer">
+
         <div class="form-zero-taxa">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          Este evento não cobra taxa de inscrição, alojamento, nem nenhum outro tipo de taxa. É 100% gratuito.
+          ✓ Evento totalmente gratuito.
         </div>
 
         <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
-          <span class="btn-text">Enviar Pré-Inscrição</span>
+
+          <span class="btn-text">
+            Enviar Pré-Inscrição
+          </span>
+
           <div class="btn-spinner"></div>
+
         </button>
+
       </div>
 
     </div>
+
   </div>
+
 </div>
 
-<!-- TELA DE SUCESSO -->
+<!-- SUCESSO -->
+
 <div class="success-screen" id="successScreen">
-  <div class="success-icon">✅</div>
-  <h2>Inscrição <em>enviada!</em></h2>
-  <p>Recebemos sua pré-inscrição. Nossa comissão organizadora irá analisar e entrar em contato pelo WhatsApp informado em breve.</p>
+
+  <div class="success-icon">
+    ✅
+  </div>
+
+  <h2>
+    Inscrição <em>Enviada!</em>
+  </h2>
+
+  <p>
+    Sua pré-inscrição foi recebida com sucesso.
+    Nossa comissão organizadora entrará em contato em breve.
+  </p>
 
   <div class="success-details" id="successDetails"></div>
 
-  <a class="btn-back" href="index.html">
-    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-    Voltar ao site
-  </a>
 </div>
 
 <footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-logo">SUPERCOPA</div>
-      <div class="footer-tagline">Campeonato Multiesporte de Afonso Cláudio · 6ª Edição · 2026</div>
-    </div>
+
+  <div class="footer-logo">
+    SUPERCOPA
   </div>
-  <div class="footer-bottom">
-    <span>© 2025 Supercopa. Todos os direitos reservados.</span>
-    <span>Feito com 🏐 para atletas de verdade</span>
+
+  <div class="footer-tagline">
+    Campeonato Multiesporte · Afonso Cláudio · 2026
   </div>
+
 </footer>
 
 <script>
-  /* ── Máscara de telefone ── */
-  const telInput = document.getElementById('telefone');
-  telInput.addEventListener('input', () => {
-    let v = telInput.value.replace(/\D/g,'').slice(0,11);
-    if(v.length > 10) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-    else if(v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`;
-    else if(v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
-    else if(v.length > 0) v = `(${v}`;
-    telInput.value = v;
+
+/* TELEFONE */
+
+const telInput = document.getElementById('telefone');
+
+telInput.addEventListener('input', ()=>{
+
+  let v = telInput.value.replace(/\D/g,'').slice(0,11);
+
+  if(v.length > 10){
+    v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  }
+  else if(v.length > 6){
+    v = `(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`;
+  }
+  else if(v.length > 2){
+    v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+  }
+
+  telInput.value = v;
+});
+
+/* ALOJAMENTO */
+
+document.querySelectorAll('input[name="alojamento"]').forEach(r=>{
+
+  r.addEventListener('change', ()=>{
+
+    const wrap = document.getElementById('alojQtyWrap');
+
+    wrap.classList.toggle(
+      'visible',
+      r.checked && r.value === 'sim'
+    );
+
   });
 
-  /* ── Mostrar/ocultar campo de quantidade de alojamento ── */
-  document.querySelectorAll('input[name="alojamento"]').forEach(r => {
-    r.addEventListener('change', () => {
-      const wrap = document.getElementById('alojQtyWrap');
-      wrap.classList.toggle('visible', r.value === 'sim' && r.checked);
-    });
-  });
+});
 
-  /* ── Validação ── */
-  function showError(id, msg){ 
-    const el = document.getElementById(id);
-    if(el){ 
-      if(msg) el.textContent = msg;
-      el.style.display='block'; 
-    }
-  }
-  function clearError(id){ 
-    const el = document.getElementById(id);
-    if(el) el.style.display='none';
-  }
-  function markField(id, hasError){
-    const el = document.getElementById(id);
-    if(el) el.classList.toggle('error', hasError);
+/* VALIDAR */
+
+function validate(){
+
+  let ok = true;
+
+  const modalidade = document.querySelector('input[name="modalidade"]:checked');
+
+  if(!modalidade){
+    document.getElementById('modError').style.display='block';
+    ok=false;
+  }else{
+    document.getElementById('modError').style.display='none';
   }
 
-  function validate(){
-    let ok = true;
+  return ok;
+}
 
-    // 1. Modalidade (Apenas 1 via Radio)
-    const mod = document.querySelector('input[name="modalidade"]:checked');
-    const modErr = document.getElementById('modError');
-    if(!mod){ modErr.style.display='block'; ok=false; } 
-    else { modErr.style.display='none'; }
+/* SUBMIT */
 
-    // 2. Nome da equipe
-    const ne = document.getElementById('nomeEquipe').value.trim();
-    if(!ne){ showError('nomeEquipeError'); markField('nomeEquipe',true); ok=false; }
-    else { clearError('nomeEquipeError'); markField('nomeEquipe',false); }
+async function submitForm(){
 
-    // 3. Cidade
-    const ci = document.getElementById('cidade').value.trim();
-    if(!ci){ showError('cidadeError'); markField('cidade',true); ok=false; }
-    else { clearError('cidadeError'); markField('cidade',false); }
+  if(!validate()) return;
 
-    // 4. Estado
-    const st = document.getElementById('estado').value;
-    if(!st){ showError('estadoError'); markField('estado',true); ok=false; }
-    else { clearError('estadoError'); markField('estado',false); }
+  const btn = document.getElementById('btnSubmit');
 
-    // 5. Responsável
-    const nr = document.getElementById('nomeResp').value.trim();
-    if(!nr){ showError('nomeRespError'); markField('nomeResp',true); ok=false; }
-    else { clearError('nomeRespError'); markField('nomeResp',false); }
+  btn.classList.add('loading');
+  btn.disabled = true;
 
-    // 6. Telefone (Validar se tem 11 dígitos: DDD + 9 + 8 dígitos)
-    const telRaw = document.getElementById('telefone').value.replace(/\D/g,'');
-    if(telRaw.length !== 11){ 
-      showError('telefoneError', 'Informe um WhatsApp válido (11 dígitos).'); 
-      markField('telefone',true); 
-      ok=false; 
-    }
-    else { clearError('telefoneError'); markField('telefone',false); }
+  const urlPlanilha = "https://script.google.com/macros/s/AKfycbwQuDeZHx04mMr_HuILJfwOV79BlTJfFBtyfeGV36XeJdcZxpO3-yHl5_AKbxXl9Sbq0A/exec";
 
-    // 7. Alojamento (Obrigatório apenas se marcar 'sim')
-    const alojVal = document.querySelector('input[name="alojamento"]:checked').value;
-    if(alojVal === 'sim'){
-      const qty = document.getElementById('alojQty').value;
-      if(!qty || qty < 1){ 
-        showError('alojQtyError'); 
-        markField('alojQty',true); 
-        ok=false; 
-      }
-      else { clearError('alojQtyError'); markField('alojQty',false); }
-    }
+  const modalidade = document.querySelector('input[name="modalidade"]:checked').value;
 
-    return ok;
-  }
+  const alojamento = document.querySelector('input[name="alojamento"]:checked').value;
 
-  /* ── Submit para Google Planilhas ── */
-  window.submitForm = async function() {
-    // Executa a validação rigorosa
-    if(!validate()) {
-      // Scroll para o primeiro erro
-      const firstError = document.querySelector('.field-error[style*="display: block"]');
-      if(firstError) firstError.scrollIntoView({behavior:'smooth', block:'center'});
-      return;
-    }
+  const dados = {
 
-    const btn = document.getElementById('btnSubmit');
-    btn.classList.add('loading');
-    btn.disabled = true;
+    modalidade: modalidade,
 
-    // ▼▼▼ COLE O URL DO SEU GOOGLE APPS SCRIPT ABAIXO ▼▼▼
-    const urlPlanilha = "https://script.google.com/macros/s/AKfycbwQuDeZHx04mMr_HuILJfwOV79BlTJfFBtyfeGV36XeJdcZxpO3-yHl5_AKbxXl9Sbq0A/exec"; 
+    nomeEquipe:
+    document.getElementById('nomeEquipe').value,
 
-    const mod = document.querySelector('input[name="modalidade"]:checked').value;
-    const alojVal = document.querySelector('input[name="alojamento"]:checked').value;
-    const alojQty = alojVal === 'sim' ? Number(document.getElementById('alojQty').value) : 0;
+    cidade:
+    document.getElementById('cidade').value,
 
-    const dados = {
-      modalidade: mod,
-      nomeEquipe: document.getElementById('nomeEquipe').value.trim(),
-      cidade: document.getElementById('cidade').value.trim(),
-      estado: document.getElementById('estado').value,
-      nomeResponsavel: document.getElementById('nomeResp').value.trim(),
-      telefone: document.getElementById('telefone').value.trim(),
-      alojamento: alojVal === 'sim',
-      alojamentoPessoas: alojQty
-    };
+    estado:
+    document.getElementById('estado').value,
 
-     try {
-      // Mudamos para enviar como texto simples, que o Google aceita melhor sem erros de segurança
-      await fetch(urlPlanilha, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(dados)
-      });
-      
-      setTimeout(() => mostrarSucesso(dados), 500);
-    }
+    nomeResponsavel:
+    document.getElementById('nomeResp').value,
 
-    } catch(err) {
-      console.error(err);
-      alert('Erro ao enviar. Verifique sua conexão.');
-      btn.classList.remove('loading');
-      btn.disabled = false;
-    }
+    telefone:
+    document.getElementById('telefone').value,
+
+    alojamento:
+    alojamento === 'sim',
+
+    alojamentoPessoas:
+    alojamento === 'sim'
+      ? document.getElementById('alojQty').value
+      : 0
   };
 
-  function mostrarSucesso(d){
-    document.getElementById('formWrap').style.display = 'none';
+  try{
 
-    const rows = [
-      ['Modalidade', d.modalidade],
-      ['Equipe', d.nomeEquipe],
-      ['Cidade / Estado', `${d.cidade} · ${d.estado}`],
-      ['Responsável', d.nomeResponsavel],
-      ['WhatsApp', d.telefone],
-      ['Alojamento', d.alojamento ? `Sim — ${d.alojamentoPessoas} pessoa(s)` : 'Não solicitado'],
-    ];
+    await fetch(urlPlanilha,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{
+        'Content-Type':'text/plain'
+      },
+      body:JSON.stringify(dados)
+    });
 
-    const det = document.getElementById('successDetails');
-    det.innerHTML = rows.map(([l,v])=>`
-      <div class="sd-row">
-        <span class="sd-label">${l}</span>
-        <span class="sd-value">${v}</span>
-      </div>`).join('');
+    setTimeout(()=>{
+      mostrarSucesso(dados);
+    },500);
 
-    const sc = document.getElementById('successScreen');
-    sc.classList.add('visible');
-    window.scrollTo({top:0, behavior:'smooth'});
+  }catch(err){
+
+    console.error(err);
+
+    alert('Erro ao enviar formulário.');
+
+    btn.classList.remove('loading');
+    btn.disabled = false;
+
   }
+
+}
+
+/* SUCESSO */
+
+function mostrarSucesso(d){
+
+  document.getElementById('formWrap').style.display='none';
+
+  const rows = [
+
+    ['Modalidade', d.modalidade],
+    ['Equipe', d.nomeEquipe],
+    ['Cidade', d.cidade],
+    ['Estado', d.estado],
+    ['Responsável', d.nomeResponsavel],
+    ['WhatsApp', d.telefone]
+
+  ];
+
+  document.getElementById('successDetails').innerHTML =
+  rows.map(([l,v])=>`
+    <div class="sd-row">
+      <span class="sd-label">${l}</span>
+      <span class="sd-value">${v}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('successScreen').classList.add('visible');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+}
+
 </script>
 
 </body>
