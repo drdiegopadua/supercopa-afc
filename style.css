@@ -1,5 +1,5 @@
 /* =========================================
-   LOGOS HERO
+   LOGOS HERO - VERSION ELITE
 ========================================= */
 
 .hero-logos {
@@ -8,34 +8,31 @@
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-
-  /* aproxima bastante */
   gap: 0px;
-
   margin-bottom: 5px;
+  isolation: isolate;
 }
 
-/* Luz amarela suave atrás */
+/* Glow mais limpo e suave */
 .hero-logos::before {
   content: "";
   position: absolute;
-
   width: 520px;
   height: 220px;
 
   background: radial-gradient(
     circle,
-    rgba(255, 196, 0, 0.22) 0%,
-    rgba(255, 196, 0, 0.12) 35%,
-    rgba(255, 196, 0, 0.04) 55%,
-    rgba(255, 196, 0, 0) 75%
+    rgba(255, 196, 0, 0.18) 0%,
+    rgba(255, 196, 0, 0.10) 35%,
+    rgba(255, 196, 0, 0.04) 60%,
+    transparent 80%
   );
 
-  filter: blur(45px);
-
+  filter: blur(35px);
   z-index: 0;
 
-  animation: pulseGlowYellow 5s ease-in-out infinite;
+  animation: pulseGlowYellow 6s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* Logos */
@@ -46,28 +43,26 @@
   height: 300px;
   width: auto;
 
-  /* aproxima mais */
-  margin-left: -38px;
-  margin-right: -38px;
+  margin-left: -32px;
+  margin-right: -32px;
 
   opacity: 0;
 
   animation:
     fadeInUp 1s ease-out forwards,
-    floatLogo 5s ease-in-out infinite 1s;
+    floatLogo 6s ease-in-out infinite 1s;
 
-  transition:
-    transform .35s ease,
-    filter .35s ease;
+  transition: transform .3s ease, filter .3s ease;
+  will-change: transform;
 }
 
-/* Hover elegante */
+/* Hover mais suave (sem “quebrar layout”) */
 .hero-logo-animated:hover {
-  transform: scale(1.05);
+  transform: scale(1.04) translateY(-3px);
 
   filter:
-    drop-shadow(0 0 18px rgba(255, 196, 0, 0.45))
-    drop-shadow(0 0 35px rgba(255, 196, 0, 0.18));
+    drop-shadow(0 0 15px rgba(255, 196, 0, 0.35))
+    drop-shadow(0 0 25px rgba(255, 196, 0, 0.15));
 }
 
 /* =========================================
@@ -75,10 +70,8 @@
 ========================================= */
 
 .hero-title-animated {
-
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 800;
-
   text-align: center;
   text-transform: uppercase;
 
@@ -87,10 +80,11 @@
   opacity: 0;
 
   animation:
-    revealTitle 1.2s ease forwards 1s,
-    titleGlow 4s ease-in-out infinite 2s;
+    revealTitle 1.2s ease forwards 0.8s,
+    titleGlow 5s ease-in-out infinite 2s;
 
   letter-spacing: 1px;
+  will-change: transform, opacity;
 }
 
 /* =========================================
@@ -98,12 +92,10 @@
 ========================================= */
 
 @keyframes fadeInUp {
-
   from {
     opacity: 0;
     transform: translateY(25px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -111,48 +103,32 @@
 }
 
 @keyframes floatLogo {
-
-  0% {
+  0%, 100% {
     transform: translateY(0px);
   }
-
   50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0px);
+    transform: translateY(-8px);
   }
 }
 
-/* brilho dourado suave */
+/* Glow mais natural */
 @keyframes pulseGlowYellow {
-
-  0% {
-    opacity: .65;
+  0%, 100% {
+    opacity: .6;
     transform: scale(1);
   }
-
   50% {
     opacity: 1;
-    transform: scale(1.06);
-  }
-
-  100% {
-    opacity: .65;
-    transform: scale(1);
+    transform: scale(1.04);
   }
 }
 
-/* animação do texto */
 @keyframes revealTitle {
-
   from {
     opacity: 0;
-    transform: translateY(20px);
-    letter-spacing: 8px;
+    transform: translateY(18px);
+    letter-spacing: 6px;
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -160,22 +136,12 @@
   }
 }
 
-/* glow no título */
 @keyframes titleGlow {
-
-  0% {
-    text-shadow:
-      0 0 8px rgba(255,255,255,.10);
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(255,255,255,.12);
   }
-
   50% {
-    text-shadow:
-      0 0 18px rgba(255,196,0,.35);
-  }
-
-  100% {
-    text-shadow:
-      0 0 8px rgba(255,255,255,.10);
+    text-shadow: 0 0 18px rgba(255,196,0,.28);
   }
 }
 
@@ -183,33 +149,24 @@
    MOBILE
 ========================================= */
 
-@media(max-width:768px){
+@media (max-width: 768px) {
 
   .hero-logos::before {
-
-    width: 300px;
-    height: 140px;
-
-    filter: blur(30px);
+    width: 260px;
+    height: 130px;
+    filter: blur(25px);
   }
 
   .hero-logo-animated {
-
-    height: 160px;
-
-    margin-left: -18px;
-    margin-right: -18px;
+    height: 170px;
+    margin-left: -14px;
+    margin-right: -14px;
   }
 
   .hero-title-animated {
-
-    font-size: 1.1rem;
-
+    font-size: 1.15rem;
     margin-top: -5px;
-
-    padding: 0 10px;
-
+    padding: 0 12px;
     line-height: 1.3;
   }
-
 }
