@@ -691,16 +691,17 @@ footer{
       alojamentoPessoas: alojQty
     };
 
-    try {
+     try {
+      // Mudamos para enviar como texto simples, que o Google aceita melhor sem erros de segurança
       await fetch(urlPlanilha, {
         method: 'POST',
         mode: 'no-cors',
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(dados)
       });
       
       setTimeout(() => mostrarSucesso(dados), 500);
+    }
 
     } catch(err) {
       console.error(err);
