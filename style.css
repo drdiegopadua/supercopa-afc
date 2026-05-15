@@ -1,6 +1,6 @@
 /* =========================================
-   LOGOS HERO - VERSÃO COMPLETA COM RING
-   Foco: Aumentar visibilidade das logos
+   LOGOS HERO - VERSÃO EXTRA GRANDE
+   Tamanho: 260px para máxima visibilidade
 ========================================= */
 
 .hero-logos {
@@ -9,8 +9,8 @@
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  gap: 25px; /* Aumentado o espaço entre as logos */
-  margin-bottom: 25px; /* Mais espaço para o título abaixo */
+  gap: 30px; /* Aumentado o espaço entre as logos */
+  margin-bottom: 30px; /* Mais espaço para o título abaixo */
   isolation: isolate;
 }
 
@@ -18,26 +18,26 @@
 .hero-logos::before {
   content: "";
   position: absolute;
-  width: 550px;
-  height: 250px;
+  width: 600px;
+  height: 300px;
   background: radial-gradient(
     circle,
     rgba(255, 196, 0, 0.15) 0%,
     rgba(255, 196, 0, 0.08) 35%,
     transparent 70%
   );
-  filter: blur(40px);
+  filter: blur(45px);
   z-index: 0;
   animation: pulseGlowYellow 6s ease-in-out infinite;
 }
 
 /* =========================================
-   CONTAINER DO ANEL + LOGO (NOVO)
+   CONTAINER DO ANEL + LOGO (EXTRA GRANDE)
 ========================================= */
 
 .hero-ring-wrap {
-  width: 220px;  /* AUMENTAR ESTE VALOR para ficar maior */
-  height: 220px; /* AUMENTAR ESTE VALOR para ficar maior */
+  width: 260px;  /* EXTRA GRANDE */
+  height: 260px; /* EXTRA GRANDE */
   position: relative;
   display: flex;
   align-items: center;
@@ -54,15 +54,15 @@
 
 /* CONTAINER DA LOGO - CLASSE ATIVA NO SITE */
 .hero-logo-img-box {
-  width: 160px !important;  /* Aumentado de 80px para 160px */
-  height: 160px !important; /* Aumentado de 80px para 160px */
-  border-radius: 16px;
+  width: 200px !important;  /* Aumentado para proporcionalidade */
+  height: 200px !important; /* Aumentado para proporcionalidade */
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(58, 134, 240, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px !important; /* Espaço interno reduzido para a logo crescer */
+  padding: 10px !important; /* Espaço interno ajustado */
   position: relative;
   z-index: 2;
   transition: transform .35s cubic-bezier(.34,1.56,.64,1), border-color .3s, box-shadow .3s;
@@ -77,25 +77,25 @@
   width: 100% !important;
   height: 100% !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
 }
 
 /* Efeito ao passar o mouse */
 .hero-logo-col:hover .hero-logo-img-box {
-  transform: scale(1.1) translateY(-8px);
+  transform: scale(1.12) translateY(-10px);
   border-color: rgba(58, 134, 240, 0.6);
-  box-shadow: 0 12px 35px rgba(58, 134, 240, 0.3);
+  box-shadow: 0 15px 45px rgba(58, 134, 240, 0.35);
 }
 
 /* TÍTULO ABAIXO DAS LOGOS */
 .hero-title-animated {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 800;
   text-align: center;
   text-transform: uppercase;
-  margin-top: 10px;
+  margin-top: 15px;
   color: #fff;
-  text-shadow: 0 0 15px rgba(255, 196, 0, 0.2);
+  text-shadow: 0 0 20px rgba(255, 196, 0, 0.25);
   letter-spacing: 1px;
 }
 
@@ -104,16 +104,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
 }
 
 /* Tag de texto (Voleibol/Basquete) */
 .hero-logo-tag {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.7);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
 }
 
 /* =========================================
@@ -122,12 +122,12 @@
 
 @keyframes floatLogo {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-15px); }
 }
 
 @keyframes pulseGlowYellow {
   0%, 100% { opacity: .5; transform: scale(1); }
-  50% { opacity: 0.9; transform: scale(1.1); }
+  50% { opacity: 0.9; transform: scale(1.08); }
 }
 
 /* =========================================
@@ -137,26 +137,54 @@
 @media (max-width: 768px) {
   .hero-logos {
     gap: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+  }
+
+  .hero-logos::before {
+    width: 300px;
+    height: 150px;
+    filter: blur(30px);
   }
 
   .hero-ring-wrap {
-    width: 150px !important;  /* Ajuste para telas menores */
-    height: 150px !important;
+    width: 170px !important;  /* Ajuste proporcional para mobile */
+    height: 170px !important;
   }
 
   .hero-logo-img-box {
-    width: 110px !important;  /* Ajuste para telas menores */
-    height: 110px !important;
-    padding: 6px !important;
+    width: 130px !important;  /* Ajuste proporcional para mobile */
+    height: 130px !important;
+    padding: 8px !important;
+    border-radius: 14px;
   }
 
   .hero-title-animated {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     padding: 0 15px;
+    margin-top: 10px;
   }
   
   .hero-logo-tag {
-    font-size: 9px;
+    font-size: 10px;
+  }
+}
+
+/* =========================================
+   TABLET (TELAS MÉDIAS)
+========================================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-ring-wrap {
+    width: 240px;
+    height: 240px;
+  }
+
+  .hero-logo-img-box {
+    width: 180px !important;
+    height: 180px !important;
+  }
+
+  .hero-title-animated {
+    font-size: 2.1rem;
   }
 }
