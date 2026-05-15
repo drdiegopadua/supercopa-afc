@@ -812,45 +812,18 @@ footer{
 
   <nav>
 
-    <a class="nav-logo" href="index.html">
+    <a class="nav-logo" href="#">
       SUPER<span>◥</span>COPA
     </a>
 
     <ul class="nav-links">
-
-      <li>
-        <a href="index.html">
-          Início
-        </a>
-      </li>
-
-      <li>
-        <a href="index.html#fases">
-          Fases
-        </a>
-      </li>
-
-      <li>
-        <a href="index.html#times">
-          Times
-        </a>
-      </li>
-
-      <li>
-        <a href="index.html#tabela">
-          Tabela
-        </a>
-      </li>
-
-      <li>
-        <a href="index.html#faq">
-          FAQ
-        </a>
-      </li>
-
+      <li><a href="#">Fases</a></li>
+      <li><a href="#">Times</a></li>
+      <li><a href="#">Tabela</a></li>
+      <li><a href="#">FAQ</a></li>
     </ul>
 
-    <a class="nav-back" href="index.html">
+    <a class="nav-back" href="#">
       ← Voltar ao site
     </a>
 
@@ -858,8 +831,455 @@ footer{
 
 </header>
 
-<!-- RESTANTE DO SEU CÓDIGO CONTINUA IGUAL -->
-<!-- NÃO ALTEREI MAIS NADA ALÉM DO CABEÇALHO -->
+<div id="formWrap">
+
+  <div class="page-hero">
+
+    <div class="hero-dots"></div>
+    <div class="hero-glow"></div>
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Edição 2026 · Afonso Cláudio
+    </div>
+
+    <h1>
+      Pré-Inscrição <em>Gratuita</em>
+    </h1>
+
+    <p>
+      Preencha os dados da sua equipe abaixo.
+      Nossa comissão entrará em contato via WhatsApp
+      para validar sua participação.
+    </p>
+
+    <div class="benefits-bar">
+
+      <div class="benefit-pill">
+        ✓ Sem Taxa
+      </div>
+
+      <div class="benefit-pill">
+        ✓ Alojamento Grátis
+      </div>
+
+      <div class="benefit-pill">
+        ✓ Premiação
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="form-wrap">
+
+    <div class="form-card">
+
+      <!-- MODALIDADE -->
+
+      <div class="form-section">
+
+        <div class="form-section-title">
+          Modalidade
+        </div>
+
+        <div class="form-section-sub">
+          Escolha a modalidade da equipe
+        </div>
+
+        <div class="mod-toggle">
+
+          <label class="mod-opt">
+
+            <input type="radio" name="modalidade" value="Voleibol">
+
+            <div class="mod-label">
+              <span class="m-icon">🏐</span>
+              Voleibol
+              <span class="m-sub">6ª Edição</span>
+            </div>
+
+          </label>
+
+          <label class="mod-opt">
+
+            <input type="radio" name="modalidade" value="Basquete">
+
+            <div class="mod-label">
+              <span class="m-icon">🏀</span>
+              Basquete
+              <span class="m-sub">1ª Edição</span>
+            </div>
+
+          </label>
+
+        </div>
+
+        <span class="field-error" id="modError">
+          Selecione uma modalidade.
+        </span>
+
+      </div>
+
+      <!-- EQUIPE -->
+
+      <div class="form-section">
+
+        <div class="form-section-title">
+          Dados da Equipe
+        </div>
+
+        <div class="form-section-sub">
+          Informações básicas do time
+        </div>
+
+        <div class="field-group single">
+
+          <div class="field">
+            <label>Nome da Equipe</label>
+            <input type="text" id="nomeEquipe" placeholder="Ex: Águias das Montanhas">
+            <span class="field-error" id="nomeEquipeError">Campo obrigatório.</span>
+          </div>
+
+        </div>
+
+        <div class="field-group">
+
+          <div class="field">
+            <label>Cidade</label>
+            <input type="text" id="cidade" placeholder="Ex: Afonso Cláudio">
+            <span class="field-error" id="cidadeError">Campo obrigatório.</span>
+          </div>
+
+          <div class="field">
+            <label>Estado</label>
+
+            <select id="estado">
+              <option value="">Selecione...</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="SP">São Paulo</option>
+              <option value="BA">Bahia</option>
+            </select>
+
+            <span class="field-error" id="estadoError">
+              Selecione o estado.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RESPONSÁVEL -->
+
+      <div class="form-section">
+
+        <div class="form-section-title">
+          Responsável
+        </div>
+
+        <div class="form-section-sub">
+          Contato oficial da equipe
+        </div>
+
+        <div class="field-group">
+
+          <div class="field">
+            <label>Nome Completo</label>
+            <input type="text" id="nomeResp" placeholder="Nome do técnico ou capitão">
+            <span class="field-error" id="nomeRespError">Campo obrigatório.</span>
+          </div>
+
+          <div class="field">
+            <label>WhatsApp</label>
+            <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX">
+            <span class="field-error" id="telefoneError">WhatsApp inválido.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ALOJAMENTO -->
+
+      <div class="form-section">
+
+        <div class="form-section-title">
+          Alojamento
+        </div>
+
+        <div class="form-section-sub">
+          Alojamento gratuito para equipes visitantes
+        </div>
+
+        <div class="aloj-toggle">
+
+          <label class="toggle-opt">
+
+            <input type="radio" name="alojamento" value="nao" checked>
+
+            <div class="toggle-label">
+              🏠 Não preciso
+            </div>
+
+          </label>
+
+          <label class="toggle-opt">
+
+            <input type="radio" name="alojamento" value="sim">
+
+            <div class="toggle-label">
+              🛏️ Sim, preciso
+            </div>
+
+          </label>
+
+        </div>
+
+        <div class="aloj-qty" id="alojQtyWrap">
+
+          <div class="field">
+            <label>Para quantas pessoas?</label>
+            <input type="number" id="alojQty" placeholder="Ex: 12">
+            <span class="field-error" id="alojQtyError">Informe a quantidade.</span>
+          </div>
+
+        </div>
+
+        <div class="aloj-note">
+          ✓ O alojamento é 100% gratuito.
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+
+      <div class="form-footer">
+
+        <div class="form-zero-taxa">
+          ✓ Evento totalmente gratuito.
+        </div>
+
+        <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+
+          <span class="btn-text">
+            Enviar Pré-Inscrição
+          </span>
+
+          <div class="btn-spinner"></div>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- SUCESSO -->
+
+<div class="success-screen" id="successScreen">
+
+  <div class="success-icon">
+    ✅
+  </div>
+
+  <h2>
+    Inscrição <em>Enviada!</em>
+  </h2>
+
+  <p>
+    Sua pré-inscrição foi recebida com sucesso.
+    Nossa comissão organizadora entrará em contato em breve.
+  </p>
+
+  <div class="success-details" id="successDetails"></div>
+
+</div>
+
+<footer>
+
+  <div class="footer-logo">
+    SUPERCOPA
+  </div>
+
+  <div class="footer-tagline">
+    Campeonato Multiesporte · Afonso Cláudio · 2026
+  </div>
+
+</footer>
+
+<script>
+
+/* TELEFONE */
+
+const telInput = document.getElementById('telefone');
+
+telInput.addEventListener('input', ()=>{
+
+  let v = telInput.value.replace(/\D/g,'').slice(0,11);
+
+  if(v.length > 10){
+    v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  }
+  else if(v.length > 6){
+    v = `(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`;
+  }
+  else if(v.length > 2){
+    v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+  }
+
+  telInput.value = v;
+});
+
+/* ALOJAMENTO */
+
+document.querySelectorAll('input[name="alojamento"]').forEach(r=>{
+
+  r.addEventListener('change', ()=>{
+
+    const wrap = document.getElementById('alojQtyWrap');
+
+    wrap.classList.toggle(
+      'visible',
+      r.checked && r.value === 'sim'
+    );
+
+  });
+
+});
+
+/* VALIDAR */
+
+function validate(){
+
+  let ok = true;
+
+  const modalidade = document.querySelector('input[name="modalidade"]:checked');
+
+  if(!modalidade){
+    document.getElementById('modError').style.display='block';
+    ok=false;
+  }else{
+    document.getElementById('modError').style.display='none';
+  }
+
+  return ok;
+}
+
+/* SUBMIT */
+
+async function submitForm(){
+
+  if(!validate()) return;
+
+  const btn = document.getElementById('btnSubmit');
+
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  const urlPlanilha = "https://script.google.com/macros/s/AKfycbwQuDeZHx04mMr_HuILJfwOV79BlTJfFBtyfeGV36XeJdcZxpO3-yHl5_AKbxXl9Sbq0A/exec";
+
+  const modalidade = document.querySelector('input[name="modalidade"]:checked').value;
+
+  const alojamento = document.querySelector('input[name="alojamento"]:checked').value;
+
+  const dados = {
+
+    modalidade: modalidade,
+
+    nomeEquipe:
+    document.getElementById('nomeEquipe').value,
+
+    cidade:
+    document.getElementById('cidade').value,
+
+    estado:
+    document.getElementById('estado').value,
+
+    nomeResponsavel:
+    document.getElementById('nomeResp').value,
+
+    telefone:
+    document.getElementById('telefone').value,
+
+    alojamento:
+    alojamento === 'sim',
+
+    alojamentoPessoas:
+    alojamento === 'sim'
+      ? document.getElementById('alojQty').value
+      : 0
+  };
+
+  try{
+
+    await fetch(urlPlanilha,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{
+        'Content-Type':'text/plain'
+      },
+      body:JSON.stringify(dados)
+    });
+
+    setTimeout(()=>{
+      mostrarSucesso(dados);
+    },500);
+
+  }catch(err){
+
+    console.error(err);
+
+    alert('Erro ao enviar formulário.');
+
+    btn.classList.remove('loading');
+    btn.disabled = false;
+
+  }
+
+}
+
+/* SUCESSO */
+
+function mostrarSucesso(d){
+
+  document.getElementById('formWrap').style.display='none';
+
+  const rows = [
+
+    ['Modalidade', d.modalidade],
+    ['Equipe', d.nomeEquipe],
+    ['Cidade', d.cidade],
+    ['Estado', d.estado],
+    ['Responsável', d.nomeResponsavel],
+    ['WhatsApp', d.telefone]
+
+  ];
+
+  document.getElementById('successDetails').innerHTML =
+  rows.map(([l,v])=>`
+    <div class="sd-row">
+      <span class="sd-label">${l}</span>
+      <span class="sd-value">${v}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('successScreen').classList.add('visible');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+}
+
+</script>
 
 </body>
 </html>
