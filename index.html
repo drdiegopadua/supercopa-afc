@@ -1,8 +1,8 @@
-<html lang="pt-BR"><head manus-helper-ready="true">
+<html lang="pt-BR"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SUPERCOPA ◥ O Maior da Região das Montanhas</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -46,7 +46,6 @@ nav{
 }
 @keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 
-/* HERO — SEM min-height 100vh, usa padding generoso */
 .hero{
   padding:90px 24px 80px;
   text-align:center;
@@ -76,7 +75,6 @@ nav{
   line-height:.9;letter-spacing:2px;
   opacity:0;transform:translateY(30px);
   animation:fadeUp .8s .25s ease forwards;
-  
 }
 .hero h1 em{font-style:normal;color:var(--accent)}
 .hero-sub{
@@ -178,9 +176,14 @@ h2 em{font-style:normal;color:var(--accent)}
   background:radial-gradient(ellipse 50% 100% at 50% 50%,rgba(58, 134, 240, 0.05) 0%,transparent 70%);
   pointer-events:none;
 }
+.counter-title{
+  text-align:center;font-family:var(--D);font-size:28px;letter-spacing:2px;
+  margin-bottom:48px;color:var(--text);
+}
 .counter-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
 .counter-box{background:var(--surface);padding:44px 32px;text-align:center;transition:background .2s}
 .counter-box:hover{background:#0f141e}
+.counter-box .icon{font-size:28px;margin-bottom:12px}
 .counter-num{font-family:var(--D);font-size:68px;color:var(--accent);line-height:1;display:block;margin-bottom:8px}
 .counter-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
 
@@ -341,208 +344,123 @@ header {
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 body {
-  padding-top: 105px; /* Altura aproximada da barra de urgência + nav */
+  padding-top: 105px;
 }
 
+/* Animações hero logos */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes revealText {
+  from { opacity: 0; transform: translateY(15px); letter-spacing: 8px; }
+  to { opacity: 1; transform: translateY(0); letter-spacing: 1px; }
+}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+@keyframes glowText {
+  0% { text-shadow: 0 0 10px rgba(255,255,255,0.15); }
+  50% { text-shadow: 0 0 25px rgba(255,255,255,0.4); }
+  100% { text-shadow: 0 0 10px rgba(255,255,255,0.15); }
+}
+
+.hero-logos {
+  display: flex;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  flex-wrap: nowrap;
+}
+.hero-logo-animated {
+  height: 300px;
+  width: auto;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards, float 4s ease-in-out infinite 1s;
+  transition: transform 0.3s ease;
+}
+.logo-basquete { animation-delay: 0.2s, 1.2s; }
+.hero-title-animated {
+  font-size: 1.9rem;
+  text-align: center;
+  opacity: 0;
+  animation: revealText 1.2s ease-out forwards 1.2s, glowText 4s ease-in-out infinite 2.2s;
+  margin-top: -10px;
+  width: 100%;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.hero-logo-animated:hover {
+  transform: scale(1.05) !important;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+}
+@media (max-width: 768px) {
+  .hero-logos { flex-wrap: nowrap; }
+  .hero-logo-animated { height: 150px; max-width: 50%; }
+  .hero-title-animated { font-size: 1.1rem; padding: 0 10px; line-height: 1.3; margin-top: -5px; }
+}
 </style>
 </head>
 <body>
 
-<header><div class="urgency-bar">⚡ O MAIOR EVENTO MULTIESPORTE DA REGIÃO DAS MONTANHAS ⚡</div>
-
-<nav>
-  <a class="nav-logo" href="#" data-manus_clickable="true" data-manus_click_id="1">SUPER<span>◥</span>COPA</a>
-  <ul class="nav-links"><li><a href="#">Início</a></li>
-    <li><a href="#fases" data-manus_clickable="true" data-manus_click_id="2">Fases</a></li>
-    <li><a href="#times" data-manus_clickable="true" data-manus_click_id="3">Times</a></li>
-    <li><a href="#classificacao" data-manus_clickable="true" data-manus_click_id="4">Tabela</a></li>
-    <li><a href="#faq" data-manus_clickable="true" data-manus_click_id="5">FAQ</a></li>
-    <li><a class="nav-cta" href="#inscricao" data-manus_clickable="true" data-manus_click_id="6">Inscrição</a></li>
-  </ul>
-</nav></header>
-
-
-  <!-- ÍNICIO DE ONDE ESTÁ AS LOGOS -->
-<style>
-  /* Animações */
-  @keyframes fadeInUp {
-    from { 
-      opacity: 0; 
-      transform: translateY(20px); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
-
-  @keyframes revealText {
-    from { 
-      opacity: 0; 
-      transform: translateY(15px);
-      letter-spacing: 8px;
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0);
-      letter-spacing: 1px;
-    }
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-  }
-
-  @keyframes glowText {
-    0% {
-      text-shadow: 0 0 10px rgba(255,255,255,0.15);
-    }
-    50% {
-      text-shadow: 0 0 25px rgba(255,255,255,0.4);
-    }
-    100% {
-      text-shadow: 0 0 10px rgba(255,255,255,0.15);
-    }
-  }
-
-  /* Container das Logos */
-  .hero-logos {
-    display: flex;
-    gap: 0px; /* Logos bem juntas */
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5px;
-    flex-wrap: nowrap;
-  }
-
-  .hero-logo-animated {
-    height: 300px; /* TAMANHO AJUSTADO */
-    width: auto;
-    opacity: 0;
-    animation:
-      fadeInUp 1s ease-out forwards,
-      float 4s ease-in-out infinite 1s;
-    transition: transform 0.3s ease;
-  }
-
-  .logo-basquete {
-    animation-delay: 0.2s, 1.2s;
-  }
-
-  /* Título */
-  .hero-title-animated {
-    font-size: 1.9rem; /* TEXTO MENOR */
-    text-align: center;
-    opacity: 0;
-    animation:
-      revealText 1.2s ease-out forwards 1.2s,
-      glowText 4s ease-in-out infinite 2.2s;
-    margin-top: -10px;
-    width: 100%;
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-
-    .hero-logos {
-      gap: 0px;
-      flex-wrap: nowrap;
-    }
-
-    .hero-logo-animated {
-      height: 150px;
-      max-width: 50%;
-    }
-
-    .hero-title-animated {
-      font-size: 1.1rem;
-      padding: 0 10px;
-      line-height: 1.3;
-      margin-top: -5px;
-    }
-
-    .hero-sub {
-      text-align: center;
-    }
-  }
-
-  .hero-logo-animated:hover {
-    transform: scale(1.05) !important;
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
-  }
-</style>
+<header>
+  <div class="urgency-bar">⚡ O MAIOR EVENTO MULTIESPORTE DA REGIÃO DAS MONTANHAS ⚡</div>
+  <nav>
+    <a class="nav-logo" href="#">SUPER<span>◥</span>COPA</a>
+    <ul class="nav-links">
+      <li><a href="#">Início</a></li>
+      <li><a href="#fases">Fases</a></li>
+      <li><a href="#times">Times</a></li>
+      <li><a href="#classificacao">Tabela</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a class="nav-cta" href="#inscricao">Inscrição</a></li>
+    </ul>
+  </nav>
+</header>
 
 <!-- HERO -->
 <div class="hero" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-  
   <div class="hero-glow"></div>
-
   <div class="hero-badge">
     <span class="hero-badge-dot"></span>
     &nbsp;2026 · Transmissão e Classificação em tempo real · Pré-Inscrições Abertas EM BREVE para o Volei
   </div>
-
   <div class="hero-title-container" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-
     <div class="hero-logos">
-      <img 
-        src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/PDfypVqTWbbOxefJ.png" 
-        alt="Super Voleibol Copa Logo" 
-        class="hero-logo-animated"
-      >
-
-      <img 
-        src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/vlIeKkKvYyDxjITf.png" 
-        alt="Super Basquete Copa Logo" 
-        class="hero-logo-animated logo-basquete"
-      >
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/PDfypVqTWbbOxefJ.png" alt="Super Voleibol Copa Logo" class="hero-logo-animated">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/vlIeKkKvYyDxjITf.png" alt="Super Basquete Copa Logo" class="hero-logo-animated logo-basquete">
     </div>
-
-    <h1 class="hero-title-animated">
-      O maior da Região das Montanhas
-    </h1>
-
+    <h1 class="hero-title-animated">O maior da Região das Montanhas</h1>
   </div>
-
   <p class="hero-sub">
     Reúna sua equipe, viva a emoção da maior competição multiesportiva da região e dispute a taça mais cobiçada de Afonso Cláudio. A Supercopa chega com a 6ª edição do Voleibol e a 1ª edição do Basquete, reunindo equipes de vários estados em um evento totalmente gratuito, com alojamento e sem taxa de inscrição.
   </p>
-
   <div class="hero-actions" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
     <a class="btn-p" href="#inscricao">Inscrever Meu Time</a>
     <a class="btn-o" href="#fases">Ver Regulamento</a>
   </div>
-
   <div class="hero-stats" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 30px;">
-    
     <div class="hero-stat">
       <span class="hero-stat-num" id="c1">12</span>
       <span class="hero-stat-label">Equipes no evento de Voleibol</span>
     </div>
-
     <div class="hero-stat">
       <span class="hero-stat-num" id="c2">6</span>
       <span class="hero-stat-label">Equipes no evento de Basquete</span>
     </div>
-
     <div class="hero-stat">
       <span class="hero-stat-num" id="c3">R$0,00</span>
       <span class="hero-stat-label">de Taxa de Inscrição</span>
     </div>
-
     <div class="hero-stat">
       <span class="hero-stat-num" id="c4">1</span>
       <span class="hero-stat-label">Chance de fazer história</span>
     </div>
-
   </div>
 </div>
-<!-- FIM DE ONDE ESTÁ AS LOGOS -->
-
 
 <!-- MARQUEE -->
 <div class="marquee-wrap">
@@ -593,50 +511,34 @@ body {
   </div>
 </section>
 
-
-
-
-  
-<!-- CONTADORES ELITE -->
+<!-- CONTADORES -->
 <div class="counter-section">
   <div class="counter-title">📊 Números da Supercopa de Afonso Cláudio</div>
-
   <div class="counter-inner">
-
     <div class="counter-box">
       <div class="icon">⏱️</div>
       <span class="counter-num" data-target="164">0</span>
       <span class="counter-label">Horas de jogo</span>
     </div>
-
     <div class="counter-box">
       <div class="icon">🔥</div>
       <span class="counter-num" data-target="9840">0</span>
       <span class="counter-label">Minutos de esporte</span>
     </div>
-
     <div class="counter-box">
       <div class="icon">💰</div>
       <span class="counter-num" data-target="200000">0</span>
       <span class="counter-label">Reais movimentados</span>
     </div>
-
     <div class="counter-box">
       <div class="icon">🏐</div>
       <span class="counter-num" data-target="1000">0</span>
       <span class="counter-label">Atletas envolvidos</span>
     </div>
-
   </div>
 </div>
 
-
-
-
-
-  
-
-  <!-- TIMES voleibol -->
+<!-- TIMES voleibol -->
 <section class="section" id="times">
   <div class="section-tag reveal">Participantes Voleibol 2026</div>
   <h2 class="reveal">Times <em>inscritos</em></h2>
@@ -646,24 +548,22 @@ body {
     <div class="time-card champion reveal" style="transition-delay:.05s"><span class="champ-badge">EQUIPE DA CASA</span><span class="time-escudo">🦅</span><div class="time-nome">CT das Montanhas</div><div class="time-cidade">Afonso Cláudio, ES</div><span class="time-grupo ga">Grupo C</span></div>
     <div class="time-card reveal" style="transition-delay:.10s"><span class="time-escudo">🌊</span><div class="time-nome">Equipe X</div><div class="time-cidade">Cidade, RJ</div><span class="time-grupo ga">Grupo D</span></div>
     <div class="time-card reveal" style="transition-delay:.15s"><span class="time-escudo">🦁</span><div class="time-nome">Equipe X</div><div class="time-cidade">Cidade, ES</div><span class="time-grupo gb">Grupo A</span></div>
-   
   </div>
-  <p class="reveal" style="color:var(--muted);margin-top:20px;font-size:13px;text-align:center">Ao todo serão 12 times brigando pelo título · <a href="#inscricao" style="color:var(--accent)" data-manus_clickable="true" data-manus_click_id="9">Ver lista completa</a></p>
+  <p class="reveal" style="color:var(--muted);margin-top:20px;font-size:13px;text-align:center">Ao todo serão 12 times brigando pelo título · <a href="#inscricao" style="color:var(--accent)">Ver lista completa</a></p>
 </section>
 
-  
-<!-- TIMES voleibol -->
-<section class="section" id="times">
+<!-- TIMES basquete -->
+<section class="section">
   <div class="section-tag reveal">Participantes Basquete 2026</div>
   <h2 class="reveal">Times <em>inscritos</em></h2>
   <div class="times-grid">
     <div class="time-card champion reveal" style="transition-delay:.05s"><span class="champ-badge">EQUIPE DA CASA</span><span class="time-escudo">🦅</span><div class="time-nome">CT das Montanhas</div><div class="time-cidade">Afonso Cláudio, ES</div><span class="time-grupo ga">Grupo C</span></div>
-        <div class="time-card reveal" style="transition-delay:.15s"><span class="time-escudo">🦁</span><div class="time-nome">Equipe X</div><div class="time-cidade">Cidade, ES</div><span class="time-grupo gb">Grupo B</span></div>
+    <div class="time-card reveal" style="transition-delay:.15s"><span class="time-escudo">🦁</span><div class="time-nome">Equipe X</div><div class="time-cidade">Cidade, ES</div><span class="time-grupo gb">Grupo B</span></div>
     <div class="time-card reveal" style="transition-delay:.20s"><span class="time-escudo">⚡</span><div class="time-nome">Equipe X</div><div class="time-cidade">Cidade, ES</div><span class="time-grupo gb">Grupo C</span></div>
     <div class="time-card reveal" style="transition-delay:.25s"><span class="time-escudo">🌪️</span><div class="time-nome">Equipe X</div><div class="time-cidade">Cidade, ES</div><span class="time-grupo gc">Grupo A</span></div>
     <div class="time-card reveal" style="transition-delay:.30s"><span class="time-escudo">🔱</span><div class="time-nome">Equipe X</div><div class="time-cidade">Cidade, ES</div><span class="time-grupo gc">Grupo B</span></div>
-    <  </div>
-  <p class="reveal" style="color:var(--muted);margin-top:20px;font-size:13px;text-align:center">Ao todo serão 06 times brigando pelo título · <a href="#inscricao" style="color:var(--accent)" data-manus_clickable="true" data-manus_click_id="9">Ver lista completa</a></p>
+  </div>
+  <p class="reveal" style="color:var(--muted);margin-top:20px;font-size:13px;text-align:center">Ao todo serão 06 times brigando pelo título · <a href="#inscricao" style="color:var(--accent)">Ver lista completa</a></p>
 </section>
 
 <!-- TABELA -->
@@ -713,22 +613,19 @@ body {
   <div class="timeline">
     <div class="tl-item"><div class="tl-dot">01</div><div class="tl-content"><div class="tl-date">Passo 1</div><h3>Clique no Botão "Pré-Inscrição"</h3><p style="color:var(--muted)">Preencha o formulário com os dados da equipe e de seu responsável.</p></div></div>
     <div class="tl-item"><div class="tl-dot">02</div><div class="tl-content"><div class="tl-date">Passo 2</div><h3>Participe do Grupo "Pré-inscrição Supercopa 2026"</h3><p style="color:var(--muted)">Toda e qualquer dúvida que você tiver sobre o evento, aqui será sanada.</p></div></div>
-    <div class="tl-item"><div class="tl-dot">03</div><div class="tl-content"><div class="tl-date">Passo 3</div><h3>Aguarde o convite</h3><p style="color:var(--muted)">A Comissão Organizadora, evia convites para as primeiras equipes selecionadas. Fique esperto, depois de receber o convite você terá um prazo para formalizar sua participação.</p></div></div>
+    <div class="tl-item"><div class="tl-dot">03</div><div class="tl-content"><div class="tl-date">Passo 3</div><h3>Aguarde o convite</h3><p style="color:var(--muted)">A Comissão Organizadora envia convites para as primeiras equipes selecionadas. Fique esperto, depois de receber o convite você terá um prazo para formalizar sua participação.</p></div></div>
     <div class="tl-item"><div class="tl-dot">04</div><div class="tl-content"><div class="tl-date">Passo 4</div><h3>Jogue e conquiste</h3><p style="color:var(--muted)">Apareça nas quadras e mostre do que seu time é capaz.</p></div></div>
   </div>
 </section>
 
-
-
-  
 <!-- CTA -->
 <div class="cta-section" id="inscricao">
   <div class="section-tag reveal" style="justify-content:center">Faça sua Pré-Inscrição</div>
   <h2 class="reveal">Pronto para o <em>jogo?</em></h2>
   <p class="reveal">As inscrições para a Supercopa de Voleibol abrem em Setembro. Apenas 12 vagas para a edição 2026. Fique esperto para não perder o período de pré-inscrição</p>
   <div class="cta-actions reveal">
-    <a class="btn-p" href="#" data-manus_clickable="true" data-manus_click_id="10">Inscrever Meu Time</a>
-    <a class="btn-o" href="#" data-manus_clickable="true" data-manus_click_id="11">Baixar Regulamento Completo</a>
+    <a class="btn-p" href="#">Inscrever Meu Time</a>
+    <a class="btn-o" href="#">Baixar Regulamento Completo</a>
   </div>
   <p class="cta-meta reveal">✓ Único da região SEM TAXA &nbsp;·&nbsp; ✓ Regulamento transparente &nbsp;·&nbsp; ✓ Suporte via WhatsApp</p>
 </div>
@@ -745,9 +642,9 @@ body {
       <div class="dep-card"><div class="dep-quote">"</div><p class="dep-text">Ganhar o Spike Cup foi o ponto alto da carreira dos meus atletas. A estrutura e a seriedade da organização são únicos. Já confirmamos presença para 2025 — queremos o bicampeonato.</p><div class="dep-author"><div class="dep-avatar">RS</div><div><div class="dep-name">Rafael Souza</div><div class="dep-role">Técnico · Raios do Norte</div></div></div></div>
     </div>
     <div class="dep-controls">
-      <button class="dep-btn" id="prevBtn" data-manus_clickable="true" data-manus_click_id="12">←</button>
-      <button class="dep-btn" id="nextBtn" data-manus_clickable="true" data-manus_click_id="13">→</button>
-      <div class="dep-dots" id="depDots"><div class="dep-dot active" data-manus_clickable="true" data-manus_click_id="14"></div><div class="dep-dot" data-manus_clickable="true" data-manus_click_id="15"></div></div>
+      <button class="dep-btn" id="prevBtn">←</button>
+      <button class="dep-btn" id="nextBtn">→</button>
+      <div class="dep-dots" id="depDots"></div>
     </div>
   </div>
 </section>
@@ -757,38 +654,27 @@ body {
   <div class="section-tag reveal">Dúvidas</div>
   <h2 class="reveal">Perguntas <em>frequentes</em></h2>
   <div class="faq-list reveal">
-
-    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="16">O que é a Supercopa de Afonso Cláudio?<span class="faq-arrow">+</span></button><div class="faq-a">A Supercopa de Afonso Cláudio é a primeira competição multiesporte da região, reunindo diferentes modalidades esportivas em um único grande evento, promovendo esporte, integração e entretenimento.</div></div>
-  
-  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="17">Quais esportes fazem parte da competição?<span class="faq-arrow">+</span></button><div class="faq-a">Atualmente o evento conta com voleibol e basquete, podendo expandir para novas modalidades em edições futuras.</div></div>
-
-<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="18">Qual valor da TAXA DE INSCRIÇÃO<span class="faq-arrow">+</span></button><div class="faq-a">NÓS NÃO COBRAMOS TAXA DE INSCRIÇÃO E NENHUM OUTRO TIPO DE TAXA.</div></div>
-
-  
-  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="19">Onde serão realizados os jogos?<span class="faq-arrow">+</span></button><div class="faq-a">O evento acontece em Afonso Cláudio – ES, utilizando ginásios e espaços esportivos definidos pela organização.</div></div>
- 
-   <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="20">Quem pode participar?<span class="faq-arrow">+</span></button><div class="faq-a">Equipes de Voleibol e Basquetebol de qualquer lugar do Brasil!</div></div>
-   
- <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="21">Como faço a inscrição?<span class="faq-arrow">+</span></button><div class="faq-a">Em nosso evento você faz uma pré-inscrição e depois a  Comissão Organizadora, avalia as inscrições e envia convites.</div></div>
-   
- <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="22">Haverá premiação?<span class="faq-arrow">+</span></button><div class="faq-a">Sim. A Supercopa de Afonso Cláudio terá premiação nas duas modalidades.No voleibol, haverá premiação em dinheiro (valor a divulgar), além de troféus, medalhas para campeão e vice e destaques individuais.No basquete, haverá troféus, medalhas para campeão e vice e premiação para destaques individuais.</div></div>
-
- <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="23">Onde acompanho resultados e tabela?<span class="faq-arrow">+</span></button><div class="faq-a">Nas redes sociais oficiais e no site da Supercopa de Afonso Cláudio. No site, as tabelas e classificações são atualizadas em tempo real.</div></div>
-
- <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="24">Por que a Supercopa é diferente?<span class="faq-arrow">+</span></button><div class="faq-a">Porque é a primeira competição multiesporte da região, reunindo diferentes modalidades em um único evento moderno e organizado, além de não cobrar TAXA de participação.</div></div>
-
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">O que é a Supercopa de Afonso Cláudio?<span class="faq-arrow">+</span></button><div class="faq-a">A Supercopa de Afonso Cláudio é a primeira competição multiesporte da região, reunindo diferentes modalidades esportivas em um único grande evento, promovendo esporte, integração e entretenimento.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Quais esportes fazem parte da competição?<span class="faq-arrow">+</span></button><div class="faq-a">Atualmente o evento conta com voleibol e basquete, podendo expandir para novas modalidades em edições futuras.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Qual valor da TAXA DE INSCRIÇÃO<span class="faq-arrow">+</span></button><div class="faq-a">NÓS NÃO COBRAMOS TAXA DE INSCRIÇÃO E NENHUM OUTRO TIPO DE TAXA.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Onde serão realizados os jogos?<span class="faq-arrow">+</span></button><div class="faq-a">O evento acontece em Afonso Cláudio – ES, utilizando ginásios e espaços esportivos definidos pela organização.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Quem pode participar?<span class="faq-arrow">+</span></button><div class="faq-a">Equipes de Voleibol e Basquetebol de qualquer lugar do Brasil!</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Como faço a inscrição?<span class="faq-arrow">+</span></button><div class="faq-a">Em nosso evento você faz uma pré-inscrição e depois a Comissão Organizadora avalia as inscrições e envia convites.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Haverá premiação?<span class="faq-arrow">+</span></button><div class="faq-a">Sim. A Supercopa de Afonso Cláudio terá premiação nas duas modalidades. No voleibol, haverá premiação em dinheiro (valor a divulgar), além de troféus, medalhas para campeão e vice e destaques individuais. No basquete, haverá troféus, medalhas para campeão e vice e premiação para destaques individuais.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Onde acompanho resultados e tabela?<span class="faq-arrow">+</span></button><div class="faq-a">Nas redes sociais oficiais e no site da Supercopa de Afonso Cláudio. No site, as tabelas e classificações são atualizadas em tempo real.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Por que a Supercopa é diferente?<span class="faq-arrow">+</span></button><div class="faq-a">Porque é a primeira competição multiesporte da região, reunindo diferentes modalidades em um único evento moderno e organizado, além de não cobrar TAXA de participação.</div></div>
   </div>
 </section>
 
-
-  
 <footer>
   <div class="footer-inner">
     <div><div class="footer-logo">SUPERCOPA</div><div class="footer-tagline">Campeonato Multiesporte de Afonso Cláudio · 6ª Edição · 2026</div></div>
     <ul class="footer-links">
-      <li><a href="#fases" data-manus_clickable="true" data-manus_click_id="22">Regulamento</a></li><li><a href="#times" data-manus_clickable="true" data-manus_click_id="23">Times</a></li>
-      <li><a href="#classificacao" data-manus_clickable="true" data-manus_click_id="24">Tabela</a></li><li><a href="#faq" data-manus_clickable="true" data-manus_click_id="25">FAQ</a></li>
-      <li><a href="#inscricao" style="color:var(--accent)" data-manus_clickable="true" data-manus_click_id="26">Inscrição</a></li>
+      <li><a href="#fases">Regulamento</a></li>
+      <li><a href="#times">Times</a></li>
+      <li><a href="#classificacao">Tabela</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#inscricao" style="color:var(--accent)">Inscrição</a></li>
     </ul>
   </div>
   <div class="footer-bottom">
@@ -800,44 +686,57 @@ body {
 <script>
 /* ── SCROLL REVEAL ── */
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale,.tl-item').forEach(el => obs.observe(el));
 
 /* ── CONTADOR ANIMADO ── */
-function animCount(el, target, prefix, suffix) {
-  const dur = 1800, frames = 60, step = target / (dur / 1000 * frames);
-  let v = 0;
-  (function tick() {
-    v = Math.min(v + step, target);
-    el.textContent = (prefix||'') + Math.round(v).toLocaleString('pt-BR') + (suffix||'');
-    if (v < target) requestAnimationFrame(tick);
-  })();
+function animCount(el, target) {
+  if (!el) return;
+  const dur = 2000;
+  const startTime = performance.now();
+  (function tick(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / dur, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target).toLocaleString('pt-BR');
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = target.toLocaleString('pt-BR');
+  })(startTime);
 }
 
-/* hero counters — disparam ao entrar na tela */
+/* ── HERO COUNTERS ── */
 let heroFired = false;
-new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting && !heroFired) {
-    heroFired = true;
-    animCount(document.getElementById('c1'), 12);
-    animCount(document.getElementById('c2'), 6);
-    animCount(document.getElementById('c4'), 1);
-document.getElementById('c3').textContent = 'R$0,00';
-  }
-}, { threshold: 0.3 }).observe(document.querySelector('.hero-stats'));
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) {
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !heroFired) {
+      heroFired = true;
+      animCount(document.getElementById('c1'), 12);
+      animCount(document.getElementById('c2'), 6);
+      animCount(document.getElementById('c4'), 1);
+      const c3 = document.getElementById('c3');
+      if (c3) c3.textContent = 'R$0,00';
+    }
+  }, { threshold: 0.3 }).observe(heroStats);
+}
 
-/* section counters */
+/* ── SECTION COUNTERS ── */
 let secFired = false;
-new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting && !secFired) {
-    secFired = true;
-    animCount(document.getElementById('cc1'), 256);
-    animCount(document.getElementById('cc2'), 89);
-    animCount(document.getElementById('cc3'), 10);
-    animCount(document.getElementById('cc4'), 2000);
-  }
-}, { threshold: 0.3 }).observe(document.querySelector('.counter-section'));
+const counterSection = document.querySelector('.counter-section');
+if (counterSection) {
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !secFired) {
+      secFired = true;
+      document.querySelectorAll('.counter-num').forEach(el => {
+        const target = +el.getAttribute('data-target');
+        animCount(el, target);
+      });
+    }
+  }, { threshold: 0.1 }).observe(counterSection);
+}
 
 /* ── SLIDER DEPOIMENTOS ── */
 let idx = 0;
@@ -870,6 +769,5 @@ function toggleFaq(btn) {
 }
 window.toggleFaq = toggleFaq;
 </script>
-
 
 </body></html>
