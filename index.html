@@ -1,96 +1,604 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Supercopa AFC 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPIKE CUP ◥ Campeonato de Vôlei 2025</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+<style>
+*,*::before,*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#07090d;
+  --surface:#0d1018;
+  --card:#111520;
+  --border:rgba(255,255,255,0.07);
+
+  --accent:#3a86f0;
+  --accent2:#e85d3a;
+
+  --text:#e8eaf0;
+  --muted:#5a6174;
+
+  --D:'Bebas Neue',sans-serif;
+  --B:'DM Sans',sans-serif;
+  --M:'Space Mono',monospace;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--B);
+  overflow-x:hidden;
+}
+
+/* NAV */
+
+nav{
+  position:relative;
+  z-index:50;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:18px 48px;
+
+  background:rgba(7,9,13,0.95);
+
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo{
+  font-family:var(--D);
+  font-size:26px;
+  letter-spacing:3px;
+  color:var(--accent);
+  text-decoration:none;
+}
+
+.nav-logo span{
+  color:rgba(255,255,255,0.3);
+}
+
+.nav-links{
+  display:flex;
+  gap:32px;
+  list-style:none;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:color .2s;
+}
+
+.nav-links a:hover{
+  color:var(--text);
+}
+
+.nav-cta{
+  background:var(--accent)!important;
+  color:#000!important;
+  padding:9px 22px;
+  border-radius:3px;
+  font-weight:700!important;
+}
+
+/* HERO */
+
+.hero{
+  padding:100px 24px 80px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-glow{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:600px;
+  height:400px;
+
+  background:radial-gradient(
+    ellipse at 50% 0%,
+    rgba(58,134,240,.12) 0%,
+    transparent 70%
+  );
+
+  pointer-events:none;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  background:rgba(58,134,240,.1);
+  border:1px solid rgba(58,134,240,.25);
+
+  border-radius:100px;
+
+  padding:6px 20px;
+
+  margin-bottom:32px;
+
+  font-family:var(--M);
+  font-size:11px;
+  color:var(--accent);
+
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.hero-badge-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent);
+}
+
+.hero-title-container{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:40px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+
+.hero-logo{
+  width:180px;
+  height:auto;
+  filter:drop-shadow(0 0 20px rgba(58,134,240,.3));
+}
+
+.hero h1{
+  font-family:var(--D);
+  font-size:clamp(60px,11vw,130px);
+  line-height:.9;
+  letter-spacing:2px;
+}
+
+.hero h1 em{
+  font-style:normal;
+  color:var(--accent);
+}
+
+.hero-sub{
+  max-width:520px;
+  color:var(--muted);
+  font-size:17px;
+  margin:0 auto 44px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.btn-p{
+  background:var(--accent);
+  color:#000;
+
+  padding:16px 36px;
+
+  border-radius:3px;
+
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+
+  text-decoration:none;
+
+  transition:.3s;
+}
+
+.btn-p:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(58,134,240,.4);
+}
+
+.btn-o{
+  border:1px solid var(--border);
+
+  color:var(--text);
+
+  padding:16px 36px;
+
+  border-radius:3px;
+
+  font-weight:500;
+  font-size:13px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+
+  text-decoration:none;
+
+  transition:.3s;
+}
+
+.btn-o:hover{
+  border-color:rgba(255,255,255,.3);
+  transform:translateY(-2px);
+}
+
+.hero-stats{
+  display:flex;
+  gap:60px;
+  margin-top:72px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.hero-stat-num{
+  font-family:var(--D);
+  font-size:54px;
+  color:var(--accent);
+  line-height:1;
+  display:block;
+}
+
+.hero-stat-label{
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  margin-top:4px;
+}
+
+/* SECTION */
+
+.section{
+  padding:100px 48px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.section-tag{
+  font-family:var(--M);
+  font-size:11px;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  margin-bottom:14px;
+}
+
+h2{
+  font-family:var(--D);
+  font-size:clamp(42px,6.5vw,76px);
+  line-height:.95;
+  letter-spacing:1px;
+  margin-bottom:20px;
+}
+
+h2 em{
+  font-style:normal;
+  color:var(--accent);
+}
+
+/* CARDS */
+
+.fases-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  margin-top:56px;
+}
+
+.fase-card{
+  background:var(--card);
+  padding:36px 26px;
+  border:1px solid var(--border);
+  transition:.3s;
+}
+
+.fase-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(58,134,240,.3);
+}
+
+.fase-card h3{
+  font-family:var(--D);
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.fase-card p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* CTA */
+
+.cta-section{
+  text-align:center;
+  padding:110px 48px;
+
+  background:var(--surface);
+
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.cta-section p{
+  color:var(--muted);
+  max-width:500px;
+  margin:0 auto 40px;
+  font-size:17px;
+}
+
+.cta-actions{
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+/* FOOTER */
+
+footer{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  padding:56px 48px 32px;
+}
+
+.footer-inner{
+  max-width:1200px;
+  margin:0 auto;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:36px;
+}
+
+.footer-logo{
+  font-family:var(--D);
+  font-size:28px;
+  color:var(--accent);
+}
+
+.footer-tagline{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:6px;
+}
+
+.footer-bottom{
+  max-width:1200px;
+  margin:36px auto 0;
+
+  border-top:1px solid var(--border);
+
+  padding-top:22px;
+
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:16px;
+
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .fases-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:640px){
+
+  nav{
+    padding:14px 20px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .section{
+    padding:64px 20px;
+  }
+
+  .fases-grid{
+    grid-template-columns:1fr;
+  }
+
+  footer{
+    padding:40px 20px 24px;
+  }
+
+  .hero-title-container{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .hero-logo{
+    width:120px;
+  }
+
+}
+</style>
 </head>
 
 <body>
 
-  <div class="top-bar">
-    ⚡ A MAIOR COMPETIÇÃO DA REGIÃO DAS MONTANHAS !
+<nav>
+  <a class="nav-logo" href="#">SPIKE<span>◥</span>CUP</a>
+
+  <ul class="nav-links">
+    <li><a href="#">Fases</a></li>
+    <li><a href="#">Times</a></li>
+    <li><a href="#">Tabela</a></li>
+    <li><a href="#">FAQ</a></li>
+    <li><a class="nav-cta" href="#">Inscrição</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+
+  <div class="hero-glow"></div>
+
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    2025 · Décima Edição · Inscrições Abertas
   </div>
 
-  <header class="main-header">
+  <div class="hero-title-container">
 
-    <div class="logo">
-      SUPERCOPA AFC
+    <img
+      src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654705761/kxJpkGfIftRjMYWp.png"
+      alt="Logo"
+      class="hero-logo"
+    >
+
+    <h1>
+      O maior<br>
+      <em>campeonato</em><br>
+      de vôlei
+    </h1>
+
+  </div>
+
+  <p class="hero-sub">
+    Reúna seu time, mostre o seu jogo e dispute a taça mais cobiçada do circuito estadual.
+  </p>
+
+  <div class="hero-actions">
+    <a class="btn-p" href="#">Inscrever Meu Time</a>
+    <a class="btn-o" href="#">Ver Regulamento</a>
+  </div>
+
+  <div class="hero-stats">
+
+    <div class="hero-stat">
+      <span class="hero-stat-num">12</span>
+      <span class="hero-stat-label">Times</span>
     </div>
 
-    <nav>
-      <a href="#">Início</a>
-      <a href="#">Quem Somos</a>
-      <a href="#">História</a>
-      <a href="#">Tabela</a>
-      <a href="#">Galeria</a>
-    </nav>
+    <div class="hero-stat">
+      <span class="hero-stat-num">475</span>
+      <span class="hero-stat-label">Minutos de Vôlei</span>
+    </div>
 
-  </header>
+    <div class="hero-stat">
+      <span class="hero-stat-num">R$5k</span>
+      <span class="hero-stat-label">Em Prêmios</span>
+    </div>
 
-  <section class="hero">
+  </div>
 
-    <div class="hero-glow"></div>
+</div>
 
-    <div class="hero-content">
+<section class="section">
 
-      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/NXdzEyFuWsdfsDEV.png" class="hero-logo">
+  <div class="section-tag">
+    Estrutura do Campeonato
+  </div>
 
-      <h1>
-        SUPERCOPA<br>
-        <span>DE VOLEIBOL</span>
-      </h1>
+  <h2>
+    Do primeiro saque<br>
+    à <em>grande final</em>
+  </h2>
 
+  <div class="fases-grid">
+
+    <div class="fase-card">
+      <h3>🏐 Fase de Grupos</h3>
       <p>
-        Reunindo equipes de vários estados em uma competição moderna,
-        intensa e repleta de emoção.
+        12 times em grupos disputando vaga para as quartas de final.
       </p>
+    </div>
 
-      <div class="hero-buttons">
-        <a href="#" class="btn-primary">CLASSIFICAÇÃO</a>
-        <a href="#" class="btn-secondary">REGULAMENTO</a>
+    <div class="fase-card">
+      <h3>⚡ Quartas</h3>
+      <p>
+        Mata-mata emocionante onde somente os melhores sobrevivem.
+      </p>
+    </div>
+
+    <div class="fase-card">
+      <h3>🔥 Semifinal</h3>
+      <p>
+        Jogos intensos definindo os finalistas do campeonato.
+      </p>
+    </div>
+
+    <div class="fase-card">
+      <h3>🏆 Grande Final</h3>
+      <p>
+        Arena lotada, transmissão ao vivo e premiação para o campeão.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="cta-section">
+
+  <h2>
+    Pronto para o <em>saque?</em>
+  </h2>
+
+  <p>
+    Garanta a vaga do seu time antes do encerramento das inscrições.
+  </p>
+
+  <div class="cta-actions">
+    <a class="btn-p" href="#">Inscrever Meu Time</a>
+    <a class="btn-o" href="#">Baixar Regulamento</a>
+  </div>
+
+</div>
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div>
+      <div class="footer-logo">SPIKE CUP</div>
+
+      <div class="footer-tagline">
+        Campeonato Estadual de Vôlei · 2025
       </div>
-
     </div>
 
-  </section>
+  </div>
 
-  <section class="stats">
+  <div class="footer-bottom">
+    <span>© 2025 Spike Cup</span>
+    <span>Feito com 🏐</span>
+  </div>
 
-    <div class="stat-card">
-      <div class="stat-number">18</div>
-      <div class="stat-text">Equipes de Voleibol e Basquete</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-number">+1000</div>
-      <div class="stat-text">Atletas já viveram ou viverão a Supercopa</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-number">+153h</div>
-      <div class="stat-text">de esporte de alto nível</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-number">9.225</div>
-      <div class="stat-text">minutos de esporte transformando vidas</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-number">6</div>
-      <div class="stat-text">anos da MAIOR competição da Região das Montanhas</div>
-    </div>
-
-  </section>
-
-  <script src="script.js"></script>
+</footer>
 
 </body>
-
 </html>
