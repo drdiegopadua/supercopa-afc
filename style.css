@@ -1,3 +1,5 @@
+/* HERO LOGOS */
+
 .hero-title-container {
   display: flex;
   flex-direction: column;
@@ -13,83 +15,107 @@
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:40px;
+  gap:50px;
   flex-wrap:wrap;
 }
 
+/* BOX DA LOGO */
 .hero-logo-box{
   position:relative;
   animation:floatLogo 4s ease-in-out infinite;
 }
 
+/* DELAY DIFERENTE */
 .logo-basquete{
   animation-delay:2s;
 }
 
+/* IMAGEM */
 .hero-logo{
-  width:190px;
+  width:210px;
   height:auto;
   object-fit:contain;
-  transition:transform .4s ease, filter .4s ease;
+  transition:
+    transform .45s ease,
+    filter .45s ease;
+    
   filter:
-    drop-shadow(0 0 20px rgba(58,134,240,.35))
-    drop-shadow(0 0 40px rgba(58,134,240,.15));
+    drop-shadow(0 0 18px rgba(58,134,240,.35))
+    drop-shadow(0 0 35px rgba(58,134,240,.18));
 }
 
+/* BRILHO ATRÁS */
 .hero-logo-box::before{
   content:'';
   position:absolute;
-  inset:-15px;
+  inset:-20px;
   border-radius:30px;
-  background:radial-gradient(circle,
-    rgba(58,134,240,.18) 0%,
-    transparent 70%);
+
+  background:
+    radial-gradient(circle,
+      rgba(58,134,240,.18) 0%,
+      rgba(58,134,240,.08) 35%,
+      transparent 75%);
+
   animation:pulseGlow 3s ease-in-out infinite;
+
   z-index:-1;
 }
 
+/* HOVER */
 .hero-logo-box:hover .hero-logo{
-  transform:scale(1.08) rotate(-2deg);
+  transform:
+    scale(1.08)
+    rotate(-2deg);
+
   filter:
-    drop-shadow(0 0 25px rgba(58,134,240,.55))
-    drop-shadow(0 0 55px rgba(58,134,240,.25));
+    drop-shadow(0 0 28px rgba(58,134,240,.55))
+    drop-shadow(0 0 60px rgba(58,134,240,.28));
 }
 
+/* ANIMAÇÃO FLUTUANDO */
 @keyframes floatLogo{
+
   0%{
     transform:translateY(0px);
   }
+
   50%{
     transform:translateY(-12px);
   }
+
   100%{
     transform:translateY(0px);
   }
 }
 
+/* PULSO DE LUZ */
 @keyframes pulseGlow{
+
   0%,100%{
-    opacity:.5;
+    opacity:.55;
     transform:scale(1);
   }
+
   50%{
     opacity:1;
     transform:scale(1.08);
   }
 }
 
+/* RESPONSIVO */
 @media(max-width:768px){
 
   .hero-logos-wrapper{
-    gap:18px;
+    gap:20px;
   }
 
   .hero-logo{
-    width:120px;
+    width:135px;
   }
 
   .hero-title-container{
-    gap:20px;
+    gap:22px;
   }
 
 }
