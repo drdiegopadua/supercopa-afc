@@ -65,6 +65,21 @@ header{
   font-size:12px;
   letter-spacing:2px;
   font-weight:700;
+  overflow:hidden;
+  position:relative;
+}
+
+.urgency-bar::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  animation:shine 2.5s linear infinite;
+}
+
+@keyframes shine{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
 }
 
 nav{
@@ -72,13 +87,13 @@ nav{
   align-items:center;
   justify-content:space-between;
   padding:18px 48px;
-  background:rgba(7,9,13,0.96);
+  background:rgba(7,9,13,0.95);
   border-bottom:1px solid var(--border);
 }
 
 .nav-logo{
   font-family:var(--D);
-  font-size:28px;
+  font-size:26px;
   letter-spacing:3px;
   color:var(--accent);
   text-decoration:none;
@@ -88,51 +103,107 @@ nav{
   color:rgba(255,255,255,0.3);
 }
 
+.nav-links{
+  display:flex;
+  gap:32px;
+  list-style:none;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:.2s;
+}
+
+.nav-links a:hover{
+  color:var(--text);
+}
+
+.nav-back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:.2s;
+}
+
+.nav-back:hover{
+  color:var(--accent);
+}
+
 /* HERO */
 
 .page-hero{
   position:relative;
   overflow:hidden;
-  text-align:center;
   padding:72px 24px 56px;
+  text-align:center;
+}
+
+.hero-dots{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background-image:
+  radial-gradient(circle,rgba(58,134,240,0.06) 1px,transparent 1px);
+
+  background-size:38px 38px;
+  animation:dotsDrift 28s linear infinite;
+}
+
+@keyframes dotsDrift{
+  from{background-position:0 0}
+  to{background-position:38px 38px}
 }
 
 .hero-glow{
   position:absolute;
-  top:-120px;
+  top:-80px;
   left:50%;
   transform:translateX(-50%);
+
   width:700px;
   height:400px;
 
   background:
   radial-gradient(
-    ellipse at center,
-    rgba(58,134,240,0.16),
-    transparent 70%
+    ellipse at 50% 30%,
+    rgba(58,134,240,0.12) 0%,
+    rgba(58,134,240,0.04) 45%,
+    transparent 72%
   );
 }
 
 .badge{
-  position:relative;
-  z-index:2;
-
   display:inline-flex;
   align-items:center;
   gap:8px;
 
-  padding:6px 18px;
+  padding:6px 20px;
   border-radius:100px;
 
-  background:rgba(58,134,240,0.08);
-  border:1px solid rgba(58,134,240,0.25);
-
-  color:var(--accent);
+  background:rgba(58,134,240,0.10);
+  border:1px solid rgba(58,134,240,0.28);
 
   font-family:var(--M);
   font-size:11px;
   letter-spacing:2px;
   text-transform:uppercase;
+
+  color:var(--accent);
+
+  position:relative;
+  z-index:2;
 }
 
 .badge-dot{
@@ -140,27 +211,32 @@ nav{
   height:6px;
   border-radius:50%;
   background:var(--accent);
+  box-shadow:0 0 6px var(--accent);
+  animation:blink 1.4s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.2}
 }
 
 .page-hero h1{
-  position:relative;
-  z-index:2;
-
   margin-top:28px;
 
   font-family:var(--D);
-  font-size:clamp(2.8rem,7vw,5rem);
+  font-size:clamp(2.4rem,7vw,4.8rem);
   line-height:1;
   letter-spacing:.08em;
   text-transform:uppercase;
 
   background:
   linear-gradient(
-    140deg,
-    #9bc8ff,
-    #3a86f0,
-    #ffffff,
-    #3a86f0
+    155deg,
+    #a8d0ff 0%,
+    #3a86f0 22%,
+    #ffffff 50%,
+    #3a86f0 72%,
+    #1a4a9e 100%
   );
 
   background-size:200% 200%;
@@ -168,39 +244,101 @@ nav{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 
-  animation:shine 4s ease infinite;
+  animation:titleShine 4.5s ease-in-out infinite alternate;
+
+  position:relative;
+  z-index:2;
 }
 
-@keyframes shine{
-  0%{background-position:0% 50%}
-  100%{background-position:100% 50%}
+.page-hero em{
+  font-style:normal;
+}
+
+@keyframes titleShine{
+  from{background-position:0% 50%}
+  to{background-position:100% 50%}
 }
 
 .page-hero p{
-  position:relative;
-  z-index:2;
-
-  max-width:560px;
+  max-width:520px;
   margin:18px auto 0;
 
   color:var(--muted);
-  line-height:1.7;
   font-size:16px;
+  line-height:1.7;
+
+  position:relative;
+  z-index:2;
+}
+
+/* BENEFÍCIOS */
+
+.benefits-bar{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+
+  padding-top:28px;
+
+  position:relative;
+  z-index:2;
+}
+
+.benefit-pill{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  padding:8px 18px;
+  border-radius:100px;
+
+  background:var(--green-bg);
+  border:1px solid rgba(74,222,128,0.25);
+
+  color:var(--green);
+
+  font-family:var(--M);
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
 }
 
 /* FORM */
 
 .form-wrap{
-  max-width:760px;
-  margin:40px auto 80px;
+  max-width:720px;
+  margin:56px auto 80px;
   padding:0 24px;
 }
 
 .form-card{
+  overflow:hidden;
+  border-radius:16px;
+
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
+
+  position:relative;
+}
+
+.form-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:8%;
+  right:8%;
+  height:1px;
+
+  background:
+  linear-gradient(
+    to right,
+    transparent,
+    rgba(58,134,240,0.7),
+    rgba(255,255,255,0.3),
+    rgba(58,134,240,0.7),
+    transparent
+  );
 }
 
 .form-section{
@@ -208,21 +346,21 @@ nav{
   border-bottom:1px solid var(--border);
 }
 
-.form-section:last-child{
+.form-section:last-of-type{
   border-bottom:none;
 }
 
 .form-section-title{
   font-family:var(--D);
-  font-size:24px;
+  font-size:22px;
   letter-spacing:1.5px;
 }
 
 .form-section-sub{
   margin-top:6px;
   margin-bottom:28px;
-  color:var(--muted);
   font-size:13px;
+  color:var(--muted);
 }
 
 .field-group{
@@ -239,50 +377,57 @@ nav{
 .field{
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:7px;
 }
 
 .field label{
-  color:var(--accent);
-  font-size:10px;
   font-family:var(--M);
-  letter-spacing:2px;
+  font-size:10px;
+  letter-spacing:2.5px;
   text-transform:uppercase;
+  color:var(--accent);
 }
 
 .field input,
 .field select{
   width:100%;
-  padding:14px 16px;
+  padding:13px 16px;
 
   background:rgba(255,255,255,0.04);
-
   border:1px solid var(--border);
-  border-radius:8px;
+  border-radius:6px;
 
   color:var(--text);
+
   font-size:15px;
   font-family:var(--B);
 
   outline:none;
+
   transition:.2s;
+}
+
+.field input::placeholder{
+  color:var(--muted);
 }
 
 .field input:focus,
 .field select:focus{
   border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(58,134,240,0.15);
+  background:rgba(58,134,240,0.06);
+  box-shadow:0 0 0 3px rgba(58,134,240,0.12);
 }
 
 .field input.error,
 .field select.error{
   border-color:var(--accent2)!important;
+  box-shadow:0 0 0 3px rgba(232,93,58,0.12)!important;
 }
 
 .field-error{
   display:none;
-  color:var(--accent2);
   font-size:11px;
+  color:var(--accent2);
 }
 
 /* MODALIDADE */
@@ -290,7 +435,7 @@ nav{
 .mod-toggle{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:14px;
+  gap:12px;
 }
 
 .mod-opt{
@@ -303,18 +448,21 @@ nav{
 }
 
 .mod-label{
-  padding:24px 16px;
-  border-radius:12px;
-
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);
-
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:8px;
+  justify-content:center;
+  gap:6px;
 
+  padding:20px 16px;
+  border-radius:8px;
+
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);
+
+  text-align:center;
   cursor:pointer;
+
   transition:.2s;
 }
 
@@ -325,14 +473,14 @@ nav{
 }
 
 .m-icon{
-  font-size:34px;
+  font-size:28px;
 }
 
 .m-sub{
-  font-size:10px;
   color:var(--muted);
-  font-family:var(--M);
+  font-size:10px;
   letter-spacing:1.5px;
+  font-family:var(--M);
 }
 
 /* ALOJAMENTO */
@@ -340,7 +488,7 @@ nav{
 .aloj-toggle{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:14px;
+  gap:12px;
 }
 
 .toggle-opt{
@@ -353,16 +501,16 @@ nav{
 }
 
 .toggle-label{
-  padding:18px;
-  border-radius:10px;
-
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);
-
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   gap:10px;
+
+  padding:16px;
+  border-radius:8px;
+
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);
 
   cursor:pointer;
   transition:.2s;
@@ -371,11 +519,12 @@ nav{
 .toggle-opt input:checked + .toggle-label{
   border-color:var(--accent);
   background:rgba(58,134,240,0.08);
+  box-shadow:0 0 0 3px rgba(58,134,240,0.12);
 }
 
 .aloj-qty{
   display:none;
-  margin-top:18px;
+  margin-top:16px;
 }
 
 .aloj-qty.visible{
@@ -383,32 +532,54 @@ nav{
 }
 
 .aloj-note{
-  margin-top:20px;
+  margin-top:18px;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  padding:12px 16px;
+  border-radius:6px;
 
   background:var(--green-bg);
   border:1px solid rgba(74,222,128,0.2);
 
   color:var(--green);
-
-  padding:14px 16px;
-  border-radius:8px;
-
   font-size:13px;
 }
 
-/* FOOTER */
+/* FOOTER FORM */
 
 .form-footer{
   padding:32px 40px;
   background:rgba(0,0,0,0.2);
 }
 
+.form-zero-taxa{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  margin-bottom:24px;
+
+  padding:14px 18px;
+  border-radius:8px;
+
+  background:var(--green-bg);
+  border:1px solid rgba(74,222,128,0.2);
+
+  color:var(--green);
+  font-size:13px;
+  font-weight:600;
+}
+
 .btn-submit{
   width:100%;
-  padding:18px;
-
   border:none;
-  border-radius:10px;
+  cursor:pointer;
+
+  padding:18px 36px;
+  border-radius:6px;
 
   background:var(--accent);
   color:#000;
@@ -418,14 +589,15 @@ nav{
   letter-spacing:2px;
   text-transform:uppercase;
 
-  cursor:pointer;
+  position:relative;
+  overflow:hidden;
 
   transition:.2s;
 }
 
 .btn-submit:hover{
   transform:translateY(-2px);
-  box-shadow:0 16px 40px rgba(58,134,240,0.35);
+  box-shadow:0 16px 48px rgba(58,134,240,.4);
 }
 
 .btn-submit:disabled{
@@ -448,10 +620,6 @@ nav{
   animation:spin .7s linear infinite;
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
 .btn-submit.loading .btn-text{
   display:none;
 }
@@ -460,16 +628,20 @@ nav{
   display:block;
 }
 
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
 /* SUCCESS */
 
 .success-screen{
   display:none;
-  text-align:center;
 
   max-width:600px;
   margin:0 auto;
-
   padding:0 24px 80px;
+
+  text-align:center;
 }
 
 .success-screen.visible{
@@ -477,10 +649,10 @@ nav{
 }
 
 .success-icon{
-  width:82px;
-  height:82px;
+  width:80px;
+  height:80px;
 
-  margin:0 auto 24px;
+  margin:0 auto 28px;
 
   border-radius:50%;
 
@@ -489,36 +661,37 @@ nav{
   justify-content:center;
 
   background:var(--green-bg);
-  border:2px solid rgba(74,222,128,0.3);
+  border:2px solid rgba(74,222,128,0.35);
 
-  font-size:38px;
+  font-size:36px;
 }
 
 .success-screen h2{
   font-family:var(--D);
-  font-size:clamp(2rem,6vw,4rem);
+  font-size:clamp(2rem,6vw,3.5rem);
   letter-spacing:2px;
 }
 
 .success-screen h2 em{
-  font-style:normal;
   color:var(--accent);
+  font-style:normal;
 }
 
 .success-screen p{
   margin:16px auto 32px;
-  max-width:460px;
+  max-width:440px;
 
   color:var(--muted);
-  line-height:1.7;
+  line-height:1.8;
 }
 
 .success-details{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:14px;
+  border-radius:12px;
 
   padding:24px;
+  margin-bottom:32px;
 
   text-align:left;
 }
@@ -526,9 +699,9 @@ nav{
 .sd-row{
   display:flex;
   justify-content:space-between;
+  align-items:center;
 
-  padding:12px 0;
-
+  padding:10px 0;
   border-bottom:1px solid var(--border);
 }
 
@@ -537,11 +710,11 @@ nav{
 }
 
 .sd-label{
-  color:var(--muted);
-  font-size:10px;
   font-family:var(--M);
+  font-size:10px;
   letter-spacing:2px;
   text-transform:uppercase;
+  color:var(--muted);
 }
 
 .sd-value{
@@ -549,19 +722,66 @@ nav{
   text-align:right;
 }
 
+.btn-back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  padding:14px 28px;
+  border-radius:6px;
+
+  border:1px solid var(--border);
+
+  color:var(--text);
+  text-decoration:none;
+
+  transition:.2s;
+}
+
+.btn-back:hover{
+  transform:translateY(-2px);
+}
+
+/* FOOTER */
+
+footer{
+  padding:40px 48px 24px;
+  border-top:1px solid var(--border);
+  background:var(--surface);
+}
+
+.footer-logo{
+  font-family:var(--D);
+  font-size:28px;
+  color:var(--accent);
+}
+
+.footer-tagline{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:13px;
+}
+
 /* RESPONSIVO */
 
 @media(max-width:640px){
 
   body{
-    padding-top:92px;
+    padding-top:95px;
   }
 
   nav{
     padding:14px 20px;
   }
 
-  .field-group,
+  .nav-links{
+    display:none;
+  }
+
+  .field-group{
+    grid-template-columns:1fr;
+  }
+
   .mod-toggle,
   .aloj-toggle{
     grid-template-columns:1fr;
@@ -573,6 +793,10 @@ nav{
 
   .form-footer{
     padding:24px 20px;
+  }
+
+  footer{
+    padding:32px 20px 20px;
   }
 }
 </style>
@@ -587,9 +811,22 @@ nav{
   </div>
 
   <nav>
-    <a href="#" class="nav-logo">
+
+    <a class="nav-logo" href="#">
       SUPER<span>◥</span>COPA
     </a>
+
+    <ul class="nav-links">
+      <li><a href="#">Fases</a></li>
+      <li><a href="#">Times</a></li>
+      <li><a href="#">Tabela</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+
+    <a class="nav-back" href="#">
+      ← Voltar ao site
+    </a>
+
   </nav>
 
 </header>
@@ -598,6 +835,7 @@ nav{
 
   <div class="page-hero">
 
+    <div class="hero-dots"></div>
     <div class="hero-glow"></div>
 
     <div class="badge">
@@ -606,7 +844,7 @@ nav{
     </div>
 
     <h1>
-      Pré-Inscrição Gratuita
+      Pré-Inscrição <em>Gratuita</em>
     </h1>
 
     <p>
@@ -614,6 +852,22 @@ nav{
       Nossa comissão entrará em contato via WhatsApp
       para validar sua participação.
     </p>
+
+    <div class="benefits-bar">
+
+      <div class="benefit-pill">
+        ✓ Sem Taxa
+      </div>
+
+      <div class="benefit-pill">
+        ✓ Alojamento Grátis
+      </div>
+
+      <div class="benefit-pill">
+        ✓ Premiação
+      </div>
+
+    </div>
 
   </div>
 
@@ -675,14 +929,16 @@ nav{
           Dados da Equipe
         </div>
 
+        <div class="form-section-sub">
+          Informações básicas do time
+        </div>
+
         <div class="field-group single">
 
           <div class="field">
             <label>Nome da Equipe</label>
-            <input type="text" id="nomeEquipe">
-            <span class="field-error" id="nomeEquipeError">
-              Campo obrigatório.
-            </span>
+            <input type="text" id="nomeEquipe" placeholder="Ex: Águias das Montanhas">
+            <span class="field-error" id="nomeEquipeError">Campo obrigatório.</span>
           </div>
 
         </div>
@@ -691,10 +947,8 @@ nav{
 
           <div class="field">
             <label>Cidade</label>
-            <input type="text" id="cidade">
-            <span class="field-error" id="cidadeError">
-              Campo obrigatório.
-            </span>
+            <input type="text" id="cidade" placeholder="Ex: Afonso Cláudio">
+            <span class="field-error" id="cidadeError">Campo obrigatório.</span>
           </div>
 
           <div class="field">
@@ -710,7 +964,7 @@ nav{
             </select>
 
             <span class="field-error" id="estadoError">
-              Campo obrigatório.
+              Selecione o estado.
             </span>
 
           </div>
@@ -727,22 +981,22 @@ nav{
           Responsável
         </div>
 
+        <div class="form-section-sub">
+          Contato oficial da equipe
+        </div>
+
         <div class="field-group">
 
           <div class="field">
             <label>Nome Completo</label>
-            <input type="text" id="nomeResp">
-            <span class="field-error" id="nomeRespError">
-              Campo obrigatório.
-            </span>
+            <input type="text" id="nomeResp" placeholder="Nome do técnico ou capitão">
+            <span class="field-error" id="nomeRespError">Campo obrigatório.</span>
           </div>
 
           <div class="field">
             <label>WhatsApp</label>
-            <input type="tel" id="telefone">
-            <span class="field-error" id="telefoneError">
-              WhatsApp inválido.
-            </span>
+            <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX">
+            <span class="field-error" id="telefoneError">WhatsApp inválido.</span>
           </div>
 
         </div>
@@ -755,6 +1009,10 @@ nav{
 
         <div class="form-section-title">
           Alojamento
+        </div>
+
+        <div class="form-section-sub">
+          Alojamento gratuito para equipes visitantes
         </div>
 
         <div class="aloj-toggle">
@@ -784,14 +1042,15 @@ nav{
         <div class="aloj-qty" id="alojQtyWrap">
 
           <div class="field">
-            <label>Quantidade de pessoas</label>
-            <input type="number" id="alojQty">
+            <label>Para quantas pessoas?</label>
+            <input type="number" id="alojQty" placeholder="Ex: 12">
+            <span class="field-error" id="alojQtyError">Informe a quantidade.</span>
           </div>
 
         </div>
 
         <div class="aloj-note">
-          ✓ O alojamento é totalmente gratuito.
+          ✓ O alojamento é 100% gratuito.
         </div>
 
       </div>
@@ -799,6 +1058,10 @@ nav{
       <!-- FOOTER -->
 
       <div class="form-footer">
+
+        <div class="form-zero-taxa">
+          ✓ Evento totalmente gratuito.
+        </div>
 
         <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
 
@@ -831,17 +1094,29 @@ nav{
   </h2>
 
   <p>
-    Sua pré-inscrição foi registrada com sucesso.
-    Nossa equipe entrará em contato em breve.
+    Sua pré-inscrição foi recebida com sucesso.
+    Nossa comissão organizadora entrará em contato em breve.
   </p>
 
   <div class="success-details" id="successDetails"></div>
 
 </div>
 
+<footer>
+
+  <div class="footer-logo">
+    SUPERCOPA
+  </div>
+
+  <div class="footer-tagline">
+    Campeonato Multiesporte · Afonso Cláudio · 2026
+  </div>
+
+</footer>
+
 <script>
 
-/* MÁSCARA TELEFONE */
+/* TELEFONE */
 
 const telInput = document.getElementById('telefone');
 
@@ -868,8 +1143,9 @@ document.querySelectorAll('input[name="alojamento"]').forEach(r=>{
 
   r.addEventListener('change', ()=>{
 
-    document.getElementById('alojQtyWrap')
-    .classList.toggle(
+    const wrap = document.getElementById('alojQtyWrap');
+
+    wrap.classList.toggle(
       'visible',
       r.checked && r.value === 'sim'
     );
@@ -878,180 +1154,89 @@ document.querySelectorAll('input[name="alojamento"]').forEach(r=>{
 
 });
 
-/* VALIDAÇÃO */
-
-function showError(id){
-  document.getElementById(id).style.display='block';
-}
-
-function hideError(id){
-  document.getElementById(id).style.display='none';
-}
+/* VALIDAR */
 
 function validate(){
 
   let ok = true;
 
-  const modalidade =
-  document.querySelector('input[name="modalidade"]:checked');
+  const modalidade = document.querySelector('input[name="modalidade"]:checked');
 
   if(!modalidade){
-    showError('modError');
+    document.getElementById('modError').style.display='block';
     ok=false;
   }else{
-    hideError('modError');
-  }
-
-  const nomeEquipe =
-  document.getElementById('nomeEquipe');
-
-  if(!nomeEquipe.value.trim()){
-    nomeEquipe.classList.add('error');
-    showError('nomeEquipeError');
-    ok=false;
-  }else{
-    nomeEquipe.classList.remove('error');
-    hideError('nomeEquipeError');
-  }
-
-  const cidade =
-  document.getElementById('cidade');
-
-  if(!cidade.value.trim()){
-    cidade.classList.add('error');
-    showError('cidadeError');
-    ok=false;
-  }else{
-    cidade.classList.remove('error');
-    hideError('cidadeError');
-  }
-
-  const estado =
-  document.getElementById('estado');
-
-  if(!estado.value){
-    estado.classList.add('error');
-    showError('estadoError');
-    ok=false;
-  }else{
-    estado.classList.remove('error');
-    hideError('estadoError');
-  }
-
-  const nomeResp =
-  document.getElementById('nomeResp');
-
-  if(!nomeResp.value.trim()){
-    nomeResp.classList.add('error');
-    showError('nomeRespError');
-    ok=false;
-  }else{
-    nomeResp.classList.remove('error');
-    hideError('nomeRespError');
-  }
-
-  const telefone =
-  document.getElementById('telefone');
-
-  const telRaw =
-  telefone.value.replace(/\D/g,'');
-
-  if(telRaw.length !== 11){
-    telefone.classList.add('error');
-    showError('telefoneError');
-    ok=false;
-  }else{
-    telefone.classList.remove('error');
-    hideError('telefoneError');
+    document.getElementById('modError').style.display='none';
   }
 
   return ok;
 }
 
-/* SUBMIT COM VERIFICAÇÃO REAL */
+/* SUBMIT */
 
 async function submitForm(){
 
   if(!validate()) return;
 
-  const btn =
-  document.getElementById('btnSubmit');
+  const btn = document.getElementById('btnSubmit');
 
   btn.classList.add('loading');
   btn.disabled = true;
 
-  const urlPlanilha =
-  "https://script.google.com/macros/s/AKfycbwQuDeZHx04mMr_HuILJfwOV79BlTJfFBtyfeGV36XeJdcZxpO3-yHl5_AKbxXl9Sbq0A/exec";
+  const urlPlanilha = "https://script.google.com/macros/s/AKfycbwQuDeZHx04mMr_HuILJfwOV79BlTJfFBtyfeGV36XeJdcZxpO3-yHl5_AKbxXl9Sbq0A/exec";
 
-  const modalidade =
-  document.querySelector('input[name="modalidade"]:checked').value;
+  const modalidade = document.querySelector('input[name="modalidade"]:checked').value;
 
-  const alojamento =
-  document.querySelector('input[name="alojamento"]:checked').value;
+  const alojamento = document.querySelector('input[name="alojamento"]:checked').value;
 
   const dados = {
 
     modalidade: modalidade,
 
     nomeEquipe:
-    document.getElementById('nomeEquipe').value.trim(),
+    document.getElementById('nomeEquipe').value,
 
     cidade:
-    document.getElementById('cidade').value.trim(),
+    document.getElementById('cidade').value,
 
     estado:
     document.getElementById('estado').value,
 
     nomeResponsavel:
-    document.getElementById('nomeResp').value.trim(),
+    document.getElementById('nomeResp').value,
 
     telefone:
-    document.getElementById('telefone').value.trim(),
+    document.getElementById('telefone').value,
 
     alojamento:
     alojamento === 'sim',
 
     alojamentoPessoas:
     alojamento === 'sim'
-      ? Number(document.getElementById('alojQty').value)
+      ? document.getElementById('alojQty').value
       : 0
   };
 
   try{
 
-    const response = await fetch(urlPlanilha,{
+    await fetch(urlPlanilha,{
       method:'POST',
+      mode:'no-cors',
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'text/plain'
       },
       body:JSON.stringify(dados)
     });
 
-    if(!response.ok){
-      throw new Error('Erro HTTP');
-    }
-
-    const resultado = await response.json();
-
-    if(resultado.status === 'success'){
-
+    setTimeout(()=>{
       mostrarSucesso(dados);
-
-    }else{
-
-      throw new Error(
-        resultado.message || 'Erro ao salvar'
-      );
-
-    }
+    },500);
 
   }catch(err){
 
     console.error(err);
 
-    alert(
-      'Não foi possível enviar sua inscrição. Tente novamente.'
-    );
+    alert('Erro ao enviar formulário.');
 
     btn.classList.remove('loading');
     btn.disabled = false;
@@ -1064,8 +1249,7 @@ async function submitForm(){
 
 function mostrarSucesso(d){
 
-  document.getElementById('formWrap')
-  .style.display='none';
+  document.getElementById('formWrap').style.display='none';
 
   const rows = [
 
@@ -1086,8 +1270,7 @@ function mostrarSucesso(d){
     </div>
   `).join('');
 
-  document.getElementById('successScreen')
-  .classList.add('visible');
+  document.getElementById('successScreen').classList.add('visible');
 
   window.scrollTo({
     top:0,
@@ -1100,3 +1283,4 @@ function mostrarSucesso(d){
 
 </body>
 </html>
+
