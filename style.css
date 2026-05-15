@@ -1,3 +1,26 @@
+.hero-logos {
+  display: flex;
+  gap: -40px; /* aproxima bastante */
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  flex-wrap: nowrap;
+}
+
+.hero-logo-animated {
+  height: 300px;
+  width: auto;
+  margin-left: -25px; /* sobreposição leve */
+  margin-right: -25px; /* sobreposição leve */
+}
+
+
+
+
+
+
+
+
 .hero-title-container {
   display: flex;
   flex-direction: column;
