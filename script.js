@@ -47,3 +47,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   observer.observe(section);
 });
+
+
+// TESTE - cole no console do navegador (F12)
+document.querySelectorAll(".counter-num").forEach(counter => {
+  const target = +counter.getAttribute("data-target");
+  let current = 0;
+  const speed = target / 120;
+  const update = () => {
+    current += speed;
+    if (current < target) {
+      counter.innerText = Math.floor(current).toLocaleString("pt-BR");
+      requestAnimationFrame(update);
+    } else {
+      counter.innerText = target.toLocaleString("pt-BR");
+    }
+  };
+  update();
+});
