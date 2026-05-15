@@ -364,23 +364,31 @@ body {
 
   <!-- ÍNICIO DE ONDE ESTÁ AS LOGOS -->
 <style>
-  /* Animação de Entrada para as Logos */
+  /* Animações */
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Animação de Entrada para o Texto (Fade + Slide Lateral) */
   @keyframes revealText {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Animação de flutuação contínua */
   @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
     100% { transform: translateY(0px); }
+  }
+
+  /* Container das Logos */
+  .hero-logos {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    flex-wrap: nowrap; /* Mantém lado a lado por padrão */
   }
 
   .hero-logo-animated {
@@ -394,21 +402,40 @@ body {
   }
 
   .logo-basquete {
-    animation-delay: 0.2s, 1.2s; /* Logos aparecem quase juntas */
+    animation-delay: 0.2s, 1.2s;
   }
 
-  /* Estilo do Título Animado */
+  /* Título */
   .hero-title-animated {
-    font-size: 2.5rem; /* Tamanho reduzido */
+    font-size: 2.5rem;
+    text-align: center; /* Garante centralização */
     opacity: 0;
-    animation: revealText 1s ease-out forwards 1.5s; /* Começa após as logos */
+    animation: revealText 1s ease-out forwards 1.5s;
     margin-top: 10px;
+    width: 100%;
   }
 
+  /* Ajustes para Telas Menores (Mobile) */
   @media (max-width: 768px) {
-    .hero-logo-animated { height: 180px; }
-    .hero-title-animated { font-size: 1.8rem; }
-    .hero-logos { gap: 10px !important; }
+    .hero-logos {
+      gap: 10px;
+      flex-wrap: wrap; /* Permite quebrar linha se a tela for muito pequena */
+      justify-content: center;
+    }
+    
+    .hero-logo-animated {
+      height: 180px; /* Tamanho reduzido para mobile */
+      max-width: 45%; /* Garante que caibam duas lado a lado */
+    }
+
+    .hero-title-animated {
+      font-size: 1.8rem;
+      padding: 0 20px; /* Evita que o texto encoste nas bordas */
+    }
+
+    .hero-sub {
+      text-align: center; /* Centraliza a descrição também */
+    }
   }
 
   .hero-logo-animated:hover {
@@ -418,24 +445,26 @@ body {
 </style>
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
   <div class="hero-glow"></div>
   <div class="hero-badge"><span class="hero-badge-dot"></span>&nbsp;2026 · Transmissão e Classificação em tempo real · Pré-Inscrições Abertas EM BREVE para o Volei</div>
-  <div class="hero-title-container">
-    <!-- Logos mais próximas (gap reduzido para 15px) -->
-    <div class="hero-logos" style="display: flex; gap: 15px; align-items: center; justify-content: center; margin-bottom: 15px; flex-wrap: wrap;">
+  
+  <div class="hero-title-container" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+    <div class="hero-logos">
       <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/PDfypVqTWbbOxefJ.png" alt="Super Voleibol Copa Logo" class="hero-logo-animated">
       <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/vlIeKkKvYyDxjITf.png" alt="Super Basquete Copa Logo" class="hero-logo-animated logo-basquete">
     </div>
-    <!-- Título com nova classe de animação e tamanho reduzido -->
     <h1 class="hero-title-animated">O maior da Região das Montanhas</h1>
   </div>
+
   <p class="hero-sub">Reúna sua equipe, viva a emoção da maior competição multiesportiva da região e dispute a taça mais cobiçada de Afonso Cláudio. A Supercopa chega com a 6ª edição do Voleibol e a 1ª edição do Basquete, reunindo equipes de vários estados em um evento totalmente gratuito, com alojamento e sem taxa de inscrição. São vagas limitadas, grandes confrontos e uma experiência inesquecível dentro e fora das quadras.</p>
-  <div class="hero-actions">
+  
+  <div class="hero-actions" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
     <a class="btn-p" href="#inscricao" data-manus_clickable="true" data-manus_click_id="7">Inscrever Meu Time</a>
     <a class="btn-o" href="#fases" data-manus_clickable="true" data-manus_click_id="8">Ver Regulamento</a>
   </div>
-  <div class="hero-stats">
+
+  <div class="hero-stats" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 30px;">
     <div class="hero-stat"><span class="hero-stat-num" id="c1">12</span><span class="hero-stat-label">Equipes no evento de Voleibol</span></div>
     <div class="hero-stat"><span class="hero-stat-num" id="c2">6</span><span class="hero-stat-label">Equipes no evento de Basquete</span></div>
     <div class="hero-stat"><span class="hero-stat-num" id="c3">R$0,00</span><span class="hero-stat-label">de Taxa de Inscrição</span></div>
