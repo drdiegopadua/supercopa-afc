@@ -1,192 +1,95 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+.hero-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
 }
 
-:root{
-  --bg:#07090d;
-  --card:#111520;
-  --accent:#3a86f0;
-  --text:#ffffff;
-  --muted:#8b93a7;
-  --border:rgba(255,255,255,0.08);
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  overflow-x:hidden;
-}
-
-.top-bar{
-  background:var(--accent);
-  color:#000;
-  text-align:center;
-  padding:12px;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:2px;
-}
-
-.main-header{
+.hero-logos-wrapper{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  padding:24px 60px;
-  border-bottom:1px solid var(--border);
+  justify-content:center;
+  gap:40px;
+  flex-wrap:wrap;
 }
 
-.logo{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:36px;
-  color:var(--accent);
-  letter-spacing:3px;
-}
-
-nav{
-  display:flex;
-  gap:30px;
-}
-
-nav a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:14px;
-  transition:.3s;
-}
-
-nav a:hover{
-  color:var(--text);
-}
-
-.hero{
+.hero-logo-box{
   position:relative;
-  padding:100px 20px;
-  text-align:center;
+  animation:floatLogo 4s ease-in-out infinite;
 }
 
-.hero-glow{
-  position:absolute;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle,rgba(58,134,240,.15),transparent 70%);
-  top:-200px;
-  left:50%;
-  transform:translateX(-50%);
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
+.logo-basquete{
+  animation-delay:2s;
 }
 
 .hero-logo{
-  width:180px;
-  margin-bottom:30px;
+  width:190px;
+  height:auto;
+  object-fit:contain;
+  transition:transform .4s ease, filter .4s ease;
+  filter:
+    drop-shadow(0 0 20px rgba(58,134,240,.35))
+    drop-shadow(0 0 40px rgba(58,134,240,.15));
 }
 
-.hero h1{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:110px;
-  line-height:.9;
-  letter-spacing:3px;
+.hero-logo-box::before{
+  content:'';
+  position:absolute;
+  inset:-15px;
+  border-radius:30px;
+  background:radial-gradient(circle,
+    rgba(58,134,240,.18) 0%,
+    transparent 70%);
+  animation:pulseGlow 3s ease-in-out infinite;
+  z-index:-1;
 }
 
-.hero h1 span{
-  color:var(--accent);
+.hero-logo-box:hover .hero-logo{
+  transform:scale(1.08) rotate(-2deg);
+  filter:
+    drop-shadow(0 0 25px rgba(58,134,240,.55))
+    drop-shadow(0 0 55px rgba(58,134,240,.25));
 }
 
-.hero p{
-  max-width:700px;
-  margin:30px auto;
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.7;
+@keyframes floatLogo{
+  0%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-12px);
+  }
+  100%{
+    transform:translateY(0px);
+  }
 }
 
-.hero-buttons{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  flex-wrap:wrap;
-  margin-top:40px;
-}
-
-.btn-primary,
-.btn-secondary{
-  padding:16px 34px;
-  text-decoration:none;
-  font-weight:700;
-  border-radius:4px;
-  transition:.3s;
-}
-
-.btn-primary{
-  background:var(--accent);
-  color:#000;
-}
-
-.btn-secondary{
-  border:1px solid var(--border);
-  color:#fff;
-}
-
-.btn-primary:hover,
-.btn-secondary:hover{
-  transform:translateY(-3px);
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1px;
-  background:var(--border);
-  margin-top:80px;
-}
-
-.stat-card{
-  background:#0d1018;
-  padding:50px 30px;
-  text-align:center;
-}
-
-.stat-number{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:70px;
-  color:var(--accent);
-  line-height:1;
-}
-
-.stat-text{
-  color:var(--muted);
-  margin-top:15px;
-  font-size:14px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  line-height:1.7;
+@keyframes pulseGlow{
+  0%,100%{
+    opacity:.5;
+    transform:scale(1);
+  }
+  50%{
+    opacity:1;
+    transform:scale(1.08);
+  }
 }
 
 @media(max-width:768px){
 
-  .main-header{
-    flex-direction:column;
-    gap:20px;
-    padding:25px;
-  }
-
-  nav{
-    flex-wrap:wrap;
-    justify-content:center;
-  }
-
-  .hero h1{
-    font-size:70px;
+  .hero-logos-wrapper{
+    gap:18px;
   }
 
   .hero-logo{
     width:120px;
+  }
+
+  .hero-title-container{
+    gap:20px;
   }
 
 }
