@@ -361,12 +361,14 @@ body {
   </ul>
 </nav></header>
 
+
+  <!-- ÍNICIO DE ONDE ESTÁ AS LOGOS -->
 <style>
   /* Animação de Entrada (Fade-In + Slide Up) */
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
     }
     to {
       opacity: 1;
@@ -377,29 +379,37 @@ body {
   /* Animação de flutuação contínua */
   @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-15px); }
     100% { transform: translateY(0px); }
   }
 
   .hero-logo-animated {
-    height: 200px; /* Atualizado para 200px */
+    height: 400px; /* Tamanho solicitado */
     width: auto;
-    opacity: 0; /* Começa invisível para o fade-in */
+    opacity: 0;
     animation: 
-      fadeInUp 1s ease-out forwards, 
-      float 4s ease-in-out infinite 1s;
-    transition: transform 0.3s ease, filter 0.3s ease;
+      fadeInUp 1.2s ease-out forwards, 
+      float 5s ease-in-out infinite 1.2s;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
   }
 
-  /* Atraso para a segunda logo (Basquete) */
+  /* Responsividade para telas menores */
+  @media (max-width: 768px) {
+    .hero-logo-animated {
+      height: 200px; /* Reduz para 200px em tablets/celulares */
+    }
+    .hero-logos {
+      gap: 20px !important;
+    }
+  }
+
   .logo-basquete {
-    animation-delay: 0.3s, 1.3s;
+    animation-delay: 0.4s, 1.6s;
   }
 
-  /* Efeito ao passar o mouse */
   .hero-logo-animated:hover {
-    transform: scale(1.05) !important; /* Reduzi levemente o scale para não cortar em telas menores */
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+    transform: scale(1.03) !important;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
     cursor: pointer;
   }
 </style>
@@ -409,7 +419,7 @@ body {
   <div class="hero-glow"></div>
   <div class="hero-badge"><span class="hero-badge-dot"></span>&nbsp;2026 · Transmissão e Classificação em tempo real · Pré-Inscrições Abertas EM BREVE para o Volei</div>
   <div class="hero-title-container">
-    <div class="hero-logos" style="display: flex; gap: 40px; align-items: center; justify-content: center; margin-bottom: 30px;">
+    <div class="hero-logos" style="display: flex; gap: 60px; align-items: center; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;">
       <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/PDfypVqTWbbOxefJ.png" alt="Super Voleibol Copa Logo" class="hero-logo-animated">
       <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654221666/vlIeKkKvYyDxjITf.png" alt="Super Basquete Copa Logo" class="hero-logo-animated logo-basquete">
     </div>
@@ -427,6 +437,7 @@ body {
     <div class="hero-stat"><span class="hero-stat-num" id="c4">1</span><span class="hero-stat-label">Chance de fazer história</span></div>
   </div>
 </div>
+<!-- FIM DE ONDE ESTÁ AS LOGOS -->
 
 
 <!-- MARQUEE -->
