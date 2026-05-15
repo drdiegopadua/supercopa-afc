@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-BR"><head manus-helper-ready="true">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPIKE CUP ◥ Campeonato de Vôlei 2025</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<title>SUPERCOPA ◥ Campeonato de Vôlei 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -333,41 +331,54 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     width: 120px;
   }
 }
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+body {
+  padding-top: 105px; /* Altura aproximada da barra de urgência + nav */
+}
+
 </style>
 </head>
 <body>
 
-<div class="urgency-bar">⚡ INSCRIÇÕES ENCERRAM EM 25 DE JULHO · APENAS 12 VAGAS DISPONÍVEIS ⚡</div>
+<header><div class="urgency-bar">⚡ O MAIOR EVENTO MULTIESPORTE DA REGIÃO DAS MONTANHAS ⚡</div>
 
 <nav>
-  <a class="nav-logo" href="#">SPIKE<span>◥</span>CUP</a>
-  <ul class="nav-links">
-    <li><a href="#fases">Fases</a></li>
-    <li><a href="#times">Times</a></li>
-    <li><a href="#classificacao">Tabela</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a class="nav-cta" href="#inscricao">Inscrição</a></li>
+  <a class="nav-logo" href="#" data-manus_clickable="true" data-manus_click_id="1">SUPER<span>◥</span>COPA</a>
+  <ul class="nav-links"><li><a href="#">Início</a></li>
+    <li><a href="#fases" data-manus_clickable="true" data-manus_click_id="2">Fases</a></li>
+    <li><a href="#times" data-manus_clickable="true" data-manus_click_id="3">Times</a></li>
+    <li><a href="#classificacao" data-manus_clickable="true" data-manus_click_id="4">Tabela</a></li>
+    <li><a href="#faq" data-manus_clickable="true" data-manus_click_id="5">FAQ</a></li>
+    <li><a class="nav-cta" href="#inscricao" data-manus_clickable="true" data-manus_click_id="6">Inscrição</a></li>
   </ul>
-</nav>
+</nav></header>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-glow"></div>
-  <div class="hero-badge"><span class="hero-badge-dot"></span>&nbsp;2025 · Décima Edição · Inscrições Abertas</div>
+  <div class="hero-badge"><span class="hero-badge-dot"></span>&nbsp;2025 · Transmissão e Classificação em tempo real · Pré-Inscrições Abertas EM BREVE para o Volei</div>
   <div class="hero-title-container">
     <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663654705761/kxJpkGfIftRjMYWp.png" alt="Super Voleibol Copa Logo" class="hero-logo">
-    <h1>O maior<br><em>campeonato</em><br>de vôlei</h1>
+    <h1>O maior da Região das Montanhas</h1>
   </div>
-  <p class="hero-sub">Reúna seu time, mostre o seu jogo e dispute a taça mais cobiçada do circuito estadual. 12 vagas, 6 categorias e R$5.000 em prêmios.</p>
+  <p class="hero-sub">Reúna sua equipe, viva a emoção da maior competição multiesportiva da região e dispute a taça mais cobiçada de Afonso Cláudio. A Supercopa chega com a 6ª edição do Voleibol e a 1ª edição do Basquete, reunindo equipes de vários estados em um evento totalmente gratuito, com alojamento e sem taxa de inscrição. São vagas limitadas, grandes confrontos e uma experiência inesquecível dentro e fora das quadras.</p>
   <div class="hero-actions">
-    <a class="btn-p" href="#inscricao">Inscrever Meu Time</a>
-    <a class="btn-o" href="#fases">Ver Regulamento</a>
+    <a class="btn-p" href="#inscricao" data-manus_clickable="true" data-manus_click_id="7">Inscrever Meu Time</a>
+    <a class="btn-o" href="#fases" data-manus_clickable="true" data-manus_click_id="8">Ver Regulamento</a>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><span class="hero-stat-num" id="c1">0</span><span class="hero-stat-label">Times</span></div>
-    <div class="hero-stat"><span class="hero-stat-num" id="c2">0</span><span class="hero-stat-label">Minutos de Vôlei</span></div>
-    <div class="hero-stat"><span class="hero-stat-num" id="c3">R$0k</span><span class="hero-stat-label">Em Prêmios</span></div>
-    <div class="hero-stat"><span class="hero-stat-num" id="c4">0</span><span class="hero-stat-label">Chance de fazer história</span></div>
+    <div class="hero-stat"><span class="hero-stat-num" id="c1">12</span><span class="hero-stat-label">Equipes no evento de Voleibol</span></div>
+    <div class="hero-stat"><span class="hero-stat-num" id="c2">6</span><span class="hero-stat-label">Equipes no evento de Basquete</span></div>
+    <div class="hero-stat"><span class="hero-stat-num" id="c3">R$0,00</span><span class="hero-stat-label">de Taxa de Inscrição</span></div>
+    <div class="hero-stat"><span class="hero-stat-num" id="c4">1</span><span class="hero-stat-label">Chance de fazer história</span></div>
   </div>
 </div>
 
@@ -378,14 +389,14 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     <div class="marquee-item">QUARTAS DE FINAL<span class="msep"> ◥ </span></div>
     <div class="marquee-item">SEMIFINAL<span class="msep"> ◥ </span></div>
     <div class="marquee-item">GRANDE FINAL<span class="msep"> ◥ </span></div>
-    <div class="marquee-item">SPIKE CUP 2025<span class="msep"> ◥ </span></div>
+    <div class="marquee-item">SUPERCOPA 2025<span class="msep"> ◥ </span></div>
     <div class="marquee-item">INSCRIÇÕES ABERTAS<span class="msep"> ◥ </span></div>
     <div class="marquee-item">R$5.000 EM PRÊMIOS<span class="msep"> ◥ </span></div>
     <div class="marquee-item">FASE DE GRUPOS<span class="msep"> ◥ </span></div>
     <div class="marquee-item">QUARTAS DE FINAL<span class="msep"> ◥ </span></div>
     <div class="marquee-item">SEMIFINAL<span class="msep"> ◥ </span></div>
     <div class="marquee-item">GRANDE FINAL<span class="msep"> ◥ </span></div>
-    <div class="marquee-item">SPIKE CUP 2025<span class="msep"> ◥ </span></div>
+    <div class="marquee-item">SUPERCOPA 2025<span class="msep"> ◥ </span></div>
     <div class="marquee-item">INSCRIÇÕES ABERTAS<span class="msep"> ◥ </span></div>
     <div class="marquee-item">R$5.000 EM PRÊMIOS<span class="msep"> ◥ </span></div>
   </div>
@@ -393,28 +404,28 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
 
 <!-- FASES -->
 <section class="section" id="fases">
-  <div class="section-tag reveal">Estrutura do Campeonato</div>
-  <h2 class="reveal">Do primeiro saque<br>à <em>grande final</em></h2>
-  <p class="reveal" style="color:var(--muted);max-width:520px">Quatro fases, cada uma mais intensa. Somente os melhores avançam.</p>
+  <div class="section-tag reveal visible">Estrutura do Campeonato</div>
+  <h2 class="reveal visible">Do primeiro saque<br>à <em>grande final</em></h2>
+  <p class="reveal visible" style="color:var(--muted);max-width:520px">Quatro fases, cada uma mais intensa. Somente os melhores avançam.</p>
   <div class="fases-grid">
-    <div class="fase-card reveal" style="transition-delay:.05s">
+    <div class="fase-card reveal visible" style="transition-delay:.05s">
       <div class="fase-num">01</div><span class="fase-icon">🏐</span>
-      <h3>Fase de Grupos</h3><p>12 times em 4 grupos. Todos se enfrentam uma vez. Os 2 primeiros avançam.</p>
+      <h3>Fase de Grupos</h3><p>Todos se enfretam dentro do seu grupo e 2 avançam de fase.</p>
       <div class="fase-date">Ago 02 → Set 14</div>
     </div>
-    <div class="fase-card reveal" style="transition-delay:.15s">
+    <div class="fase-card reveal visible" style="transition-delay:.15s">
       <div class="fase-num">02</div><span class="fase-icon">⚡</span>
-      <h3>Quartas de Final</h3><p>Os 8 classificados em mata-mata. Melhor de 3 sets. Erro aqui é eliminação.</p>
+      <h3>Quartas de Final</h3><p>Os 8 classificados em mata-mata para o voleibol. Melhor de 3 sets. Erro aqui é eliminação.</p>
       <div class="fase-date">Set 20 → Set 28</div>
     </div>
-    <div class="fase-card reveal" style="transition-delay:.25s">
+    <div class="fase-card reveal visible" style="transition-delay:.25s">
       <div class="fase-num">03</div><span class="fase-icon">🔥</span>
       <h3>Semifinal</h3><p>Quatro times. Dois jogos. Cada ponto vale ouro. Os vencedores vão à final.</p>
       <div class="fase-date">Out 04 → Out 05</div>
     </div>
-    <div class="fase-card reveal" style="transition-delay:.35s">
+    <div class="fase-card reveal visible" style="transition-delay:.35s">
       <div class="fase-num">04</div><span class="fase-icon">🏆</span>
-      <h3>Grande Final</h3><p>Arena lotada, transmissão ao vivo e R$5.000 para o campeão.</p>
+      <h3>Grande Final</h3><p>Arena lotada, transmissão ao vivo, equipes de vários estados e uma premiação de primeira para os campeões da maior competição multiesportiva da região.</p>
       <div class="fase-date">Out 18 · Ginásio Central</div>
     </div>
   </div>
@@ -423,10 +434,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
 <!-- CONTADORES -->
 <div class="counter-section">
   <div class="counter-inner">
-    <div class="counter-box reveal-scale" style="transition-delay:.0s"><span class="counter-num" id="cc1">0</span><span class="counter-label">Atletas</span></div>
-    <div class="counter-box reveal-scale" style="transition-delay:.1s"><span class="counter-num" id="cc2">0</span><span class="counter-label">Jogos na Fase de Grupos</span></div>
-    <div class="counter-box reveal-scale" style="transition-delay:.2s"><span class="counter-num" id="cc3">0</span><span class="counter-label">Anos de Edição</span></div>
-    <div class="counter-box reveal-scale" style="transition-delay:.3s"><span class="counter-num" id="cc4">0</span><span class="counter-label">Lugares na Grande Final</span></div>
+    <div class="counter-box reveal-scale visible" style="transition-delay:.0s"><span class="counter-num" id="cc1">256</span><span class="counter-label">Atletas</span></div>
+    <div class="counter-box reveal-scale visible" style="transition-delay:.1s"><span class="counter-num" id="cc2">89</span><span class="counter-label">Jogos na Fase de Grupos</span></div>
+    <div class="counter-box reveal-scale visible" style="transition-delay:.2s"><span class="counter-num" id="cc3">10</span><span class="counter-label">Anos de Edição</span></div>
+    <div class="counter-box reveal-scale visible" style="transition-delay:.3s"><span class="counter-num" id="cc4">2.000</span><span class="counter-label">Lugares na Grande Final</span></div>
   </div>
 </div>
 
@@ -444,7 +455,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     <div class="time-card reveal" style="transition-delay:.35s"><span class="time-escudo">🐯</span><div class="time-nome">Tigres de BH</div><div class="time-cidade">Belo Horizonte</div><span class="time-grupo ga">Grupo A</span></div>
     <div class="time-card reveal" style="transition-delay:.40s"><span class="time-escudo">🦊</span><div class="time-nome">Raposas Net</div><div class="time-cidade">Porto Alegre, RS</div><span class="time-grupo gb">Grupo B</span></div>
   </div>
-  <p class="reveal" style="color:var(--muted);margin-top:20px;font-size:13px;text-align:center">+ 24 times classificados · <a href="#inscricao" style="color:var(--accent)">Ver lista completa</a></p>
+  <p class="reveal" style="color:var(--muted);margin-top:20px;font-size:13px;text-align:center">+ 24 times classificados · <a href="#inscricao" style="color:var(--accent)" data-manus_clickable="true" data-manus_click_id="9">Ver lista completa</a></p>
 </section>
 
 <!-- TABELA -->
@@ -473,13 +484,13 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <h2 class="reveal">Mais do que um jogo,<br>uma <em>experiência</em></h2>
   <div class="transform-grid">
     <div class="transform-col reveal-left">
-      <h4>SEM O SPIKE CUP… <b>você perde isso</b></h4>
+      <h4>SEM O SUPERCOPA… <b>você perde isso</b></h4>
       <div class="transform-item"><div class="t-icon">❌</div><div class="t-text"><strong>Treina sem objetivo</strong><p>Sem competição real, o nível estagna e a motivação cai ao longo da temporada.</p></div></div>
       <div class="transform-item"><div class="t-icon">❌</div><div class="t-text"><strong>Visibilidade zero</strong><p>Bons times ficam desconhecidos por falta de palco para mostrar o jogo.</p></div></div>
       <div class="transform-item"><div class="t-icon">❌</div><div class="t-text"><strong>Sem rede de contatos</strong><p>Perde a chance de conectar com técnicos, outros times e patrocinadores.</p></div></div>
     </div>
     <div class="transform-col after reveal-right">
-      <h4>NO SPIKE CUP… <b>você conquista</b></h4>
+      <h4>NO SUPERCOPA… <b>você conquista</b></h4>
       <div class="transform-item"><div class="t-icon">🏐</div><div class="t-text"><strong>Compite em alto nível</strong><p>Jogos de pressão que desenvolvem técnica, tática e mentalidade campeã.</p></div></div>
       <div class="transform-item"><div class="t-icon">📺</div><div class="t-text"><strong>Transmissão ao vivo</strong><p>As fases finais são transmitidas online. Seu time na tela de milhares.</p></div></div>
       <div class="transform-item"><div class="t-icon">🤝</div><div class="t-text"><strong>Comunidade e prêmios</strong><p>R$5.000 em premiação, troféus e visibilidade real para todo o elenco.</p></div></div>
@@ -505,8 +516,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <h2 class="reveal">Pronto para o <em>saque?</em></h2>
   <p class="reveal">As inscrições encerram em 25 de julho. Apenas 12 vagas. Garanta a sua antes que outro time ocupe o seu lugar.</p>
   <div class="cta-actions reveal">
-    <a class="btn-p" href="#">Inscrever Meu Time — R$490</a>
-    <a class="btn-o" href="#">Baixar Regulamento Completo</a>
+    <a class="btn-p" href="#" data-manus_clickable="true" data-manus_click_id="10">Inscrever Meu Time — R$490</a>
+    <a class="btn-o" href="#" data-manus_clickable="true" data-manus_click_id="11">Baixar Regulamento Completo</a>
   </div>
   <p class="cta-meta reveal">✓ Pagamento parcelado &nbsp;·&nbsp; ✓ Regulamento transparente &nbsp;·&nbsp; ✓ Suporte via WhatsApp</p>
 </div>
@@ -523,9 +534,9 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
       <div class="dep-card"><div class="dep-quote">"</div><p class="dep-text">Ganhar o Spike Cup foi o ponto alto da carreira dos meus atletas. A estrutura e a seriedade da organização são únicos. Já confirmamos presença para 2025 — queremos o bicampeonato.</p><div class="dep-author"><div class="dep-avatar">RS</div><div><div class="dep-name">Rafael Souza</div><div class="dep-role">Técnico · Raios do Norte</div></div></div></div>
     </div>
     <div class="dep-controls">
-      <button class="dep-btn" id="prevBtn">←</button>
-      <button class="dep-btn" id="nextBtn">→</button>
-      <div class="dep-dots" id="depDots"></div>
+      <button class="dep-btn" id="prevBtn" data-manus_clickable="true" data-manus_click_id="12">←</button>
+      <button class="dep-btn" id="nextBtn" data-manus_clickable="true" data-manus_click_id="13">→</button>
+      <div class="dep-dots" id="depDots"><div class="dep-dot active" data-manus_clickable="true" data-manus_click_id="14"></div><div class="dep-dot" data-manus_clickable="true" data-manus_click_id="15"></div></div>
     </div>
   </div>
 </section>
@@ -535,22 +546,22 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <div class="section-tag reveal">Dúvidas</div>
   <h2 class="reveal">Perguntas <em>frequentes</em></h2>
   <div class="faq-list reveal">
-    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Quais categorias o campeonato contempla?<span class="faq-arrow">+</span></button><div class="faq-a">O Spike Cup 2025 tem 6 categorias: Masculino Adulto, Feminino Adulto, Masculino Sub-21, Feminino Sub-21, Misto e Masters (+35 anos). Cada categoria tem tabela e premiação independentes.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Qual o número de atletas por time?<span class="faq-arrow">+</span></button><div class="faq-a">Mínimo de 8 e máximo de 14 atletas. Substituições são permitidas até o início das quartas de final, conforme o regulamento.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Onde serão realizados os jogos?<span class="faq-arrow">+</span></button><div class="faq-a">A fase de grupos ocorre em quadras parceiras. Quartas, semi e final serão no Ginásio Central, com capacidade para 2.000 pessoas e transmissão online.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Qual a premiação para o campeão?<span class="faq-arrow">+</span></button><div class="faq-a">Campeão: R$5.000 + troféu + medalhas. Vice: R$10.000. 3º lugar: R$5.000. Melhores atletas por posição recebem troféu individual.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Como funciona o pagamento?<span class="faq-arrow">+</span></button><div class="faq-a">Taxa de R$490. PIX à vista com 5% de desconto ou 3x no cartão sem juros. Vaga confirmada em até 24h após o pagamento.</div></div>
-    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Como acompanhar os resultados em tempo real?<span class="faq-arrow">+</span></button><div class="faq-a">Tabela atualizada neste site. Nas fases finais, transmissão ao vivo no YouTube e Instagram. Times inscritos recebem updates automáticos via WhatsApp.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="16">Quais categorias o campeonato contempla?<span class="faq-arrow">+</span></button><div class="faq-a">O Spike Cup 2025 tem 6 categorias: Masculino Adulto, Feminino Adulto, Masculino Sub-21, Feminino Sub-21, Misto e Masters (+35 anos). Cada categoria tem tabela e premiação independentes.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="17">Qual o número de atletas por time?<span class="faq-arrow">+</span></button><div class="faq-a">Mínimo de 8 e máximo de 14 atletas. Substituições são permitidas até o início das quartas de final, conforme o regulamento.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="18">Onde serão realizados os jogos?<span class="faq-arrow">+</span></button><div class="faq-a">A fase de grupos ocorre em quadras parceiras. Quartas, semi e final serão no Ginásio Central, com capacidade para 2.000 pessoas e transmissão online.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="19">Qual a premiação para o campeão?<span class="faq-arrow">+</span></button><div class="faq-a">Campeão: R$5.000 + troféu + medalhas. Vice: R$10.000. 3º lugar: R$5.000. Melhores atletas por posição recebem troféu individual.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="20">Como funciona o pagamento?<span class="faq-arrow">+</span></button><div class="faq-a">Taxa de R$490. PIX à vista com 5% de desconto ou 3x no cartão sem juros. Vaga confirmada em até 24h após o pagamento.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" data-manus_clickable="true" data-manus_click_id="21">Como acompanhar os resultados em tempo real?<span class="faq-arrow">+</span></button><div class="faq-a">Tabela atualizada neste site. Nas fases finais, transmissão ao vivo no YouTube e Instagram. Times inscritos recebem updates automáticos via WhatsApp.</div></div>
   </div>
 </section>
 
 <footer>
   <div class="footer-inner">
-    <div><div class="footer-logo">SPIKE CUP</div><div class="footer-tagline">Campeonato Estadual de Vôlei · 10ª Edição · 2025</div></div>
+    <div><div class="footer-logo">SUPERCOPA</div><div class="footer-tagline">Campeonato Estadual de Vôlei · 10ª Edição · 2025</div></div>
     <ul class="footer-links">
-      <li><a href="#fases">Regulamento</a></li><li><a href="#times">Times</a></li>
-      <li><a href="#classificacao">Tabela</a></li><li><a href="#faq">FAQ</a></li>
-      <li><a href="#inscricao" style="color:var(--accent)">Inscrição</a></li>
+      <li><a href="#fases" data-manus_clickable="true" data-manus_click_id="22">Regulamento</a></li><li><a href="#times" data-manus_clickable="true" data-manus_click_id="23">Times</a></li>
+      <li><a href="#classificacao" data-manus_clickable="true" data-manus_click_id="24">Tabela</a></li><li><a href="#faq" data-manus_clickable="true" data-manus_click_id="25">FAQ</a></li>
+      <li><a href="#inscricao" style="color:var(--accent)" data-manus_clickable="true" data-manus_click_id="26">Inscrição</a></li>
     </ul>
   </div>
   <div class="footer-bottom">
@@ -583,10 +594,9 @@ new IntersectionObserver(entries => {
   if (entries[0].isIntersecting && !heroFired) {
     heroFired = true;
     animCount(document.getElementById('c1'), 12);
-    animCount(document.getElementById('c2'), 475);
+    animCount(document.getElementById('c2'), 6);
     animCount(document.getElementById('c4'), 1);
-    let v = 0;
-    (function t() { v = Math.min(v + 5/108, 5); document.getElementById('c3').textContent = 'R$' + Math.round(v) + 'k'; if(v<5) requestAnimationFrame(t); })();
+document.getElementById('c3').textContent = 'R$0,00';
   }
 }, { threshold: 0.3 }).observe(document.querySelector('.hero-stats'));
 
@@ -633,5 +643,6 @@ function toggleFaq(btn) {
 }
 window.toggleFaq = toggleFaq;
 </script>
-</body>
-</html>
+
+
+</body></html>
