@@ -1,5 +1,5 @@
 /* =========================================
-   LOGOS HERO - VERSÃO CORRIGIDA E UNIFICADA
+   LOGOS HERO - VERSÃO COMPLETA COM RING
    Foco: Aumentar visibilidade das logos
 ========================================= */
 
@@ -29,6 +29,27 @@
   filter: blur(40px);
   z-index: 0;
   animation: pulseGlowYellow 6s ease-in-out infinite;
+}
+
+/* =========================================
+   CONTAINER DO ANEL + LOGO (NOVO)
+========================================= */
+
+.hero-ring-wrap {
+  width: 220px;  /* AUMENTAR ESTE VALOR para ficar maior */
+  height: 220px; /* AUMENTAR ESTE VALOR para ficar maior */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG do anel */
+.hero-ring-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 /* CONTAINER DA LOGO - CLASSE ATIVA NO SITE */
@@ -117,6 +138,11 @@
   .hero-logos {
     gap: 15px;
     margin-bottom: 15px;
+  }
+
+  .hero-ring-wrap {
+    width: 150px !important;  /* Ajuste para telas menores */
+    height: 150px !important;
   }
 
   .hero-logo-img-box {
