@@ -1,6 +1,7 @@
 /* =========================================
-   LOGOS HERO - VERSÃO EXTRA GRANDE
-   Tamanho: 260px para máxima visibilidade
+   LOGOS HERO - VERSÃO DOBRADA (TAMANHO MÁXIMO)
+   Tamanho: 520px para máxima visibilidade
+   Dobrado de 260px para 520px
 ========================================= */
 
 .hero-logos {
@@ -9,8 +10,8 @@
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  gap: 30px; /* Aumentado o espaço entre as logos */
-  margin-bottom: 30px; /* Mais espaço para o título abaixo */
+  gap: 60px; /* Aumentado para acomodar logos maiores */
+  margin-bottom: 60px; /* Mais espaço para o título abaixo */
   isolation: isolate;
 }
 
@@ -18,26 +19,26 @@
 .hero-logos::before {
   content: "";
   position: absolute;
-  width: 600px;
-  height: 300px;
+  width: 1000px;
+  height: 500px;
   background: radial-gradient(
     circle,
     rgba(255, 196, 0, 0.15) 0%,
     rgba(255, 196, 0, 0.08) 35%,
     transparent 70%
   );
-  filter: blur(45px);
+  filter: blur(60px);
   z-index: 0;
   animation: pulseGlowYellow 6s ease-in-out infinite;
 }
 
 /* =========================================
-   CONTAINER DO ANEL + LOGO (EXTRA GRANDE)
+   CONTAINER DO ANEL + LOGO (DOBRADO)
 ========================================= */
 
 .hero-ring-wrap {
-  width: 260px;  /* EXTRA GRANDE */
-  height: 260px; /* EXTRA GRANDE */
+  width: 520px !important;  /* DOBRADO de 260px */
+  height: 520px !important; /* DOBRADO de 260px */
   position: relative;
   display: flex;
   align-items: center;
@@ -54,15 +55,15 @@
 
 /* CONTAINER DA LOGO - CLASSE ATIVA NO SITE */
 .hero-logo-img-box {
-  width: 200px !important;  /* Aumentado para proporcionalidade */
-  height: 200px !important; /* Aumentado para proporcionalidade */
-  border-radius: 20px;
+  width: 400px !important;  /* DOBRADO de 200px */
+  height: 400px !important; /* DOBRADO de 200px */
+  border-radius: 30px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(58, 134, 240, 0.25);
+  border: 2px solid rgba(58, 134, 240, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px !important; /* Espaço interno ajustado */
+  padding: 20px !important; /* Espaço interno ajustado */
   position: relative;
   z-index: 2;
   transition: transform .35s cubic-bezier(.34,1.56,.64,1), border-color .3s, box-shadow .3s;
@@ -77,14 +78,14 @@
   width: 100% !important;
   height: 100% !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,0.5));
 }
 
 /* Efeito ao passar o mouse */
 .hero-logo-col:hover .hero-logo-img-box {
-  transform: scale(1.12) translateY(-10px);
+  transform: scale(1.12) translateY(-15px);
   border-color: rgba(58, 134, 240, 0.6);
-  box-shadow: 0 15px 45px rgba(58, 134, 240, 0.35);
+  box-shadow: 0 20px 60px rgba(58, 134, 240, 0.4);
 }
 
 /* TÍTULO ABAIXO DAS LOGOS */
@@ -122,7 +123,7 @@
 
 @keyframes floatLogo {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
+  50% { transform: translateY(-20px); }
 }
 
 @keyframes pulseGlowYellow {
@@ -136,26 +137,27 @@
 
 @media (max-width: 768px) {
   .hero-logos {
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 20px;
+    margin-bottom: 30px;
   }
 
   .hero-logos::before {
-    width: 300px;
-    height: 150px;
-    filter: blur(30px);
+    width: 400px;
+    height: 200px;
+    filter: blur(40px);
   }
 
   .hero-ring-wrap {
-    width: 170px !important;  /* Ajuste proporcional para mobile */
-    height: 170px !important;
+    width: 280px !important;  /* Proporção mantida para mobile */
+    height: 280px !important;
   }
 
   .hero-logo-img-box {
-    width: 130px !important;  /* Ajuste proporcional para mobile */
-    height: 130px !important;
-    padding: 8px !important;
-    border-radius: 14px;
+    width: 220px !important;  /* Proporção mantida para mobile */
+    height: 220px !important;
+    padding: 12px !important;
+    border-radius: 18px;
+    border-width: 1px;
   }
 
   .hero-title-animated {
@@ -174,14 +176,20 @@
 ========================================= */
 
 @media (min-width: 769px) and (max-width: 1024px) {
+  .hero-logos {
+    gap: 50px;
+    margin-bottom: 50px;
+  }
+
   .hero-ring-wrap {
-    width: 240px;
-    height: 240px;
+    width: 420px !important;
+    height: 420px !important;
   }
 
   .hero-logo-img-box {
-    width: 180px !important;
-    height: 180px !important;
+    width: 320px !important;
+    height: 320px !important;
+    padding: 16px !important;
   }
 
   .hero-title-animated {
