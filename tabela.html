@@ -733,33 +733,36 @@ td.team{ text-align:left; font-weight:700; }
   <!-- BASQUETE MATA-MATA -->
   <div id="basqueteMataContent" class="hidden">
     <div class="section-title">Mata-Mata · Basquete</div>
-    <div class="mata-bracket three-col">
+    <div id="mataMataLoading" class="loading">Carregando chaveamento...</div>
+    <div id="mataMataError" class="error-box hidden"></div>
+
+    <div class="mata-bracket three-col" id="mataMataGrid" style="display:none">
 
       <!-- SEMIFINAIS -->
       <div>
         <div class="mata-round-title">Semifinais</div>
 
-        <div class="mata-sub-label">1º Grupo A × 2º Grupo B</div>
+        <div class="mata-sub-label">Semi Final 1</div>
         <div class="mata-matchup">
-          <div class="mata-team-row winner">
-            <span class="mata-team-name">CT</span>
-            <span class="mata-team-score winner-score">10</span>
+          <div class="mata-team-row" id="s1-teamA-row">
+            <span class="mata-team-name" id="s1-nameA">—</span>
+            <span class="mata-team-score" id="s1-scoreA">-</span>
           </div>
-          <div class="mata-team-row">
-            <span class="mata-team-name">Equipe 2</span>
-            <span class="mata-team-score loser-score">5</span>
+          <div class="mata-team-row" id="s1-teamB-row">
+            <span class="mata-team-name" id="s1-nameB">—</span>
+            <span class="mata-team-score" id="s1-scoreB">-</span>
           </div>
         </div>
 
-        <div class="mata-sub-label">1º Grupo B × 2º Grupo A</div>
+        <div class="mata-sub-label">Semi Final 2</div>
         <div class="mata-matchup">
-          <div class="mata-team-row winner">
-            <span class="mata-team-name">Equipe 4</span>
-            <span class="mata-team-score winner-score">10</span>
+          <div class="mata-team-row" id="s2-teamA-row">
+            <span class="mata-team-name" id="s2-nameA">—</span>
+            <span class="mata-team-score" id="s2-scoreA">-</span>
           </div>
-          <div class="mata-team-row">
-            <span class="mata-team-name">Equipe 3</span>
-            <span class="mata-team-score loser-score">5</span>
+          <div class="mata-team-row" id="s2-teamB-row">
+            <span class="mata-team-name" id="s2-nameB">—</span>
+            <span class="mata-team-score" id="s2-scoreB">-</span>
           </div>
         </div>
       </div>
@@ -769,13 +772,13 @@ td.team{ text-align:left; font-weight:700; }
         <div class="mata-round-title">Grande Final</div>
         <div class="mata-sub-label">Final</div>
         <div class="mata-matchup">
-          <div class="mata-team-row winner">
-            <span class="mata-team-name">Equipe 6</span>
-            <span class="mata-team-score winner-score">10</span>
+          <div class="mata-team-row" id="f-teamA-row">
+            <span class="mata-team-name" id="f-nameA">—</span>
+            <span class="mata-team-score" id="f-scoreA">-</span>
           </div>
-          <div class="mata-team-row">
-            <span class="mata-team-name">Equipe 4</span>
-            <span class="mata-team-score loser-score">5</span>
+          <div class="mata-team-row" id="f-teamB-row">
+            <span class="mata-team-name" id="f-nameB">—</span>
+            <span class="mata-team-score" id="f-scoreB">-</span>
           </div>
         </div>
       </div>
@@ -792,7 +795,7 @@ td.team{ text-align:left; font-weight:700; }
           </div>
           <div class="trophy-emoji">🏆</div>
           <div class="trophy-label">Campeão da Supercopa</div>
-          <div class="trophy-name">Equipe 6</div>
+          <div class="trophy-name" id="campeoName" style="font-size:28px">—</div>
         </div>
       </div>
 
@@ -891,6 +894,8 @@ function showModalidade(mod, btn) {
     document.getElementById('voleiMataContent').classList.remove('hidden');
   } else if (mod === 'basqueteMata') {
     document.getElementById('basqueteMataContent').classList.remove('hidden');
+    loadMataMata();
+    startRefreshCycle(loadMataMata);
   }
 }
 
@@ -1071,6 +1076,152 @@ function renderGames(gamesA, gamesB) {
       <div class="game-status">${game.resultado}</div>`;
     list.appendChild(card);
   });
+}
+
+// ============================================
+// CARREGA MATA-MATA BASQUETE (aba "Mata-Mata")
+// ============================================
+//
+// Mapeamento pela planilha (imagem confirmada):
+//  Semi 1: B4=nomeA, B5=placarA, H4=nomeB, H5=placarB, M5=classificado
+//  Semi 2: B9=nomeA, B10=placarA, H9=nomeB, H10=placarB, M10=classificado
+//  Final:  B15=nomeA, B16=placarA, H15=nomeB, H16=placarB, M16=classificado
+//  Campeão: B21
+//
+// Células no range A1:N21 (14 colunas × 21 linhas)
+// Índices de coluna (base 0): A=0 B=1 C=2 D=3 E=4 F=5 G=6 H=7 I=8 J=9 K=10 L=11 M=12 N=13
+
+const MATA_MATA_SHEET = 'Mata-Mata';
+
+async function loadMataMata() {
+  const loadingEl = document.getElementById('mataMataLoading');
+  const errorEl   = document.getElementById('mataMataError');
+  const grid      = document.getElementById('mataMataGrid');
+
+  try {
+    const range = encodeURIComponent(`'${MATA_MATA_SHEET}'!A1:N21`);
+    const url   = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
+
+    const response = await fetch(url);
+    const result   = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error ? result.error.message : response.statusText);
+    }
+
+    const rows = result.values || [];
+
+    // Helper: pega célula pelo índice de linha e coluna (base 0), retorna '' se vazio
+    const cell = (r, c) => (rows[r] && rows[r][c]) ? rows[r][c].toString().trim() : '';
+
+    // ── Extrai dados ──────────────────────────────────────────────
+    // Semi 1  (linha 4 = índice 3, linha 5 = índice 4)
+    const s1 = {
+      nameA:  cell(3, 1),   // B4
+      scoreA: cell(4, 1),   // B5
+      nameB:  cell(3, 7),   // H4
+      scoreB: cell(4, 7),   // H5
+      winner: cell(4, 12),  // M5  ex: "CLASSIF: EQUIPE 6"
+    };
+
+    // Semi 2  (linha 9 = índice 8, linha 10 = índice 9)
+    const s2 = {
+      nameA:  cell(8, 1),   // B9
+      scoreA: cell(9, 1),   // B10
+      nameB:  cell(8, 7),   // H9
+      scoreB: cell(9, 7),   // H10
+      winner: cell(9, 12),  // M10
+    };
+
+    // Final  (linha 15 = índice 14, linha 16 = índice 15)
+    const fin = {
+      nameA:  cell(14, 1),  // B15
+      scoreA: cell(15, 1),  // B16
+      nameB:  cell(14, 7),  // H15
+      scoreB: cell(15, 7),  // H16
+      winner: cell(15, 12), // M16
+    };
+
+    // Campeão  (linha 21 = índice 20)
+    const campeo = cell(20, 1); // B21
+
+    // ── Determina vencedores de cada duelo ────────────────────────
+    function whoWon(nameA, scoreA, nameB, scoreB) {
+      const a = parseFloat(scoreA), b = parseFloat(scoreB);
+      if (isNaN(a) || isNaN(b)) return null;
+      return a > b ? nameA : (b > a ? nameB : null);
+    }
+
+    const winS1  = whoWon(s1.nameA,  s1.scoreA,  s1.nameB,  s1.scoreB);
+    const winS2  = whoWon(s2.nameA,  s2.scoreA,  s2.nameB,  s2.scoreB);
+    const winFin = whoWon(fin.nameA, fin.scoreA, fin.nameB, fin.scoreB);
+
+    // ── Aplica dados na UI ────────────────────────────────────────
+    function applyMatchup(ids, nameA, scoreA, nameB, scoreB, winner) {
+      // ids = { rowA, rowB, nameA, scoreA, nameB, scoreB }
+      const rowA = document.getElementById(ids.rowA);
+      const rowB = document.getElementById(ids.rowB);
+      document.getElementById(ids.nameA).textContent  = nameA  || '—';
+      document.getElementById(ids.scoreA).textContent = scoreA || '-';
+      document.getElementById(ids.nameB).textContent  = nameB  || '—';
+      document.getElementById(ids.scoreB).textContent = scoreB || '-';
+
+      rowA.classList.remove('winner');
+      rowB.classList.remove('winner');
+      const sA = rowA.querySelector('.mata-team-score');
+      const sB = rowB.querySelector('.mata-team-score');
+      sA.classList.remove('winner-score','loser-score');
+      sB.classList.remove('winner-score','loser-score');
+
+      if (winner) {
+        if (winner === nameA) {
+          rowA.classList.add('winner');
+          sA.classList.add('winner-score');
+          sB.classList.add('loser-score');
+        } else {
+          rowB.classList.add('winner');
+          sB.classList.add('winner-score');
+          sA.classList.add('loser-score');
+        }
+      }
+    }
+
+    applyMatchup(
+      { rowA:'s1-teamA-row', rowB:'s1-teamB-row', nameA:'s1-nameA', scoreA:'s1-scoreA', nameB:'s1-nameB', scoreB:'s1-scoreB' },
+      s1.nameA, s1.scoreA, s1.nameB, s1.scoreB, winS1
+    );
+    applyMatchup(
+      { rowA:'s2-teamA-row', rowB:'s2-teamB-row', nameA:'s2-nameA', scoreA:'s2-scoreA', nameB:'s2-nameB', scoreB:'s2-scoreB' },
+      s2.nameA, s2.scoreA, s2.nameB, s2.scoreB, winS2
+    );
+    applyMatchup(
+      { rowA:'f-teamA-row', rowB:'f-teamB-row', nameA:'f-nameA', scoreA:'f-scoreA', nameB:'f-nameB', scoreB:'f-scoreB' },
+      fin.nameA, fin.scoreA, fin.nameB, fin.scoreB, winFin
+    );
+
+    // Campeão
+    const campeoEl = document.getElementById('campeoName');
+    if (campeo && campeo !== '') {
+      // Remove prefixo "CAMPEAO: " ou "CAMPEÃO: " se a planilha incluir
+      const nome = campeo.replace(/^campe[aã]o[:\s]*/i, '').trim();
+      campeoEl.textContent = nome || campeo;
+      campeoEl.classList.remove('pending');
+    } else {
+      campeoEl.textContent = 'A definir';
+      campeoEl.classList.add('pending');
+    }
+
+    // Mostra grid, esconde loading/error
+    loadingEl.classList.add('hidden');
+    errorEl.classList.add('hidden');
+    grid.style.display = '';
+
+  } catch (error) {
+    console.error('Mata-Mata error:', error);
+    loadingEl.classList.add('hidden');
+    errorEl.textContent = `❌ Erro ao carregar Mata-Mata:\n\n${error.message}`;
+    errorEl.classList.remove('hidden');
+  }
 }
 
 // ============================================
