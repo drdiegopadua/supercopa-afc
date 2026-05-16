@@ -4,9 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Tabela e Classificação • SUPERCOPA 2026</title>
+<title>Tabela e Classificação · SUPERCOPA 2026</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -23,21 +23,14 @@
   --border:rgba(255,255,255,0.07);
 
   --accent:#3a86f0;
-  --accent2:#e85d3a;
+  --green:#4ade80;
 
   --text:#e8eaf0;
   --muted:#5a6174;
 
-  --green:#4ade80;
-  --green-bg:rgba(74,222,128,0.08);
-
   --D:'Bebas Neue',sans-serif;
   --B:'DM Sans',sans-serif;
   --M:'Space Mono',monospace;
-}
-
-html{
-  scroll-behavior:smooth;
 }
 
 body{
@@ -45,26 +38,24 @@ body{
   color:var(--text);
   font-family:var(--B);
   overflow-x:hidden;
-  padding-top:105px;
 }
 
 /* HEADER */
 
 header{
-  position:fixed;
+  position:sticky;
   top:0;
-  left:0;
-  right:0;
   z-index:1000;
+  backdrop-filter:blur(10px);
 }
 
 .urgency-bar{
   background:var(--accent);
   color:#000;
   text-align:center;
-  padding:11px;
+  padding:10px;
   font-family:var(--M);
-  font-size:12px;
+  font-size:11px;
   letter-spacing:2px;
   font-weight:700;
 }
@@ -73,159 +64,104 @@ nav{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   padding:18px 48px;
-  background:rgba(7,9,13,0.95);
+
+  background:rgba(7,9,13,0.94);
+
   border-bottom:1px solid var(--border);
 }
 
 .nav-logo{
-  font-family:var(--D);
-  font-size:28px;
-  letter-spacing:3px;
-  color:var(--accent);
   text-decoration:none;
+  font-family:var(--D);
+  font-size:30px;
+  color:var(--accent);
+  letter-spacing:3px;
 }
 
 .nav-logo span{
-  color:rgba(255,255,255,0.3);
-}
-
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:36px;
-  margin-left:auto;
+  color:rgba(255,255,255,.3);
 }
 
 .nav-links{
   display:flex;
-  align-items:center;
-  gap:28px;
+  gap:32px;
   list-style:none;
 }
 
 .nav-links a{
-  color:var(--muted);
   text-decoration:none;
+  color:var(--muted);
+
   font-size:12px;
-  font-weight:600;
   letter-spacing:1.5px;
   text-transform:uppercase;
+
   transition:.2s;
 }
 
 .nav-links a:hover{
-  color:var(--text);
-}
-
-.nav-back{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:var(--muted);
-  text-decoration:none;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  transition:.2s;
-}
-
-.nav-back:hover{
-  color:var(--accent);
+  color:#fff;
 }
 
 /* HERO */
 
-.page-hero{
-  padding:72px 24px 52px;
+.hero{
+  padding:90px 24px 60px;
   text-align:center;
   position:relative;
   overflow:hidden;
 }
 
-.hero-glow{
+.hero::before{
+  content:'';
   position:absolute;
-  top:-120px;
-  left:50%;
-  transform:translateX(-50%);
-  width:700px;
-  height:420px;
+  inset:0;
 
-  background:
-  radial-gradient(
-    ellipse at center,
-    rgba(58,134,240,0.16),
-    transparent 70%
-  );
+  background-image:
+  radial-gradient(circle,rgba(58,134,240,.06) 1px,transparent 1px);
+
+  background-size:38px 38px;
+
+  animation:dots 24s linear infinite;
 }
 
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
+@keyframes dots{
+  from{background-position:0 0}
+  to{background-position:38px 38px}
+}
 
-  padding:6px 20px;
-  border-radius:100px;
-
-  background:rgba(58,134,240,0.10);
-  border:1px solid rgba(58,134,240,0.28);
-
-  color:var(--accent);
-
-  font-family:var(--M);
-  font-size:11px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-
+.hero h1{
   position:relative;
   z-index:2;
-}
-
-.badge-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--accent);
-}
-
-.page-hero h1{
-  margin-top:28px;
 
   font-family:var(--D);
-  font-size:clamp(2.5rem,7vw,5rem);
+  font-size:clamp(3rem,8vw,6rem);
+  letter-spacing:4px;
   line-height:1;
-  letter-spacing:.08em;
-  text-transform:uppercase;
 
   background:
   linear-gradient(
-    155deg,
-    #a8d0ff 0%,
-    #3a86f0 25%,
-    #ffffff 50%,
-    #3a86f0 75%,
-    #1a4a9e 100%
+    135deg,
+    #ffffff 0%,
+    #3a86f0 50%,
+    #ffffff 100%
   );
 
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-.page-hero p{
-  max-width:650px;
+.hero p{
+  position:relative;
+  z-index:2;
+
+  max-width:680px;
   margin:18px auto 0;
+
   color:var(--muted);
-  font-size:16px;
-  line-height:1.7;
-}
-
-/* CONTAINER */
-
-.main-wrap{
-  max-width:1300px;
-  margin:auto;
-  padding:0 24px 80px;
+  line-height:1.8;
 }
 
 /* TABS */
@@ -233,19 +169,20 @@ nav{
 .tabs{
   display:flex;
   justify-content:center;
-  gap:14px;
-  margin-bottom:40px;
-  flex-wrap:wrap;
+  gap:16px;
+
+  margin:0 auto 50px;
+  padding:0 24px;
 }
 
 .tab-btn{
   border:none;
   cursor:pointer;
 
-  padding:14px 30px;
+  padding:16px 28px;
   border-radius:10px;
 
-  background:var(--card);
+  background:var(--surface);
   border:1px solid var(--border);
 
   color:var(--muted);
@@ -254,29 +191,32 @@ nav{
   font-weight:700;
   letter-spacing:1px;
 
-  transition:.25s;
+  transition:.2s;
 }
 
 .tab-btn.active{
-  background:rgba(58,134,240,0.12);
+  background:rgba(58,134,240,.12);
   border-color:var(--accent);
-  color:var(--text);
-
-  box-shadow:0 0 0 3px rgba(58,134,240,0.12);
+  color:#fff;
+  box-shadow:0 0 0 3px rgba(58,134,240,.12);
 }
 
-.tab-btn:hover{
-  transform:translateY(-2px);
+/* CONTAINER */
+
+.container{
+  width:min(1400px,100%);
+  margin:auto;
+  padding:0 24px 80px;
 }
 
-/* CONTENT */
+/* SECTIONS */
 
-.sport-content{
-  display:none;
-}
+.section-title{
+  font-family:var(--D);
+  font-size:42px;
+  letter-spacing:2px;
 
-.sport-content.active{
-  display:block;
+  margin-bottom:28px;
 }
 
 /* GROUPS */
@@ -284,33 +224,29 @@ nav{
 .groups-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:24px;
-  margin-bottom:40px;
+  gap:22px;
+
+  margin-bottom:70px;
 }
 
 .group-card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:16px;
+  border-radius:18px;
+
   overflow:hidden;
 }
 
 .group-header{
   padding:18px 20px;
+
   border-bottom:1px solid var(--border);
 
-  background:
-  linear-gradient(
-    90deg,
-    rgba(58,134,240,0.12),
-    transparent
-  );
-}
-
-.group-header h3{
   font-family:var(--D);
-  font-size:24px;
+  font-size:28px;
   letter-spacing:2px;
+
+  color:var(--accent);
 }
 
 .table-wrap{
@@ -323,202 +259,173 @@ table{
 }
 
 th{
-  padding:14px 10px;
-
-  background:rgba(255,255,255,0.03);
+  background:rgba(255,255,255,.02);
 
   color:var(--muted);
 
   font-size:11px;
-  font-family:var(--M);
-  letter-spacing:1.5px;
+  letter-spacing:1px;
   text-transform:uppercase;
+
+  padding:14px 10px;
 }
 
 td{
   padding:14px 10px;
-  border-top:1px solid var(--border);
   text-align:center;
+
+  border-top:1px solid var(--border);
+
   font-size:14px;
 }
 
 td.team{
   text-align:left;
-  font-weight:600;
-}
-
-tr:hover{
-  background:rgba(255,255,255,0.02);
-}
-
-/* MATCHES */
-
-.matches-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
-}
-
-.matches-header{
-  padding:22px 24px;
-  border-bottom:1px solid var(--border);
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-}
-
-.matches-header h2{
-  font-family:var(--D);
-  font-size:34px;
-  letter-spacing:2px;
-}
-
-.match-count{
-  background:rgba(58,134,240,0.10);
-  border:1px solid rgba(58,134,240,0.25);
-
-  padding:8px 14px;
-  border-radius:100px;
-
-  color:var(--accent);
-
-  font-family:var(--M);
-  font-size:11px;
-  letter-spacing:1.5px;
-}
-
-.matches-list{
-  padding:24px;
-}
-
-.match-row{
-  display:grid;
-  grid-template-columns:120px 1fr 90px 1fr 110px;
-  align-items:center;
-  gap:18px;
-
-  padding:18px;
-  margin-bottom:14px;
-
-  border-radius:12px;
-  border:1px solid var(--border);
-
-  background:rgba(255,255,255,0.02);
-}
-
-.match-info{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.team-name{
   font-weight:700;
-  font-size:15px;
 }
 
-.score{
-  text-align:center;
+/* JOGOS */
 
+.games-list{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+/* CARD JOGO */
+
+.game-card{
+  display:grid;
+  grid-template-columns:120px 1fr 220px 1fr 160px;
+  align-items:center;
+
+  gap:24px;
+
+  padding:28px 24px;
+
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:18px;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.01)
+  );
+}
+
+/* INFO */
+
+.game-info{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.game-group{
+  font-size:14px;
+  color:#6e7ea7;
+}
+
+.game-hour{
+  font-size:26px;
   font-family:var(--D);
-  font-size:34px;
-  color:var(--accent);
-
+  color:#fff;
   letter-spacing:2px;
 }
 
-.status{
+/* TIMES */
+
+.game-team{
+  font-size:30px;
+  font-weight:700;
+  color:#fff;
+}
+
+.game-team.left{
   text-align:right;
 }
 
-.status span{
-  display:inline-block;
-
-  padding:7px 12px;
-  border-radius:100px;
-
-  background:var(--green-bg);
-  border:1px solid rgba(74,222,128,0.18);
-
-  color:var(--green);
-
-  font-size:11px;
-  font-family:var(--M);
-  letter-spacing:1.2px;
+.game-team.right{
+  text-align:left;
 }
 
-/* FOOTER */
+/* PLACAR */
 
-footer{
-  margin-top:80px;
-  padding:40px 48px 24px;
-  border-top:1px solid var(--border);
-  background:var(--surface);
-}
+.game-score{
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-.footer-logo{
+  gap:18px;
+
+  min-width:220px;
+
   font-family:var(--D);
-  font-size:28px;
   color:var(--accent);
+
+  line-height:1;
 }
 
-.footer-tagline{
-  margin-top:6px;
-  color:var(--muted);
+.game-score .score{
+  font-size:72px;
+  letter-spacing:2px;
+}
+
+.game-score .x{
+  font-size:42px;
+  opacity:.75;
+  transform:translateY(-2px);
+}
+
+/* STATUS */
+
+.game-status{
+  justify-self:end;
+
+  padding:12px 22px;
+  border-radius:999px;
+
   font-size:13px;
+  font-weight:700;
+  letter-spacing:2px;
+
+  border:1px solid rgba(74,222,128,0.25);
+
+  background:rgba(74,222,128,0.08);
+  color:#4ade80;
+}
+
+/* ESCONDER */
+
+.hidden{
+  display:none;
 }
 
 /* RESPONSIVO */
 
-@media(max-width:900px){
-
-  .match-row{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  .status{
-    text-align:center;
-  }
-
-  td{
-    font-size:13px;
-  }
-
-}
-
-@media(max-width:640px){
-
-  body{
-    padding-top:95px;
-  }
+@media(max-width:980px){
 
   nav{
-    padding:14px 20px;
-  }
-
-  .nav-right{
-    gap:18px;
+    padding:18px 20px;
   }
 
   .nav-links{
     display:none;
   }
 
-  .main-wrap{
-    padding:0 16px 60px;
+  .game-card{
+    grid-template-columns:1fr;
+    text-align:center;
   }
 
-  .matches-list{
-    padding:16px;
+  .game-team.left,
+  .game-team.right{
+    text-align:center;
   }
 
-  footer{
-    padding:32px 20px 20px;
+  .game-status{
+    justify-self:center;
   }
 
 }
@@ -531,424 +438,341 @@ footer{
 <header>
 
   <div class="urgency-bar">
-    ✓ TABELA OFICIAL · ✓ CLASSIFICAÇÃO AO VIVO · ✓ SUPERCOPA 2026
+    TABELA OFICIAL · CLASSIFICAÇÃO · SUPERCOPA 2026
   </div>
 
   <nav>
 
-    <a class="nav-logo" href="index.html">
+    <a href="#" class="nav-logo">
       SUPER<span>◥</span>COPA
     </a>
 
-    <div class="nav-right">
-
-      <ul class="nav-links">
-        <li><a href="index.html">Início</a></li>
-        <li><a href="#">Tabela</a></li>
-        <li><a href="#">Classificação</a></li>
-        <li><a href="#">Jogos</a></li>
-      </ul>
-
-      <a class="nav-back" href="index.html">
-        ← Voltar ao site
-      </a>
-
-    </div>
+    <ul class="nav-links">
+      <li><a href="#">Início</a></li>
+      <li><a href="#">Inscrição</a></li>
+      <li><a href="#">Tabela</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
 
   </nav>
 
 </header>
 
-<section class="page-hero">
-
-  <div class="hero-glow"></div>
-
-  <div class="badge">
-    <span class="badge-dot"></span>
-    SUPERCOPA 2026
-  </div>
+<section class="hero">
 
   <h1>
-    Tabela & Classificação
+    TABELA & CLASSIFICAÇÃO
   </h1>
 
   <p>
-    Acompanhe os grupos, classificação oficial e todos os jogos da fase classificatória da SUPERCOPA.
+    Acompanhe os grupos, resultados, classificação
+    e todos os jogos oficiais da SUPERCOPA 2026.
   </p>
 
 </section>
 
-<div class="main-wrap">
+<div class="tabs">
 
-  <!-- TABS -->
+  <button class="tab-btn active" onclick="showModalidade('volei',this)">
+    🏐 Voleibol
+  </button>
 
-  <div class="tabs">
+  <button class="tab-btn" onclick="showModalidade('basquete',this)">
+    🏀 Basquete
+  </button>
 
-    <button class="tab-btn active" onclick="showSport('volei', this)">
-      🏐 Voleibol
-    </button>
+</div>
 
-    <button class="tab-btn" onclick="showSport('basquete', this)">
-      🏀 Basquete
-    </button>
+<div class="container">
 
-  </div>
+  <!-- VOLEI -->
 
-  <!-- ================= VOLEI ================= -->
+  <div id="voleiContent">
 
-  <div id="volei" class="sport-content active">
+    <div class="section-title">
+      Classificação · Voleibol
+    </div>
 
     <div class="groups-grid">
 
-      <!-- GRUPO A -->
-
+      <!-- A -->
       <div class="group-card">
-
-        <div class="group-header">
-          <h3>Grupo A</h3>
-        </div>
+        <div class="group-header">Grupo A</div>
 
         <div class="table-wrap">
-
           <table>
-
             <thead>
               <tr>
                 <th>Equipe</th>
                 <th>P</th>
                 <th>J</th>
-                <th>V</th>
               </tr>
             </thead>
 
             <tbody>
               <tr>
-                <td class="team">Montanhas Vôlei</td>
+                <td class="team">Montanhas</td>
                 <td>6</td>
                 <td>2</td>
-                <td>2</td>
-              </tr>
-
-              <tr>
-                <td class="team">Titans</td>
-                <td>3</td>
-                <td>2</td>
-                <td>1</td>
               </tr>
 
               <tr>
                 <td class="team">Fênix</td>
-                <td>0</td>
-                <td>2</td>
-                <td>0</td>
-              </tr>
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-      <!-- GRUPO B -->
-
-      <div class="group-card">
-
-        <div class="group-header">
-          <h3>Grupo B</h3>
-        </div>
-
-        <div class="table-wrap">
-
-          <table>
-
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>P</th>
-                <th>J</th>
-                <th>V</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td class="team">Império</td>
-                <td>6</td>
-                <td>2</td>
-                <td>2</td>
-              </tr>
-
-              <tr>
-                <td class="team">Águias</td>
                 <td>3</td>
                 <td>2</td>
-                <td>1</td>
               </tr>
 
               <tr>
                 <td class="team">Lobos</td>
                 <td>0</td>
                 <td>2</td>
-                <td>0</td>
               </tr>
             </tbody>
-
           </table>
-
         </div>
-
       </div>
 
-      <!-- GRUPO C -->
-
+      <!-- B -->
       <div class="group-card">
-
-        <div class="group-header">
-          <h3>Grupo C</h3>
-        </div>
+        <div class="group-header">Grupo B</div>
 
         <div class="table-wrap">
-
           <table>
-
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>P</th>
-                <th>J</th>
-                <th>V</th>
-              </tr>
-            </thead>
-
             <tbody>
               <tr>
-                <td class="team">Black Vôlei</td>
+                <td class="team">Titans</td>
                 <td>6</td>
                 <td>2</td>
-                <td>2</td>
               </tr>
 
               <tr>
-                <td class="team">Legends</td>
+                <td class="team">Dragons</td>
                 <td>3</td>
                 <td>2</td>
-                <td>1</td>
-              </tr>
-
-              <tr>
-                <td class="team">Dragões</td>
-                <td>0</td>
-                <td>2</td>
-                <td>0</td>
-              </tr>
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-      <!-- GRUPO D -->
-
-      <div class="group-card">
-
-        <div class="group-header">
-          <h3>Grupo D</h3>
-        </div>
-
-        <div class="table-wrap">
-
-          <table>
-
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>P</th>
-                <th>J</th>
-                <th>V</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td class="team">Elite</td>
-                <td>6</td>
-                <td>2</td>
-                <td>2</td>
-              </tr>
-
-              <tr>
-                <td class="team">Trovão</td>
-                <td>3</td>
-                <td>2</td>
-                <td>1</td>
               </tr>
 
               <tr>
                 <td class="team">Stars</td>
                 <td>0</td>
                 <td>2</td>
-                <td>0</td>
               </tr>
             </tbody>
-
           </table>
-
         </div>
+      </div>
 
+      <!-- C -->
+      <div class="group-card">
+        <div class="group-header">Grupo C</div>
+
+        <div class="table-wrap">
+          <table>
+            <tbody>
+              <tr>
+                <td class="team">Giants</td>
+                <td>6</td>
+                <td>2</td>
+              </tr>
+
+              <tr>
+                <td class="team">Impact</td>
+                <td>3</td>
+                <td>2</td>
+              </tr>
+
+              <tr>
+                <td class="team">Alpha</td>
+                <td>0</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- D -->
+      <div class="group-card">
+        <div class="group-header">Grupo D</div>
+
+        <div class="table-wrap">
+          <table>
+            <tbody>
+              <tr>
+                <td class="team">Rangers</td>
+                <td>6</td>
+                <td>2</td>
+              </tr>
+
+              <tr>
+                <td class="team">Storm</td>
+                <td>3</td>
+                <td>2</td>
+              </tr>
+
+              <tr>
+                <td class="team">Power</td>
+                <td>0</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </div>
 
-    <!-- JOGOS VOLEI -->
+    <div class="section-title">
+      Jogos · Voleibol
+    </div>
 
-    <div class="matches-card">
+    <div class="games-list">
 
-      <div class="matches-header">
-        <h2>Jogos do Voleibol</h2>
-        <div class="match-count">12 Jogos • Fase de Grupos</div>
+      <!-- 12 JOGOS -->
+
+      <div class="game-card">
+        <div class="game-info">
+          <span class="game-group">Grupo A</span>
+          <span class="game-hour">08:00</span>
+        </div>
+
+        <div class="game-team left">Montanhas</div>
+
+        <div class="game-score">
+          <span class="score">2</span>
+          <span class="x">X</span>
+          <span class="score">0</span>
+        </div>
+
+        <div class="game-team right">Fênix</div>
+
+        <div class="game-status">FINALIZADO</div>
       </div>
 
-      <div class="matches-list">
-
-        <!-- 12 JOGOS -->
-
-        <div class="match-row">
-          <div class="match-info">Grupo A<br>09:00</div>
-          <div class="team-name">Montanhas Vôlei</div>
-          <div class="score">2 x 0</div>
-          <div class="team-name">Titans</div>
-          <div class="status"><span>FINALIZADO</span></div>
+      <div class="game-card">
+        <div class="game-info">
+          <span class="game-group">Grupo A</span>
+          <span class="game-hour">09:00</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo A<br>10:00</div>
-          <div class="team-name">Titans</div>
-          <div class="score">2 x 1</div>
-          <div class="team-name">Fênix</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team left">Fênix</div>
+
+        <div class="game-score">
+          <span class="score">2</span>
+          <span class="x">X</span>
+          <span class="score">1</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo A<br>11:00</div>
-          <div class="team-name">Montanhas Vôlei</div>
-          <div class="score">2 x 0</div>
-          <div class="team-name">Fênix</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team right">Lobos</div>
+
+        <div class="game-status">FINALIZADO</div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-info">
+          <span class="game-group">Grupo A</span>
+          <span class="game-hour">10:00</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo B<br>12:00</div>
-          <div class="team-name">Império</div>
-          <div class="score">2 x 0</div>
-          <div class="team-name">Águias</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team left">Montanhas</div>
+
+        <div class="game-score">
+          <span class="score">2</span>
+          <span class="x">X</span>
+          <span class="score">0</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo B<br>13:00</div>
-          <div class="team-name">Águias</div>
-          <div class="score">2 x 1</div>
-          <div class="team-name">Lobos</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team right">Lobos</div>
+
+        <div class="game-status">FINALIZADO</div>
+      </div>
+
+      <!-- restantes -->
+
+      <div class="game-card">
+        <div class="game-info">
+          <span class="game-group">Grupo B</span>
+          <span class="game-hour">11:00</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo B<br>14:00</div>
-          <div class="team-name">Império</div>
-          <div class="score">2 x 0</div>
-          <div class="team-name">Lobos</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team left">Titans</div>
+
+        <div class="game-score">
+          <span class="score">2</span>
+          <span class="x">X</span>
+          <span class="score">1</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo C<br>15:00</div>
-          <div class="team-name">Black Vôlei</div>
-          <div class="score">2 x 0</div>
-          <div class="team-name">Legends</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team right">Dragons</div>
+
+        <div class="game-status">FINALIZADO</div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-info">
+          <span class="game-group">Grupo B</span>
+          <span class="game-hour">12:00</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo C<br>16:00</div>
-          <div class="team-name">Legends</div>
-          <div class="score">2 x 1</div>
-          <div class="team-name">Dragões</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team left">Stars</div>
+
+        <div class="game-score">
+          <span class="score">0</span>
+          <span class="x">X</span>
+          <span class="score">2</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo C<br>17:00</div>
-          <div class="team-name">Black Vôlei</div>
-          <div class="score">2 x 0</div>
-          <div class="team-name">Dragões</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team right">Titans</div>
+
+        <div class="game-status">FINALIZADO</div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-info">
+          <span class="game-group">Grupo B</span>
+          <span class="game-hour">13:00</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo D<br>18:00</div>
-          <div class="team-name">Elite</div>
-          <div class="score">2 x 0</div>
-          <div class="team-name">Trovão</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team left">Dragons</div>
+
+        <div class="game-score">
+          <span class="score">2</span>
+          <span class="x">X</span>
+          <span class="score">0</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo D<br>19:00</div>
-          <div class="team-name">Trovão</div>
-          <div class="score">2 x 1</div>
-          <div class="team-name">Stars</div>
-          <div class="status"><span>FINALIZADO</span></div>
-        </div>
+        <div class="game-team right">Stars</div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo D<br>20:00</div>
-          <div class="team-name">Elite</div>
-          <div class="score">2 x 0</div>
-          <div class="team-name">Stars</div>
-          <div class="status"><span>FINALIZADO</span></div>
-        </div>
-
+        <div class="game-status">FINALIZADO</div>
       </div>
 
     </div>
 
   </div>
 
-  <!-- ================= BASQUETE ================= -->
+  <!-- BASQUETE -->
 
-  <div id="basquete" class="sport-content">
+  <div id="basqueteContent" class="hidden">
+
+    <div class="section-title">
+      Classificação · Basquete
+    </div>
 
     <div class="groups-grid">
-
-      <!-- A -->
 
       <div class="group-card">
 
         <div class="group-header">
-          <h3>Grupo A</h3>
+          Grupo A
         </div>
 
         <div class="table-wrap">
 
           <table>
-
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>P</th>
-                <th>J</th>
-                <th>V</th>
-              </tr>
-            </thead>
-
             <tbody>
+
               <tr>
                 <td class="team">Kings</td>
                 <td>4</td>
-                <td>2</td>
                 <td>2</td>
               </tr>
 
@@ -956,67 +780,51 @@ footer{
                 <td class="team">Storm</td>
                 <td>2</td>
                 <td>2</td>
-                <td>1</td>
               </tr>
 
               <tr>
                 <td class="team">Raptors</td>
                 <td>0</td>
                 <td>2</td>
-                <td>0</td>
               </tr>
-            </tbody>
 
+            </tbody>
           </table>
 
         </div>
 
       </div>
 
-      <!-- B -->
-
       <div class="group-card">
 
         <div class="group-header">
-          <h3>Grupo B</h3>
+          Grupo B
         </div>
 
         <div class="table-wrap">
 
           <table>
-
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>P</th>
-                <th>J</th>
-                <th>V</th>
-              </tr>
-            </thead>
-
             <tbody>
-              <tr>
-                <td class="team">Warriors</td>
-                <td>4</td>
-                <td>2</td>
-                <td>2</td>
-              </tr>
-
-              <tr>
-                <td class="team">Falcons</td>
-                <td>2</td>
-                <td>2</td>
-                <td>1</td>
-              </tr>
 
               <tr>
                 <td class="team">Bulls</td>
+                <td>4</td>
+                <td>2</td>
+              </tr>
+
+              <tr>
+                <td class="team">Heat</td>
+                <td>2</td>
+                <td>2</td>
+              </tr>
+
+              <tr>
+                <td class="team">Wolves</td>
                 <td>0</td>
                 <td>2</td>
-                <td>0</td>
               </tr>
-            </tbody>
 
+            </tbody>
           </table>
 
         </div>
@@ -1025,63 +833,82 @@ footer{
 
     </div>
 
-    <!-- JOGOS BASQUETE -->
+    <div class="section-title">
+      Jogos · Basquete
+    </div>
 
-    <div class="matches-card">
+    <div class="games-list">
 
-      <div class="matches-header">
-        <h2>Jogos do Basquete</h2>
-        <div class="match-count">6 Jogos • Fase de Grupos</div>
+      <div class="game-card">
+
+        <div class="game-info">
+          <span class="game-group">Grupo A</span>
+          <span class="game-hour">09:00</span>
+        </div>
+
+        <div class="game-team left">
+          Kings
+        </div>
+
+        <div class="game-score">
+
+          <span class="score">
+            72
+          </span>
+
+          <span class="x">
+            X
+          </span>
+
+          <span class="score">
+            61
+          </span>
+
+        </div>
+
+        <div class="game-team right">
+          Storm
+        </div>
+
+        <div class="game-status">
+          FINALIZADO
+        </div>
+
       </div>
 
-      <div class="matches-list">
+      <div class="game-card">
 
-        <div class="match-row">
-          <div class="match-info">Grupo A<br>09:00</div>
-          <div class="team-name">Kings</div>
-          <div class="score">72 x 61</div>
-          <div class="team-name">Storm</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-info">
+          <span class="game-group">Grupo A</span>
+          <span class="game-hour">10:00</span>
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo A<br>10:00</div>
-          <div class="team-name">Storm</div>
-          <div class="score">68 x 59</div>
-          <div class="team-name">Raptors</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team left">
+          Storm
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo A<br>11:00</div>
-          <div class="team-name">Kings</div>
-          <div class="score">81 x 66</div>
-          <div class="team-name">Raptors</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-score">
+
+          <span class="score">
+            68
+          </span>
+
+          <span class="x">
+            X
+          </span>
+
+          <span class="score">
+            59
+          </span>
+
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo B<br>12:00</div>
-          <div class="team-name">Warriors</div>
-          <div class="score">77 x 70</div>
-          <div class="team-name">Falcons</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-team right">
+          Raptors
         </div>
 
-        <div class="match-row">
-          <div class="match-info">Grupo B<br>13:00</div>
-          <div class="team-name">Falcons</div>
-          <div class="score">69 x 60</div>
-          <div class="team-name">Bulls</div>
-          <div class="status"><span>FINALIZADO</span></div>
-        </div>
-
-        <div class="match-row">
-          <div class="match-info">Grupo B<br>14:00</div>
-          <div class="team-name">Warriors</div>
-          <div class="score">84 x 63</div>
-          <div class="team-name">Bulls</div>
-          <div class="status"><span>FINALIZADO</span></div>
+        <div class="game-status">
+          FINALIZADO
         </div>
 
       </div>
@@ -1092,33 +919,28 @@ footer{
 
 </div>
 
-<footer>
-
-  <div class="footer-logo">
-    SUPERCOPA
-  </div>
-
-  <div class="footer-tagline">
-    Campeonato Multiesporte • Afonso Cláudio • 2026
-  </div>
-
-</footer>
-
 <script>
 
-function showSport(sport, btn){
+function showModalidade(mod, btn){
 
-  document.querySelectorAll('.sport-content').forEach(content=>{
-    content.classList.remove('active');
-  });
-
-  document.getElementById(sport).classList.add('active');
-
-  document.querySelectorAll('.tab-btn').forEach(button=>{
-    button.classList.remove('active');
-  });
+  document.querySelectorAll('.tab-btn')
+  .forEach(b=>b.classList.remove('active'));
 
   btn.classList.add('active');
+
+  const volei =
+  document.getElementById('voleiContent');
+
+  const basquete =
+  document.getElementById('basqueteContent');
+
+  if(mod === 'volei'){
+    volei.classList.remove('hidden');
+    basquete.classList.add('hidden');
+  }else{
+    basquete.classList.remove('hidden');
+    volei.classList.add('hidden');
+  }
 
 }
 
