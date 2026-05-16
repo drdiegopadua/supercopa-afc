@@ -964,7 +964,7 @@ td.team{
 
 const GOOGLE_SHEET_ID = '1S3rUVU18W64c4okkxGOYnSLtW-aSyo47l3tos7u-8j0'; 
 const GOOGLE_API_KEY = 'AIzaSyBzIsc4TKy_he2P8PcOgOzs8Eor3EVHBzw'; // <--- COLOQUE SUA CHAVE AQUI
-const SHEET_NAME = 'Fase de Grupos'; // <--- VERIFIQUE SE O NOME DA ABA É EXATAMENTE ESTE
+const SHEET_NAME = 'Fase de Grupos';
 
 // ============================================
 // FUNÇÕES DE INTEGRAÇÃO
@@ -975,21 +975,18 @@ async function loadBasketballData() {
   const list = document.getElementById('basketballGamesList');
 
   try {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/'${SHEET_NAME}'?key=${GOOGLE_API_KEY}`;
+    // Buscamos um intervalo maior para garantir que pegamos todas as colunas mesmo com vazios
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/'${SHEET_NAME}'!A1:Z100?key=${GOOGLE_API_KEY}`;
     
     const response = await fetch(url);
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(`Erro do Google: ${result.error ? result.error.message : response.statusText}\nCódigo: ${response.status}`);
+      throw new Error(`Erro do Google: ${result.error ? result.error.message : response.statusText}`);
     }
 
     const allData = result.values || [];
     
-    if (allData.length === 0) {
-      throw new Error("A planilha parece estar vazia ou a aba não foi encontrada.");
-    }
-
     // Processar dados
     const classificationDataA = extractClassificationGroupA(allData);
     const classificationDataB = extractClassificationGroupB(allData);
@@ -1001,25 +998,12 @@ async function loadBasketballData() {
 
   } catch (error) {
     console.error(error);
-    const errorHtml = `
-      <div class="error-box">
-        <strong>⚠️ Erro de Conexão:</strong>
-        ${error.message}
-        
-        <strong>Dicas:</strong>
-        1. Verifique se a Chave de API está correta.
-        2. Verifique se a Planilha está compartilhada como "Qualquer pessoa com o link".
-        3. Verifique se o nome da aba é exatamente "${SHEET_NAME}".
-      </div>
-    `;
-    grid.innerHTML = errorHtml;
-    list.innerHTML = "";
+    grid.innerHTML = `<div class="error-box">Erro: ${error.message}</div>`;
   }
 }
 
 function extractClassificationGroupA(allData) {
   const groupA = [];
-  // Linha 12 (índice 11) até linha 14 (índice 13)
   for (let i = 11; i <= 13; i++) {
     const row = allData[i];
     if (row) {
@@ -1037,7 +1021,8 @@ function extractClassificationGroupB(allData) {
   const groupB = [];
   for (let i = 11; i <= 13; i++) {
     const row = allData[i];
-    if (row && row.length >= 18) {
+    // No Grupo B, as colunas começam em J (índice 9)
+    if (row && row.length >= 10) {
       groupB.push({
         pos: row[9] || '-', equipe: row[10] || '-', j: row[11] || '0',
         v: row[12] || '0', d: row[13] || '0', pts: row[14] || '0',
@@ -1068,12 +1053,13 @@ function extractGamesGroupB(allData) {
   const games = [];
   for (let i = 4; i <= 6; i++) {
     const row = allData[i];
-    if (row && row.length >= 15) {
+    // No Grupo B, os jogos começam em J (índice 9)
+    if (row && row.length >= 10) {
       games.push({
-        grupo: 'Grupo B', jogo: row[8] || '?',
-        equipe1: row[9] || '-', pts1: row[10] || '0',
-        pts2: row[12] || '0', equipe2: row[13] || '-',
-        resultado: row[14] || '-'
+        grupo: 'Grupo B', jogo: row[9] || '?',
+        equipe1: row[10] || '-', pts1: row[11] || '0',
+        pts2: row[13] || '0', equipe2: row[14] || '-',
+        resultado: row[15] || '-'
       });
     }
   }
