@@ -967,7 +967,7 @@ const GOOGLE_API_KEY = 'AIzaSyBzIsc4TKy_he2P8PcOgOzs8Eor3EVHBzw'; // <--- COLOQU
 const SHEET_NAME = 'Fase de Grupos';
 
 // ============================================
-// FUNÇÕES DE INTEGRAÇÃO
+// FUNÇÕES DE INTEGRAÇÃO ROBUSTA
 // ============================================
 
 async function loadBasketballData() {
@@ -975,7 +975,6 @@ async function loadBasketballData() {
   const list = document.getElementById('basketballGamesList');
 
   try {
-    // Buscamos um intervalo maior para garantir que pegamos todas as colunas mesmo com vazios
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/'${SHEET_NAME}'!A1:Z100?key=${GOOGLE_API_KEY}`;
     
     const response = await fetch(url);
@@ -987,11 +986,12 @@ async function loadBasketballData() {
 
     const allData = result.values || [];
     
-    // Processar dados
-    const classificationDataA = extractClassificationGroupA(allData);
-    const classificationDataB = extractClassificationGroupB(allData);
-    const gamesDataA = extractGamesGroupA(allData);
-    const gamesDataB = extractGamesGroupB(allData);
+    // Processar dados usando busca dinâmica de colunas
+    const classificationDataA = extractClassification(allData, 11, 13, 0); // Linhas 12-14, começa na col A
+    const classificationDataB = extractClassification(allData, 11, 13, 9); // Linhas 12-14, começa na col J
+    
+    const gamesDataA = extractGames(allData, 4, 6, 0, 'Grupo A'); // Linhas 5-7, começa na col A
+    const gamesDataB = extractGames(allData, 4, 6, 9, 'Grupo B'); // Linhas 5-7, começa na col J
 
     renderClassification(classificationDataA, classificationDataB);
     renderGames(gamesDataA, gamesDataB);
@@ -1002,66 +1002,39 @@ async function loadBasketballData() {
   }
 }
 
-function extractClassificationGroupA(allData) {
-  const groupA = [];
-  for (let i = 11; i <= 13; i++) {
-    const row = allData[i];
-    if (row) {
-      groupA.push({
-        pos: row[0] || '-', equipe: row[1] || '-', j: row[2] || '0',
-        v: row[3] || '0', d: row[4] || '0', pts: row[5] || '0',
-        sd: row[6] || '0', pm: row[7] || '0', status: row[8] || '-'
-      });
-    }
+function extractClassification(allData, startRow, endRow, startCol) {
+  const group = [];
+  for (let i = startRow; i <= endRow; i++) {
+    const row = allData[i] || [];
+    // Pegamos os dados baseados na posição relativa ao início do grupo
+    group.push({
+      pos: row[startCol] || '-',
+      equipe: row[startCol + 1] || '-',
+      j: row[startCol + 2] || '0',
+      v: row[startCol + 3] || '0',
+      d: row[startCol + 4] || '0',
+      pts: row[startCol + 5] || '0',
+      sd: row[startCol + 6] || '0',
+      pm: row[startCol + 7] || '0',
+      status: row[startCol + 10] || row[startCol + 9] || row[startCol + 8] || '-' // Tenta achar o status nas colunas finais
+    });
   }
-  return groupA;
+  return group;
 }
 
-function extractClassificationGroupB(allData) {
-  const groupB = [];
-  for (let i = 11; i <= 13; i++) {
-    const row = allData[i];
-    // No Grupo B, as colunas começam em J (índice 9)
-    if (row && row.length >= 10) {
-      groupB.push({
-        pos: row[9] || '-', equipe: row[10] || '-', j: row[11] || '0',
-        v: row[12] || '0', d: row[13] || '0', pts: row[14] || '0',
-        sd: row[15] || '0', pm: row[16] || '0', status: row[17] || '-'
-      });
-    }
-  }
-  return groupB;
-}
-
-function extractGamesGroupA(allData) {
+function extractGames(allData, startRow, endRow, startCol, groupName) {
   const games = [];
-  for (let i = 4; i <= 6; i++) {
-    const row = allData[i];
-    if (row) {
-      games.push({
-        grupo: 'Grupo A', jogo: row[0] || '?',
-        equipe1: row[1] || '-', pts1: row[2] || '0',
-        pts2: row[4] || '0', equipe2: row[5] || '-',
-        resultado: row[6] || '-'
-      });
-    }
-  }
-  return games;
-}
-
-function extractGamesGroupB(allData) {
-  const games = [];
-  for (let i = 4; i <= 6; i++) {
-    const row = allData[i];
-    // No Grupo B, os jogos começam em J (índice 9)
-    if (row && row.length >= 10) {
-      games.push({
-        grupo: 'Grupo B', jogo: row[9] || '?',
-        equipe1: row[10] || '-', pts1: row[11] || '0',
-        pts2: row[13] || '0', equipe2: row[14] || '-',
-        resultado: row[15] || '-'
-      });
-    }
+  for (let i = startRow; i <= endRow; i++) {
+    const row = allData[i] || [];
+    games.push({
+      grupo: groupName,
+      jogo: row[startCol] || '?',
+      equipe1: row[startCol + 1] || '-',
+      pts1: row[startCol + 2] || '0',
+      pts2: row[startCol + 4] || '0',
+      equipe2: row[startCol + 5] || '-',
+      resultado: row[startCol + 6] || '-'
+    });
   }
   return games;
 }
