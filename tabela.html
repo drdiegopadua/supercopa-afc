@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Tabela e Classificação · SUPERCOPA 2026</title>
+<title>Tabela e Classificação · SUPERCOPA DE BASQUETE</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 
@@ -412,13 +412,25 @@ td.team{
   display:none;
 }
 
-/* LOADING */
+/* LOADING & ERROR */
 
 .loading{
   text-align:center;
-  padding:20px;
+  padding:40px;
   color:var(--muted);
   font-size:14px;
+}
+
+.error-box{
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  font-family: monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
 }
 
 /* RESPONSIVO */
@@ -457,7 +469,7 @@ td.team{
 <header>
 
   <div class="urgency-bar">
-    TABELA OFICIAL · CLASSIFICAÇÃO · SUPERCOPA DE BASQUETE DE AFONSO CLAUDIO
+    TABELA OFICIAL · CLASSIFICAÇÃO · SUPERCOPA DE BASQUETE
   </div>
 
   <nav>
@@ -485,7 +497,7 @@ td.team{
 
   <p>
     Acompanhe os grupos, resultados, classificação
-    e todos os jogos oficiais da SUPERCOPA DE BASQUETE DE AFONSO CLAUDIO.
+    e todos os jogos oficiais da SUPERCOPA DE BASQUETE.
   </p>
 
 </section>
@@ -949,141 +961,120 @@ td.team{
 // ============================================
 // CONFIGURAÇÃO DO GOOGLE SHEETS
 // ============================================
-// Substitua estas variáveis pelos seus dados
 
-const GOOGLE_SHEET_ID = '1w_EPleUiu1LgWVgXOSXmRLKGld1_yqof'; // ID da sua planilha
-const GOOGLE_API_KEY = 'AIzaSyBzIsc4TKy_he2P8PcOgOzs8Eor3EVHBzw'; // Sua chave de API do Google
+const GOOGLE_SHEET_ID = '1w_EPleUiu1LgWVgXOSXmRLKGld1_yqof'; 
+const GOOGLE_API_KEY = 'SUA_CHAVE_API_AQUI'; // <--- COLOQUE SUA CHAVE AQUI
+const SHEET_NAME = 'Fase de Grupos'; // <--- VERIFIQUE SE O NOME DA ABA É EXATAMENTE ESTE
 
 // ============================================
-// FUNÇÕES DE INTEGRAÇÃO COM GOOGLE SHEETS
+// FUNÇÕES DE INTEGRAÇÃO
 // ============================================
 
 async function loadBasketballData() {
+  const grid = document.getElementById('basketballClassificationGrid');
+  const list = document.getElementById('basketballGamesList');
+
   try {
-    // Buscar todos os dados da planilha
-    const allData = await fetchGoogleSheetData('Fase de Grupos');
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/'${SHEET_NAME}'?key=${GOOGLE_API_KEY}`;
     
-    // Extrair dados de Classificação e Jogos
+    const response = await fetch(url);
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`Erro do Google: ${result.error ? result.error.message : response.statusText}\nCódigo: ${response.status}`);
+    }
+
+    const allData = result.values || [];
+    
+    if (allData.length === 0) {
+      throw new Error("A planilha parece estar vazia ou a aba não foi encontrada.");
+    }
+
+    // Processar dados
     const classificationDataA = extractClassificationGroupA(allData);
     const classificationDataB = extractClassificationGroupB(allData);
     const gamesDataA = extractGamesGroupA(allData);
     const gamesDataB = extractGamesGroupB(allData);
 
-    // Renderizar as tabelas
     renderClassification(classificationDataA, classificationDataB);
     renderGames(gamesDataA, gamesDataB);
+
   } catch (error) {
-    console.error('Erro ao carregar dados:', error);
-    document.getElementById('basketballClassificationGrid').innerHTML = 
-      '<div class="loading">Erro ao carregar dados. Verifique a configuração.</div>';
-    document.getElementById('basketballGamesList').innerHTML = 
-      '<div class="loading">Erro ao carregar dados. Verifique a configuração.</div>';
+    console.error(error);
+    const errorHtml = `
+      <div class="error-box">
+        <strong>⚠️ Erro de Conexão:</strong>
+        ${error.message}
+        
+        <strong>Dicas:</strong>
+        1. Verifique se a Chave de API está correta.
+        2. Verifique se a Planilha está compartilhada como "Qualquer pessoa com o link".
+        3. Verifique se o nome da aba é exatamente "${SHEET_NAME}".
+      </div>
+    `;
+    grid.innerHTML = errorHtml;
+    list.innerHTML = "";
   }
 }
 
-async function fetchGoogleSheetData(sheetName) {
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${sheetName}?key=${GOOGLE_API_KEY}`;
-  
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Erro ao buscar dados: ${response.statusText}`);
-  }
-  
-  const data = await response.json();
-  return data.values || [];
-}
-
-// Extrair dados de Classificação do Grupo A (linhas 11-14, colunas A-I)
 function extractClassificationGroupA(allData) {
   const groupA = [];
-  if (allData.length > 11) {
-    // Linha 12 (índice 11) até linha 14 (índice 13)
-    for (let i = 11; i < Math.min(14, allData.length); i++) {
-      const row = allData[i];
-      if (row && row.length > 0) {
-        groupA.push({
-          pos: row[0] || '',
-          equipe: row[1] || '',
-          j: row[2] || '',
-          v: row[3] || '',
-          d: row[4] || '',
-          pts: row[5] || '',
-          sd: row[6] || '',
-          pm: row[7] || '',
-          status: row[8] || ''
-        });
-      }
+  // Linha 12 (índice 11) até linha 14 (índice 13)
+  for (let i = 11; i <= 13; i++) {
+    const row = allData[i];
+    if (row) {
+      groupA.push({
+        pos: row[0] || '-', equipe: row[1] || '-', j: row[2] || '0',
+        v: row[3] || '0', d: row[4] || '0', pts: row[5] || '0',
+        sd: row[6] || '0', pm: row[7] || '0', status: row[8] || '-'
+      });
     }
   }
   return groupA;
 }
 
-// Extrair dados de Classificação do Grupo B (linhas 11-14, colunas J-R)
 function extractClassificationGroupB(allData) {
   const groupB = [];
-  if (allData.length > 11) {
-    // Linha 12 (índice 11) até linha 14 (índice 13)
-    for (let i = 11; i < Math.min(14, allData.length); i++) {
-      const row = allData[i];
-      if (row && row.length > 9) {
-        groupB.push({
-          pos: row[9] || '',
-          equipe: row[10] || '',
-          j: row[11] || '',
-          v: row[12] || '',
-          d: row[13] || '',
-          pts: row[14] || '',
-          sd: row[15] || '',
-          pm: row[16] || '',
-          status: row[17] || ''
-        });
-      }
+  for (let i = 11; i <= 13; i++) {
+    const row = allData[i];
+    if (row && row.length >= 18) {
+      groupB.push({
+        pos: row[9] || '-', equipe: row[10] || '-', j: row[11] || '0',
+        v: row[12] || '0', d: row[13] || '0', pts: row[14] || '0',
+        sd: row[15] || '0', pm: row[16] || '0', status: row[17] || '-'
+      });
     }
   }
   return groupB;
 }
 
-// Extrair dados de Jogos do Grupo A (linhas 5-7, colunas A-G)
 function extractGamesGroupA(allData) {
   const games = [];
-  if (allData.length > 4) {
-    // Linha 5 (índice 4) até linha 7 (índice 6)
-    for (let i = 4; i < Math.min(7, allData.length); i++) {
-      const row = allData[i];
-      if (row && row.length > 0) {
-        games.push({
-          grupo: 'Grupo A',
-          jogo: row[0] || '',
-          equipe1: row[1] || '',
-          pts1: row[2] || '',
-          pts2: row[4] || '',
-          equipe2: row[5] || '',
-          resultado: row[6] || ''
-        });
-      }
+  for (let i = 4; i <= 6; i++) {
+    const row = allData[i];
+    if (row) {
+      games.push({
+        grupo: 'Grupo A', jogo: row[0] || '?',
+        equipe1: row[1] || '-', pts1: row[2] || '0',
+        pts2: row[4] || '0', equipe2: row[5] || '-',
+        resultado: row[6] || '-'
+      });
     }
   }
   return games;
 }
 
-// Extrair dados de Jogos do Grupo B (linhas 5-7, colunas I-O)
 function extractGamesGroupB(allData) {
   const games = [];
-  if (allData.length > 4) {
-    // Linha 5 (índice 4) até linha 7 (índice 6)
-    for (let i = 4; i < Math.min(7, allData.length); i++) {
-      const row = allData[i];
-      if (row && row.length > 14) {
-        games.push({
-          grupo: 'Grupo B',
-          jogo: row[8] || '',
-          equipe1: row[9] || '',
-          pts1: row[10] || '',
-          pts2: row[12] || '',
-          equipe2: row[13] || '',
-          resultado: row[14] || ''
-        });
-      }
+  for (let i = 4; i <= 6; i++) {
+    const row = allData[i];
+    if (row && row.length >= 15) {
+      games.push({
+        grupo: 'Grupo B', jogo: row[8] || '?',
+        equipe1: row[9] || '-', pts1: row[10] || '0',
+        pts2: row[12] || '0', equipe2: row[13] || '-',
+        resultado: row[14] || '-'
+      });
     }
   }
   return games;
@@ -1093,172 +1084,64 @@ function renderClassification(dataA, dataB) {
   const grid = document.getElementById('basketballClassificationGrid');
   grid.innerHTML = '';
 
-  // Renderizar Grupo A
-  if (dataA && dataA.length > 0) {
-    const groupCardA = document.createElement('div');
-    groupCardA.className = 'group-card';
-    
-    let htmlA = `
-      <div class="group-header">Grupo A</div>
+  [ {title: 'Grupo A', data: dataA}, {title: 'Grupo B', data: dataB} ].forEach(group => {
+    const card = document.createElement('div');
+    card.className = 'group-card';
+    let html = `
+      <div class="group-header">${group.title}</div>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr>
-              <th>Pos</th>
-              <th>Equipe</th>
-              <th>J</th>
-              <th>V</th>
-              <th>D</th>
-              <th>PTS</th>
-              <th>SD</th>
-              <th>PM</th>
-              <th>Status</th>
-            </tr>
+            <tr><th>Pos</th><th>Equipe</th><th>J</th><th>V</th><th>D</th><th>PTS</th><th>SD</th><th>PM</th><th>Status</th></tr>
           </thead>
           <tbody>
     `;
-    
-    dataA.forEach(row => {
-      htmlA += `
+    group.data.forEach(row => {
+      html += `
         <tr>
-          <td>${row.pos}</td>
-          <td class="team">${row.equipe}</td>
-          <td>${row.j}</td>
-          <td>${row.v}</td>
-          <td>${row.d}</td>
-          <td>${row.pts}</td>
-          <td>${row.sd}</td>
-          <td>${row.pm}</td>
-          <td>${row.status}</td>
+          <td>${row.pos}</td><td class="team">${row.equipe}</td><td>${row.j}</td>
+          <td>${row.v}</td><td>${row.d}</td><td>${row.pts}</td>
+          <td>${row.sd}</td><td>${row.pm}</td><td>${row.status}</td>
         </tr>
       `;
     });
-    
-    htmlA += `
-          </tbody>
-        </table>
-      </div>
-    `;
-    
-    groupCardA.innerHTML = htmlA;
-    grid.appendChild(groupCardA);
-  }
-
-  // Renderizar Grupo B
-  if (dataB && dataB.length > 0) {
-    const groupCardB = document.createElement('div');
-    groupCardB.className = 'group-card';
-    
-    let htmlB = `
-      <div class="group-header">Grupo B</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Pos</th>
-              <th>Equipe</th>
-              <th>J</th>
-              <th>V</th>
-              <th>D</th>
-              <th>PTS</th>
-              <th>SD</th>
-              <th>PM</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-    `;
-    
-    dataB.forEach(row => {
-      htmlB += `
-        <tr>
-          <td>${row.pos}</td>
-          <td class="team">${row.equipe}</td>
-          <td>${row.j}</td>
-          <td>${row.v}</td>
-          <td>${row.d}</td>
-          <td>${row.pts}</td>
-          <td>${row.sd}</td>
-          <td>${row.pm}</td>
-          <td>${row.status}</td>
-        </tr>
-      `;
-    });
-    
-    htmlB += `
-          </tbody>
-        </table>
-      </div>
-    `;
-    
-    groupCardB.innerHTML = htmlB;
-    grid.appendChild(groupCardB);
-  }
+    html += `</tbody></table></div>`;
+    card.innerHTML = html;
+    grid.appendChild(card);
+  });
 }
 
 function renderGames(gamesA, gamesB) {
-  const gamesList = document.getElementById('basketballGamesList');
-  gamesList.innerHTML = '';
-
-  const allGames = [...gamesA, ...gamesB];
-
-  allGames.forEach(game => {
-    const gameCard = document.createElement('div');
-    gameCard.className = 'game-card';
-    
-    const html = `
-      <div class="game-info">
-        <span class="game-group">${game.grupo}</span>
-        <span class="game-hour">Jogo ${game.jogo}</span>
-      </div>
-
+  const list = document.getElementById('basketballGamesList');
+  list.innerHTML = '';
+  [...gamesA, ...gamesB].forEach(game => {
+    const card = document.createElement('div');
+    card.className = 'game-card';
+    card.innerHTML = `
+      <div class="game-info"><span class="game-group">${game.grupo}</span><span class="game-hour">Jogo ${game.jogo}</span></div>
       <div class="game-team left">${game.equipe1}</div>
-
-      <div class="game-score">
-        <span class="score">${game.pts1}</span>
-        <span class="x">X</span>
-        <span class="score">${game.pts2}</span>
-      </div>
-
+      <div class="game-score"><span class="score">${game.pts1}</span><span class="x">X</span><span class="score">${game.pts2}</span></div>
       <div class="game-team right">${game.equipe2}</div>
-
       <div class="game-status">${game.resultado}</div>
     `;
-    
-    gameCard.innerHTML = html;
-    gamesList.appendChild(gameCard);
+    list.appendChild(card);
   });
 }
 
 function showModalidade(mod, btn){
-
-  document.querySelectorAll('.tab-btn')
-  .forEach(b=>b.classList.remove('active'));
-
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-
   const volei = document.getElementById('voleiContent');
   const basquete = document.getElementById('basqueteContent');
-
   if(mod === 'volei'){
     volei.classList.remove('hidden');
     basquete.classList.add('hidden');
   }else{
     basquete.classList.remove('hidden');
     volei.classList.add('hidden');
-    
-    // Carregar dados do Basquete quando a aba for clicada
-    if(basquete.querySelector('.loading')){
-      loadBasketballData();
-    }
+    loadBasketballData();
   }
 }
-
-// Carregar dados ao abrir a página (se estiver na aba de Basquete)
-document.addEventListener('DOMContentLoaded', function() {
-  // Descomente a linha abaixo se quiser carregar os dados automaticamente ao abrir a página
-  // loadBasketballData();
-});
 
 </script>
 
