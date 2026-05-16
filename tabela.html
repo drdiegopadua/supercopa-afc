@@ -966,8 +966,8 @@ async function loadBasketballData() {
   const list = document.getElementById('basketballGamesList');
 
   try {
-    // Busca as linhas 1 a 20 para cobrir todos os dados
-    const range = encodeURIComponent(`'${SHEET_NAME}'!A1:U20`);
+    // Busca as linhas 1 a 20 e colunas até AC (29 colunas)
+    const range = encodeURIComponent(`'${SHEET_NAME}'!A1:AC20`);
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
 
     const response = await fetch(url);
@@ -997,7 +997,11 @@ async function loadBasketballData() {
     //   [11]=POS [12]=EQUIPE [13]=J [14]=V [15]=D [16]=PTS [17]=SD [18]=PM [19]=CRITERIO [20]=STATUS
 
     const classA = extractClassification(rows, 11, 13, 0);
-    const classB = extractClassification(rows, 11, 13, 11);
+
+    // DEBUG: log linha 12 no console para identificar colunas
+    const _dbgRow = rows[11] || [];
+    console.table(_dbgRow.map((v,i)=>({indice:i, coluna:String.fromCharCode(65+i), valor:v})));
+    const classB = extractClassification(rows, 11, 13, 10);
 
     renderClassification(classA, classB);
     renderGames(gamesA, gamesB);
