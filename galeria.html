@@ -110,12 +110,12 @@ nav.main-nav.scrolled{
   .mobile-drawer{
     display:block;position:fixed;top:0;right:-100%;width:80vw;max-width:300px;
     height:100dvh;background:#0d1018;border-left:1px solid rgba(58,134,240,0.2);
-    z-index:1200;transition:right .35s cubic-bezier(.22,1,.36,1);overflow-y:auto;padding:0 0 40px;
+    z-index:300;transition:right .35s cubic-bezier(.22,1,.36,1);overflow-y:auto;padding:0 0 40px;
   }
   .mobile-drawer.open{right:0;}
   .drawer-overlay{
     display:block;position:fixed;inset:0;background:rgba(0,0,0,0.6);
-    z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s;
+    z-index:299;opacity:0;pointer-events:none;transition:opacity .3s;
   }
   .drawer-overlay.open{opacity:1;pointer-events:all;}
   .drawer-header{
@@ -507,6 +507,25 @@ footer{
   .p5{width:145px;height:115px;top:58%;left:1%;}
   .p6{width:170px;height:130px;top:55%;left:48%;}
 }
+
+/* ── TRANSIÇÃO DE PÁGINA · SUPERCOPA 2026 ── */
+#sc-transition{position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center;}
+.sc-t-panel{position:absolute;top:0;bottom:0;width:51%;background:#07090d;transform:scaleX(0);transition:transform 0.55s cubic-bezier(0.86,0,0.07,1);}
+.sc-t-p1{left:0;transform-origin:left;}
+.sc-t-p2{right:0;transform-origin:right;}
+.sc-t-logo{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:scale(0.85) translateY(10px);transition:opacity .35s ease .3s,transform .45s cubic-bezier(.22,1,.36,1) .3s;pointer-events:none;}
+.sc-t-logo-text{font-family:"Bebas Neue",sans-serif;font-size:clamp(42px,8vw,72px);letter-spacing:6px;color:#3a86f0;line-height:1;}
+.sc-t-logo-text em{font-style:normal;color:rgba(255,255,255,0.25);}
+.sc-t-logo-year{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:6px;color:rgba(255,255,255,0.35);text-transform:uppercase;}
+.sc-t-logo-bar{display:block;width:0;height:2px;background:#3a86f0;border-radius:2px;transition:width .45s cubic-bezier(.22,1,.36,1) .45s;box-shadow:0 0 12px rgba(58,134,240,0.6);}
+#sc-transition.sc-t-active .sc-t-p1,#sc-transition.sc-t-active .sc-t-p2{transform:scaleX(1);}
+#sc-transition.sc-t-active .sc-t-logo{opacity:1;transform:scale(1) translateY(0);}
+#sc-transition.sc-t-active .sc-t-logo-bar{width:120px;}
+#sc-transition.sc-t-leaving .sc-t-p1{transform:scaleX(0);transform-origin:right;transition:transform .65s cubic-bezier(.86,0,.07,1) .15s;}
+#sc-transition.sc-t-leaving .sc-t-p2{transform:scaleX(0);transform-origin:left;transition:transform .65s cubic-bezier(.86,0,.07,1) .15s;}
+#sc-transition.sc-t-leaving .sc-t-logo{opacity:0;transform:scale(0.9) translateY(-8px);transition:opacity .2s ease 0s,transform .2s ease 0s;}
+#sc-transition.sc-t-leaving .sc-t-logo-bar{width:0;transition:width .2s ease 0s;}
+
 </style>
 </head>
 <body>
@@ -521,7 +540,7 @@ footer{
     <ul class="main-nav-links">
       <li><a href="index.html">Início</a></li>
       <li><a href="index.html#fases">Fases</a></li>
-      <li><a href="times.html">Times</a></li>
+      <li><a href="index.html#times">Times</a></li>
       <li><a href="tabela.html">Jogos / Classificação</a></li>
       <li><a href="galeria.html" class="active">Galeria</a></li>
       <li><a href="index.html#faq">Dúvidas</a></li>
@@ -550,7 +569,7 @@ footer{
   <ul class="drawer-links">
     <li><a href="index.html"><span class="d-icon">🏠</span>Início</a></li>
     <li><a href="index.html#fases"><span class="d-icon">📋</span>Fases</a></li>
-    <li><a href="times.html"><span class="d-icon">🏐</span>Times</a></li>
+    <li><a href="index.html#times"><span class="d-icon">🏐</span>Times</a></li>
     <li><a href="tabela.html"><span class="d-icon">📊</span>Jogos / Classificação</a></li>
     <li><a href="galeria.html" class="active"><span class="d-icon">📸</span>Galeria</a></li>
     <li><a href="index.html#faq"><span class="d-icon">❓</span>Dúvidas</a></li>
@@ -901,7 +920,7 @@ footer{
     </div>
     <ul class="footer-links">
       <li><a href="index.html#fases">Regulamento</a></li>
-      <li><a href="times.html">Times</a></li>
+      <li><a href="index.html#times">Times</a></li>
       <li><a href="tabela.html">Tabela</a></li>
       <li><a href="galeria.html" style="color:var(--accent)">Galeria</a></li>
       <li><a href="inscricao.html">Inscrição</a></li>
@@ -1029,5 +1048,16 @@ document.getElementById('lightbox').addEventListener('click', function(e){
   }
 });
 </script>
+
+<div id="sc-transition">
+  <div class="sc-t-panel sc-t-p1"></div>
+  <div class="sc-t-panel sc-t-p2"></div>
+  <div class="sc-t-logo">
+    <span class="sc-t-logo-text">SUPER<em>◥</em>COPA</span>
+    <span class="sc-t-logo-year">2026</span>
+    <span class="sc-t-logo-bar"></span>
+  </div>
+</div>
+<script src="transicao.js"></script>
 </body>
 </html>
