@@ -1210,22 +1210,22 @@ function renderGames(gamesA, gamesB) {
 
 // ── AUTO-REFRESH ─────────────────────────────────────────────────────────────
 let autoRefreshInterval = null;
-let countdown = 60;
+let countdown = 30;
 let countdownTimer = null;
 
 function startAutoRefresh() {
   stopAutoRefresh();
-  countdown = 60;
+  countdown = 30;
   updateCountdownDisplay();
 
   autoRefreshInterval = setInterval(() => {
     loadBasketballData();
-    countdown = 60;
-  }, 60000);
+    countdown = 30;
+  }, 30000);
 
   countdownTimer = setInterval(() => {
     countdown--;
-    if (countdown < 0) countdown = 60;
+    if (countdown < 0) countdown = 30;
     updateCountdownDisplay();
   }, 1000);
 }
