@@ -1001,7 +1001,7 @@ async function loadBasketballData() {
     // DEBUG: log linha 12 no console para identificar colunas
     const _dbgRow = rows[11] || [];
     console.table(_dbgRow.map((v,i)=>({indice:i, coluna:String.fromCharCode(65+i), valor:v})));
-    const classB = extractClassification(rows, 11, 13, 10);
+    const classB = extractClassification(rows, 11, 13, 11);
 
     renderClassification(classA, classB);
     renderGames(gamesA, gamesB);
@@ -1030,21 +1030,44 @@ async function loadBasketballData() {
 //   +9 = STATUS    (Classificado / Eliminado)
 
 function extractClassification(rows, startRow, endRow, startCol) {
+  // Usa a linha de cabeçalho (índice 10) para mapear colunas pelo nome
+  const headerRow = rows[10] || [];
+
+  function findCol(names, fromCol) {
+    for (let offset = 0; offset < 12; offset++) {
+      const val = (headerRow[fromCol + offset] || '').toString().trim().toUpperCase();
+      for (const name of names) {
+        if (val === name) return fromCol + offset;
+      }
+    }
+    return -1;
+  }
+
+  const iPOS    = findCol(['POS'],    startCol);
+  const iEQUIPE = findCol(['EQUIPE'], startCol);
+  const iJ      = findCol(['J'],      startCol);
+  const iV      = findCol(['V'],      startCol);
+  const iD      = findCol(['D'],      startCol);
+  const iPTS    = findCol(['PTS'],    startCol);
+  const iSD     = findCol(['SD'],     startCol);
+  const iPM     = findCol(['PM'],     startCol);
+  const iSTATUS = findCol(['STATUS'], startCol);
+
+  console.log('Class col map (startCol='+startCol+'):', {iPOS,iEQUIPE,iJ,iV,iD,iPTS,iSD,iPM,iSTATUS});
+
   const data = [];
   for (let i = startRow; i <= endRow; i++) {
     const row = rows[i] || [];
-    const c = startCol;
     data.push({
-      pos:     row[c]   || '-',
-      equipe:  row[c+1] || '-',
-      j:       row[c+2] || '0',
-      v:       row[c+3] || '0',
-      d:       row[c+4] || '0',
-      pts:     row[c+5] || '0',
-      sd:      row[c+6] || '0',
-      pm:      row[c+7] || '0',
-      criterio:row[c+8] || '---',
-      status:  row[c+9] || '-',
+      pos:    iPOS    >= 0 ? row[iPOS]    || '-'   : '-',
+      equipe: iEQUIPE >= 0 ? row[iEQUIPE] || '-'   : '-',
+      j:      iJ      >= 0 ? row[iJ]      || '0'   : '0',
+      v:      iV      >= 0 ? row[iV]      || '0'   : '0',
+      d:      iD      >= 0 ? row[iD]      || '0'   : '0',
+      pts:    iPTS    >= 0 ? row[iPTS]    || '0'   : '0',
+      sd:     iSD     >= 0 ? row[iSD]     || '0'   : '0',
+      pm:     iPM     >= 0 ? row[iPM]     || '0'   : '0',
+      status: iSTATUS >= 0 ? row[iSTATUS] || '-'   : '-',
     });
   }
   return data;
@@ -1061,18 +1084,41 @@ function extractClassification(rows, startRow, endRow, startCol) {
 //   +6 = RESULTADO (ex: "V: CT")
 
 function extractGames(rows, startRow, endRow, startCol, groupName) {
+  // Usa a linha de cabeçalho (índice 3) para mapear colunas pelo nome
+  // evitando problema de células vazias deslocarem os índices
+  const headerRow = rows[3] || [];
+
+  // Encontra os índices absolutos a partir do cabeçalho da seção
+  function findCol(names, fromCol) {
+    for (let offset = 0; offset < 10; offset++) {
+      const val = (headerRow[fromCol + offset] || '').toString().trim().toUpperCase();
+      for (const name of names) {
+        if (val.includes(name)) return fromCol + offset;
+      }
+    }
+    return -1;
+  }
+
+  const iJogo    = findCol(['JOGO'],        startCol);
+  const iEq1     = findCol(['EQUIPE 1','EQUIPE1'], startCol);
+  const iPts1    = findCol(['PTS 1','PTS1'], startCol);
+  const iPts2    = findCol(['PTS 2','PTS2'], startCol);
+  const iEq2     = findCol(['EQUIPE 2','EQUIPE2'], startCol);
+  const iResult  = findCol(['RESULT'],       startCol);
+
+  console.log(groupName, 'col map:', {iJogo, iEq1, iPts1, iPts2, iEq2, iResult});
+
   const data = [];
   for (let i = startRow; i <= endRow; i++) {
     const row = rows[i] || [];
-    const c = startCol;
     data.push({
       grupo:     groupName,
-      jogo:      row[c]   || '?',
-      equipe1:   row[c+1] || '-',
-      pts1:      row[c+2] || '0',
-      pts2:      row[c+4] || '0',
-      equipe2:   row[c+5] || '-',
-      resultado: row[c+6] || '-',
+      jogo:      iJogo   >= 0 ? row[iJogo]   || '?' : '?',
+      equipe1:   iEq1    >= 0 ? row[iEq1]    || '-' : '-',
+      pts1:      iPts1   >= 0 ? row[iPts1]   || '0' : '0',
+      pts2:      iPts2   >= 0 ? row[iPts2]   || '0' : '0',
+      equipe2:   iEq2    >= 0 ? row[iEq2]    || '-' : '-',
+      resultado: iResult >= 0 ? row[iResult] || '-' : '-',
     });
   }
   return data;
