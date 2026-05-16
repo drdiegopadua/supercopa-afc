@@ -412,6 +412,15 @@ td.team{
   display:none;
 }
 
+/* LOADING */
+
+.loading{
+  text-align:center;
+  padding:20px;
+  color:var(--muted);
+  font-size:14px;
+}
+
 /* RESPONSIVO */
 
 @media(max-width:980px){
@@ -448,7 +457,7 @@ td.team{
 <header>
 
   <div class="urgency-bar">
-    TABELA OFICIAL · CLASSIFICAÇÃO · SUPERCOPA 2026
+    TABELA OFICIAL · CLASSIFICAÇÃO · SUPERCOPA DE BASQUETE DE AFONSO CLAUDIO
   </div>
 
   <nav>
@@ -476,7 +485,7 @@ td.team{
 
   <p>
     Acompanhe os grupos, resultados, classificação
-    e todos os jogos oficiais da SUPERCOPA 2026.
+    e todos os jogos oficiais da SUPERCOPA DE BASQUETE DE AFONSO CLAUDIO.
   </p>
 
 </section>
@@ -919,352 +928,16 @@ td.team{
       Classificação · Basquete
     </div>
 
-    <div class="groups-grid">
-
-      <div class="group-card">
-
-        <div class="group-header">
-          Grupo A
-        </div>
-
-        <div class="table-wrap">
-
-          <table>
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>Pontos</th>
-                <th>Vitórias</th>
-                <th>Derrotas</th>
-                <th>P. Marcados</th>
-                <th>Saldo</th>
-              </tr>
-            </thead>
-
-            <tbody>
-
-              <tr>
-                <td class="team">Kings</td>
-                <td>4</td>
-                <td>2</td>
-                <td>0</td>
-                <td>140</td>
-                <td>+28</td>
-              </tr>
-
-              <tr>
-                <td class="team">Storm</td>
-                <td>2</td>
-                <td>1</td>
-                <td>1</td>
-                <td>129</td>
-                <td>+9</td>
-              </tr>
-
-              <tr>
-                <td class="team">Raptors</td>
-                <td>0</td>
-                <td>0</td>
-                <td>2</td>
-                <td>120</td>
-                <td>-37</td>
-              </tr>
-
-            </tbody>
-          </table>
-
-        </div>
-
-      </div>
-
-      <div class="group-card">
-
-        <div class="group-header">
-          Grupo B
-        </div>
-
-        <div class="table-wrap">
-
-          <table>
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>Pontos</th>
-                <th>Vitórias</th>
-                <th>Derrotas</th>
-                <th>P. Marcados</th>
-                <th>Saldo</th>
-              </tr>
-            </thead>
-
-            <tbody>
-
-              <tr>
-                <td class="team">Bulls</td>
-                <td>4</td>
-                <td>2</td>
-                <td>0</td>
-                <td>156</td>
-                <td>+31</td>
-              </tr>
-
-              <tr>
-                <td class="team">Heat</td>
-                <td>2</td>
-                <td>1</td>
-                <td>1</td>
-                <td>138</td>
-                <td>+12</td>
-              </tr>
-
-              <tr>
-                <td class="team">Wolves</td>
-                <td>0</td>
-                <td>0</td>
-                <td>2</td>
-                <td>125</td>
-                <td>-43</td>
-              </tr>
-
-            </tbody>
-          </table>
-
-        </div>
-
-      </div>
-
+    <div class="groups-grid" id="basketballClassificationGrid">
+      <div class="loading">Carregando dados do Google Sheets...</div>
     </div>
 
     <div class="section-title">
       Jogos · Basquete
     </div>
 
-    <div class="games-list">
-
-      <div class="game-card">
-
-        <div class="game-info">
-          <span class="game-group">Grupo A</span>
-          <span class="game-hour">09:00</span>
-        </div>
-
-        <div class="game-team left">
-          Kings
-        </div>
-
-        <div class="game-score">
-
-          <span class="score">
-            72
-          </span>
-
-          <span class="x">
-            X
-          </span>
-
-          <span class="score">
-            61
-          </span>
-
-        </div>
-
-        <div class="game-team right">
-          Storm
-        </div>
-
-        <div class="game-status">
-          FINALIZADO
-        </div>
-
-      </div>
-
-      <div class="game-card">
-
-        <div class="game-info">
-          <span class="game-group">Grupo A</span>
-          <span class="game-hour">10:00</span>
-        </div>
-
-        <div class="game-team left">
-          Storm
-        </div>
-
-        <div class="game-score">
-
-          <span class="score">
-            68
-          </span>
-
-          <span class="x">
-            X
-          </span>
-
-          <span class="score">
-            59
-          </span>
-
-        </div>
-
-        <div class="game-team right">
-          Raptors
-        </div>
-
-        <div class="game-status">
-          FINALIZADO
-        </div>
-
-      </div>
-
-      <div class="game-card">
-
-        <div class="game-info">
-          <span class="game-group">Grupo A</span>
-          <span class="game-hour">11:00</span>
-        </div>
-
-        <div class="game-team left">
-          Kings
-        </div>
-
-        <div class="game-score">
-
-          <span class="score">
-            68
-          </span>
-
-          <span class="x">
-            X
-          </span>
-
-          <span class="score">
-            60
-          </span>
-
-        </div>
-
-        <div class="game-team right">
-          Raptors
-        </div>
-
-        <div class="game-status">
-          FINALIZADO
-        </div>
-
-      </div>
-
-      <div class="game-card">
-
-        <div class="game-info">
-          <span class="game-group">Grupo B</span>
-          <span class="game-hour">14:00</span>
-        </div>
-
-        <div class="game-team left">
-          Bulls
-        </div>
-
-        <div class="game-score">
-
-          <span class="score">
-            78
-          </span>
-
-          <span class="x">
-            X
-          </span>
-
-          <span class="score">
-            65
-          </span>
-
-        </div>
-
-        <div class="game-team right">
-          Heat
-        </div>
-
-        <div class="game-status">
-          FINALIZADO
-        </div>
-
-      </div>
-
-      <div class="game-card">
-
-        <div class="game-info">
-          <span class="game-group">Grupo B</span>
-          <span class="game-hour">15:00</span>
-        </div>
-
-        <div class="game-team left">
-          Heat
-        </div>
-
-        <div class="game-score">
-
-          <span class="score">
-            73
-          </span>
-
-          <span class="x">
-            X
-          </span>
-
-          <span class="score">
-            60
-          </span>
-
-        </div>
-
-        <div class="game-team right">
-          Wolves
-        </div>
-
-        <div class="game-status">
-          FINALIZADO
-        </div>
-
-      </div>
-
-      <div class="game-card">
-
-        <div class="game-info">
-          <span class="game-group">Grupo B</span>
-          <span class="game-hour">16:00</span>
-        </div>
-
-        <div class="game-team left">
-          Bulls
-        </div>
-
-        <div class="game-score">
-
-          <span class="score">
-            78
-          </span>
-
-          <span class="x">
-            X
-          </span>
-
-          <span class="score">
-            65
-          </span>
-
-        </div>
-
-        <div class="game-team right">
-          Wolves
-        </div>
-
-        <div class="game-status">
-          FINALIZADO
-        </div>
-
-      </div>
-
-
-
+    <div class="games-list" id="basketballGamesList">
+      <div class="loading">Carregando dados do Google Sheets...</div>
     </div>
 
   </div>
@@ -1273,6 +946,290 @@ td.team{
 
 <script>
 
+// ============================================
+// CONFIGURAÇÃO DO GOOGLE SHEETS
+// ============================================
+// Substitua estas variáveis pelos seus dados
+
+const GOOGLE_SHEET_ID = 'SEU_ID_DA_PLANILHA_AQUI'; // ID da sua planilha
+const GOOGLE_API_KEY = 'SUA_CHAVE_API_AQUI'; // Sua chave de API do Google
+
+// ============================================
+// FUNÇÕES DE INTEGRAÇÃO COM GOOGLE SHEETS
+// ============================================
+
+async function loadBasketballData() {
+  try {
+    // Buscar todos os dados da planilha
+    const allData = await fetchGoogleSheetData('Fase de Grupos');
+    
+    // Extrair dados de Classificação e Jogos
+    const classificationDataA = extractClassificationGroupA(allData);
+    const classificationDataB = extractClassificationGroupB(allData);
+    const gamesDataA = extractGamesGroupA(allData);
+    const gamesDataB = extractGamesGroupB(allData);
+
+    // Renderizar as tabelas
+    renderClassification(classificationDataA, classificationDataB);
+    renderGames(gamesDataA, gamesDataB);
+  } catch (error) {
+    console.error('Erro ao carregar dados:', error);
+    document.getElementById('basketballClassificationGrid').innerHTML = 
+      '<div class="loading">Erro ao carregar dados. Verifique a configuração.</div>';
+    document.getElementById('basketballGamesList').innerHTML = 
+      '<div class="loading">Erro ao carregar dados. Verifique a configuração.</div>';
+  }
+}
+
+async function fetchGoogleSheetData(sheetName) {
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${sheetName}?key=${GOOGLE_API_KEY}`;
+  
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Erro ao buscar dados: ${response.statusText}`);
+  }
+  
+  const data = await response.json();
+  return data.values || [];
+}
+
+// Extrair dados de Classificação do Grupo A (linhas 11-14, colunas A-I)
+function extractClassificationGroupA(allData) {
+  const groupA = [];
+  if (allData.length > 11) {
+    // Linha 12 (índice 11) até linha 14 (índice 13)
+    for (let i = 11; i < Math.min(14, allData.length); i++) {
+      const row = allData[i];
+      if (row && row.length > 0) {
+        groupA.push({
+          pos: row[0] || '',
+          equipe: row[1] || '',
+          j: row[2] || '',
+          v: row[3] || '',
+          d: row[4] || '',
+          pts: row[5] || '',
+          sd: row[6] || '',
+          pm: row[7] || '',
+          status: row[8] || ''
+        });
+      }
+    }
+  }
+  return groupA;
+}
+
+// Extrair dados de Classificação do Grupo B (linhas 11-14, colunas J-R)
+function extractClassificationGroupB(allData) {
+  const groupB = [];
+  if (allData.length > 11) {
+    // Linha 12 (índice 11) até linha 14 (índice 13)
+    for (let i = 11; i < Math.min(14, allData.length); i++) {
+      const row = allData[i];
+      if (row && row.length > 9) {
+        groupB.push({
+          pos: row[9] || '',
+          equipe: row[10] || '',
+          j: row[11] || '',
+          v: row[12] || '',
+          d: row[13] || '',
+          pts: row[14] || '',
+          sd: row[15] || '',
+          pm: row[16] || '',
+          status: row[17] || ''
+        });
+      }
+    }
+  }
+  return groupB;
+}
+
+// Extrair dados de Jogos do Grupo A (linhas 5-7, colunas A-G)
+function extractGamesGroupA(allData) {
+  const games = [];
+  if (allData.length > 4) {
+    // Linha 5 (índice 4) até linha 7 (índice 6)
+    for (let i = 4; i < Math.min(7, allData.length); i++) {
+      const row = allData[i];
+      if (row && row.length > 0) {
+        games.push({
+          grupo: 'Grupo A',
+          jogo: row[0] || '',
+          equipe1: row[1] || '',
+          pts1: row[2] || '',
+          pts2: row[4] || '',
+          equipe2: row[5] || '',
+          resultado: row[6] || ''
+        });
+      }
+    }
+  }
+  return games;
+}
+
+// Extrair dados de Jogos do Grupo B (linhas 5-7, colunas I-O)
+function extractGamesGroupB(allData) {
+  const games = [];
+  if (allData.length > 4) {
+    // Linha 5 (índice 4) até linha 7 (índice 6)
+    for (let i = 4; i < Math.min(7, allData.length); i++) {
+      const row = allData[i];
+      if (row && row.length > 14) {
+        games.push({
+          grupo: 'Grupo B',
+          jogo: row[8] || '',
+          equipe1: row[9] || '',
+          pts1: row[10] || '',
+          pts2: row[12] || '',
+          equipe2: row[13] || '',
+          resultado: row[14] || ''
+        });
+      }
+    }
+  }
+  return games;
+}
+
+function renderClassification(dataA, dataB) {
+  const grid = document.getElementById('basketballClassificationGrid');
+  grid.innerHTML = '';
+
+  // Renderizar Grupo A
+  if (dataA && dataA.length > 0) {
+    const groupCardA = document.createElement('div');
+    groupCardA.className = 'group-card';
+    
+    let htmlA = `
+      <div class="group-header">Grupo A</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Pos</th>
+              <th>Equipe</th>
+              <th>J</th>
+              <th>V</th>
+              <th>D</th>
+              <th>PTS</th>
+              <th>SD</th>
+              <th>PM</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    dataA.forEach(row => {
+      htmlA += `
+        <tr>
+          <td>${row.pos}</td>
+          <td class="team">${row.equipe}</td>
+          <td>${row.j}</td>
+          <td>${row.v}</td>
+          <td>${row.d}</td>
+          <td>${row.pts}</td>
+          <td>${row.sd}</td>
+          <td>${row.pm}</td>
+          <td>${row.status}</td>
+        </tr>
+      `;
+    });
+    
+    htmlA += `
+          </tbody>
+        </table>
+      </div>
+    `;
+    
+    groupCardA.innerHTML = htmlA;
+    grid.appendChild(groupCardA);
+  }
+
+  // Renderizar Grupo B
+  if (dataB && dataB.length > 0) {
+    const groupCardB = document.createElement('div');
+    groupCardB.className = 'group-card';
+    
+    let htmlB = `
+      <div class="group-header">Grupo B</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Pos</th>
+              <th>Equipe</th>
+              <th>J</th>
+              <th>V</th>
+              <th>D</th>
+              <th>PTS</th>
+              <th>SD</th>
+              <th>PM</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    dataB.forEach(row => {
+      htmlB += `
+        <tr>
+          <td>${row.pos}</td>
+          <td class="team">${row.equipe}</td>
+          <td>${row.j}</td>
+          <td>${row.v}</td>
+          <td>${row.d}</td>
+          <td>${row.pts}</td>
+          <td>${row.sd}</td>
+          <td>${row.pm}</td>
+          <td>${row.status}</td>
+        </tr>
+      `;
+    });
+    
+    htmlB += `
+          </tbody>
+        </table>
+      </div>
+    `;
+    
+    groupCardB.innerHTML = htmlB;
+    grid.appendChild(groupCardB);
+  }
+}
+
+function renderGames(gamesA, gamesB) {
+  const gamesList = document.getElementById('basketballGamesList');
+  gamesList.innerHTML = '';
+
+  const allGames = [...gamesA, ...gamesB];
+
+  allGames.forEach(game => {
+    const gameCard = document.createElement('div');
+    gameCard.className = 'game-card';
+    
+    const html = `
+      <div class="game-info">
+        <span class="game-group">${game.grupo}</span>
+        <span class="game-hour">Jogo ${game.jogo}</span>
+      </div>
+
+      <div class="game-team left">${game.equipe1}</div>
+
+      <div class="game-score">
+        <span class="score">${game.pts1}</span>
+        <span class="x">X</span>
+        <span class="score">${game.pts2}</span>
+      </div>
+
+      <div class="game-team right">${game.equipe2}</div>
+
+      <div class="game-status">${game.resultado}</div>
+    `;
+    
+    gameCard.innerHTML = html;
+    gamesList.appendChild(gameCard);
+  });
+}
+
 function showModalidade(mod, btn){
 
   document.querySelectorAll('.tab-btn')
@@ -1280,11 +1237,8 @@ function showModalidade(mod, btn){
 
   btn.classList.add('active');
 
-  const volei =
-  document.getElementById('voleiContent');
-
-  const basquete =
-  document.getElementById('basqueteContent');
+  const volei = document.getElementById('voleiContent');
+  const basquete = document.getElementById('basqueteContent');
 
   if(mod === 'volei'){
     volei.classList.remove('hidden');
@@ -1292,9 +1246,19 @@ function showModalidade(mod, btn){
   }else{
     basquete.classList.remove('hidden');
     volei.classList.add('hidden');
+    
+    // Carregar dados do Basquete quando a aba for clicada
+    if(basquete.querySelector('.loading')){
+      loadBasketballData();
+    }
   }
-
 }
+
+// Carregar dados ao abrir a página (se estiver na aba de Basquete)
+document.addEventListener('DOMContentLoaded', function() {
+  // Descomente a linha abaixo se quiser carregar os dados automaticamente ao abrir a página
+  // loadBasketballData();
+});
 
 </script>
 
