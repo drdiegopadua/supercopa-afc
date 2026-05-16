@@ -47,6 +47,9 @@ nav{
   display: flex; align-items: center; justify-content: space-between;
   position: relative; overflow: hidden; gap: 16px;
 }
+.ub-left-group {
+  display: flex; align-items: center; gap: 24px;
+}
 /* animated scan line */
 .urgency-bar::before{
   content:''; position:absolute; inset:0;
@@ -782,6 +785,7 @@ nav:not(.main-nav){display:none!important}
 
 <header>
   <div class="urgency-bar">
+  <div class="ub-left-group">
   <div class="ub-left">
     <span class="ub-pulse"></span>
     <span class="ub-label">PRÓXIMO EVENTO · SUPERCOPA BASQUETE 2026</span>
@@ -807,6 +811,7 @@ nav:not(.main-nav){display:none!important}
       <span class="ub-unit-label">SEG</span>
     </div>
   </div>
+  </div><!-- /ub-left-group -->
   <div class="ub-right">
     <a class="ub-cta" href="inscricao.html">INSCREVA-SE</a>
   </div>
