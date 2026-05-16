@@ -24,7 +24,11 @@ nav{
   background:rgba(7,9,13,0.95);
   border-bottom:1px solid var(--border);
 }
-.nav-logo{font-family:var(--D);font-size:26px;letter-spacing:3px;color:var(--accent);text-decoration:none}
+.nav-logo{font-family:var(--D);font-size:26px;letter-spacing:3px;color:var(--accent);text-decoration:none;
+  opacity:0;animation:fadeUp .5s .05s ease forwards;
+  transition:letter-spacing .3s ease,color .2s;
+}
+.nav-logo:hover{letter-spacing:5px;color:var(--text)}
 .nav-logo span{color:rgba(255,255,255,0.3)}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s}
@@ -403,20 +407,49 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
 }
 @keyframes divPulse{from{opacity:.3}to{opacity:1}}
 
+/* ── NAV ENTRY ANIMATION ── */
+@keyframes navSlideDown{
+  from{opacity:0;transform:translateY(-100%)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 /* NAVBAR — uma única barra, tudo na mesma linha */
 nav.main-nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(13,16,24,0.97);
-  backdrop-filter:blur(12px);
-  border-bottom:2px solid rgba(255,255,255,0.07);
+  background:rgba(13,16,24,0.85);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
   padding:0 36px;
   display:flex;align-items:center;justify-content:space-between;
   gap:16px;
   min-height:72px;
+  /* entrada suave ao carregar */
+  animation:navSlideDown .5s cubic-bezier(.22,1,.36,1) both;
+  /* transições para o efeito scroll */
+  transition:min-height .35s ease, background .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+/* estado ao fazer scroll */
+nav.main-nav.scrolled{
+  min-height:58px;
+  background:rgba(7,9,13,0.97);
+  box-shadow:0 4px 32px rgba(0,0,0,.5);
+  border-bottom-color:rgba(58,134,240,0.15);
 }
 .main-nav-links{
   display:flex;list-style:none;gap:0;flex:1;justify-content:center;
 }
+/* entrada escalonada dos links */
+.main-nav-links li{
+  opacity:0;
+  animation:fadeUp .45s ease forwards;
+}
+.main-nav-links li:nth-child(1){animation-delay:.1s}
+.main-nav-links li:nth-child(2){animation-delay:.15s}
+.main-nav-links li:nth-child(3){animation-delay:.2s}
+.main-nav-links li:nth-child(4){animation-delay:.25s}
+.main-nav-links li:nth-child(5){animation-delay:.3s}
+.main-nav-links li:nth-child(6){animation-delay:.35s}
 .main-nav-links li a{
   display:block;
   padding:24px 18px;
@@ -435,7 +468,9 @@ nav.main-nav{
 .main-nav-links li a.active{color:var(--accent)}
 .main-nav-links li a.active::after{transform:scaleX(1)}
 
-.nav-social{display:flex;gap:16px;align-items:center;flex-shrink:0}
+.nav-social{display:flex;gap:16px;align-items:center;flex-shrink:0;
+  opacity:0;animation:fadeUp .45s .4s ease forwards;
+}
 .nav-social a{
   color:var(--muted);font-size:13px;text-decoration:none;
   transition:color .2s,transform .2s;display:flex;align-items:center;
@@ -914,6 +949,15 @@ nav:not(.main-nav){display:none!important}
 </footer>
 
 <script>
+/* ── NAVBAR SCROLL SHRINK ── */
+(function(){
+  const nav = document.querySelector('nav.main-nav');
+  if(!nav) return;
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, {passive:true});
+})();
+
 /* ── SCROLL REVEAL ── */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
