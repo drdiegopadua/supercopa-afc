@@ -82,63 +82,208 @@ header{
   to{transform:translateX(100%)}
 }
 
-nav{
-  display:flex;
-  align-items:center;
-  padding:18px 48px;
-  background:rgba(7,9,13,0.95);
-  border-bottom:1px solid var(--border);
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
+@keyframes navSlideDown{
+  from{opacity:0;transform:translateY(-100%)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* NAV PRINCIPAL */
+nav.main-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:0 36px;
+  min-height:72px;
+  background:rgba(13,16,24,0.85);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  animation:navSlideDown .5s cubic-bezier(.22,1,.36,1) both;
+  transition:min-height .35s ease, background .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+nav.main-nav.scrolled{
+  min-height:58px;
+  background:rgba(7,9,13,0.97);
+  box-shadow:0 4px 32px rgba(0,0,0,.5);
+  border-bottom-color:rgba(58,134,240,0.15);
+}
+
+/* LOGO */
 .nav-logo{
   font-family:var(--D);
   font-size:26px;
   letter-spacing:3px;
   color:var(--accent);
   text-decoration:none;
+  flex-shrink:0;
+  opacity:0;
+  animation:fadeUp .5s .05s ease forwards;
+  transition:letter-spacing .3s ease, color .2s;
 }
+.nav-logo:hover{letter-spacing:5px;color:var(--text)}
+.nav-logo span{color:rgba(255,255,255,0.3);}
 
-.nav-logo span{
-  color:rgba(255,255,255,0.3);
-}
-
-.nav-links{
+/* LINKS CENTRAIS */
+.main-nav-links{
   display:flex;
-  gap:32px;
   list-style:none;
-  margin-left:auto;
-  margin-right:32px;
+  gap:0;
+  flex:1;
+  justify-content:center;
 }
-
-.nav-links a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:12px;
-  font-weight:500;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  transition:.2s;
+.main-nav-links li{
+  opacity:0;
+  animation:fadeUp .45s ease forwards;
 }
-
-.nav-links a:hover{
-  color:var(--text);
+.main-nav-links li:nth-child(1){animation-delay:.10s}
+.main-nav-links li:nth-child(2){animation-delay:.15s}
+.main-nav-links li:nth-child(3){animation-delay:.20s}
+.main-nav-links li:nth-child(4){animation-delay:.25s}
+.main-nav-links li:nth-child(5){animation-delay:.30s}
+.main-nav-links li a{
+  display:block;
+  padding:24px 18px;
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  position:relative;transition:color .2s;white-space:nowrap;
 }
+.main-nav-links li a::after{
+  content:'';position:absolute;bottom:0;left:18px;right:18px;height:2px;
+  background:var(--accent);border-radius:999px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+}
+.main-nav-links li a:hover{color:var(--text)}
+.main-nav-links li a:hover::after{transform:scaleX(1)}
+.main-nav-links li a.active{color:var(--accent)}
+.main-nav-links li a.active::after{transform:scaleX(1)}
 
+/* BOTÃO VOLTAR (lado direito) */
 .nav-back{
   display:inline-flex;
   align-items:center;
   gap:8px;
   color:var(--muted);
   text-decoration:none;
-  font-size:12px;
-  font-weight:500;
+  font-size:11px;
+  font-weight:700;
   letter-spacing:1.5px;
   text-transform:uppercase;
-  transition:.2s;
+  flex-shrink:0;
+  opacity:0;
+  animation:fadeUp .45s .35s ease forwards;
+  transition:color .2s, transform .2s;
 }
+.nav-back:hover{color:var(--accent);transform:translateX(-3px)}
 
-.nav-back:hover{
-  color:var(--accent);
+/* HAMBURGER (mobile) */
+.hamburger{display:none;}
+
+/* DRAWER */
+.mobile-drawer{display:none;}
+.drawer-overlay{display:none;}
+
+/* ─── MOBILE ≤ 768px ─── */
+@media(max-width:768px){
+  nav.main-nav{padding:0 16px;min-height:64px;}
+  .main-nav-links{display:none;}
+  .nav-back{display:none;}
+
+  .hamburger{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:40px;height:40px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:6px;
+    cursor:pointer;
+    flex-shrink:0;
+    transition:background .2s;
+  }
+  .hamburger:hover{background:rgba(58,134,240,0.15);}
+  .hamburger span{
+    display:block;
+    width:20px;height:2px;
+    background:var(--text);
+    border-radius:2px;
+    transition:transform .3s, opacity .3s;
+  }
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-drawer{
+    display:block;
+    position:fixed;
+    top:0;right:-100%;
+    width:80vw;max-width:300px;
+    height:100dvh;
+    background:#0d1018;
+    border-left:1px solid rgba(58,134,240,0.2);
+    z-index:300;
+    transition:right .35s cubic-bezier(.22,1,.36,1);
+    overflow-y:auto;
+    padding:0 0 40px;
+  }
+  .mobile-drawer.open{right:0;}
+
+  .drawer-overlay{
+    display:block;
+    position:fixed;inset:0;
+    background:rgba(0,0,0,0.6);
+    z-index:299;
+    opacity:0;pointer-events:none;
+    transition:opacity .3s;
+  }
+  .drawer-overlay.open{opacity:1;pointer-events:all;}
+
+  .drawer-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 20px;
+    border-bottom:1px solid rgba(255,255,255,0.07);
+  }
+  .drawer-header .d-logo-txt{
+    font-family:var(--D);font-size:20px;letter-spacing:3px;color:var(--accent);
+  }
+  .drawer-header .d-logo-txt span{color:rgba(255,255,255,0.3);}
+  .drawer-close{
+    background:none;border:none;cursor:pointer;
+    color:var(--muted);font-size:22px;line-height:1;
+    transition:color .2s;
+  }
+  .drawer-close:hover{color:var(--text);}
+
+  .drawer-links{list-style:none;padding:12px 0;}
+  .drawer-links li{border-bottom:1px solid rgba(255,255,255,0.05);}
+  .drawer-links li a{
+    display:flex;align-items:center;gap:14px;
+    padding:18px 24px;
+    font-size:13px;font-weight:700;letter-spacing:2px;
+    text-transform:uppercase;color:var(--muted);text-decoration:none;
+    transition:color .2s, padding-left .2s;
+  }
+  .drawer-links li a:hover,
+  .drawer-links li a.active{color:var(--accent);padding-left:30px;}
+  .drawer-links li a .d-icon{font-size:16px;width:20px;text-align:center;}
+
+  .drawer-cta{
+    margin:28px 24px 0;
+    display:block;text-align:center;
+    background:var(--accent);color:#000;
+    padding:15px;border-radius:4px;
+    font-weight:700;font-size:12px;letter-spacing:1.5px;
+    text-transform:uppercase;text-decoration:none;
+  }
 }
 
 /* HERO */
@@ -771,14 +916,6 @@ footer{
     padding-top:95px;
   }
 
-  nav{
-    padding:14px 20px;
-  }
-
-  .nav-links{
-    display:none;
-  }
-
   .field-group{
     grid-template-columns:1fr;
   }
@@ -811,27 +948,48 @@ footer{
     ✓ SEM TAXA DE INSCRIÇÃO · ✓ ALOJAMENTO GRATUITO · ✓ 100% GRATUITO
   </div>
 
-  <nav>
+  <nav class="main-nav" id="mainNav">
 
     <a class="nav-logo" href="index.html">
       SUPER<span>◥</span>COPA
     </a>
 
-   <ul class="nav-links">
-  <li><a href="index.html">Início</a></li>
-  <li><a href="index.html#fases">Fases</a></li>
-  <li><a href="index.html#times">Times</a></li>
-  <li><a href="tabela.html">Jogos/Classificação</a></li>
-  <li><a href="index.html#faq">FAQ</a></li>
-</ul>
+    <ul class="main-nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="index.html#fases">Fases</a></li>
+      <li><a href="index.html#times">Times</a></li>
+      <li><a href="tabela.html">Jogos / Classificação</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+    </ul>
 
-    <a class="nav-back" href="index.html">
-      ← Voltar ao site
-    </a>
+    <a class="nav-back" href="index.html">← Voltar ao site</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
 
   </nav>
 
 </header>
+
+<!-- OVERLAY -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-header">
+    <span class="d-logo-txt">SUPER<span>◥</span>COPA</span>
+    <button class="drawer-close" id="drawerClose">&#10005;</button>
+  </div>
+  <ul class="drawer-links">
+    <li><a href="index.html"><span class="d-icon">🏠</span>Início</a></li>
+    <li><a href="index.html#fases"><span class="d-icon">📋</span>Fases</a></li>
+    <li><a href="index.html#times"><span class="d-icon">🏐</span>Times</a></li>
+    <li><a href="tabela.html"><span class="d-icon">📊</span>Jogos / Classificação</a></li>
+    <li><a href="index.html#faq"><span class="d-icon">❓</span>FAQ</a></li>
+  </ul>
+  <a class="drawer-cta" href="inscricao.html">Inscrever Meu Time</a>
+</div>
 
 <div id="formWrap">
 
@@ -1117,6 +1275,42 @@ footer{
 </footer>
 
 <script>
+
+/* NAVBAR SCROLL SHRINK */
+(function(){
+  const nav = document.getElementById('mainNav');
+  if(!nav) return;
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, {passive:true});
+})();
+
+/* MOBILE DRAWER */
+document.addEventListener('DOMContentLoaded', function(){
+  const btn      = document.getElementById('hamburger');
+  const drawer   = document.getElementById('mobileDrawer');
+  const overlay  = document.getElementById('drawerOverlay');
+  const closeBtn = document.getElementById('drawerClose');
+  if(!btn || !drawer || !overlay || !closeBtn) return;
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    btn.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    btn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', openDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+});
 
 /* TELEFONE */
 
