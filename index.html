@@ -1033,12 +1033,12 @@ function toggleFaq(btn) {
 window.toggleFaq = toggleFaq;
 
 /* ── MOBILE DRAWER ── */
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   const btn      = document.getElementById('hamburger');
   const drawer   = document.getElementById('mobileDrawer');
   const overlay  = document.getElementById('drawerOverlay');
   const closeBtn = document.getElementById('drawerClose');
-  if(!btn) return;
+  if(!btn || !drawer || !overlay || !closeBtn) return;
 
   function openDrawer(){
     drawer.classList.add('open');
@@ -1061,7 +1061,7 @@ window.toggleFaq = toggleFaq;
   drawer.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', closeDrawer);
   });
-})();
+});
 
 </script>
 
