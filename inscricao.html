@@ -1677,6 +1677,23 @@ nav.main-nav.scrolled{
   
 }
 
+
+/* ── INSCRICAO MOBILE FIXES ── */
+@media (max-width: 768px) {
+  /* urgency bar: fit in one line */
+  .urgency-bar {
+    font-size: 9px !important;
+    letter-spacing: 1px !important;
+    padding: 8px 10px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* hide nav links and social, show only logos + hamburger */
+  .main-nav-links { display: none !important; }
+  .nav-social     { display: none !important; }
+  .hamburger      { display: flex !important; }
+}
+
 </style>
 </head>
 <body>
