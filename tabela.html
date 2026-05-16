@@ -967,7 +967,7 @@ const GOOGLE_API_KEY = 'AIzaSyBzIsc4TKy_he2P8PcOgOzs8Eor3EVHBzw'; // <--- COLOQU
 const SHEET_NAME = 'Fase de Grupos';
 
 // ============================================
-// FUNÇÕES DE INTEGRAÇÃO ROBUSTA
+// FUNÇÕES DE INTEGRAÇÃO
 // ============================================
 
 async function loadBasketballData() {
@@ -986,12 +986,15 @@ async function loadBasketballData() {
 
     const allData = result.values || [];
     
-    // Processar dados usando busca dinâmica de colunas
-    const classificationDataA = extractClassification(allData, 11, 13, 0); // Linhas 12-14, começa na col A
-    const classificationDataB = extractClassification(allData, 11, 13, 9); // Linhas 12-14, começa na col J
+    // MAPEAMENTO EXATO BASEADO NA IMAGEM DA PLANILHA
+    // Grupo A: Colunas A a K (0 a 10)
+    // Grupo B: Colunas L a V (11 a 21)
     
-    const gamesDataA = extractGames(allData, 4, 6, 0, 'Grupo A'); // Linhas 5-7, começa na col A
-    const gamesDataB = extractGames(allData, 4, 6, 9, 'Grupo B'); // Linhas 5-7, começa na col J
+    const classificationDataA = extractClassification(allData, 11, 13, 0); // Grupo A (Col A)
+    const classificationDataB = extractClassification(allData, 11, 13, 11); // Grupo B (Col L)
+    
+    const gamesDataA = extractGames(allData, 4, 6, 0, 'Grupo A'); // Jogos A (Col A)
+    const gamesDataB = extractGames(allData, 4, 6, 11, 'Grupo B'); // Jogos B (Col L)
 
     renderClassification(classificationDataA, classificationDataB);
     renderGames(gamesDataA, gamesDataB);
@@ -1006,7 +1009,6 @@ function extractClassification(allData, startRow, endRow, startCol) {
   const group = [];
   for (let i = startRow; i <= endRow; i++) {
     const row = allData[i] || [];
-    // Pegamos os dados baseados na posição relativa ao início do grupo
     group.push({
       pos: row[startCol] || '-',
       equipe: row[startCol + 1] || '-',
@@ -1016,7 +1018,7 @@ function extractClassification(allData, startRow, endRow, startCol) {
       pts: row[startCol + 5] || '0',
       sd: row[startCol + 6] || '0',
       pm: row[startCol + 7] || '0',
-      status: row[startCol + 10] || row[startCol + 9] || row[startCol + 8] || '-' // Tenta achar o status nas colunas finais
+      status: row[startCol + 9] || row[startCol + 8] || '-' // Coluna K ou J
     });
   }
   return group;
