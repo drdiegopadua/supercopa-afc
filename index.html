@@ -37,10 +37,114 @@ nav{
 .nav-cta:hover{transform:translateY(-2px)!important}
 
 /* URGÊNCIA */
+/* ── URGENCY BAR COUNTDOWN ── */
 .urgency-bar{
-  background:var(--accent);color:#000;text-align:center;
-  padding:11px;font-family:var(--M);font-size:12px;letter-spacing:2px;font-weight:700;
-  position:relative;overflow:hidden;
+  background: linear-gradient(90deg, #071428 0%, #0a1a38 40%, #071428 100%);
+  border-bottom: 1px solid rgba(58,134,240,0.3);
+  color: var(--text);
+  padding: 0 32px;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; overflow: hidden; gap: 16px;
+}
+/* animated scan line */
+.urgency-bar::before{
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(90deg, transparent, rgba(58,134,240,0.08), transparent);
+  animation: ubScan 3s linear infinite;
+}
+@keyframes ubScan { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
+
+/* left label */
+.ub-left {
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.ub-pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(58,134,240,0.7);
+  animation: ubPulse 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes ubPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(58,134,240,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(58,134,240,0); }
+  100% { box-shadow: 0 0 0 0 rgba(58,134,240,0); }
+}
+.ub-label {
+  font-family: var(--M); font-size: 10px; letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.55); white-space: nowrap;
+}
+
+/* countdown digits */
+.ub-countdown {
+  display: flex; align-items: center; gap: 6px;
+  position: relative; z-index: 1;
+}
+.ub-unit {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(58,134,240,0.12);
+  border: 1px solid rgba(58,134,240,0.25);
+  border-radius: 5px;
+  padding: 3px 10px;
+  min-width: 46px;
+  position: relative; overflow: hidden;
+}
+.ub-unit::before {
+  content:''; position:absolute;
+  top:50%; left:0; right:0; height:1px;
+  background: rgba(58,134,240,0.2);
+}
+.ub-num {
+  font-family: var(--D);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(58,134,240,0.7);
+  letter-spacing: 2px;
+  transition: transform .18s cubic-bezier(.34,1.56,.64,1), opacity .18s;
+}
+.ub-num.flip {
+  transform: translateY(-6px) scale(1.1);
+  opacity: 0.4;
+}
+.ub-unit-label {
+  font-family: var(--M); font-size: 7px; letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.35); margin-top: 1px;
+}
+.ub-sep {
+  font-family: var(--D); font-size: 20px;
+  color: rgba(58,134,240,0.5);
+  animation: sepBlink 1s step-end infinite;
+  margin-bottom: 8px;
+}
+@keyframes sepBlink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* right CTA */
+.ub-right { flex-shrink: 0; }
+.ub-cta {
+  background: var(--accent); color: #000;
+  font-family: var(--M); font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+  padding: 7px 16px; border-radius: 3px;
+  display: inline-block;
+  transition: transform .2s, box-shadow .2s;
+  white-space: nowrap;
+}
+.ub-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(58,134,240,0.4);
+}
+
+/* mobile urgency bar */
+@media (max-width: 768px) {
+  .urgency-bar { padding: 0 14px; height: 56px; gap: 8px; }
+  .ub-label    { display: none; }
+  .ub-pulse    { display: none; }
+  .ub-unit     { min-width: 36px; padding: 3px 6px; }
+  .ub-num      { font-size: 17px; }
+  .ub-cta      { font-size: 9px; padding: 6px 10px; letter-spacing: 1px; }
 }
 .urgency-bar::before{
   content:'';position:absolute;inset:0;
@@ -677,7 +781,36 @@ nav:not(.main-nav){display:none!important}
 <body>
 
 <header>
-  <div class="urgency-bar">PRÉ-INSCRIÇÕES ABERTAS EM BREVE · VAGAS LIMITADAS</div>
+  <div class="urgency-bar">
+  <div class="ub-left">
+    <span class="ub-pulse"></span>
+    <span class="ub-label">PRÓXIMO EVENTO · SUPERCOPA BASQUETE 2026</span>
+  </div>
+  <div class="ub-countdown" id="ubCountdown">
+    <div class="ub-unit">
+      <span class="ub-num" id="ubDays">00</span>
+      <span class="ub-unit-label">DIAS</span>
+    </div>
+    <span class="ub-sep">:</span>
+    <div class="ub-unit">
+      <span class="ub-num" id="ubHours">00</span>
+      <span class="ub-unit-label">HRS</span>
+    </div>
+    <span class="ub-sep">:</span>
+    <div class="ub-unit">
+      <span class="ub-num" id="ubMins">00</span>
+      <span class="ub-unit-label">MIN</span>
+    </div>
+    <span class="ub-sep">:</span>
+    <div class="ub-unit">
+      <span class="ub-num" id="ubSecs">00</span>
+      <span class="ub-unit-label">SEG</span>
+    </div>
+  </div>
+  <div class="ub-right">
+    <a class="ub-cta" href="inscricao.html">INSCREVA-SE</a>
+  </div>
+</div>
 
   <!-- NAVBAR ÚNICA com logos + links na mesma linha -->
   <nav class="main-nav">
@@ -1095,5 +1228,54 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
   <a class="drawer-cta" href="inscricao.html">Inscrever Meu Time</a>
 </div>
+
+
+<script>
+/* ── COUNTDOWN — Supercopa Basquete 25/07/2026 13:00 ── */
+(function(){
+  const target = new Date('2026-07-25T13:00:00');
+
+  const elD = document.getElementById('ubDays');
+  const elH = document.getElementById('ubHours');
+  const elM = document.getElementById('ubMins');
+  const elS = document.getElementById('ubSecs');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function flip(el, newVal){
+    const cur = el.textContent;
+    if(cur === newVal) return;
+    el.classList.add('flip');
+    setTimeout(()=>{
+      el.textContent = newVal;
+      el.classList.remove('flip');
+    }, 180);
+  }
+
+  function tick(){
+    const now  = new Date();
+    const diff = target - now;
+
+    if(diff <= 0){
+      [elD,elH,elM,elS].forEach(el => el.textContent = '00');
+      document.querySelector('.ub-label').textContent = '🏆 SUPERCOPA BASQUETE — AO VIVO AGORA!';
+      return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    flip(elD, pad(days));
+    flip(elH, pad(hours));
+    flip(elM, pad(mins));
+    flip(elS, pad(secs));
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
 
 </body></html>
