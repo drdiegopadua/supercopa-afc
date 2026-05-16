@@ -476,6 +476,187 @@ td.team{
 
 }
 
+
+/* MATA-MATA */
+
+.mata-bracket {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 50px;
+}
+
+@media(max-width:900px){
+  .mata-bracket { grid-template-columns: 1fr; }
+}
+
+.mata-round-title {
+  font-family: var(--D);
+  font-size: 32px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.mata-sub-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  margin-top: 18px;
+}
+
+.mata-matchup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.mata-team-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  transition: border-color .2s;
+}
+
+.mata-team-row:hover { border-color: rgba(58,134,240,0.4); }
+
+.mata-team-row.winner {
+  border-color: var(--accent);
+  background: rgba(58,134,240,0.08);
+}
+
+.mata-team-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.mata-team-score {
+  font-family: var(--M);
+  font-size: 15px;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  min-width: 44px;
+  text-align: center;
+}
+
+.mata-team-score.winner-score {
+  background: var(--accent);
+}
+
+.mata-team-score.loser-score {
+  background: rgba(255,255,255,0.08);
+  color: var(--muted);
+}
+
+/* TROPHY CARD */
+.trophy-card {
+  background: var(--card);
+  border: 1px solid rgba(58,134,240,0.3);
+  border-radius: 20px;
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.trophy-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(58,134,240,0.12), transparent 70%);
+}
+
+.trophy-emoji {
+  font-size: 72px;
+  animation: trophyFloat 2.5s ease-in-out infinite, trophyGlow 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px rgba(250,204,21,0.7));
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes trophyFloat {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50%       { transform: translateY(-14px) rotate(3deg); }
+}
+
+@keyframes trophyGlow {
+  0%, 100% { filter: drop-shadow(0 0 14px rgba(250,204,21,0.5)); }
+  50%       { filter: drop-shadow(0 0 32px rgba(250,204,21,0.95)); }
+}
+
+.trophy-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.trophy-name {
+  font-family: var(--D);
+  font-size: 36px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  line-height: 1.1;
+  position: relative;
+  z-index: 1;
+}
+
+.trophy-name.pending {
+  color: var(--muted);
+  font-size: 22px;
+}
+
+.mata-info {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 50px;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: inline-block;
+}
+
+/* Stars animation behind trophy */
+.trophy-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.trophy-stars span {
+  position: absolute;
+  font-size: 14px;
+  animation: starTwinkle 3s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50%       { opacity: 1; transform: scale(1.2); }
+}
+
 </style>
 </head>
 
@@ -525,6 +706,14 @@ td.team{
 
   <button class="tab-btn" onclick="showModalidade('basquete',this)">
     🏀 Basquete
+  </button>
+
+  <button class="tab-btn" onclick="showModalidade('voleiMata',this)">
+    🏐 Vôlei Mata-Mata
+  </button>
+
+  <button class="tab-btn" onclick="showModalidade('basqueteMata',this)">
+    🏀 Basquete Mata-Mata
   </button>
 
 </div>
@@ -919,6 +1108,145 @@ td.team{
 
   </div>
 
+  <!-- VOLEI MATA-MATA -->
+  <div id="voleiMataContent" class="hidden">
+    <div class="section-title">Mata-Mata · Voleibol</div>
+    <div class="mata-bracket">
+
+      <!-- SEMIFINAIS -->
+      <div>
+        <div class="mata-round-title">Semifinais</div>
+
+        <div class="mata-sub-label">1º Grupo A × 2º Grupo B</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row">
+            <span class="mata-team-name">A definir</span>
+            <span class="mata-team-score">-</span>
+          </div>
+          <div class="mata-team-row">
+            <span class="mata-team-name">A definir</span>
+            <span class="mata-team-score">-</span>
+          </div>
+        </div>
+
+        <div class="mata-sub-label">1º Grupo B × 2º Grupo A</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row">
+            <span class="mata-team-name">A definir</span>
+            <span class="mata-team-score">-</span>
+          </div>
+          <div class="mata-team-row">
+            <span class="mata-team-name">A definir</span>
+            <span class="mata-team-score">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRANDE FINAL -->
+      <div>
+        <div class="mata-round-title">Grande Final</div>
+        <div class="mata-sub-label">Final</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row">
+            <span class="mata-team-name">A definir</span>
+            <span class="mata-team-score">-</span>
+          </div>
+          <div class="mata-team-row">
+            <span class="mata-team-name">A definir</span>
+            <span class="mata-team-score">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPEÃO -->
+      <div>
+        <div class="mata-round-title">Campeão</div>
+        <div class="trophy-card">
+          <div class="trophy-stars">
+            <span style="top:15%;left:15%;animation-delay:0s">⭐</span>
+            <span style="top:20%;right:18%;animation-delay:.7s">✨</span>
+            <span style="bottom:25%;left:12%;animation-delay:1.2s">⭐</span>
+            <span style="bottom:20%;right:14%;animation-delay:.4s">✨</span>
+          </div>
+          <div class="trophy-emoji">🏆</div>
+          <div class="trophy-label">Campeão da Supercopa</div>
+          <div class="trophy-name pending">A definir</div>
+        </div>
+      </div>
+
+    </div>
+    <p class="mata-info">⏳ Fase de mata-mata começa após o encerramento da fase de grupos.</p>
+  </div>
+
+  <!-- BASQUETE MATA-MATA -->
+  <div id="basqueteMataContent" class="hidden">
+    <div class="section-title">Mata-Mata · Basquete</div>
+    <div class="mata-bracket">
+
+      <!-- SEMIFINAIS -->
+      <div>
+        <div class="mata-round-title">Semifinais</div>
+
+        <div class="mata-sub-label">1º Grupo A × 2º Grupo B</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row winner">
+            <span class="mata-team-name">CT</span>
+            <span class="mata-team-score winner-score">10</span>
+          </div>
+          <div class="mata-team-row">
+            <span class="mata-team-name">Equipe 2</span>
+            <span class="mata-team-score loser-score">5</span>
+          </div>
+        </div>
+
+        <div class="mata-sub-label">1º Grupo B × 2º Grupo A</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row winner">
+            <span class="mata-team-name">Equipe 4</span>
+            <span class="mata-team-score winner-score">10</span>
+          </div>
+          <div class="mata-team-row">
+            <span class="mata-team-name">Equipe 3</span>
+            <span class="mata-team-score loser-score">5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRANDE FINAL -->
+      <div>
+        <div class="mata-round-title">Grande Final</div>
+        <div class="mata-sub-label">Final</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row winner">
+            <span class="mata-team-name">Equipe 6</span>
+            <span class="mata-team-score winner-score">10</span>
+          </div>
+          <div class="mata-team-row">
+            <span class="mata-team-name">Equipe 4</span>
+            <span class="mata-team-score loser-score">5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPEÃO -->
+      <div>
+        <div class="mata-round-title">Campeão</div>
+        <div class="trophy-card">
+          <div class="trophy-stars">
+            <span style="top:15%;left:15%;animation-delay:0s">⭐</span>
+            <span style="top:20%;right:18%;animation-delay:.7s">✨</span>
+            <span style="bottom:25%;left:12%;animation-delay:1.2s">⭐</span>
+            <span style="bottom:20%;right:14%;animation-delay:.4s">✨</span>
+          </div>
+          <div class="trophy-emoji">🏆</div>
+          <div class="trophy-label">Campeão da Supercopa</div>
+          <div class="trophy-name">Equipe 6</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -1244,18 +1572,24 @@ function showModalidade(mod, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 
-  const volei    = document.getElementById('voleiContent');
-  const basquete = document.getElementById('basqueteContent');
+  // Hide all sections
+  ['voleiContent','basqueteContent','voleiMataContent','basqueteMataContent'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
+  });
+
+  stopAutoRefresh();
 
   if (mod === 'volei') {
-    volei.classList.remove('hidden');
-    basquete.classList.add('hidden');
-    stopAutoRefresh();
-  } else {
-    basquete.classList.remove('hidden');
-    volei.classList.add('hidden');
+    document.getElementById('voleiContent').classList.remove('hidden');
+  } else if (mod === 'basquete') {
+    document.getElementById('basqueteContent').classList.remove('hidden');
     loadBasketballData();
     startAutoRefresh();
+  } else if (mod === 'voleiMata') {
+    document.getElementById('voleiMataContent').classList.remove('hidden');
+  } else if (mod === 'basqueteMata') {
+    document.getElementById('basqueteMataContent').classList.remove('hidden');
   }
 }
 
