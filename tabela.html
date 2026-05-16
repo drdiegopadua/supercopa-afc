@@ -1099,7 +1099,7 @@ async function loadMataMata() {
   const grid      = document.getElementById('mataMataGrid');
 
   try {
-    const range = encodeURIComponent(`'${MATA_MATA_SHEET}'!A1:N21`);
+    const range = encodeURIComponent(`'${MATA_MATA_SHEET}'!A1:N22`);
     const url   = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
 
     const response = await fetch(url);
@@ -1142,8 +1142,25 @@ async function loadMataMata() {
       winner: cell(15, 12), // M16
     };
 
-    // Campeão  (linha 21 = índice 20)
-    const campeo = cell(20, 1); // B21
+    // Campeão — varre linhas 19 a 21 (índices 18–20), todas as colunas A–N
+    // Ignora títulos genéricos e pega o primeiro valor que pareça um nome de equipe
+    const IGNORED = ['CAMPEAO DA SUPERCOPA','CAMPEÃO DA SUPERCOPA','CAMPEA0 DA SUPERCOPA'];
+    let campeo = '';
+    console.log('🏆 Debug linhas campeão:');
+    for (let r = 18; r <= 21; r++) {
+      console.log(`  linha ${r+1}:`, rows[r]);
+    }
+    outer: for (let r = 18; r <= 21; r++) {
+      const rowData = rows[r] || [];
+      for (let c = 0; c < 14; c++) {
+        const v = (rowData[c] || '').toString().trim();
+        if (v && !IGNORED.includes(v.toUpperCase())) {
+          campeo = v;
+          break outer;
+        }
+      }
+    }
+    console.log('🏆 Campeão encontrado:', campeo);
 
     // ── Determina vencedores de cada duelo ────────────────────────
     function whoWon(nameA, scoreA, nameB, scoreB) {
