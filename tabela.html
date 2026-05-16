@@ -1,52 +1,934 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tabela</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="stylesheet" href="style.css">
+<title>Tabela & Classificação • SUPERCOPA 2026</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 
+<style>
+
+*,*::before,*::after{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#07090d;
+  --surface:#0d1018;
+  --card:#111520;
+  --border:rgba(255,255,255,0.07);
+
+  --accent:#3a86f0;
+  --accent2:#e85d3a;
+
+  --text:#e8eaf0;
+  --muted:#5a6174;
+
+  --green:#4ade80;
+  --green-bg:rgba(74,222,128,0.08);
+
+  --gold:#f7c948;
+
+  --D:'Bebas Neue',sans-serif;
+  --B:'DM Sans',sans-serif;
+  --M:'Space Mono',monospace;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--B);
+  overflow-x:hidden;
+  padding-top:105px;
+}
+
+/* HEADER */
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+}
+
+.urgency-bar{
+  background:var(--accent);
+  color:#000;
+  text-align:center;
+  padding:11px;
+  font-family:var(--M);
+  font-size:12px;
+  letter-spacing:2px;
+  font-weight:700;
+  overflow:hidden;
+  position:relative;
+}
+
+.urgency-bar::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  animation:shine 2.5s linear infinite;
+}
+
+@keyframes shine{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  padding:18px 48px;
+  background:rgba(7,9,13,0.95);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo{
+  font-family:var(--D);
+  font-size:26px;
+  letter-spacing:3px;
+  color:var(--accent);
+  text-decoration:none;
+}
+
+.nav-logo span{
+  color:rgba(255,255,255,0.3);
+}
+
+.nav-links{
+  display:flex;
+  gap:32px;
+  list-style:none;
+  margin-left:auto;
+  margin-right:32px;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  color:var(--text);
+}
+
+.nav-back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:.2s;
+}
+
+.nav-back:hover{
+  color:var(--accent);
+}
+
+/* HERO */
+
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  padding:72px 24px 56px;
+  text-align:center;
+}
+
+.hero-dots{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background-image:
+  radial-gradient(circle,rgba(58,134,240,0.06) 1px,transparent 1px);
+
+  background-size:38px 38px;
+  animation:dotsDrift 28s linear infinite;
+}
+
+@keyframes dotsDrift{
+  from{background-position:0 0}
+  to{background-position:38px 38px}
+}
+
+.hero-glow{
+  position:absolute;
+  top:-80px;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:700px;
+  height:400px;
+
+  background:
+  radial-gradient(
+    ellipse at 50% 30%,
+    rgba(58,134,240,0.12) 0%,
+    rgba(58,134,240,0.04) 45%,
+    transparent 72%
+  );
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  padding:6px 20px;
+  border-radius:100px;
+
+  background:rgba(58,134,240,0.10);
+  border:1px solid rgba(58,134,240,0.28);
+
+  font-family:var(--M);
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  color:var(--accent);
+
+  position:relative;
+  z-index:2;
+}
+
+.badge-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 6px var(--accent);
+  animation:blink 1.4s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.2}
+}
+
+.page-hero h1{
+  margin-top:28px;
+
+  font-family:var(--D);
+  font-size:clamp(2.8rem,7vw,5rem);
+  line-height:1;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+
+  background:
+  linear-gradient(
+    155deg,
+    #a8d0ff 0%,
+    #3a86f0 22%,
+    #ffffff 50%,
+    #3a86f0 72%,
+    #1a4a9e 100%
+  );
+
+  background-size:200% 200%;
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation:titleShine 4.5s ease-in-out infinite alternate;
+
+  position:relative;
+  z-index:2;
+}
+
+@keyframes titleShine{
+  from{background-position:0% 50%}
+  to{background-position:100% 50%}
+}
+
+.page-hero p{
+  max-width:600px;
+  margin:18px auto 0;
+
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.7;
+
+  position:relative;
+  z-index:2;
+}
+
+/* MODALIDADES */
+
+.tabs-wrap{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:34px;
+}
+
+.tab-btn{
+  border:none;
+  cursor:pointer;
+
+  padding:16px 28px;
+  border-radius:12px;
+
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+
+  color:var(--muted);
+
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:1px;
+  text-transform:uppercase;
+
+  transition:.25s;
+}
+
+.tab-btn.active{
+  background:rgba(58,134,240,0.12);
+  border-color:rgba(58,134,240,0.35);
+  color:var(--text);
+
+  box-shadow:
+  0 0 30px rgba(58,134,240,0.12);
+}
+
+.tab-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* CONTAINER */
+
+.container{
+  width:min(1200px,92%);
+  margin:auto;
+}
+
+/* SECTION */
+
+.section{
+  margin-bottom:42px;
+}
+
+.section-title{
+  margin-bottom:18px;
+
+  font-family:var(--D);
+  font-size:32px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+/* CLASSIFICAÇÃO */
+
+.table-card{
+  overflow:hidden;
+  border-radius:18px;
+
+  background:var(--card);
+  border:1px solid var(--border);
+
+  box-shadow:
+  0 0 40px rgba(58,134,240,0.06);
+}
+
+.class-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.class-table thead{
+  background:rgba(255,255,255,0.03);
+}
+
+.class-table th{
+  padding:18px 16px;
+
+  color:var(--muted);
+
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-family:var(--M);
+}
+
+.class-table td{
+  padding:18px 16px;
+  border-top:1px solid var(--border);
+  text-align:center;
+}
+
+.class-table tbody tr{
+  transition:.2s;
+}
+
+.class-table tbody tr:hover{
+  background:rgba(255,255,255,0.02);
+}
+
+.team-cell{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-align:left;
+}
+
+.rank{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,0.04);
+
+  font-weight:700;
+}
+
+.rank.top{
+  background:rgba(247,201,72,0.15);
+  color:var(--gold);
+}
+
+/* JOGOS */
+
+.games-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.round-card{
+  border-radius:18px;
+
+  background:var(--card);
+  border:1px solid var(--border);
+
+  overflow:hidden;
+}
+
+.round-header{
+  padding:18px 24px;
+
+  border-bottom:1px solid var(--border);
+
+  background:rgba(255,255,255,0.03);
+
+  font-family:var(--D);
+  letter-spacing:2px;
+  font-size:22px;
+}
+
+.game{
+  padding:22px 24px;
+  border-bottom:1px solid var(--border);
+}
+
+.game:last-child{
+  border-bottom:none;
+}
+
+.game-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:18px;
+}
+
+.game-status{
+  padding:6px 10px;
+  border-radius:100px;
+
+  background:rgba(74,222,128,0.12);
+  border:1px solid rgba(74,222,128,0.2);
+
+  color:var(--green);
+
+  font-size:10px;
+  font-family:var(--M);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+.game-time{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.match{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.team{
+  flex:1;
+  font-weight:600;
+}
+
+.score{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  font-family:var(--D);
+  font-size:32px;
+  letter-spacing:2px;
+}
+
+.x{
+  color:var(--muted);
+  font-size:18px;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:80px;
+  padding:40px 48px 24px;
+  border-top:1px solid var(--border);
+  background:var(--surface);
+}
+
+.footer-logo{
+  font-family:var(--D);
+  font-size:28px;
+  color:var(--accent);
+}
+
+.footer-tagline{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+  .games-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:640px){
+
+  body{
+    padding-top:95px;
+  }
+
+  nav{
+    padding:14px 20px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .class-table{
+    min-width:700px;
+  }
+
+  .table-scroll{
+    overflow:auto;
+  }
+
+  .match{
+    flex-direction:column;
+    gap:12px;
+    text-align:center;
+  }
+
+  footer{
+    padding:32px 20px 20px;
+  }
+
+}
+
+</style>
 </head>
+
 <body>
 
-<header class="hero">
+<header>
 
-<nav class="navbar">
+  <div class="urgency-bar">
+    ✓ ACOMPANHE A CLASSIFICAÇÃO · ✓ RESULTADOS AO VIVO · ✓ SUPERCOPA 2026
+  </div>
 
-<div class="logo">SUPERCOPA AFC</div>
+  <nav>
 
-<ul>
-<li><a href="index.html">Início</a></li>
-<li><a href="quem-somos.html">Quem Somos</a></li>
-<li><a href="historia.html">História</a></li>
-<li><a href="tabela.html">Tabela</a></li>
-<li><a href="galeria.html">Galeria</a></li>
-</ul>
+    <a class="nav-logo" href="index.html">
+      SUPER<span>◥</span>COPA
+    </a>
 
-</nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="inscricao.html">Inscrição</a></li>
+      <li><a class="active" href="tabela.html">Tabela</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+    </ul>
 
-<div class="hero-content">
+    <a class="nav-back" href="index.html">
+      ← Voltar ao site
+    </a>
 
-<span class="tag">TABELA E CLASSIFICAÇÃO</span>
-
-<h1>
-JOGOS E<br>
-CLASSIFICAÇÃO
-</h1>
-
-<p>
-Acompanhe os confrontos, resultados e classificação em tempo real.
-</p>
-
-</div>
-
-<div class="glow glow1"></div>
-<div class="glow glow2"></div>
+  </nav>
 
 </header>
+
+<section class="page-hero">
+
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Atualizado em Tempo Real
+  </div>
+
+  <h1>
+    Tabela & Classificação
+  </h1>
+
+  <p>
+    Acompanhe os resultados, confrontos, classificação
+    e a caminhada das equipes rumo ao título da SUPERCOPA 2026.
+  </p>
+
+  <div class="tabs-wrap">
+
+    <button class="tab-btn active">
+      🏐 Voleibol
+    </button>
+
+    <button class="tab-btn">
+      🏀 Basquete
+    </button>
+
+  </div>
+
+</section>
+
+<main class="container">
+
+  <!-- CLASSIFICAÇÃO -->
+
+  <section class="section">
+
+    <h2 class="section-title">
+      Classificação
+    </h2>
+
+    <div class="table-card table-scroll">
+
+      <table class="class-table">
+
+        <thead>
+          <tr>
+            <th>#</th>
+            <th align="left">Equipe</th>
+            <th>PTS</th>
+            <th>V</th>
+            <th>D</th>
+            <th>SG</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>
+              <div class="rank top">1</div>
+            </td>
+
+            <td align="left">
+              <div class="team-cell">
+                🏐 Águias
+              </div>
+            </td>
+
+            <td>9</td>
+            <td>3</td>
+            <td>0</td>
+            <td>+8</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="rank top">2</div>
+            </td>
+
+            <td align="left">
+              <div class="team-cell">
+                🏐 Titans
+              </div>
+            </td>
+
+            <td>6</td>
+            <td>2</td>
+            <td>1</td>
+            <td>+4</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="rank top">3</div>
+            </td>
+
+            <td align="left">
+              <div class="team-cell">
+                🏐 Sharks
+              </div>
+            </td>
+
+            <td>4</td>
+            <td>1</td>
+            <td>2</td>
+            <td>-1</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="rank top">4</div>
+            </td>
+
+            <td align="left">
+              <div class="team-cell">
+                🏐 Montanhas
+              </div>
+            </td>
+
+            <td>3</td>
+            <td>1</td>
+            <td>2</td>
+            <td>-3</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="rank">5</div>
+            </td>
+
+            <td align="left">
+              <div class="team-cell">
+                🏐 Falcons
+              </div>
+            </td>
+
+            <td>1</td>
+            <td>0</td>
+            <td>3</td>
+            <td>-8</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+  <!-- JOGOS -->
+
+  <section class="section">
+
+    <h2 class="section-title">
+      Tabela de Jogos
+    </h2>
+
+    <div class="games-grid">
+
+      <!-- RODADA 1 -->
+
+      <div class="round-card">
+
+        <div class="round-header">
+          Rodada 1
+        </div>
+
+        <div class="game">
+
+          <div class="game-top">
+            <div class="game-status">
+              Finalizado
+            </div>
+
+            <div class="game-time">
+              14:00 • Quadra Central
+            </div>
+          </div>
+
+          <div class="match">
+
+            <div class="team">
+              Águias
+            </div>
+
+            <div class="score">
+              2
+              <span class="x">x</span>
+              0
+            </div>
+
+            <div class="team" style="text-align:right">
+              Falcons
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="game">
+
+          <div class="game-top">
+            <div class="game-status">
+              Finalizado
+            </div>
+
+            <div class="game-time">
+              15:30 • Quadra Central
+            </div>
+          </div>
+
+          <div class="match">
+
+            <div class="team">
+              Titans
+            </div>
+
+            <div class="score">
+              2
+              <span class="x">x</span>
+              1
+            </div>
+
+            <div class="team" style="text-align:right">
+              Sharks
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RODADA 2 -->
+
+      <div class="round-card">
+
+        <div class="round-header">
+          Rodada 2
+        </div>
+
+        <div class="game">
+
+          <div class="game-top">
+            <div class="game-status">
+              Ao Vivo
+            </div>
+
+            <div class="game-time">
+              17:00 • Arena Principal
+            </div>
+          </div>
+
+          <div class="match">
+
+            <div class="team">
+              Montanhas
+            </div>
+
+            <div class="score">
+              1
+              <span class="x">x</span>
+              1
+            </div>
+
+            <div class="team" style="text-align:right">
+              Águias
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="game">
+
+          <div class="game-top">
+            <div class="game-status">
+              Próximo Jogo
+            </div>
+
+            <div class="game-time">
+              19:00 • Arena Principal
+            </div>
+          </div>
+
+          <div class="match">
+
+            <div class="team">
+              Falcons
+            </div>
+
+            <div class="score">
+              -
+              <span class="x">x</span>
+              -
+            </div>
+
+            <div class="team" style="text-align:right">
+              Titans
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+
+  <div class="footer-logo">
+    SUPERCOPA
+  </div>
+
+  <div class="footer-tagline">
+    Campeonato Multiesporte • Afonso Cláudio • 2026
+  </div>
+
+</footer>
 
 </body>
 </html>
