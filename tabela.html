@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Tabela & Classificação • SUPERCOPA 2026</title>
+<title>Tabela e Classificação • SUPERCOPA 2026</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -29,9 +29,6 @@
   --muted:#5a6174;
 
   --green:#4ade80;
-  --green-bg:rgba(74,222,128,0.08);
-
-  --gold:#f7c948;
 
   --D:'Bebas Neue',sans-serif;
   --B:'DM Sans',sans-serif;
@@ -69,27 +66,15 @@ header{
   font-size:12px;
   letter-spacing:2px;
   font-weight:700;
-  overflow:hidden;
-  position:relative;
-}
-
-.urgency-bar::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
-  animation:shine 2.5s linear infinite;
-}
-
-@keyframes shine{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(100%)}
 }
 
 nav{
   display:flex;
   align-items:center;
+  justify-content:space-between;
+
   padding:18px 48px;
+
   background:rgba(7,9,13,0.95);
   border-bottom:1px solid var(--border);
 }
@@ -106,132 +91,68 @@ nav{
   color:rgba(255,255,255,0.3);
 }
 
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:40px;
+  margin-left:auto;
+}
+
 .nav-links{
   display:flex;
-  gap:32px;
   list-style:none;
-  margin-left:auto;
-  margin-right:32px;
+  gap:28px;
 }
 
 .nav-links a{
-  color:var(--muted);
   text-decoration:none;
+  color:var(--muted);
   font-size:12px;
-  font-weight:500;
+  font-weight:600;
   letter-spacing:1.5px;
   text-transform:uppercase;
   transition:.2s;
 }
 
-.nav-links a:hover,
-.nav-links a.active{
+.nav-links a:hover{
   color:var(--text);
 }
 
 .nav-back{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:var(--muted);
   text-decoration:none;
+  color:var(--accent);
   font-size:12px;
-  font-weight:500;
+  font-weight:700;
   letter-spacing:1.5px;
   text-transform:uppercase;
-  transition:.2s;
-}
-
-.nav-back:hover{
-  color:var(--accent);
 }
 
 /* HERO */
 
-.page-hero{
+.hero{
   position:relative;
   overflow:hidden;
-  padding:72px 24px 56px;
+  padding:90px 24px 60px;
   text-align:center;
 }
 
-.hero-dots{
+.hero::before{
+  content:'';
   position:absolute;
   inset:0;
-  pointer-events:none;
 
   background-image:
   radial-gradient(circle,rgba(58,134,240,0.06) 1px,transparent 1px);
 
   background-size:38px 38px;
-  animation:dotsDrift 28s linear infinite;
 }
 
-@keyframes dotsDrift{
-  from{background-position:0 0}
-  to{background-position:38px 38px}
-}
-
-.hero-glow{
-  position:absolute;
-  top:-80px;
-  left:50%;
-  transform:translateX(-50%);
-
-  width:700px;
-  height:400px;
-
-  background:
-  radial-gradient(
-    ellipse at 50% 30%,
-    rgba(58,134,240,0.12) 0%,
-    rgba(58,134,240,0.04) 45%,
-    transparent 72%
-  );
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-
-  padding:6px 20px;
-  border-radius:100px;
-
-  background:rgba(58,134,240,0.10);
-  border:1px solid rgba(58,134,240,0.28);
-
-  font-family:var(--M);
-  font-size:11px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-
-  color:var(--accent);
-
+.hero h1{
   position:relative;
   z-index:2;
-}
-
-.badge-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 6px var(--accent);
-  animation:blink 1.4s infinite;
-}
-
-@keyframes blink{
-  0%,100%{opacity:1}
-  50%{opacity:.2}
-}
-
-.page-hero h1{
-  margin-top:28px;
 
   font-family:var(--D);
-  font-size:clamp(2.8rem,7vw,5rem);
-  line-height:1;
+  font-size:clamp(3rem,8vw,6rem);
   letter-spacing:.08em;
   text-transform:uppercase;
 
@@ -250,92 +171,125 @@ nav{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 
-  animation:titleShine 4.5s ease-in-out infinite alternate;
+  animation:shine 5s ease infinite alternate;
 }
 
-@keyframes titleShine{
+@keyframes shine{
   from{background-position:0% 50%}
   to{background-position:100% 50%}
 }
 
-.page-hero p{
-  max-width:600px;
-  margin:18px auto 0;
+.hero p{
+  position:relative;
+  z-index:2;
+
+  margin-top:18px;
 
   color:var(--muted);
   font-size:16px;
-  line-height:1.7;
 }
 
-/* BOTÕES */
+/* CONTAINER */
 
-.tabs-wrap{
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:0 24px 80px;
+}
+
+/* TABS */
+
+.tabs{
   display:flex;
   justify-content:center;
-  gap:14px;
+  gap:16px;
+
+  margin-bottom:50px;
   flex-wrap:wrap;
-  margin-top:34px;
 }
 
 .tab-btn{
   border:none;
   cursor:pointer;
 
-  padding:16px 28px;
-  border-radius:12px;
+  padding:16px 32px;
+  border-radius:10px;
 
-  background:rgba(255,255,255,0.03);
+  background:var(--card);
   border:1px solid var(--border);
 
-  color:var(--muted);
+  color:var(--text);
 
   font-size:14px;
   font-weight:700;
   letter-spacing:1px;
-  text-transform:uppercase;
 
-  transition:.25s;
+  transition:.2s;
 }
 
 .tab-btn.active{
   background:rgba(58,134,240,0.12);
-  border-color:rgba(58,134,240,0.35);
-  color:var(--text);
+  border-color:var(--accent);
 
   box-shadow:
-  0 0 30px rgba(58,134,240,0.12);
+  0 0 0 3px rgba(58,134,240,0.12);
 }
 
-/* CONTAINER */
-
-.container{
-  width:min(1200px,92%);
-  margin:auto;
+.tab-btn:hover{
+  transform:translateY(-2px);
 }
 
-/* SECTION */
+/* CONTENT */
 
-.section{
-  margin-bottom:42px;
+.content-area{
+  display:none;
 }
+
+.content-area.active{
+  display:block;
+}
+
+/* SECTION TITLE */
 
 .section-title{
-  margin-bottom:18px;
-
   font-family:var(--D);
-  font-size:32px;
+  font-size:38px;
   letter-spacing:2px;
-  text-transform:uppercase;
+  margin-bottom:24px;
 }
 
-/* TABELA */
+/* GROUPS */
 
-.table-card{
-  overflow:hidden;
-  border-radius:18px;
+.groups-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
 
+  margin-bottom:60px;
+}
+
+.group-card{
   background:var(--card);
   border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.group-header{
+  padding:18px 20px;
+
+  background:
+  linear-gradient(
+    90deg,
+    rgba(58,134,240,0.15),
+    rgba(58,134,240,0.02)
+  );
+
+  border-bottom:1px solid var(--border);
+
+  font-family:var(--D);
+  font-size:24px;
+  letter-spacing:2px;
 }
 
 .class-table{
@@ -343,131 +297,120 @@ nav{
   border-collapse:collapse;
 }
 
-.class-table thead{
-  background:rgba(255,255,255,0.03);
-}
-
 .class-table th{
-  padding:18px 16px;
+  padding:12px 10px;
 
+  font-size:10px;
   color:var(--muted);
-
-  font-size:11px;
-  letter-spacing:2px;
-  text-transform:uppercase;
   font-family:var(--M);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+
+  border-bottom:1px solid var(--border);
 }
 
 .class-table td{
-  padding:18px 16px;
-  border-top:1px solid var(--border);
+  padding:14px 10px;
   text-align:center;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
 }
 
-.class-table tbody tr:hover{
-  background:rgba(255,255,255,0.02);
+.class-table tr:last-child td{
+  border-bottom:none;
 }
 
-.rank{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:rgba(255,255,255,0.04);
-
-  font-weight:700;
-}
-
-.rank.top{
-  background:rgba(247,201,72,0.15);
-  color:var(--gold);
+.team-name{
+  text-align:left!important;
+  font-weight:600;
 }
 
 /* JOGOS */
 
-.games-grid{
+.games-wrap{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
   gap:24px;
 }
 
-.round-card{
-  border-radius:18px;
-
+.game-card{
   background:var(--card);
   border:1px solid var(--border);
-
+  border-radius:16px;
   overflow:hidden;
 }
 
-.round-header{
-  padding:18px 24px;
+.game-header{
+  padding:16px 20px;
 
   border-bottom:1px solid var(--border);
-
-  background:rgba(255,255,255,0.03);
 
   font-family:var(--D);
-  letter-spacing:2px;
   font-size:22px;
+  letter-spacing:2px;
 }
 
-.game{
-  padding:22px 24px;
-  border-bottom:1px solid var(--border);
+.game-list{
+  padding:18px;
 }
 
-.game:last-child{
-  border-bottom:none;
+.game-item{
+  padding:18px;
+  border-radius:12px;
+
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.04);
+
+  margin-bottom:14px;
 }
 
-.match{
+.game-item:last-child{
+  margin-bottom:0;
+}
+
+.game-time{
+  color:var(--accent);
+
+  font-size:11px;
+  font-family:var(--M);
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  margin-bottom:10px;
+}
+
+.game-teams{
   display:flex;
   justify-content:space-between;
   align-items:center;
+
+  gap:14px;
+
+  font-weight:700;
+  font-size:15px;
 }
 
-.score{
-  font-family:var(--D);
-  font-size:32px;
+.vs{
+  color:var(--muted);
+  font-size:12px;
+  font-family:var(--M);
 }
 
 /* FOOTER */
 
 footer{
-  margin-top:80px;
-  padding:40px 48px 24px;
+  padding:40px 24px;
+  text-align:center;
+
   border-top:1px solid var(--border);
-  background:var(--surface);
-}
 
-.footer-logo{
-  font-family:var(--D);
-  font-size:28px;
-  color:var(--accent);
-}
-
-.footer-tagline{
-  margin-top:4px;
   color:var(--muted);
   font-size:13px;
 }
 
 /* RESPONSIVO */
 
-@media(max-width:900px){
-
-  .games-grid{
-    grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:640px){
+@media(max-width:768px){
 
   body{
     padding-top:95px;
@@ -477,8 +420,32 @@ footer{
     padding:14px 20px;
   }
 
+  .nav-right{
+    gap:18px;
+  }
+
+  .nav-links{
+    gap:16px;
+  }
+
+  .nav-links a{
+    font-size:10px;
+  }
+
+  .games-wrap{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:640px){
+
   .nav-links{
     display:none;
+  }
+
+  .hero{
+    padding:70px 20px 40px;
   }
 
 }
@@ -491,318 +458,529 @@ footer{
 <header>
 
   <div class="urgency-bar">
-    ✓ CLASSIFICAÇÃO AO VIVO · ✓ TABELA OFICIAL · ✓ SUPERCOPA 2026
+    ✓ CLASSIFICAÇÃO AO VIVO · ✓ TABELA DE JOGOS · ✓ SUPERCOPA 2026
   </div>
 
   <nav>
 
-    <a class="nav-logo" href="index.html">
+    <a href="index.html" class="nav-logo">
       SUPER<span>◥</span>COPA
     </a>
 
-    <ul class="nav-links">
-      <li><a href="index.html">Início</a></li>
-      <li><a href="inscricao.html">Inscrição</a></li>
-      <li><a class="active" href="tabela.html">Tabela</a></li>
-      <li><a href="index.html#faq">FAQ</a></li>
-    </ul>
+    <div class="nav-right">
 
-    <a class="nav-back" href="index.html">
-      ← Voltar ao site
-    </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="index.html#fases">Fases</a></li>
+        <li><a href="index.html#times">Times</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+      </ul>
+
+      <a href="index.html" class="nav-back">
+        ← Voltar
+      </a>
+
+    </div>
 
   </nav>
 
 </header>
 
-<section class="page-hero">
-
-  <div class="hero-dots"></div>
-  <div class="hero-glow"></div>
-
-  <div class="badge">
-    <span class="badge-dot"></span>
-    Atualizado em Tempo Real
-  </div>
+<section class="hero">
 
   <h1>
     Tabela & Classificação
   </h1>
 
   <p>
-    Acompanhe todos os confrontos, grupos,
-    classificação e resultados da SUPERCOPA 2026.
+    Acompanhe os grupos, jogos e classificação oficial da SUPERCOPA 2026.
   </p>
 
-  <div class="tabs-wrap">
+</section>
 
-    <button class="tab-btn active" id="btnVolei">
+<section class="container">
+
+  <!-- BOTÕES -->
+
+  <div class="tabs">
+
+    <button class="tab-btn active" onclick="showTab('volei', this)">
       🏐 Voleibol
     </button>
 
-    <button class="tab-btn" id="btnBasquete">
+    <button class="tab-btn" onclick="showTab('basquete', this)">
       🏀 Basquete
     </button>
 
   </div>
 
+  <!-- VOLEIBOL -->
+
+  <div class="content-area active" id="volei">
+
+    <div class="section-title">
+      Grupos do Voleibol
+    </div>
+
+    <div class="groups-grid">
+
+      <!-- GRUPO A -->
+
+      <div class="group-card">
+
+        <div class="group-header">
+          Grupo A
+        </div>
+
+        <table class="class-table">
+
+          <tr>
+            <th>Time</th>
+            <th>Pts</th>
+            <th>J</th>
+          </tr>
+
+          <tr>
+            <td class="team-name">Montanhas Vôlei</td>
+            <td>6</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">AFC Vôlei</td>
+            <td>3</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Fênix</td>
+            <td>0</td>
+            <td>2</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+      <!-- GRUPO B -->
+
+      <div class="group-card">
+
+        <div class="group-header">
+          Grupo B
+        </div>
+
+        <table class="class-table">
+
+          <tr>
+            <th>Time</th>
+            <th>Pts</th>
+            <th>J</th>
+          </tr>
+
+          <tr>
+            <td class="team-name">Titãs</td>
+            <td>6</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Lobos</td>
+            <td>3</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Invictus</td>
+            <td>0</td>
+            <td>2</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+      <!-- GRUPO C -->
+
+      <div class="group-card">
+
+        <div class="group-header">
+          Grupo C
+        </div>
+
+        <table class="class-table">
+
+          <tr>
+            <th>Time</th>
+            <th>Pts</th>
+            <th>J</th>
+          </tr>
+
+          <tr>
+            <td class="team-name">Dragões</td>
+            <td>6</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Imperadores</td>
+            <td>3</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Tempestade</td>
+            <td>0</td>
+            <td>2</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+      <!-- GRUPO D -->
+
+      <div class="group-card">
+
+        <div class="group-header">
+          Grupo D
+        </div>
+
+        <table class="class-table">
+
+          <tr>
+            <th>Time</th>
+            <th>Pts</th>
+            <th>J</th>
+          </tr>
+
+          <tr>
+            <td class="team-name">Gigantes</td>
+            <td>6</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Atléticos</td>
+            <td>3</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Furacão</td>
+            <td>0</td>
+            <td>2</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+
+    <!-- JOGOS VOLEI -->
+
+    <div class="section-title">
+      Jogos do Voleibol
+    </div>
+
+    <div class="games-wrap">
+
+      <div class="game-card">
+
+        <div class="game-header">
+          Rodada 1
+        </div>
+
+        <div class="game-list">
+
+          <div class="game-item">
+            <div class="game-time">
+              08:00 · QUADRA 1
+            </div>
+
+            <div class="game-teams">
+              <span>Montanhas</span>
+              <span class="vs">VS</span>
+              <span>AFC Vôlei</span>
+            </div>
+          </div>
+
+          <div class="game-item">
+            <div class="game-time">
+              09:00 · QUADRA 1
+            </div>
+
+            <div class="game-teams">
+              <span>Titãs</span>
+              <span class="vs">VS</span>
+              <span>Lobos</span>
+            </div>
+          </div>
+
+          <div class="game-item">
+            <div class="game-time">
+              10:00 · QUADRA 2
+            </div>
+
+            <div class="game-teams">
+              <span>Dragões</span>
+              <span class="vs">VS</span>
+              <span>Imperadores</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="game-card">
+
+        <div class="game-header">
+          Rodada 2
+        </div>
+
+        <div class="game-list">
+
+          <div class="game-item">
+            <div class="game-time">
+              11:00 · QUADRA 1
+            </div>
+
+            <div class="game-teams">
+              <span>Gigantes</span>
+              <span class="vs">VS</span>
+              <span>Atléticos</span>
+            </div>
+          </div>
+
+          <div class="game-item">
+            <div class="game-time">
+              12:00 · QUADRA 2
+            </div>
+
+            <div class="game-teams">
+              <span>Fênix</span>
+              <span class="vs">VS</span>
+              <span>Montanhas</span>
+            </div>
+          </div>
+
+          <div class="game-item">
+            <div class="game-time">
+              13:00 · QUADRA 1
+            </div>
+
+            <div class="game-teams">
+              <span>Invictus</span>
+              <span class="vs">VS</span>
+              <span>Titãs</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- BASQUETE -->
+
+  <div class="content-area" id="basquete">
+
+    <div class="section-title">
+      Grupos do Basquete
+    </div>
+
+    <div class="groups-grid">
+
+      <!-- A -->
+
+      <div class="group-card">
+
+        <div class="group-header">
+          Grupo A
+        </div>
+
+        <table class="class-table">
+
+          <tr>
+            <th>Time</th>
+            <th>Pts</th>
+            <th>J</th>
+          </tr>
+
+          <tr>
+            <td class="team-name">AFC Bulls</td>
+            <td>4</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Legends</td>
+            <td>2</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Spartans</td>
+            <td>0</td>
+            <td>2</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+      <!-- B -->
+
+      <div class="group-card">
+
+        <div class="group-header">
+          Grupo B
+        </div>
+
+        <table class="class-table">
+
+          <tr>
+            <th>Time</th>
+            <th>Pts</th>
+            <th>J</th>
+          </tr>
+
+          <tr>
+            <td class="team-name">Storm</td>
+            <td>4</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Titans</td>
+            <td>2</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td class="team-name">Warriors</td>
+            <td>0</td>
+            <td>2</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+    </div>
+
+    <!-- JOGOS BASQUETE -->
+
+    <div class="section-title">
+      Jogos do Basquete
+    </div>
+
+    <div class="games-wrap">
+
+      <div class="game-card">
+
+        <div class="game-header">
+          Rodada 1
+        </div>
+
+        <div class="game-list">
+
+          <div class="game-item">
+            <div class="game-time">
+              18:00 · GINÁSIO
+            </div>
+
+            <div class="game-teams">
+              <span>AFC Bulls</span>
+              <span class="vs">VS</span>
+              <span>Legends</span>
+            </div>
+          </div>
+
+          <div class="game-item">
+            <div class="game-time">
+              19:00 · GINÁSIO
+            </div>
+
+            <div class="game-teams">
+              <span>Storm</span>
+              <span class="vs">VS</span>
+              <span>Titans</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="game-card">
+
+        <div class="game-header">
+          Rodada 2
+        </div>
+
+        <div class="game-list">
+
+          <div class="game-item">
+            <div class="game-time">
+              20:00 · GINÁSIO
+            </div>
+
+            <div class="game-teams">
+              <span>Spartans</span>
+              <span class="vs">VS</span>
+              <span>AFC Bulls</span>
+            </div>
+          </div>
+
+          <div class="game-item">
+            <div class="game-time">
+              21:00 · GINÁSIO
+            </div>
+
+            <div class="game-teams">
+              <span>Warriors</span>
+              <span class="vs">VS</span>
+              <span>Storm</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
-
-<main class="container">
-
-<!-- VOLEI -->
-
-<div id="voleiContent">
-
-<section class="section">
-<h2 class="section-title">Grupo A • Voleibol</h2>
-
-<div class="table-card">
-
-<table class="class-table">
-
-<thead>
-<tr>
-<th>#</th>
-<th>Equipe</th>
-<th>PTS</th>
-<th>V</th>
-<th>D</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td><div class="rank top">1</div></td>
-<td>Águias</td>
-<td>6</td>
-<td>2</td>
-<td>0</td>
-</tr>
-
-<tr>
-<td><div class="rank">2</div></td>
-<td>Titans</td>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-</tr>
-
-<tr>
-<td><div class="rank">3</div></td>
-<td>Falcons</td>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-</section>
-
-<section class="section">
-<h2 class="section-title">Grupo B • Voleibol</h2>
-
-<div class="table-card">
-
-<table class="class-table">
-
-<thead>
-<tr>
-<th>#</th>
-<th>Equipe</th>
-<th>PTS</th>
-<th>V</th>
-<th>D</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td><div class="rank top">1</div></td>
-<td>Sharks</td>
-<td>6</td>
-<td>2</td>
-<td>0</td>
-</tr>
-
-<tr>
-<td><div class="rank">2</div></td>
-<td>Montanhas</td>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-</tr>
-
-<tr>
-<td><div class="rank">3</div></td>
-<td>Wolves</td>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-</section>
-
-</div>
-
-<!-- BASQUETE -->
-
-<div id="basqueteContent" style="display:none;">
-
-<section class="section">
-<h2 class="section-title">Grupo A • Basquete</h2>
-
-<div class="table-card">
-
-<table class="class-table">
-
-<thead>
-<tr>
-<th>#</th>
-<th>Equipe</th>
-<th>PTS</th>
-<th>V</th>
-<th>D</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td><div class="rank top">1</div></td>
-<td>Kings</td>
-<td>6</td>
-<td>2</td>
-<td>0</td>
-</tr>
-
-<tr>
-<td><div class="rank">2</div></td>
-<td>Eagles</td>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-</tr>
-
-<tr>
-<td><div class="rank">3</div></td>
-<td>Storm</td>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-</section>
-
-<section class="section">
-<h2 class="section-title">Grupo B • Basquete</h2>
-
-<div class="table-card">
-
-<table class="class-table">
-
-<thead>
-<tr>
-<th>#</th>
-<th>Equipe</th>
-<th>PTS</th>
-<th>V</th>
-<th>D</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td><div class="rank top">1</div></td>
-<td>Giants</td>
-<td>6</td>
-<td>2</td>
-<td>0</td>
-</tr>
-
-<tr>
-<td><div class="rank">2</div></td>
-<td>Raptors</td>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-</tr>
-
-<tr>
-<td><div class="rank">3</div></td>
-<td>Heat</td>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-</section>
-
-</div>
-
-</main>
 
 <footer>
-
-  <div class="footer-logo">
-    SUPERCOPA
-  </div>
-
-  <div class="footer-tagline">
-    Campeonato Multiesporte • Afonso Cláudio • 2026
-  </div>
-
+  © 2026 SUPERCOPA • Campeonato Multiesporte de Afonso Cláudio
 </footer>
 
 <script>
 
-const btnVolei = document.getElementById('btnVolei');
-const btnBasquete = document.getElementById('btnBasquete');
+function showTab(tabId, btn){
 
-const voleiContent = document.getElementById('voleiContent');
-const basqueteContent = document.getElementById('basqueteContent');
+  document.querySelectorAll('.content-area').forEach(tab=>{
+    tab.classList.remove('active');
+  });
 
-btnVolei.addEventListener('click', ()=>{
+  document.querySelectorAll('.tab-btn').forEach(button=>{
+    button.classList.remove('active');
+  });
 
-  btnVolei.classList.add('active');
-  btnBasquete.classList.remove('active');
+  document.getElementById(tabId).classList.add('active');
 
-  voleiContent.style.display = 'block';
-  basqueteContent.style.display = 'none';
+  btn.classList.add('active');
 
-});
-
-btnBasquete.addEventListener('click', ()=>{
-
-  btnBasquete.classList.add('active');
-  btnVolei.classList.remove('active');
-
-  basqueteContent.style.display = 'block';
-  voleiContent.style.display = 'none';
-
-});
+}
 
 </script>
 
