@@ -46,241 +46,165 @@ nav{
 @keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 
 /* ═══════════════════════════════════════════
-   HERO
+   HERO — NEW FULLSCREEN IMAGE VERSION
    ═══════════════════════════════════════════ */
 .hero{
-  padding:72px 24px 80px;
-  text-align:center;
-  background:var(--bg);
   position:relative;
   overflow:hidden;
+  background:var(--bg);
+  padding:0;
 }
 
-.hero-dots{
-  position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(circle,rgba(58,134,240,0.06) 1px,transparent 1px);
-  background-size:38px 38px;
-  animation:dotsDrift 28s linear infinite;
+/* hero badge stays above image */
+.hero-badge-wrap{
+  position:relative;z-index:10;
+  padding:32px 24px 0;
+  text-align:center;
+  background:var(--bg);
 }
-@keyframes dotsDrift{from{background-position:0 0}to{background-position:38px 38px}}
-
-.hero-glow{
-  position:absolute;top:-80px;left:50%;transform:translateX(-50%);
-  width:800px;height:560px;
-  background:radial-gradient(ellipse at 50% 30%,
-    rgba(58,134,240,0.13) 0%,
-    rgba(58,134,240,0.04) 45%,
-    transparent 72%);
-  pointer-events:none;
-  animation:nebula 7s ease-in-out infinite alternate;
-}
-@keyframes nebula{from{opacity:.7;transform:translateX(-50%) scale(1)}to{opacity:1;transform:translateX(-50%) scale(1.09)}}
-
-.hero-ray{position:absolute;top:0;width:1px;height:55%;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(58,134,240,0.20),transparent);filter:blur(1px)}
-.hero-ray-l{left:25%;animation:ray 4s ease-in-out infinite alternate}
-.hero-ray-r{right:25%;animation:ray 4s 1.8s ease-in-out infinite alternate}
-@keyframes ray{from{opacity:.3;height:50%}to{opacity:.9;height:65%}}
-
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.28);
-  border-radius:100px;padding:6px 20px;margin-bottom:36px;
+  border-radius:100px;padding:6px 20px;
   font-family:var(--M);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;
   opacity:0;transform:translateY(16px);animation:fadeUp .7s .1s ease forwards;
-  position:relative;z-index:2;
 }
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;
   animation:blink 1.4s infinite;box-shadow:0 0 6px var(--accent)}
 @keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px var(--accent)}50%{opacity:.2;box-shadow:none}}
 
-.hero-glass-card{
+/* HERO IMAGE BLOCK */
+.hero-image-block{
   position:relative;
-  max-width:1100px;
-  margin:0 auto 10px;
-  border-radius:24px;
-  border:1px solid rgba(58,134,240,0.22);
-  background:rgba(255,255,255,0.03);
-  backdrop-filter:blur(20px) saturate(1.5);
-  -webkit-backdrop-filter:blur(20px) saturate(1.5);
-  padding:2.5rem 2rem 2rem;
+  width:100%;
+  max-width:1400px;
+  margin:24px auto 0;
+  border-radius:16px;
   overflow:hidden;
-  opacity:0;transform:translateY(22px);
+  opacity:0;
   animation:fadeUp .85s .2s ease forwards;
-  transition:border-color .4s, transform .12s ease;
+}
+
+.hero-image-block img.hero-bg-img{
+  width:100%;
+  display:block;
+  object-fit:cover;
+  max-height:680px;
+}
+
+/* subtle vignette on sides */
+.hero-image-block::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(to right, rgba(7,9,13,0.55) 0%, transparent 18%, transparent 82%, rgba(7,9,13,0.55) 100%),
+    linear-gradient(to top, rgba(7,9,13,0.7) 0%, transparent 40%);
+  pointer-events:none;
   z-index:2;
 }
-.hero-glass-card::before{
-  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  background:linear-gradient(135deg,rgba(255,255,255,0.055) 0%,transparent 50%,rgba(58,134,240,0.04) 100%);
+
+/* BANNER OVERLAY — bottom of image, like Image 2 */
+.hero-banner-overlay{
+  position:absolute;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 56px);
+  max-width:960px;
+  z-index:5;
+
+  background:rgba(10,13,22,0.88);
+  backdrop-filter:blur(18px) saturate(1.6);
+  -webkit-backdrop-filter:blur(18px) saturate(1.6);
+  border:1px solid rgba(58,134,240,0.22);
+  border-radius:14px;
+  padding:28px 40px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+
+  /* animated wave bg */
+  overflow:hidden;
 }
-.hero-glass-card::after{
-  content:'';position:absolute;top:0;left:8%;right:8%;height:1px;
+
+/* wave decoration inside banner (mimics image 2 sine wave pattern) */
+.hero-banner-overlay::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='80'%3E%3Cpath d='M0 40 C60 10,120 70,180 40 S300 10,360 40 S480 70,540 40 S660 10,720 40 S840 70,900 40' stroke='rgba(58,134,240,0.12)' stroke-width='1.5' fill='none'/%3E%3Cpath d='M0 52 C60 22,120 82,180 52 S300 22,360 52 S480 82,540 52 S660 22,720 52 S840 82,900 52' stroke='rgba(58,134,240,0.07)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-repeat:repeat-x;
+  background-position:center;
+  pointer-events:none;
+  animation:waveDrift 12s linear infinite;
+}
+@keyframes waveDrift{from{background-position:0 center}to{background-position:900px center}}
+
+/* top shimmer line */
+.hero-banner-overlay::after{
+  content:'';
+  position:absolute;
+  top:0;left:8%;right:8%;height:1px;
   background:linear-gradient(to right,transparent,rgba(58,134,240,0.7),rgba(255,255,255,0.4),rgba(58,134,240,0.7),transparent);
   border-radius:999px;
 }
-.hero-glass-card:hover{border-color:rgba(58,134,240,0.45)}
 
-.hero-light-behind{
-  position:absolute;top:-40px;left:50%;transform:translateX(-50%);
-  width:520px;height:260px;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 0%,
-    rgba(58,134,240,0.30) 0%,
-    rgba(58,134,240,0.10) 40%,
-    transparent 70%);
-  animation:lightPulse 3.8s ease-in-out infinite alternate;
-}
-@keyframes lightPulse{from{opacity:.65;transform:translateX(-50%) scaleX(.92)}to{opacity:1;transform:translateX(-50%) scaleX(1.1)}}
-
-.hero-spot{position:absolute;top:0;width:180px;height:200px;pointer-events:none}
-.hero-spot-l{left:8%;background:radial-gradient(ellipse at 65% 0%,rgba(58,134,240,0.22) 0%,transparent 65%);animation:spot 3.2s ease-in-out infinite alternate}
-.hero-spot-r{right:8%;background:radial-gradient(ellipse at 35% 0%,rgba(58,134,240,0.22) 0%,transparent 65%);animation:spot 3.2s 1.1s ease-in-out infinite alternate}
-@keyframes spot{from{opacity:.4}to{opacity:1}}
-
-.hero-logos{
-  display:flex;gap:0;align-items:center;
-  justify-content:center;position:relative;z-index:1;
-}
-.hero-logo-col{
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-  flex:1;max-width:190px;
-}
-.hero-ring-wrap{
-  position:relative;width:394px;height:394px;
-  display:flex;align-items:center;justify-content:center;
-}
-.hero-ring-wrap::before{
-  content:'';position:absolute;inset:10px;border-radius:50%;
-  background:radial-gradient(circle,rgba(58,134,240,0.28) 0%,transparent 68%);
-  animation:halo 2.8s ease-in-out infinite alternate;
-}
-@keyframes halo{from{opacity:.5;transform:scale(.88)}to{opacity:1;transform:scale(1.18)}}
-.hero-ring-svg{
-  position:absolute;inset:0;width:100%;height:100%;
-  animation:spinRing 10s linear infinite;
-}
-.hero-logo-col:last-child .hero-ring-svg{animation-direction:reverse}
-@keyframes spinRing{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.hero-logo-col:hover .hero-ring-svg{animation-play-state:paused}
-.hero-logo-img-box{
-  width:272px;height:272px;border-radius:28px;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(58,134,240,0.18);
-  display:flex;align-items:center;justify-content:center;
-  padding:10px;position:relative;z-index:1;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s;
-}
-.hero-logo-col:hover .hero-logo-img-box{
-  transform:scale(1.09) translateY(-3px);
-  border-color:rgba(58,134,240,0.55);
-  box-shadow:0 8px 28px rgba(58,134,240,0.22);
-}
-.hero-logo-img-box img{width:100%;height:100%;object-fit:contain}
-.hero-logo-tag{
-  font-size:10px;font-weight:600;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--muted);transition:color .3s;
-}
-.hero-logo-col:hover .hero-logo-tag{color:var(--accent)}
-.hero-logos-mid{
-  display:flex;flex-direction:column;align-items:center;gap:5px;
-  padding:0 1.25rem;flex-shrink:0;
-}
-.hero-logos-vline{width:1px;height:22px;background:linear-gradient(to bottom,transparent,rgba(58,134,240,0.35),transparent)}
-.hero-logos-name{font-family:var(--D);font-size:12px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
-.hero-logos-year{
-  font-family:var(--D);font-size:40px;font-weight:700;
-  color:var(--accent);line-height:1;
-  text-shadow:0 0 22px rgba(58,134,240,0.55),0 0 60px rgba(58,134,240,0.20);
-  animation:yearFlicker 8s ease-in-out infinite;
-}
-@keyframes yearFlicker{0%,86%,100%{text-shadow:0 0 22px rgba(58,134,240,0.55),0 0 60px rgba(58,134,240,0.2)}88%{text-shadow:none}90%{text-shadow:0 0 22px rgba(58,134,240,0.55)}92%{text-shadow:none}}
-.hero-logos-city{font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-
-/* TÍTULO HERO */
-.hero-title-block{
+.hero-banner-text{
   position:relative;z-index:2;
-  margin-bottom:0.5rem;
-  opacity:0;transform:translateY(22px);
-  animation:fadeUp .9s .38s ease forwards;
 }
-.hero-eyebrow{
-  display:block;font-size:11px;font-weight:600;
-  letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(58,134,240,0.75);margin-bottom:.65rem;
+.hero-banner-eyebrow{
+  display:block;
+  font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(58,134,240,0.85);margin-bottom:8px;
 }
-.hero-h1{
+.hero-banner-title{
   font-family:var(--D);
-  font-size:clamp(2.8rem,8.5vw,5.4rem);
-  font-weight:700;line-height:1.0;
+  font-size:clamp(1.8rem,4vw,3rem);
+  line-height:1.0;
+  letter-spacing:.08em;
   text-transform:uppercase;
-  letter-spacing:.10em;
-  background:linear-gradient(
-    155deg,
-    #a8d0ff 0%,
-    #3a86f0 22%,
-    #ffffff 50%,
-    #3a86f0 72%,
-    #1a4a9e 100%
-  );
+  background:linear-gradient(155deg,#a8d0ff 0%,#3a86f0 25%,#ffffff 52%,#3a86f0 75%,#1a4a9e 100%);
   background-size:200% 200%;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-  filter:
-    drop-shadow(0 0 14px rgba(58,134,240,0.60))
-    drop-shadow(0 0 40px rgba(58,134,240,0.22));
+  filter:drop-shadow(0 0 12px rgba(58,134,240,0.5));
   animation:titleShine 4.5s ease-in-out infinite alternate;
-  /* CENTRALIZADO — exceção ao padrão left das seções */
-  text-align:center;
 }
 @keyframes titleShine{
   from{background-position:0% 50%}
   to{background-position:100% 50%}
 }
-.hero-title-line{
-  display:block;height:2px;
-  margin:1rem auto 0;border-radius:999px;
-  background:linear-gradient(to right,
-    transparent,rgba(58,134,240,0.8) 25%,
-    rgba(180,220,255,0.9) 50%,
-    rgba(58,134,240,0.8) 75%,transparent);
-  box-shadow:0 0 12px rgba(58,134,240,0.45);
-  width:0;
-  animation:lineGrow 1.1s 1.1s cubic-bezier(.22,1,.36,1) both;
-}
-@keyframes lineGrow{from{width:0}to{width:180px}}
 
-.hero-sub{
-  max-width:520px;color:var(--muted);font-size:17px;margin:1.1rem auto 2.5rem;
-  opacity:0;animation:fadeUp .7s .55s ease forwards;
+.hero-banner-cta{
   position:relative;z-index:2;
+  background:var(--accent);color:#000;
+  padding:16px 36px;border-radius:4px;
+  font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;white-space:nowrap;flex-shrink:0;
+  position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .3s;
+  display:inline-block;
 }
-.hero-actions{
-  display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
-  opacity:0;animation:fadeUp .7s .7s ease forwards;
-  position:relative;z-index:2;
-}
-.btn-p{
-  background:var(--accent);color:#000;padding:16px 36px;border-radius:3px;
-  font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;
-  display:inline-block;position:relative;overflow:hidden;transition:transform .2s,box-shadow .3s;
-}
-.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
-.btn-p:hover::after{transform:translateX(100%)}
-.btn-p:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(58,134,240,.4)}
-.btn-o{
-  border:1px solid var(--border);color:var(--text);padding:16px 36px;border-radius:3px;
-  font-weight:500;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
-  text-decoration:none;display:inline-block;transition:border-color .2s,transform .2s;
-}
-.btn-o:hover{border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
-.hero-stats{
-  display:flex;gap:60px;margin-top:60px;flex-wrap:wrap;justify-content:center;
+.hero-banner-cta::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
+.hero-banner-cta:hover::after{transform:translateX(100%)}
+.hero-banner-cta:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(58,134,240,.45)}
+
+/* STATS below image */
+.hero-stats-row{
+  display:flex;gap:60px;padding:48px 24px 16px;flex-wrap:wrap;justify-content:center;
   opacity:0;animation:fadeUp .7s .85s ease forwards;
-  position:relative;z-index:2;
 }
 .hero-stat-num{font-family:var(--D);font-size:54px;color:var(--accent);line-height:1;display:block}
 .hero-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2.5px;margin-top:4px}
+.hero-actions-row{
+  display:flex;gap:16px;flex-wrap:wrap;justify-content:center;padding:0 24px 60px;
+  opacity:0;animation:fadeUp .7s .95s ease forwards;
+}
 
 /* MARQUEE */
 .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:13px 0;background:var(--surface)}
@@ -304,18 +228,15 @@ nav{
 }
 .section-tag::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
 
-/* H2 — padrão à ESQUERDA */
 h2{
   font-family:var(--D);
   font-size:clamp(42px,6.5vw,76px);
   line-height:.95;
   letter-spacing:1px;
   margin-bottom:20px;
-  text-align:left;  /* ← CORRIGIDO */
+  text-align:left;
 }
 h2 em{font-style:normal;color:var(--accent)}
-
-/* Exceção: CTA centralizado */
 .cta-section h2{text-align:center}
 
 /* REVEAL */
@@ -445,6 +366,21 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
 .footer-links a:hover{color:var(--text)}
 .footer-bottom{max-width:1200px;margin:0 auto;padding-top:40px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
 
+.btn-p{
+  background:var(--accent);color:#000;padding:16px 36px;border-radius:3px;
+  font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;
+  display:inline-block;position:relative;overflow:hidden;transition:transform .2s,box-shadow .3s;
+}
+.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
+.btn-p:hover::after{transform:translateX(100%)}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(58,134,240,.4)}
+.btn-o{
+  border:1px solid var(--border);color:var(--text);padding:16px 36px;border-radius:3px;
+  font-weight:500;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;display:inline-block;transition:border-color .2s,transform .2s;
+}
+.btn-o:hover{border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* RESPONSIVO */
@@ -452,9 +388,7 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
   .fases-grid{grid-template-columns:1fr 1fr}
   .counter-inner{grid-template-columns:1fr 1fr}
   .transform-grid{grid-template-columns:1fr}
-  .hero-logos{flex-direction:column;gap:40px}
-  .hero-ring-wrap{width:300px;height:300px}
-  .hero-logo-img-box{width:200px;height:200px}
+  .hero-banner-overlay{flex-direction:column;text-align:center;gap:20px}
 }
 @media (max-width:768px){
   nav{padding:18px 24px}
@@ -463,11 +397,12 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
   h2{font-size:42px}
   .fases-grid{grid-template-columns:1fr}
   .counter-inner{grid-template-columns:1fr 1fr}
-  .hero-h1{font-size:3.2rem}
-  .hero-stats{gap:30px}
+  .hero-stats-row{gap:30px}
   .dep-card{min-width:100%}
   .footer-inner{flex-direction:column;gap:40px}
   .footer-links{flex-wrap:wrap;gap:20px}
+  .hero-banner-overlay{bottom:12px;width:calc(100% - 24px);padding:20px 22px}
+  .hero-banner-title{font-size:1.5rem}
 }
 </style></head>
 <body>
@@ -489,83 +424,46 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-dots"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-ray hero-ray-l"></div>
-  <div class="hero-ray hero-ray-r"></div>
 
-  <div class="hero-badge">
-    <span class="hero-badge-dot"></span>
-    &nbsp;2026 · Transmissão e Classificação em tempo real · Pré-Inscrições Abertas EM BREVE para o Volei
-  </div>
-
-  <div class="hero-glass-card" id="heroCard">
-    <div class="hero-light-behind"></div>
-    <div class="hero-spot hero-spot-l"></div>
-    <div class="hero-spot hero-spot-r"></div>
-
-    <div class="hero-logos">
-      <!-- Vôlei -->
-      <div class="hero-logo-col">
-        <div class="hero-ring-wrap">
-          <svg class="hero-ring-svg" viewBox="0 0 116 116" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="58" cy="58" r="53" stroke="#3a86f0" stroke-width="1" stroke-dasharray="5 6" stroke-opacity="0.5"/>
-            <circle cx="58" cy="58" r="48" stroke="#3a86f0" stroke-width="0.4" stroke-dasharray="2 10" stroke-opacity="0.25"/>
-          </svg>
-          <div class="hero-logo-img-box">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663509200349/tCuvuKxZairTQRRK.png" alt="Super Volei Copa Logo"/>
-          </div>
-        </div>
-        <span class="hero-logo-tag">Voleibol · 6ª Ed.</span>
-      </div>
-
-      <!-- Centro -->
-      <div class="hero-logos-mid">
-        <div class="hero-logos-vline"></div>
-        <span class="hero-logos-name">Super◥Copa</span>
-        <span class="hero-logos-year">2026</span>
-        <span class="hero-logos-city">Afonso Cláudio · ES</span>
-        <div class="hero-logos-vline"></div>
-      </div>
-
-      <!-- Basquete -->
-      <div class="hero-logo-col">
-        <div class="hero-ring-wrap">
-          <svg class="hero-ring-svg" viewBox="0 0 116 116" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="58" cy="58" r="53" stroke="#3a86f0" stroke-width="1" stroke-dasharray="5 6" stroke-opacity="0.5"/>
-            <circle cx="58" cy="58" r="48" stroke="#3a86f0" stroke-width="0.4" stroke-dasharray="2 10" stroke-opacity="0.25"/>
-          </svg>
-          <div class="hero-logo-img-box">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663509200349/cKqkhcKqFQBdNsXz.png" alt="Super Basquete Copa Logo"/>
-          </div>
-        </div>
-        <span class="hero-logo-tag">Basquete · 1ª Ed.</span>
-      </div>
+  <!-- badge top -->
+  <div class="hero-badge-wrap">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      &nbsp;2026 · Transmissão e Classificação em tempo real · Pré-Inscrições Abertas EM BREVE para o Volei
     </div>
-  </div><!-- /glass card -->
-
-  <!-- TÍTULO -->
-  <div class="hero-title-block">
-    <span class="hero-eyebrow">⚡ O maior evento multiesporte</span>
-    <h1 class="hero-h1">O maior da<br>Região das Montanhas</h1>
-    <span class="hero-title-line"></span>
   </div>
 
-  <p class="hero-sub">
-    Reúna sua equipe, viva a emoção da maior competição multiesportiva da região e dispute a taça mais cobiçada de Afonso Cláudio. A Supercopa chega com a 6ª edição do Voleibol e a 1ª edição do Basquete, reunindo equipes de vários estados em um evento totalmente gratuito, com alojamento e sem taxa de inscrição.
-  </p>
+  <!-- FULL IMAGE WITH OVERLAY BANNER -->
+  <div class="hero-image-block" style="padding:0 24px">
+    <img
+      class="hero-bg-img"
+      src="Gemini_Generated_Image_ymxuleymxuleymxu.png"
+      alt="Supercopa 2026 — Voleibol e Basquete"
+    />
 
-  <div class="hero-actions">
-    <a class="btn-p" href="inscricao.html">Inscrever Meu Time</a>
-    <a class="btn-o" href="#fases">Ver Regulamento</a>
+    <!-- BANNER BOTTOM — like Image 2 -->
+    <div class="hero-banner-overlay">
+      <div class="hero-banner-text">
+        <span class="hero-banner-eyebrow">⚡ O maior evento multiesporte</span>
+        <div class="hero-banner-title">O maior da Região das Montanhas</div>
+      </div>
+      <a class="hero-banner-cta" href="inscricao.html">Inscrever Meu Time</a>
+    </div>
   </div>
 
-  <div class="hero-stats">
+  <!-- STATS below image -->
+  <div class="hero-stats-row">
     <div class="hero-stat"><span class="hero-stat-num" id="c1">12</span><span class="hero-stat-label">Equipes no evento de Voleibol</span></div>
     <div class="hero-stat"><span class="hero-stat-num" id="c2">6</span><span class="hero-stat-label">Equipes no evento de Basquete</span></div>
     <div class="hero-stat"><span class="hero-stat-num" id="c3">R$0,00</span><span class="hero-stat-label">de Taxa de Inscrição</span></div>
     <div class="hero-stat"><span class="hero-stat-num" id="c4">1</span><span class="hero-stat-label">Chance de fazer história</span></div>
   </div>
+
+  <div class="hero-actions-row">
+    <a class="btn-p" href="inscricao.html">Inscrever Meu Time</a>
+    <a class="btn-o" href="#fases">Ver Regulamento</a>
+  </div>
+
 </div>
 
 <!-- MARQUEE -->
@@ -777,7 +675,7 @@ function animCount(el, target) {
 }
 
 let heroFired = false;
-const heroStats = document.querySelector('.hero-stats');
+const heroStats = document.querySelector('.hero-stats-row');
 if (heroStats) {
   new IntersectionObserver(entries => {
     if (entries[0].isIntersecting && !heroFired) {
@@ -801,29 +699,6 @@ if (counterSection) {
     }
   }, { threshold: 0.1 }).observe(counterSection);
 }
-
-/* ── PARALAXE 3D no card glass ── */
-(function(){
-  const card = document.getElementById('heroCard');
-  if (!card) return;
-  let rect;
-  card.style.transition = 'transform 0.12s ease, border-color 0.4s';
-  card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
-  card.addEventListener('mousemove', e => {
-    if (!rect) rect = card.getBoundingClientRect();
-    const mx = (e.clientX - rect.left) / rect.width - 0.5;
-    const my = (e.clientY - rect.top)  / rect.height - 0.5;
-    card.style.transform = `perspective(900px) rotateY(${mx*9}deg) rotateX(${-my*7}deg) scale(1.02)`;
-    const light = card.querySelector('.hero-light-behind');
-    if (light) { light.style.left = (50 + mx*22)+'%'; light.style.transform = 'translateX(-50%)'; }
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)';
-    const light = card.querySelector('.hero-light-behind');
-    if (light) { light.style.left = '50%'; light.style.transform = 'translateX(-50%)'; }
-    rect = null;
-  });
-})();
 
 /* ── SLIDER DEPOIMENTOS ── */
 let idx = 0;
