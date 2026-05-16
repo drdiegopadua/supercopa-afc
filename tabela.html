@@ -3,51 +3,29 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
 <title>Tabela e Classificação · SUPERCOPA DE BASQUETE</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
-
 <style>
-
-*,*::before,*::after{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
 
 :root{
   --bg:#07090d;
   --surface:#0d1018;
   --card:#111520;
   --border:rgba(255,255,255,0.07);
-
   --accent:#3a86f0;
   --green:#4ade80;
-
   --text:#e8eaf0;
   --muted:#5a6174;
-
   --D:'Bebas Neue',sans-serif;
   --B:'DM Sans',sans-serif;
   --M:'Space Mono',monospace;
 }
 
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--B);
-  overflow-x:hidden;
-}
+body{ background:var(--bg); color:var(--text); font-family:var(--B); overflow-x:hidden; }
 
 /* HEADER */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  backdrop-filter:blur(10px);
-}
+header{ position:sticky; top:0; z-index:1000; backdrop-filter:blur(10px); }
 
 .urgency-bar{
   background:var(--accent);
@@ -64,11 +42,8 @@ nav{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   padding:18px 48px;
-
   background:rgba(7,9,13,0.94);
-
   border-bottom:1px solid var(--border);
 }
 
@@ -79,121 +54,148 @@ nav{
   color:var(--accent);
   letter-spacing:3px;
 }
+.nav-logo span{ color:rgba(255,255,255,.3); }
 
-.nav-logo span{
-  color:rgba(255,255,255,.3);
-}
-
-.nav-links{
-  display:flex;
-  gap:32px;
-  list-style:none;
-}
-
+.nav-links{ display:flex; gap:32px; list-style:none; }
 .nav-links a{
   text-decoration:none;
   color:var(--muted);
-
   font-size:12px;
   letter-spacing:1.5px;
   text-transform:uppercase;
-
   transition:.2s;
 }
-
-.nav-links a:hover{
-  color:#fff;
-}
+.nav-links a:hover{ color:#fff; }
 
 /* HERO */
-
 .hero{
   padding:90px 24px 60px;
   text-align:center;
   position:relative;
   overflow:hidden;
 }
-
 .hero::before{
   content:'';
   position:absolute;
   inset:0;
-
-  background-image:
-  radial-gradient(circle,rgba(58,134,240,.06) 1px,transparent 1px);
-
+  background-image:radial-gradient(circle,rgba(58,134,240,.06) 1px,transparent 1px);
   background-size:38px 38px;
-
   animation:dots 24s linear infinite;
 }
-
 @keyframes dots{
   from{background-position:0 0}
   to{background-position:38px 38px}
 }
-
 .hero h1{
   position:relative;
   z-index:2;
-
   font-family:var(--D);
   font-size:clamp(3rem,8vw,6rem);
   letter-spacing:4px;
   line-height:1;
-
-  background:
-  linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #3a86f0 50%,
-    #ffffff 100%
-  );
-
+  background:linear-gradient(135deg,#ffffff 0%,#3a86f0 50%,#ffffff 100%);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-
 .hero p{
   position:relative;
   z-index:2;
-
   max-width:680px;
   margin:18px auto 0;
-
   color:var(--muted);
   line-height:1.8;
 }
 
-/* TABS */
+/* ── REFRESH BADGE ── */
+.refresh-wrapper{
+  display:flex;
+  justify-content:center;
+  margin-bottom:18px;
+}
 
+.refresh-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 20px;
+  border-radius:999px;
+  border:1px solid rgba(58,134,240,0.35);
+  background:rgba(58,134,240,0.08);
+  font-family:var(--M);
+  font-size:11px;
+  letter-spacing:1.5px;
+  color:var(--accent);
+  backdrop-filter:blur(8px);
+  position:relative;
+  overflow:hidden;
+}
+
+/* Progresso de fundo animado */
+.refresh-badge::before{
+  content:'';
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:var(--progress, 100%);
+  background:rgba(58,134,240,0.12);
+  transition:width 1s linear;
+  border-radius:999px;
+}
+
+.refresh-icon{
+  font-size:15px;
+  display:inline-block;
+  animation:none;
+  transition:transform .3s;
+}
+
+/* Quando girando (ao fazer refresh) */
+.refresh-icon.spinning{
+  animation:spin 0.6s linear;
+}
+
+@keyframes spin{
+  from{ transform:rotate(0deg); }
+  to{   transform:rotate(360deg); }
+}
+
+/* Pulsação suave permanente */
+.refresh-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--accent);
+  animation:pulse-dot 2s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes pulse-dot{
+  0%,100%{ opacity:1; transform:scale(1); box-shadow:0 0 0 0 rgba(58,134,240,0.7); }
+  50%{ opacity:.7; transform:scale(1.3); box-shadow:0 0 0 5px rgba(58,134,240,0); }
+}
+
+.refresh-text{ position:relative; z-index:1; }
+
+/* TABS */
 .tabs{
   display:flex;
   justify-content:center;
   gap:16px;
-
-  margin:0 auto 50px;
+  margin:0 auto 14px;
   padding:0 24px;
+  flex-wrap:wrap;
 }
-
 .tab-btn{
   border:none;
   cursor:pointer;
-
   padding:16px 28px;
   border-radius:10px;
-
   background:var(--surface);
   border:1px solid var(--border);
-
   color:var(--muted);
-
   font-size:14px;
   font-weight:700;
   letter-spacing:1px;
-
   transition:.2s;
 }
-
 .tab-btn.active{
   background:rgba(58,134,240,.12);
   border-color:var(--accent);
@@ -202,217 +204,101 @@ nav{
 }
 
 /* CONTAINER */
-
-.container{
-  width:min(1400px,100%);
-  margin:auto;
-  padding:0 24px 80px;
-}
+.container{ width:min(1400px,100%); margin:auto; padding:0 24px 80px; }
 
 /* SECTIONS */
-
 .section-title{
   font-family:var(--D);
   font-size:42px;
   letter-spacing:2px;
-
   margin-bottom:28px;
 }
 
 /* GROUPS */
-
 .groups-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:22px;
-
   margin-bottom:70px;
 }
-
 .group-card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:18px;
-
   overflow:hidden;
 }
-
 .group-header{
   padding:18px 20px;
-
   border-bottom:1px solid var(--border);
-
   font-family:var(--D);
   font-size:28px;
   letter-spacing:2px;
-
   color:var(--accent);
 }
-
-.table-wrap{
-  overflow:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
+.table-wrap{ overflow:auto; }
+table{ width:100%; border-collapse:collapse; }
 th{
   background:rgba(255,255,255,.02);
-
   color:var(--muted);
-
   font-size:11px;
   letter-spacing:1px;
   text-transform:uppercase;
-
   padding:14px 10px;
 }
-
 td{
   padding:14px 10px;
   text-align:center;
-
   border-top:1px solid var(--border);
-
   font-size:14px;
 }
-
-#voleiContent td{
-  font-size:12px;
-  padding:10px 8px;
-}
-
-#voleiContent th{
-  padding:10px 8px;
-  font-size:10px;
-}
-
-td.team{
-  text-align:left;
-  font-weight:700;
-}
+#voleiContent td{ font-size:12px; padding:10px 8px; }
+#voleiContent th{ padding:10px 8px; font-size:10px; }
+td.team{ text-align:left; font-weight:700; }
 
 /* JOGOS */
-
-.games-list{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-
-/* CARD JOGO */
+.games-list{ display:flex; flex-direction:column; gap:18px; }
 
 .game-card{
   display:grid;
   grid-template-columns:120px 1fr 220px 1fr 160px;
   align-items:center;
-
   gap:24px;
-
   padding:28px 24px;
-
   border:1px solid rgba(255,255,255,0.08);
   border-radius:18px;
-
-  background:
-  linear-gradient(
-    180deg,
-    rgba(255,255,255,0.02),
-    rgba(255,255,255,0.01)
-  );
+  background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
 }
-
-/* INFO */
-
-.game-info{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.game-group{
-  font-size:14px;
-  color:#6e7ea7;
-}
-
-.game-hour{
-  font-size:26px;
-  font-family:var(--D);
-  color:#fff;
-  letter-spacing:2px;
-}
-
-/* TIMES */
-
-.game-team{
-  font-size:30px;
-  font-weight:700;
-  color:#fff;
-}
-
-.game-team.left{
-  text-align:right;
-}
-
-.game-team.right{
-  text-align:left;
-}
-
-/* PLACAR */
-
+.game-info{ display:flex; flex-direction:column; gap:6px; }
+.game-group{ font-size:14px; color:#6e7ea7; }
+.game-hour{ font-size:26px; font-family:var(--D); color:#fff; letter-spacing:2px; }
+.game-team{ font-size:30px; font-weight:700; color:#fff; }
+.game-team.left{ text-align:right; }
+.game-team.right{ text-align:left; }
 .game-score{
   display:flex;
   align-items:center;
   justify-content:center;
-
   gap:18px;
-
   min-width:220px;
-
   font-family:var(--D);
   color:var(--accent);
-
   line-height:1;
 }
-
-.game-score .score{
-  font-size:72px;
-  letter-spacing:2px;
-}
-
-.game-score .x{
-  font-size:42px;
-  opacity:.75;
-  transform:translateY(-2px);
-}
-
-/* STATUS */
-
+.game-score .score{ font-size:72px; letter-spacing:2px; }
+.game-score .x{ font-size:42px; opacity:.75; transform:translateY(-2px); }
 .game-status{
   justify-self:end;
-
   padding:12px 22px;
   border-radius:999px;
-
   font-size:13px;
   font-weight:700;
   letter-spacing:2px;
-
   border:1px solid rgba(74,222,128,0.25);
-
   background:rgba(74,222,128,0.08);
   color:#4ade80;
 }
 
-/* ESCONDER */
-
-.hidden{
-  display:none;
-}
-
-/* LOADING & ERROR */
+.hidden{ display:none; }
 
 .loading{
   text-align:center;
@@ -420,697 +306,347 @@ td.team{
   color:var(--muted);
   font-size:14px;
 }
-
 .error-box{
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid #ef4444;
-  color: #ef4444;
-  padding: 20px;
-  border-radius: 10px;
-  margin: 20px 0;
-  font-family: monospace;
-  font-size: 12px;
-  white-space: pre-wrap;
-}
-
-/* DEBUG */
-.debug-box{
-  background: rgba(58,134,240,0.1);
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 16px;
-  border-radius: 10px;
-  margin: 20px 0;
-  font-family: monospace;
-  font-size: 11px;
-  white-space: pre-wrap;
-  max-height: 300px;
-  overflow-y: auto;
+  background:rgba(239,68,68,0.1);
+  border:1px solid #ef4444;
+  color:#ef4444;
+  padding:20px;
+  border-radius:10px;
+  margin:20px 0;
+  font-family:monospace;
+  font-size:12px;
+  white-space:pre-wrap;
 }
 
 /* RESPONSIVO */
-
 @media(max-width:980px){
-
-  nav{
-    padding:18px 20px;
-  }
-
-  .nav-links{
-    display:none;
-  }
-
-  .game-card{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  .game-team.left,
-  .game-team.right{
-    text-align:center;
-  }
-
-  .game-status{
-    justify-self:center;
-  }
-
+  nav{ padding:18px 20px; }
+  .nav-links{ display:none; }
+  .game-card{ grid-template-columns:1fr; text-align:center; }
+  .game-team.left,.game-team.right{ text-align:center; }
+  .game-status{ justify-self:center; }
 }
 
-
-/* MATA-MATA */
-
-.mata-bracket {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 32px;
-  margin-bottom: 50px;
+/* ── MATA-MATA ── */
+.mata-bracket{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+  gap:24px;
+  margin-bottom:50px;
 }
+@media(max-width:1100px){ .mata-bracket{ grid-template-columns:1fr 1fr; } }
+@media(max-width:650px){  .mata-bracket{ grid-template-columns:1fr; } }
 
-@media(max-width:900px){
-  .mata-bracket { grid-template-columns: 1fr; }
+/* Para basquete (3 colunas) */
+.mata-bracket.three-col{
+  grid-template-columns:1fr 1fr 1fr;
 }
+@media(max-width:900px){ .mata-bracket.three-col{ grid-template-columns:1fr; } }
 
-.mata-round-title {
-  font-family: var(--D);
-  font-size: 32px;
-  letter-spacing: 3px;
-  color: var(--accent);
-  margin-bottom: 20px;
-  text-transform: uppercase;
+.mata-round-title{
+  font-family:var(--D);
+  font-size:28px;
+  letter-spacing:3px;
+  color:var(--accent);
+  margin-bottom:16px;
+  text-transform:uppercase;
 }
-
-.mata-sub-label {
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  margin-top: 18px;
+.mata-sub-label{
+  font-size:11px;
+  letter-spacing:1.5px;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-bottom:10px;
+  margin-top:18px;
 }
-
-.mata-matchup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 8px;
+.mata-matchup{ display:flex; flex-direction:column; gap:8px; margin-bottom:8px; }
+.mata-team-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 18px;
+  transition:border-color .2s;
 }
-
-.mata-team-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px 20px;
-  transition: border-color .2s;
+.mata-team-row:hover{ border-color:rgba(58,134,240,0.4); }
+.mata-team-row.winner{ border-color:var(--accent); background:rgba(58,134,240,0.08); }
+.mata-team-name{ font-size:15px; font-weight:700; color:var(--text); letter-spacing:0.5px; }
+.mata-team-score{
+  font-family:var(--M);
+  font-size:14px;
+  font-weight:700;
+  background:var(--accent);
+  color:#fff;
+  padding:5px 12px;
+  border-radius:8px;
+  min-width:40px;
+  text-align:center;
 }
-
-.mata-team-row:hover { border-color: rgba(58,134,240,0.4); }
-
-.mata-team-row.winner {
-  border-color: var(--accent);
-  background: rgba(58,134,240,0.08);
-}
-
-.mata-team-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 0.5px;
-}
-
-.mata-team-score {
-  font-family: var(--M);
-  font-size: 15px;
-  font-weight: 700;
-  background: var(--accent);
-  color: #fff;
-  padding: 6px 14px;
-  border-radius: 8px;
-  min-width: 44px;
-  text-align: center;
-}
-
-.mata-team-score.winner-score {
-  background: var(--accent);
-}
-
-.mata-team-score.loser-score {
-  background: rgba(255,255,255,0.08);
-  color: var(--muted);
-}
+.mata-team-score.winner-score{ background:var(--accent); }
+.mata-team-score.loser-score{ background:rgba(255,255,255,0.08); color:var(--muted); }
 
 /* TROPHY CARD */
-.trophy-card {
-  background: var(--card);
-  border: 1px solid rgba(58,134,240,0.3);
-  border-radius: 20px;
-  padding: 36px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.trophy-card{
+  background:var(--card);
+  border:1px solid rgba(58,134,240,0.3);
+  border-radius:20px;
+  padding:36px 24px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
-
-.trophy-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(58,134,240,0.12), transparent 70%);
+.trophy-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 30%,rgba(58,134,240,0.12),transparent 70%);
 }
-
-.trophy-emoji {
-  font-size: 72px;
-  animation: trophyFloat 2.5s ease-in-out infinite, trophyGlow 2.5s ease-in-out infinite;
-  filter: drop-shadow(0 0 18px rgba(250,204,21,0.7));
-  position: relative;
-  z-index: 1;
+.trophy-emoji{
+  font-size:72px;
+  animation:trophyFloat 2.5s ease-in-out infinite,trophyGlow 2.5s ease-in-out infinite;
+  filter:drop-shadow(0 0 18px rgba(250,204,21,0.7));
+  position:relative;
+  z-index:1;
 }
-
-@keyframes trophyFloat {
-  0%, 100% { transform: translateY(0px) rotate(-3deg); }
-  50%       { transform: translateY(-14px) rotate(3deg); }
+@keyframes trophyFloat{
+  0%,100%{ transform:translateY(0px) rotate(-3deg); }
+  50%{     transform:translateY(-14px) rotate(3deg); }
 }
-
-@keyframes trophyGlow {
-  0%, 100% { filter: drop-shadow(0 0 14px rgba(250,204,21,0.5)); }
-  50%       { filter: drop-shadow(0 0 32px rgba(250,204,21,0.95)); }
+@keyframes trophyGlow{
+  0%,100%{ filter:drop-shadow(0 0 14px rgba(250,204,21,0.5)); }
+  50%{     filter:drop-shadow(0 0 32px rgba(250,204,21,0.95)); }
 }
-
-.trophy-label {
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--muted);
-  text-transform: uppercase;
-  position: relative;
-  z-index: 1;
+.trophy-label{ font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; position:relative; z-index:1; }
+.trophy-name{ font-family:var(--D); font-size:32px; letter-spacing:3px; color:var(--accent); line-height:1.1; position:relative; z-index:1; }
+.trophy-name.pending{ color:var(--muted); font-size:20px; }
+.mata-info{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:50px;
+  padding:16px 20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  display:inline-block;
 }
-
-.trophy-name {
-  font-family: var(--D);
-  font-size: 36px;
-  letter-spacing: 3px;
-  color: var(--accent);
-  line-height: 1.1;
-  position: relative;
-  z-index: 1;
+.trophy-stars{ position:absolute; inset:0; pointer-events:none; z-index:0; }
+.trophy-stars span{ position:absolute; font-size:14px; animation:starTwinkle 3s ease-in-out infinite; opacity:0; }
+@keyframes starTwinkle{
+  0%,100%{ opacity:0; transform:scale(0.5); }
+  50%{     opacity:1; transform:scale(1.2); }
 }
-
-.trophy-name.pending {
-  color: var(--muted);
-  font-size: 22px;
-}
-
-.mata-info {
-  color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 50px;
-  padding: 16px 20px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  display: inline-block;
-}
-
-/* Stars animation behind trophy */
-.trophy-stars {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.trophy-stars span {
-  position: absolute;
-  font-size: 14px;
-  animation: starTwinkle 3s ease-in-out infinite;
-  opacity: 0;
-}
-
-@keyframes starTwinkle {
-  0%, 100% { opacity: 0; transform: scale(0.5); }
-  50%       { opacity: 1; transform: scale(1.2); }
-}
-
 </style>
 </head>
-
 <body>
 
 <header>
-
   <div class="urgency-bar">
-    TABELA OFICIAL · CLASSIFICAÇÃO · SUPERCOPA DE BASQUETE &nbsp;|&nbsp; <span id="refreshCountdown"></span>
+    TABELA OFICIAL · CLASSIFICAÇÃO · SUPERCOPA DE BASQUETE
   </div>
-
   <nav>
-
-    <a href="index.html" class="nav-logo">
-      SUPER<span>◥</span>COPA
-    </a>
-
-
-
- <ul class="nav-links">
-  <li><a href="index.html">Início</a></li>
-  <li><a href="index.html#fases">Fases</a></li>
-  <li><a href="index.html#times">Times</a></li>
-  <li><a href="tabela.html">Jogos/Classificação</a></li>
-  <li><a href="index.html#faq">FAQ</a></li>
-</ul>
-
-
-
+    <a href="index.html" class="nav-logo">SUPER<span>◥</span>COPA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="index.html#fases">Fases</a></li>
+      <li><a href="index.html#times">Times</a></li>
+      <li><a href="tabela.html">Jogos/Classificação</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+    </ul>
   </nav>
-
 </header>
 
 <section class="hero">
-
-  <h1>
-    TABELA & CLASSIFICAÇÃO
-  </h1>
-
-  <p>
-    Acompanhe os grupos, resultados, classificação
-    e todos os jogos oficiais da SUPERCOPA DE BASQUETE.
-  </p>
-
+  <h1>TABELA & CLASSIFICAÇÃO</h1>
+  <p>Acompanhe os grupos, resultados, classificação e todos os jogos oficiais da SUPERCOPA DE BASQUETE.</p>
 </section>
 
+<!-- TABS -->
 <div class="tabs">
+  <button class="tab-btn active" onclick="showModalidade('volei',this)">🏐 Voleibol</button>
+  <button class="tab-btn" onclick="showModalidade('basquete',this)">🏀 Basquete</button>
+  <button class="tab-btn" onclick="showModalidade('voleiMata',this)">🏐 Vôlei Mata-Mata</button>
+  <button class="tab-btn" onclick="showModalidade('basqueteMata',this)">🏀 Basquete Mata-Mata</button>
+</div>
 
-  <button class="tab-btn active" onclick="showModalidade('volei',this)">
-    🏐 Voleibol
-  </button>
-
-  <button class="tab-btn" onclick="showModalidade('basquete',this)">
-    🏀 Basquete
-  </button>
-
-  <button class="tab-btn" onclick="showModalidade('voleiMata',this)">
-    🏐 Vôlei Mata-Mata
-  </button>
-
-  <button class="tab-btn" onclick="showModalidade('basqueteMata',this)">
-    🏀 Basquete Mata-Mata
-  </button>
-
+<!-- REFRESH BADGE -->
+<div class="refresh-wrapper">
+  <div class="refresh-badge" id="refreshBadge">
+    <span class="refresh-dot"></span>
+    <span class="refresh-icon" id="refreshIcon">↻</span>
+    <span class="refresh-text" id="refreshText">AO VIVO · ATUALIZANDO EM 30S</span>
+  </div>
 </div>
 
 <div class="container">
 
   <!-- VOLEI -->
-
   <div id="voleiContent">
-
-    <div class="section-title">
-      Classificação · Voleibol
-    </div>
-
+    <div class="section-title">Classificação · Voleibol</div>
     <div class="groups-grid">
-
-      <!-- A -->
+      <!-- Grupo A -->
       <div class="group-card">
         <div class="group-header">Grupo A</div>
-
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>Pontos</th>
-                <th>Vitórias</th>
-                <th>Derrotas</th>
-              </tr>
-            </thead>
-
+            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
             <tbody>
-              <tr>
-                <td class="team">Montanhas</td>
-                <td>6</td>
-                <td>2</td>
-                <td>0</td>
-              </tr>
-
-              <tr>
-                <td class="team">Fênix</td>
-                <td>3</td>
-                <td>1</td>
-                <td>1</td>
-              </tr>
-
-              <tr>
-                <td class="team">Lobos</td>
-                <td>0</td>
-                <td>0</td>
-                <td>2</td>
-              </tr>
+              <tr><td class="team">Montanhas</td><td>6</td><td>2</td><td>0</td></tr>
+              <tr><td class="team">Fênix</td><td>3</td><td>1</td><td>1</td></tr>
+              <tr><td class="team">Lobos</td><td>0</td><td>0</td><td>2</td></tr>
             </tbody>
           </table>
         </div>
       </div>
-
-      <!-- B -->
+      <!-- Grupo B -->
       <div class="group-card">
         <div class="group-header">Grupo B</div>
-
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>Pontos</th>
-                <th>Vitórias</th>
-                <th>Derrotas</th>
-              </tr>
-            </thead>
-
+            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
             <tbody>
-              <tr>
-                <td class="team">Titans</td>
-                <td>6</td>
-                <td>2</td>
-                <td>0</td>
-              </tr>
-
-              <tr>
-                <td class="team">Dragons</td>
-                <td>3</td>
-                <td>1</td>
-                <td>1</td>
-              </tr>
-
-              <tr>
-                <td class="team">Stars</td>
-                <td>0</td>
-                <td>0</td>
-                <td>2</td>
-              </tr>
+              <tr><td class="team">Titans</td><td>6</td><td>2</td><td>0</td></tr>
+              <tr><td class="team">Dragons</td><td>3</td><td>1</td><td>1</td></tr>
+              <tr><td class="team">Stars</td><td>0</td><td>0</td><td>2</td></tr>
             </tbody>
           </table>
         </div>
       </div>
-
-      <!-- C -->
+      <!-- Grupo C -->
       <div class="group-card">
         <div class="group-header">Grupo C</div>
-
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>Pontos</th>
-                <th>Vitórias</th>
-                <th>Derrotas</th>
-              </tr>
-            </thead>
-
+            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
             <tbody>
-              <tr>
-                <td class="team">Giants</td>
-                <td>6</td>
-                <td>2</td>
-                <td>0</td>
-              </tr>
-
-              <tr>
-                <td class="team">Impact</td>
-                <td>3</td>
-                <td>1</td>
-                <td>1</td>
-              </tr>
-
-              <tr>
-                <td class="team">Alpha</td>
-                <td>0</td>
-                <td>0</td>
-                <td>2</td>
-              </tr>
+              <tr><td class="team">Giants</td><td>6</td><td>2</td><td>0</td></tr>
+              <tr><td class="team">Impact</td><td>3</td><td>1</td><td>1</td></tr>
+              <tr><td class="team">Alpha</td><td>0</td><td>0</td><td>2</td></tr>
             </tbody>
           </table>
         </div>
       </div>
-
-      <!-- D -->
+      <!-- Grupo D -->
       <div class="group-card">
         <div class="group-header">Grupo D</div>
-
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Equipe</th>
-                <th>Pontos</th>
-                <th>Vitórias</th>
-                <th>Derrotas</th>
-              </tr>
-            </thead>
-
+            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
             <tbody>
-              <tr>
-                <td class="team">Rangers</td>
-                <td>6</td>
-                <td>2</td>
-                <td>0</td>
-              </tr>
-
-              <tr>
-                <td class="team">Storm</td>
-                <td>3</td>
-                <td>1</td>
-                <td>1</td>
-              </tr>
-
-              <tr>
-                <td class="team">Power</td>
-                <td>0</td>
-                <td>0</td>
-                <td>2</td>
-              </tr>
+              <tr><td class="team">Rangers</td><td>6</td><td>2</td><td>0</td></tr>
+              <tr><td class="team">Storm</td><td>3</td><td>1</td><td>1</td></tr>
+              <tr><td class="team">Power</td><td>0</td><td>0</td><td>2</td></tr>
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
 
-    <div class="section-title">
-      Jogos · Voleibol
-    </div>
-
+    <div class="section-title">Jogos · Voleibol</div>
     <div class="games-list">
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo A</span>
-          <span class="game-hour">08:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo A</span><span class="game-hour">08:00</span></div>
         <div class="game-team left">Montanhas</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">0</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
         <div class="game-team right">Fênix</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo A</span>
-          <span class="game-hour">09:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo A</span><span class="game-hour">09:00</span></div>
         <div class="game-team left">Fênix</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">1</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">1</span></div>
         <div class="game-team right">Lobos</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo A</span>
-          <span class="game-hour">10:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo A</span><span class="game-hour">10:00</span></div>
         <div class="game-team left">Montanhas</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">0</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
         <div class="game-team right">Lobos</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo B</span>
-          <span class="game-hour">11:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo B</span><span class="game-hour">11:00</span></div>
         <div class="game-team left">Titans</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">1</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">1</span></div>
         <div class="game-team right">Dragons</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo B</span>
-          <span class="game-hour">12:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo B</span><span class="game-hour">12:00</span></div>
         <div class="game-team left">Stars</div>
-        <div class="game-score">
-          <span class="score">0</span>
-          <span class="x">X</span>
-          <span class="score">2</span>
-        </div>
+        <div class="game-score"><span class="score">0</span><span class="x">X</span><span class="score">2</span></div>
         <div class="game-team right">Titans</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo B</span>
-          <span class="game-hour">13:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo B</span><span class="game-hour">13:00</span></div>
         <div class="game-team left">Dragons</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">0</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
         <div class="game-team right">Stars</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo C</span>
-          <span class="game-hour">14:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo C</span><span class="game-hour">14:00</span></div>
         <div class="game-team left">Giants</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">1</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">1</span></div>
         <div class="game-team right">Impact</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo C</span>
-          <span class="game-hour">15:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo C</span><span class="game-hour">15:00</span></div>
         <div class="game-team left">Impact</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">0</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
         <div class="game-team right">Alpha</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo C</span>
-          <span class="game-hour">16:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo C</span><span class="game-hour">16:00</span></div>
         <div class="game-team left">Giants</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">0</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
         <div class="game-team right">Alpha</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo D</span>
-          <span class="game-hour">17:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo D</span><span class="game-hour">17:00</span></div>
         <div class="game-team left">Rangers</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">1</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">1</span></div>
         <div class="game-team right">Storm</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo D</span>
-          <span class="game-hour">18:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo D</span><span class="game-hour">18:00</span></div>
         <div class="game-team left">Storm</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">0</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
         <div class="game-team right">Power</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
       <div class="game-card">
-        <div class="game-info">
-          <span class="game-group">Grupo D</span>
-          <span class="game-hour">19:00</span>
-        </div>
+        <div class="game-info"><span class="game-group">Grupo D</span><span class="game-hour">19:00</span></div>
         <div class="game-team left">Rangers</div>
-        <div class="game-score">
-          <span class="score">2</span>
-          <span class="x">X</span>
-          <span class="score">0</span>
-        </div>
+        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
         <div class="game-team right">Power</div>
         <div class="game-status">FINALIZADO</div>
       </div>
-
     </div>
-
   </div>
 
   <!-- BASQUETE -->
-
   <div id="basqueteContent" class="hidden">
-
-    <div class="section-title">
-      Classificação · Basquete
-    </div>
-
+    <div class="section-title">Classificação · Basquete</div>
     <div class="groups-grid" id="basketballClassificationGrid">
       <div class="loading">Carregando dados do Google Sheets...</div>
     </div>
-
-    <div class="section-title">
-      Jogos · Basquete
-    </div>
-
+    <div class="section-title">Jogos · Basquete</div>
     <div class="games-list" id="basketballGamesList">
       <div class="loading">Carregando dados do Google Sheets...</div>
     </div>
-
   </div>
 
   <!-- VOLEI MATA-MATA -->
@@ -1118,32 +654,49 @@ td.team{
     <div class="section-title">Mata-Mata · Voleibol</div>
     <div class="mata-bracket">
 
+      <!-- QUARTAS -->
+      <div>
+        <div class="mata-round-title">Quartas de Final</div>
+
+        <div class="mata-sub-label">1º A × 2º B</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+        </div>
+
+        <div class="mata-sub-label">1º C × 2º D</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+        </div>
+
+        <div class="mata-sub-label">1º B × 2º A</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+        </div>
+
+        <div class="mata-sub-label">1º D × 2º C</div>
+        <div class="mata-matchup">
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+        </div>
+      </div>
+
       <!-- SEMIFINAIS -->
       <div>
         <div class="mata-round-title">Semifinais</div>
 
-        <div class="mata-sub-label">1º Grupo A × 2º Grupo B</div>
+        <div class="mata-sub-label">Vencedor Q1 × Vencedor Q2</div>
         <div class="mata-matchup">
-          <div class="mata-team-row">
-            <span class="mata-team-name">A definir</span>
-            <span class="mata-team-score">-</span>
-          </div>
-          <div class="mata-team-row">
-            <span class="mata-team-name">A definir</span>
-            <span class="mata-team-score">-</span>
-          </div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
         </div>
 
-        <div class="mata-sub-label">1º Grupo B × 2º Grupo A</div>
+        <div class="mata-sub-label">Vencedor Q3 × Vencedor Q4</div>
         <div class="mata-matchup">
-          <div class="mata-team-row">
-            <span class="mata-team-name">A definir</span>
-            <span class="mata-team-score">-</span>
-          </div>
-          <div class="mata-team-row">
-            <span class="mata-team-name">A definir</span>
-            <span class="mata-team-score">-</span>
-          </div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
         </div>
       </div>
 
@@ -1152,14 +705,8 @@ td.team{
         <div class="mata-round-title">Grande Final</div>
         <div class="mata-sub-label">Final</div>
         <div class="mata-matchup">
-          <div class="mata-team-row">
-            <span class="mata-team-name">A definir</span>
-            <span class="mata-team-score">-</span>
-          </div>
-          <div class="mata-team-row">
-            <span class="mata-team-name">A definir</span>
-            <span class="mata-team-score">-</span>
-          </div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
         </div>
       </div>
 
@@ -1186,7 +733,7 @@ td.team{
   <!-- BASQUETE MATA-MATA -->
   <div id="basqueteMataContent" class="hidden">
     <div class="section-title">Mata-Mata · Basquete</div>
-    <div class="mata-bracket">
+    <div class="mata-bracket three-col">
 
       <!-- SEMIFINAIS -->
       <div>
@@ -1255,56 +802,111 @@ td.team{
 </div>
 
 <script>
-
 // ============================================
 // CONFIGURAÇÃO DO GOOGLE SHEETS
 // ============================================
-
 const GOOGLE_SHEET_ID = '1S3rUVU18W64c4okkxGOYnSLtW-aSyo47l3tos7u-8j0';
-const GOOGLE_API_KEY = 'AIzaSyBzIsc4TKy_he2P8PcOgOzs8Eor3EVHBzw';
-const SHEET_NAME = 'Fase de Grupos';
+const GOOGLE_API_KEY  = 'AIzaSyBzIsc4TKy_he2P8PcOgOzs8Eor3EVHBzw';
+const SHEET_NAME      = 'Fase de Grupos';
 
 // ============================================
-// MAPEAMENTO DA PLANILHA (baseado na imagem)
+// ESTADO GLOBAL
 // ============================================
-//
-// LINHA 1  → Título geral (ignorar)
-// LINHA 3  → Cabeçalho "JOGOS - GRUPO A" / "JOGOS - GRUPO B"
-// LINHA 4  → Cabeçalho das colunas dos jogos  (índice 3)
-// LINHA 5  → Jogo 1  (índice 4)
-// LINHA 6  → Jogo 2  (índice 5)
-// LINHA 7  → Jogo 3  (índice 6)
-// LINHA 8  → vazia   (índice 7)
-// LINHA 9  → vazia   (índice 8)
-// LINHA 10 → Cabeçalho "CLASSIFICACAO - GRUPO A/B" (índice 9)
-// LINHA 11 → Cabeçalho das colunas da classificação (índice 10)
-// LINHA 12 → 1º colocado  (índice 11)
-// LINHA 13 → 2º colocado  (índice 12)
-// LINHA 14 → 3º colocado  (índice 13)
-//
-// GRUPO A → colunas A–J  → índices 0–9
-//   A=JOGO, B=EQUIPE1, C=PTS1, D=X, E=PTS2, F=EQUIPE2, G=RESULTADO
-//   Classificação: A=POS, B=EQUIPE, C=J, D=V, E=D, F=PTS, G=SD, H=PM, I=CRITERIO, J=STATUS
-//
-// GRUPO B → colunas L–U  → índices 11–20  (coluna K=índice 10 é separador)
-//   L=JOGO, M=EQUIPE1, N=PTS1, O=X, P=PTS2, Q=EQUIPE2, R=RESULTADO
-//   Classificação: L=POS, M=EQUIPE, N=J, O=V, P=D, Q=PTS, R=SD, S=PM, T=CRITERIO, U=STATUS
+let autoRefreshInterval = null;
+let countdownTimer      = null;
+let countdown           = 30;
+const REFRESH_INTERVAL  = 30; // segundos
 
 // ============================================
-// FUNÇÕES DE INTEGRAÇÃO
+// BADGE DE ATUALIZAÇÃO
 // ============================================
+function updateBadge(seconds, isRefreshing = false) {
+  const badge    = document.getElementById('refreshBadge');
+  const text     = document.getElementById('refreshText');
+  const icon     = document.getElementById('refreshIcon');
+  const progress = Math.round(((REFRESH_INTERVAL - seconds) / REFRESH_INTERVAL) * 100);
 
+  badge.style.setProperty('--progress', progress + '%');
+
+  if (isRefreshing) {
+    text.textContent = 'ATUALIZANDO...';
+    icon.classList.add('spinning');
+    setTimeout(() => icon.classList.remove('spinning'), 700);
+  } else {
+    text.textContent = `AO VIVO · ATUALIZANDO EM ${seconds}S`;
+  }
+}
+
+function startRefreshCycle(loadFn) {
+  stopRefreshCycle();
+  countdown = REFRESH_INTERVAL;
+  updateBadge(countdown);
+
+  countdownTimer = setInterval(() => {
+    countdown--;
+    if (countdown < 0) countdown = REFRESH_INTERVAL;
+    updateBadge(countdown);
+  }, 1000);
+
+  autoRefreshInterval = setInterval(() => {
+    updateBadge(0, true);
+    loadFn();
+    countdown = REFRESH_INTERVAL;
+  }, REFRESH_INTERVAL * 1000);
+}
+
+function stopRefreshCycle() {
+  clearInterval(autoRefreshInterval);
+  clearInterval(countdownTimer);
+  autoRefreshInterval = null;
+  countdownTimer      = null;
+}
+
+// ============================================
+// TROCA DE ABA
+// ============================================
+function showModalidade(mod, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  ['voleiContent','basqueteContent','voleiMataContent','basqueteMataContent'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
+  });
+
+  stopRefreshCycle();
+
+  if (mod === 'volei') {
+    document.getElementById('voleiContent').classList.remove('hidden');
+    // Voleibol também tem refresh (dados estáticos por enquanto, mas mantém o badge ativo)
+    startRefreshCycle(() => {
+      // placeholder: caso volei venha a ter dados dinâmicos no futuro
+      console.log('🏐 Voleibol refreshed');
+    });
+  } else if (mod === 'basquete') {
+    document.getElementById('basqueteContent').classList.remove('hidden');
+    loadBasketballData();
+    startRefreshCycle(loadBasketballData);
+  } else if (mod === 'voleiMata') {
+    document.getElementById('voleiMataContent').classList.remove('hidden');
+  } else if (mod === 'basqueteMata') {
+    document.getElementById('basqueteMataContent').classList.remove('hidden');
+  }
+}
+
+// ============================================
+// CARREGA DADOS BASQUETE (GOOGLE SHEETS)
+// ============================================
 async function loadBasketballData() {
   const grid = document.getElementById('basketballClassificationGrid');
   const list = document.getElementById('basketballGamesList');
 
   try {
-    // Busca as linhas 1 a 20 e colunas até AC (29 colunas)
     const range = encodeURIComponent(`'${SHEET_NAME}'!A1:AC20`);
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
+    const url   = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
 
     const response = await fetch(url);
-    const result = await response.json();
+    const result   = await response.json();
 
     if (!response.ok) {
       throw new Error(`Erro do Google Sheets: ${result.error ? result.error.message : response.statusText}`);
@@ -1312,28 +914,9 @@ async function loadBasketballData() {
 
     const rows = result.values || [];
 
-    // ── JOGOS ─────────────────────────────────────────
-    // Linhas 5, 6, 7 → índices 4, 5, 6
-    // Grupo A: colunas A(0) B(1) C(2) D(3) E(4) F(5) G(6)
-    //   [0]=JOGO  [1]=EQUIPE1  [2]=PTS1  [3]=X  [4]=PTS2  [5]=EQUIPE2  [6]=RESULTADO
-    // Grupo B: colunas L(11) M(12) N(13) O(14) P(15) Q(16) R(17)
-    //   [11]=JOGO [12]=EQUIPE1 [13]=PTS1 [14]=X [15]=PTS2 [16]=EQUIPE2 [17]=RESULTADO
-
     const gamesA = extractGames(rows, 4, 6, 0,  'Grupo A');
     const gamesB = extractGames(rows, 4, 6, 11, 'Grupo B');
-
-    // ── CLASSIFICAÇÃO ─────────────────────────────────
-    // Linhas 12, 13, 14 → índices 11, 12, 13
-    // Grupo A: colunas A(0)..J(9)
-    //   [0]=POS [1]=EQUIPE [2]=J [3]=V [4]=D [5]=PTS [6]=SD [7]=PM [8]=CRITERIO [9]=STATUS
-    // Grupo B: colunas L(11)..U(20)
-    //   [11]=POS [12]=EQUIPE [13]=J [14]=V [15]=D [16]=PTS [17]=SD [18]=PM [19]=CRITERIO [20]=STATUS
-
     const classA = extractClassification(rows, 11, 13, 0);
-
-    // DEBUG: log linha 12 no console para identificar colunas
-    const _dbgRow = rows[11] || [];
-    console.table(_dbgRow.map((v,i)=>({indice:i, coluna:String.fromCharCode(65+i), valor:v})));
     const classB = extractClassification(rows, 11, 13, 11);
 
     renderClassification(classA, classB);
@@ -1341,29 +924,13 @@ async function loadBasketballData() {
 
   } catch (error) {
     console.error(error);
-    grid.innerHTML = `<div class="error-box">❌ Erro ao carregar dados:\n\n${error.message}\n\nVerifique:\n• A chave da API está correta?\n• A planilha está pública (compartilhada como "qualquer pessoa com o link pode ver")?\n• O nome da aba está correto: "${SHEET_NAME}"?</div>`;
+    grid.innerHTML = `<div class="error-box">❌ Erro ao carregar dados:\n\n${error.message}\n\nVerifique:\n• A chave da API está correta?\n• A planilha está pública?\n• O nome da aba: "${SHEET_NAME}"?</div>`;
     list.innerHTML = '';
   }
 }
 
 // ── EXTRAI CLASSIFICAÇÃO ──────────────────────────────────────────────────────
-// startRow / endRow → índices de linha (base 0)
-// startCol          → índice da primeira coluna do grupo (base 0)
-//
-// Estrutura de colunas (offset a partir de startCol):
-//   +0 = POS
-//   +1 = EQUIPE
-//   +2 = J
-//   +3 = V
-//   +4 = D
-//   +5 = PTS
-//   +6 = SD
-//   +7 = PM
-//   +8 = CRITERIO  (pode estar vazio / "---")
-//   +9 = STATUS    (Classificado / Eliminado)
-
 function extractClassification(rows, startRow, endRow, startCol) {
-  // Usa a linha de cabeçalho (índice 10) para mapear colunas pelo nome
   const headerRow = rows[10] || [];
 
   function findCol(names, fromCol) {
@@ -1386,42 +953,28 @@ function extractClassification(rows, startRow, endRow, startCol) {
   const iPM     = findCol(['PM'],     startCol);
   const iSTATUS = findCol(['STATUS'], startCol);
 
-  console.log('Class col map (startCol='+startCol+'):', {iPOS,iEQUIPE,iJ,iV,iD,iPTS,iSD,iPM,iSTATUS});
-
   const data = [];
   for (let i = startRow; i <= endRow; i++) {
     const row = rows[i] || [];
     data.push({
-      pos:    iPOS    >= 0 ? row[iPOS]    || '-'   : '-',
-      equipe: iEQUIPE >= 0 ? row[iEQUIPE] || '-'   : '-',
-      j:      iJ      >= 0 ? row[iJ]      || '0'   : '0',
-      v:      iV      >= 0 ? row[iV]      || '0'   : '0',
-      d:      iD      >= 0 ? row[iD]      || '0'   : '0',
-      pts:    iPTS    >= 0 ? row[iPTS]    || '0'   : '0',
-      sd:     iSD     >= 0 ? row[iSD]     || '0'   : '0',
-      pm:     iPM     >= 0 ? row[iPM]     || '0'   : '0',
-      status: iSTATUS >= 0 ? row[iSTATUS] || '-'   : '-',
+      pos:    iPOS    >= 0 ? row[iPOS]    || '-' : '-',
+      equipe: iEQUIPE >= 0 ? row[iEQUIPE] || '-' : '-',
+      j:      iJ      >= 0 ? row[iJ]      || '0' : '0',
+      v:      iV      >= 0 ? row[iV]      || '0' : '0',
+      d:      iD      >= 0 ? row[iD]      || '0' : '0',
+      pts:    iPTS    >= 0 ? row[iPTS]    || '0' : '0',
+      sd:     iSD     >= 0 ? row[iSD]     || '0' : '0',
+      pm:     iPM     >= 0 ? row[iPM]     || '0' : '0',
+      status: iSTATUS >= 0 ? row[iSTATUS] || '-' : '-',
     });
   }
   return data;
 }
 
 // ── EXTRAI JOGOS ─────────────────────────────────────────────────────────────
-// Estrutura de colunas (offset a partir de startCol):
-//   +0 = JOGO (número)
-//   +1 = EQUIPE 1
-//   +2 = PTS 1
-//   +3 = "x"  (literal)
-//   +4 = PTS 2
-//   +5 = EQUIPE 2
-//   +6 = RESULTADO (ex: "V: CT")
-
 function extractGames(rows, startRow, endRow, startCol, groupName) {
-  // Usa a linha de cabeçalho (índice 3) para mapear colunas pelo nome
-  // evitando problema de células vazias deslocarem os índices
   const headerRow = rows[3] || [];
 
-  // Encontra os índices absolutos a partir do cabeçalho da seção
   function findCol(names, fromCol) {
     for (let offset = 0; offset < 10; offset++) {
       const val = (headerRow[fromCol + offset] || '').toString().trim().toUpperCase();
@@ -1432,14 +985,12 @@ function extractGames(rows, startRow, endRow, startCol, groupName) {
     return -1;
   }
 
-  const iJogo    = findCol(['JOGO'],        startCol);
-  const iEq1     = findCol(['EQUIPE 1','EQUIPE1'], startCol);
-  const iPts1    = findCol(['PTS 1','PTS1'], startCol);
-  const iPts2    = findCol(['PTS 2','PTS2'], startCol);
-  const iEq2     = findCol(['EQUIPE 2','EQUIPE2'], startCol);
-  const iResult  = findCol(['RESULT'],       startCol);
-
-  console.log(groupName, 'col map:', {iJogo, iEq1, iPts1, iPts2, iEq2, iResult});
+  const iJogo   = findCol(['JOGO'],          startCol);
+  const iEq1    = findCol(['EQUIPE 1','EQUIPE1'], startCol);
+  const iPts1   = findCol(['PTS 1','PTS1'],   startCol);
+  const iPts2   = findCol(['PTS 2','PTS2'],   startCol);
+  const iEq2    = findCol(['EQUIPE 2','EQUIPE2'], startCol);
+  const iResult = findCol(['RESULT'],          startCol);
 
   const data = [];
   for (let i = startRow; i <= endRow; i++) {
@@ -1458,39 +1009,27 @@ function extractGames(rows, startRow, endRow, startCol, groupName) {
 }
 
 // ── RENDERIZA CLASSIFICAÇÃO ───────────────────────────────────────────────────
-
 function renderClassification(dataA, dataB) {
   const grid = document.getElementById('basketballClassificationGrid');
   grid.innerHTML = '';
 
-  [
-    { title: 'Grupo A', data: dataA },
-    { title: 'Grupo B', data: dataB },
-  ].forEach(group => {
+  [{ title:'Grupo A', data:dataA }, { title:'Grupo B', data:dataB }].forEach(group => {
     const card = document.createElement('div');
     card.className = 'group-card';
 
     let rows = '';
     group.data.forEach(r => {
-      // Cor do status
       let statusStyle = '';
       const st = (r.status || '').toLowerCase();
-      if (st.includes('classif')) {
-        statusStyle = 'color:#4ade80;font-weight:700;';
-      } else if (st.includes('elimin')) {
-        statusStyle = 'color:#ef4444;font-weight:700;';
-      }
+      if (st.includes('classif'))      statusStyle = 'color:#4ade80;font-weight:700;';
+      else if (st.includes('elimin'))  statusStyle = 'color:#ef4444;font-weight:700;';
 
       rows += `
         <tr>
           <td>${r.pos}</td>
           <td class="team">${r.equipe}</td>
-          <td>${r.j}</td>
-          <td>${r.v}</td>
-          <td>${r.d}</td>
-          <td>${r.pts}</td>
-          <td>${r.sd}</td>
-          <td>${r.pm}</td>
+          <td>${r.j}</td><td>${r.v}</td><td>${r.d}</td>
+          <td>${r.pts}</td><td>${r.sd}</td><td>${r.pm}</td>
           <td style="${statusStyle}">${r.status}</td>
         </tr>`;
     });
@@ -1500,21 +1039,16 @@ function renderClassification(dataA, dataB) {
       <div class="table-wrap">
         <table>
           <thead>
-            <tr>
-              <th>Pos</th><th>Equipe</th><th>J</th><th>V</th><th>D</th>
-              <th>PTS</th><th>SD</th><th>PM</th><th>Status</th>
-            </tr>
+            <tr><th>Pos</th><th>Equipe</th><th>J</th><th>V</th><th>D</th><th>PTS</th><th>SD</th><th>PM</th><th>Status</th></tr>
           </thead>
           <tbody>${rows}</tbody>
         </table>
       </div>`;
-
     grid.appendChild(card);
   });
 }
 
 // ── RENDERIZA JOGOS ───────────────────────────────────────────────────────────
-
 function renderGames(gamesA, gamesB) {
   const list = document.getElementById('basketballGamesList');
   list.innerHTML = '';
@@ -1539,66 +1073,10 @@ function renderGames(gamesA, gamesB) {
   });
 }
 
-// ── TROCA DE ABA ──────────────────────────────────────────────────────────────
-
-// ── AUTO-REFRESH ─────────────────────────────────────────────────────────────
-let autoRefreshInterval = null;
-let countdown = 30;
-let countdownTimer = null;
-
-function startAutoRefresh() {
-  stopAutoRefresh();
-  countdown = 30;
-  updateCountdownDisplay();
-
-  autoRefreshInterval = setInterval(() => {
-    loadBasketballData();
-    countdown = 30;
-  }, 30000);
-
-  countdownTimer = setInterval(() => {
-    countdown--;
-    if (countdown < 0) countdown = 30;
-    updateCountdownDisplay();
-  }, 1000);
-}
-
-function stopAutoRefresh() {
-  if (autoRefreshInterval) { clearInterval(autoRefreshInterval); autoRefreshInterval = null; }
-  if (countdownTimer)       { clearInterval(countdownTimer);       countdownTimer = null; }
-}
-
-function updateCountdownDisplay() {
-  const el = document.getElementById('refreshCountdown');
-  if (el) el.textContent = `↻ Atualizando em ${countdown}s`;
-}
-
-function showModalidade(mod, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  // Hide all sections
-  ['voleiContent','basqueteContent','voleiMataContent','basqueteMataContent'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.add('hidden');
-  });
-
-  stopAutoRefresh();
-
-  if (mod === 'volei') {
-    document.getElementById('voleiContent').classList.remove('hidden');
-  } else if (mod === 'basquete') {
-    document.getElementById('basqueteContent').classList.remove('hidden');
-    loadBasketballData();
-    startAutoRefresh();
-  } else if (mod === 'voleiMata') {
-    document.getElementById('voleiMataContent').classList.remove('hidden');
-  } else if (mod === 'basqueteMata') {
-    document.getElementById('basqueteMataContent').classList.remove('hidden');
-  }
-}
-
+// ============================================
+// INIT — começa na aba de Voleibol
+// ============================================
+startRefreshCycle(() => { console.log('🏐 Voleibol refreshed'); });
 </script>
-
 </body>
 </html>
