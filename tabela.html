@@ -442,6 +442,59 @@ td.team{ text-align:left; font-weight:700; }
   0%,100%{ opacity:0; transform:scale(0.5); }
   50%{     opacity:1; transform:scale(1.2); }
 }
+
+/* HAMBURGER */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  width:36px;
+  height:36px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:4px;
+  z-index:1100;
+}
+.hamburger span{
+  display:block;
+  height:2px;
+  width:100%;
+  background:var(--text);
+  border-radius:2px;
+  transition:.3s;
+}
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+.mobile-menu{
+  display:none;
+  flex-direction:column;
+  background:rgba(7,9,13,0.98);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  padding:8px 0;
+}
+.mobile-menu a{
+  display:block;
+  padding:14px 24px;
+  color:#5a6174;
+  text-decoration:none;
+  font-size:13px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  transition:.2s;
+}
+.mobile-menu a:last-child{ border-bottom:none; }
+.mobile-menu a:hover{ color:#fff; background:rgba(58,134,240,0.08); }
+.mobile-menu.open{ display:flex; }
+
+@media(max-width:980px){
+  .hamburger{ display:flex; }
+}
+
 </style>
 </head>
 <body>
@@ -459,7 +512,17 @@ td.team{ text-align:left; font-weight:700; }
       <li><a href="tabela.html">Jogos/Classificação</a></li>
       <li><a href="index.html#faq">FAQ</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Início</a>
+    <a href="index.html#fases">Fases</a>
+    <a href="index.html#times">Times</a>
+    <a href="tabela.html">Jogos/Classificação</a>
+    <a href="index.html#faq">FAQ</a>
+  </div>
 </header>
 
 <section class="hero">
@@ -1142,25 +1205,8 @@ async function loadMataMata() {
       winner: cell(15, 12), // M16
     };
 
-    // Campeão — varre linhas 19 a 21 (índices 18–20), todas as colunas A–N
-    // Ignora títulos genéricos e pega o primeiro valor que pareça um nome de equipe
-    const IGNORED = ['CAMPEAO DA SUPERCOPA','CAMPEÃO DA SUPERCOPA','CAMPEA0 DA SUPERCOPA'];
-    let campeo = '';
-    console.log('🏆 Debug linhas campeão:');
-    for (let r = 18; r <= 21; r++) {
-      console.log(`  linha ${r+1}:`, rows[r]);
-    }
-    outer: for (let r = 18; r <= 21; r++) {
-      const rowData = rows[r] || [];
-      for (let c = 0; c < 14; c++) {
-        const v = (rowData[c] || '').toString().trim();
-        if (v && !IGNORED.includes(v.toUpperCase())) {
-          campeo = v;
-          break outer;
-        }
-      }
-    }
-    console.log('🏆 Campeão encontrado:', campeo);
+    // Campeão — célula A21 (índice linha 20, coluna 0)
+    const campeo = cell(20, 0);
 
     // ── Determina vencedores de cada duelo ────────────────────────
     function whoWon(nameA, scoreA, nameB, scoreB) {
@@ -1245,6 +1291,15 @@ async function loadMataMata() {
 // INIT — começa na aba de Voleibol
 // ============================================
 startRefreshCycle(() => { console.log('🏐 Voleibol refreshed'); });
+
+// MENU MOBILE
+function toggleMenu() {
+  var btn  = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+
 </script>
 </body>
 </html>
