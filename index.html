@@ -43,12 +43,14 @@ nav{
   border-bottom: 1px solid rgba(58,134,240,0.3);
   color: var(--text);
   padding: 0 32px;
-  height: 52px;
+  height: auto;
+  min-height: 52px;
   display: flex; align-items: center; justify-content: space-between;
   position: relative; overflow: hidden; gap: 16px;
+  flex-wrap: wrap;
 }
 .ub-left-group {
-  display: flex; align-items: center; gap: 24px;
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 10px 0;
 }
 /* animated scan line */
 .urgency-bar::before{
@@ -844,60 +846,66 @@ nav:not(.main-nav){display:none!important}
 
 <header>
   <div class="urgency-bar">
-  <div class="ub-left-group">
-  <div class="ub-left">
-    <span class="ub-pulse"></span>
-    <span class="ub-label">EM JULHO · SUPERCOPA BASQUETE 2026</span>
-  </div>
-  <div class="ub-countdown" id="ubCountdown">
-    <div class="ub-unit">
-      <span class="ub-num" id="ubDays">00</span>
-      <span class="ub-unit-label">DIAS</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubHours">00</span>
-      <span class="ub-unit-label">HRS</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubMins">00</span>
-      <span class="ub-unit-label">MIN</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubSecs">00</span>
-      <span class="ub-unit-label">SEG</span>
-    </div>
-  </div>
+    <div class="ub-left-group">
+      <!-- COUNTDOWN 1: BASQUETE -->
+      <div class="ub-item" style="display: flex; align-items: center; gap: 15px; margin-right: 20px;">
+        <div class="ub-left">
+          <span class="ub-pulse"></span>
+          <span class="ub-label">EM JULHO · SUPERCOPA BASQUETE 2026</span>
+        </div>
+        <div class="ub-countdown js-countdown" data-target="2026-07-25T08:00:00">
+          <div class="ub-unit">
+            <span class="ub-num js-days">00</span>
+            <span class="ub-unit-label">DIAS</span>
+          </div>
+          <span class="ub-sep">:</span>
+          <div class="ub-unit">
+            <span class="ub-num js-hours">00</span>
+            <span class="ub-unit-label">HRS</span>
+          </div>
+          <span class="ub-sep">:</span>
+          <div class="ub-unit">
+            <span class="ub-num js-mins">00</span>
+            <span class="ub-unit-label">MIN</span>
+          </div>
+          <span class="ub-sep">:</span>
+          <div class="ub-unit">
+            <span class="ub-num js-secs">00</span>
+            <span class="ub-unit-label">SEG</span>
+          </div>
+        </div>
+      </div>
 
+      <!-- SEPARADOR VISUAL -->
+      <div style="width: 1px; height: 30px; background: rgba(255,255,255,0.1); align-self: center;" class="hide-mobile"></div>
 
-
-
-   <span class="ub-pulse"></span>
-    <span class="ub-label">EM NOVEMBRO · SUPERCOPA VOLEIBOL 2026</span>
-  </div>
-  <div class="ub-countdown" id="ubCountdown">
-    <div class="ub-unit">
-      <span class="ub-num" id="ubDays">00</span>
-      <span class="ub-unit-label">DIAS</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubHours">00</span>
-      <span class="ub-unit-label">HRS</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubMins">00</span>
-      <span class="ub-unit-label">MIN</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubSecs">00</span>
-      <span class="ub-unit-label">SEG</span>
-    </div>
-  </div>
+      <!-- COUNTDOWN 2: VOLEIBOL -->
+      <div class="ub-item" style="display: flex; align-items: center; gap: 15px;">
+        <div class="ub-left">
+          <span class="ub-pulse"></span>
+          <span class="ub-label">EM NOVEMBRO · SUPERCOPA VOLEIBOL 2026</span>
+        </div>
+        <div class="ub-countdown js-countdown" data-target="2026-11-28T13:00:00">
+          <div class="ub-unit">
+            <span class="ub-num js-days">00</span>
+            <span class="ub-unit-label">DIAS</span>
+          </div>
+          <span class="ub-sep">:</span>
+          <div class="ub-unit">
+            <span class="ub-num js-hours">00</span>
+            <span class="ub-unit-label">HRS</span>
+          </div>
+          <span class="ub-sep">:</span>
+          <div class="ub-unit">
+            <span class="ub-num js-mins">00</span>
+            <span class="ub-unit-label">MIN</span>
+          </div>
+          <span class="ub-sep">:</span>
+          <div class="ub-unit">
+            <span class="ub-num js-secs">00</span>
+            <span class="ub-unit-label">SEG</span>
+          </div>
+        </div>
 
 
 
