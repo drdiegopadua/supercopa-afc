@@ -1181,27 +1181,33 @@ async function loadVoleiData() {
   const list = document.getElementById('voleiGamesList');
 
   try {
-    const range = encodeURIComponent(`'${VOLEI_SHEET_NAME}'!A1:Q49`);
-    const url   = `https://sheets.googleapis.com/v4/spreadsheets/${VOLEI_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
+    // ── Busca classificação (aba "Classificação") e jogos (aba "Fase de Grupos") em paralelo ──
+    const makeUrl = (sheet, range) =>
+      `https://sheets.googleapis.com/v4/spreadsheets/${VOLEI_SHEET_ID}/values/${encodeURIComponent(`'${sheet}'!${range}`)}?key=${GOOGLE_API_KEY}`;
 
-    const response = await fetch(url);
-    const result   = await response.json();
+    const [resClass, resJogos] = await Promise.all([
+      fetch(makeUrl('Classificação', 'A1:K26')),
+      fetch(makeUrl('Fase de Grupos', 'A1:Q49')),
+    ]);
 
-    if (!response.ok) {
-      throw new Error(`Erro do Google Sheets: ${result.error ? result.error.message : response.statusText}`);
-    }
+    const [dataClass, dataJogos] = await Promise.all([resClass.json(), resJogos.json()]);
 
-    const rows = result.values || [];
-    const c = (r, col) => (rows[r] && rows[r][col] != null) ? rows[r][col].toString().trim() : '';
+    if (!resClass.ok)  throw new Error(`Classificação: ${dataClass.error?.message || resClass.statusText}`);
+    if (!resJogos.ok)  throw new Error(`Fase de Grupos: ${dataJogos.error?.message || resJogos.statusText}`);
 
-    // ── Classificação ────────────────────────────────────────────
-    // Colunas: A=0,B=1,C=2,D=3,E=4
-    // PTS=col C(2), V=col D(3), D=col E(4), Equipe=col B(1)
+    const rowsC = dataClass.values || [];   // aba Classificação
+    const rowsJ = dataJogos.values || [];   // aba Fase de Grupos
+
+    const cc = (rows, r, col) => (rows[r] && rows[r][col] != null) ? rows[r][col].toString().trim() : '';
+
+    // ── Classificação ordenada pela aba "Classificação" ──────────
+    // Grupo A → índices 5-7  | Grupo B → 11-13 | Grupo C → 17-19 | Grupo D → 23-25
+    // Colunas: A=0(POS) B=1(Equipe) C=2(PTS) D=3(V) E=4(D)
     const classGrupos = [
-      { title: 'Grupo A', rows: [4, 5, 6] },
-      { title: 'Grupo B', rows: [16, 17, 18] },
-      { title: 'Grupo C', rows: [28, 29, 30] },
-      { title: 'Grupo D', rows: [40, 41, 42] },
+      { title: 'Grupo A', rows: [5, 6, 7] },
+      { title: 'Grupo B', rows: [11, 12, 13] },
+      { title: 'Grupo C', rows: [17, 18, 19] },
+      { title: 'Grupo D', rows: [23, 24, 25] },
     ];
 
     grid.innerHTML = '';
@@ -1210,12 +1216,14 @@ async function loadVoleiData() {
       card.className = 'group-card';
       let trs = '';
       grupo.rows.forEach(r => {
-        const equipe = c(r, 1);
-        const pts    = c(r, 2);
-        const v      = c(r, 3);
-        const d      = c(r, 4);
+        const pos    = cc(rowsC, r, 0);
+        const equipe = cc(rowsC, r, 1);
+        const pts    = cc(rowsC, r, 2);
+        const v      = cc(rowsC, r, 3);
+        const d      = cc(rowsC, r, 4);
         if (!equipe) return;
         trs += `<tr>
+          <td style="color:var(--muted);font-size:12px;font-weight:700;">${pos}º</td>
           <td class="team">${equipe}</td>
           <td>${pts}</td>
           <td>${v}</td>
@@ -1226,14 +1234,14 @@ async function loadVoleiData() {
         <div class="group-header">${grupo.title}</div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
+            <thead><tr><th>#</th><th>Equipe</th><th>Pontos</th><th>V</th><th>D</th></tr></thead>
             <tbody>${trs}</tbody>
           </table>
         </div>`;
       grid.appendChild(card);
     });
 
-    // ── Jogos ────────────────────────────────────────────────────
+    // ── Jogos (aba "Fase de Grupos") ─────────────────────────────
     // Colunas: B=1(Casa), C=2(S1C), D=3(S2C), E=4(S3C), H=7(S1V), I=8(S2V), J=9(S3V),
     //          L=11(Visit), M=12(SetsC), N=13(SetsV), O=14(Vencedor)
     const jogosGrupos = [
@@ -1246,28 +1254,23 @@ async function loadVoleiData() {
     list.innerHTML = '';
     jogosGrupos.forEach(grupo => {
       grupo.rows.forEach((r, idx) => {
-        const casa    = c(r, 1);
-        const visit   = c(r, 11);
+        const casa   = cc(rowsJ, r, 1);
+        const visit  = cc(rowsJ, r, 11);
         if (!casa && !visit) return;
 
-        const s1c = c(r, 2), s2c = c(r, 3), s3c = c(r, 4);
-        const s1v = c(r, 7), s2v = c(r, 8), s3v = c(r, 9);
-        const setsC   = c(r, 12);
-        const setsV   = c(r, 13);
-        const vencedor = c(r, 14) || 'A DEFINIR';
+        const s1c = cc(rowsJ, r, 2), s2c = cc(rowsJ, r, 3), s3c = cc(rowsJ, r, 4);
+        const s1v = cc(rowsJ, r, 7), s2v = cc(rowsJ, r, 8), s3v = cc(rowsJ, r, 9);
+        const setsC    = cc(rowsJ, r, 12) || '0';
+        const setsV    = cc(rowsJ, r, 13) || '0';
+        const vencedor = cc(rowsJ, r, 14) || 'A DEFINIR';
 
-        // Monta o placar de sets  ex: "2 X 1"
-        const scoreLeft  = setsC || '0';
-        const scoreRight = setsV || '0';
-
-        // Monta os placares por set  ex: "25/20  25/21"
         let setDetails = '';
         if (s1c && s1v) setDetails += `${s1c}/${s1v}`;
         if (s2c && s2v) setDetails += `  ${s2c}/${s2v}`;
         if (s3c && s3v) setDetails += `  ${s3c}/${s3v}`;
 
-        // Estilo do status: verde se finalizado (tem vencedor), cinza se a definir
-        const statusStyle = (vencedor && vencedor !== 'A DEFINIR' && vencedor !== '—')
+        const finalizado = vencedor && vencedor !== 'A DEFINIR' && vencedor !== '—';
+        const statusStyle = finalizado
           ? 'border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.08);color:#4ade80;'
           : 'border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#5a6174;';
 
@@ -1281,9 +1284,9 @@ async function loadVoleiData() {
           <div class="game-team left">${casa}</div>
           <div class="game-score" style="flex-direction:column;gap:4px;">
             <div style="display:flex;align-items:center;gap:18px;">
-              <span class="score">${scoreLeft}</span>
+              <span class="score">${setsC}</span>
               <span class="x">X</span>
-              <span class="score">${scoreRight}</span>
+              <span class="score">${setsV}</span>
             </div>
             ${setDetails ? `<div style="font-family:var(--M);font-size:12px;color:var(--muted);letter-spacing:1px;">${setDetails}</div>` : ''}
           </div>
@@ -1295,7 +1298,7 @@ async function loadVoleiData() {
 
   } catch (error) {
     console.error(error);
-    grid.innerHTML = `<div class="error-box">❌ Erro ao carregar dados do Voleibol:\n\n${error.message}\n\nVerifique:\n• O ID da planilha está correto? (VOLEI_SHEET_ID)\n• A chave da API está correta?\n• A planilha está pública?\n• O nome da aba: "${VOLEI_SHEET_NAME}"?</div>`;
+    grid.innerHTML = `<div class="error-box">❌ Erro ao carregar dados do Voleibol:\n\n${error.message}\n\nVerifique:\n• O ID da planilha (VOLEI_SHEET_ID)\n• A chave da API\n• A planilha está pública?</div>`;
     list.innerHTML = '';
   }
 }
