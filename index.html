@@ -305,6 +305,32 @@ nav{
 .hero-banner-cta:hover::after{transform:translateX(100%)}
 .hero-banner-cta:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(58,134,240,.45)}
 
+/* DATES in hero banner */
+.hero-banner-dates{
+  display:flex;align-items:center;gap:16px;
+  margin-top:14px;flex-wrap:wrap;
+}
+.hero-banner-date-item{
+  display:flex;flex-direction:column;gap:2px;
+}
+.hero-date-sport{
+  font-family:var(--M);font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,0.55);
+}
+.hero-date-when{
+  font-family:var(--D);font-size:18px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent);
+  text-shadow:0 0 10px rgba(58,134,240,0.5);
+}
+.hero-banner-date-sep{
+  font-size:24px;color:rgba(255,255,255,0.2);align-self:center;margin-top:6px;
+}
+@media(max-width:768px){
+  .hero-banner-dates{flex-direction:column;gap:10px;margin-top:10px;}
+  .hero-banner-date-sep{display:none;}
+  .hero-date-when{font-size:15px;}
+}
+
 /* STATS below image */
 .hero-stats-row{
   display:flex;gap:60px;padding:48px 24px 16px;flex-wrap:wrap;justify-content:center;
@@ -910,6 +936,17 @@ nav:not(.main-nav){display:none!important}
       <div class="hero-banner-text">
         <span class="hero-banner-eyebrow">⚡ O maior evento multiesporte</span>
         <div class="hero-banner-title">O maior da Região das Montanhas</div>
+        <div class="hero-banner-dates">
+          <div class="hero-banner-date-item">
+            <span class="hero-date-sport">🏀 Supercopa de Basquete</span>
+            <span class="hero-date-when">25 e 26 de Julho de 2026</span>
+          </div>
+          <div class="hero-banner-date-sep">·</div>
+          <div class="hero-banner-date-item">
+            <span class="hero-date-sport">🏐 Supercopa de Vôlei</span>
+            <span class="hero-date-when">28 e 29 de Novembro de 2026</span>
+          </div>
+        </div>
       </div>
      <a class="hero-banner-cta" href="inscricao.html">Inscrever Meu Time</a>  
     </div>
