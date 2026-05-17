@@ -443,6 +443,14 @@ td.team{ text-align:left; font-weight:700; }
 .mata-team-score.winner-score{ background:var(--accent); }
 .mata-team-score.loser-score{ background:rgba(255,255,255,0.08); color:var(--muted); }
 
+.mata-sets-detail{
+  font-family:var(--M);
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:0.5px;
+  white-space:nowrap;
+}
+
 /* TROPHY CARD */
 .trophy-card{
   background:var(--card);
@@ -812,34 +820,85 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
   <!-- VOLEI MATA-MATA -->
   <div id="voleiMataContent" class="hidden">
     <div class="section-title">Mata-Mata · Voleibol</div>
-    <div class="mata-bracket">
+    <div id="voleiMataLoading" class="loading">Carregando chaveamento...</div>
+    <div id="voleiMataError" class="error-box hidden"></div>
+
+    <div class="mata-bracket" id="voleiMataGrid" style="display:none">
 
       <!-- QUARTAS -->
       <div>
         <div class="mata-round-title">Quartas de Final</div>
 
-        <div class="mata-sub-label">1º A × 2º B</div>
+        <div class="mata-sub-label">Q1 · 1º A × 2º B</div>
         <div class="mata-matchup">
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row" id="vq1-rowA">
+            <span class="mata-team-name" id="vq1-nameA">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vq1-scoreA">-</span>
+              <span class="mata-sets-detail" id="vq1-setsA"></span>
+            </div>
+          </div>
+          <div class="mata-team-row" id="vq1-rowB">
+            <span class="mata-team-name" id="vq1-nameB">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vq1-scoreB">-</span>
+              <span class="mata-sets-detail" id="vq1-setsB"></span>
+            </div>
+          </div>
         </div>
 
-        <div class="mata-sub-label">1º C × 2º D</div>
+        <div class="mata-sub-label">Q2 · 1º B × 2º A</div>
         <div class="mata-matchup">
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row" id="vq2-rowA">
+            <span class="mata-team-name" id="vq2-nameA">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vq2-scoreA">-</span>
+              <span class="mata-sets-detail" id="vq2-setsA"></span>
+            </div>
+          </div>
+          <div class="mata-team-row" id="vq2-rowB">
+            <span class="mata-team-name" id="vq2-nameB">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vq2-scoreB">-</span>
+              <span class="mata-sets-detail" id="vq2-setsB"></span>
+            </div>
+          </div>
         </div>
 
-        <div class="mata-sub-label">1º B × 2º A</div>
+        <div class="mata-sub-label">Q3 · 1º C × 2º D</div>
         <div class="mata-matchup">
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row" id="vq3-rowA">
+            <span class="mata-team-name" id="vq3-nameA">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vq3-scoreA">-</span>
+              <span class="mata-sets-detail" id="vq3-setsA"></span>
+            </div>
+          </div>
+          <div class="mata-team-row" id="vq3-rowB">
+            <span class="mata-team-name" id="vq3-nameB">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vq3-scoreB">-</span>
+              <span class="mata-sets-detail" id="vq3-setsB"></span>
+            </div>
+          </div>
         </div>
 
-        <div class="mata-sub-label">1º D × 2º C</div>
+        <div class="mata-sub-label">Q4 · 1º D × 2º C</div>
         <div class="mata-matchup">
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row" id="vq4-rowA">
+            <span class="mata-team-name" id="vq4-nameA">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vq4-scoreA">-</span>
+              <span class="mata-sets-detail" id="vq4-setsA"></span>
+            </div>
+          </div>
+          <div class="mata-team-row" id="vq4-rowB">
+            <span class="mata-team-name" id="vq4-nameB">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vq4-scoreB">-</span>
+              <span class="mata-sets-detail" id="vq4-setsB"></span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -847,26 +906,62 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
       <div>
         <div class="mata-round-title">Semifinais</div>
 
-        <div class="mata-sub-label">Vencedor Q1 × Vencedor Q2</div>
+        <div class="mata-sub-label">SF1 · Venc. Q1 × Venc. Q2</div>
         <div class="mata-matchup">
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row" id="vsf1-rowA">
+            <span class="mata-team-name" id="vsf1-nameA">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vsf1-scoreA">-</span>
+              <span class="mata-sets-detail" id="vsf1-setsA"></span>
+            </div>
+          </div>
+          <div class="mata-team-row" id="vsf1-rowB">
+            <span class="mata-team-name" id="vsf1-nameB">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vsf1-scoreB">-</span>
+              <span class="mata-sets-detail" id="vsf1-setsB"></span>
+            </div>
+          </div>
         </div>
 
-        <div class="mata-sub-label">Vencedor Q3 × Vencedor Q4</div>
+        <div class="mata-sub-label">SF2 · Venc. Q3 × Venc. Q4</div>
         <div class="mata-matchup">
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row" id="vsf2-rowA">
+            <span class="mata-team-name" id="vsf2-nameA">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vsf2-scoreA">-</span>
+              <span class="mata-sets-detail" id="vsf2-setsA"></span>
+            </div>
+          </div>
+          <div class="mata-team-row" id="vsf2-rowB">
+            <span class="mata-team-name" id="vsf2-nameB">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vsf2-scoreB">-</span>
+              <span class="mata-sets-detail" id="vsf2-setsB"></span>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- GRANDE FINAL -->
       <div>
         <div class="mata-round-title">Grande Final</div>
-        <div class="mata-sub-label">Final</div>
+        <div class="mata-sub-label">Final · Venc. SF1 × Venc. SF2</div>
         <div class="mata-matchup">
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
-          <div class="mata-team-row"><span class="mata-team-name">A definir</span><span class="mata-team-score">-</span></div>
+          <div class="mata-team-row" id="vfin-rowA">
+            <span class="mata-team-name" id="vfin-nameA">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vfin-scoreA">-</span>
+              <span class="mata-sets-detail" id="vfin-setsA"></span>
+            </div>
+          </div>
+          <div class="mata-team-row" id="vfin-rowB">
+            <span class="mata-team-name" id="vfin-nameB">—</span>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
+              <span class="mata-team-score" id="vfin-scoreB">-</span>
+              <span class="mata-sets-detail" id="vfin-setsB"></span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -882,12 +977,11 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
           </div>
           <div class="trophy-emoji">🏆</div>
           <div class="trophy-label">Campeão da Supercopa</div>
-          <div class="trophy-name pending">A definir</div>
+          <div class="trophy-name pending" id="voleiCampeoName">Aguardando</div>
         </div>
       </div>
 
     </div>
-    <p class="mata-info">⏳ Fase de mata-mata começa após o encerramento da fase de grupos.</p>
   </div>
 
   <!-- BASQUETE MATA-MATA -->
@@ -1049,6 +1143,8 @@ function showModalidade(mod, btn) {
     startRefreshCycle(loadBasketballData);
   } else if (mod === 'voleiMata') {
     document.getElementById('voleiMataContent').classList.remove('hidden');
+    loadVoleiMataMata();
+    startRefreshCycle(loadVoleiMataMata);
   } else if (mod === 'basqueteMata') {
     document.getElementById('basqueteMataContent').classList.remove('hidden');
     loadMataMata();
@@ -1201,6 +1297,134 @@ async function loadVoleiData() {
     console.error(error);
     grid.innerHTML = `<div class="error-box">❌ Erro ao carregar dados do Voleibol:\n\n${error.message}\n\nVerifique:\n• O ID da planilha está correto? (VOLEI_SHEET_ID)\n• A chave da API está correta?\n• A planilha está pública?\n• O nome da aba: "${VOLEI_SHEET_NAME}"?</div>`;
     list.innerHTML = '';
+  }
+}
+
+// ============================================
+// CARREGA MATA-MATA VOLEIBOL (aba "Mata-Mata")
+// ============================================
+// Mapeamento (índices base-0):
+//  Quartas: rows 5-8  → Q1(r5), Q2(r6), Q3(r7), Q4(r8)
+//  Semis:   rows 12-13 → SF1(r12), SF2(r13)
+//  Final:   row 17    → FINAL(r17)
+//  Campeão: row 20, col A
+//  Colunas: B=1(Casa) C=2 D=3 E=4(Sets Casa) H=7 I=8 J=9(Sets Visit)
+//           L=11(Visit) M=12(SetsC) N=13(SetsV) O=14(Vencedor)
+
+const VOLEI_MATA_SHEET = 'Mata-Mata';
+
+async function loadVoleiMataMata() {
+  const loadingEl = document.getElementById('voleiMataLoading');
+  const errorEl   = document.getElementById('voleiMataError');
+  const grid      = document.getElementById('voleiMataGrid');
+
+  try {
+    const range = encodeURIComponent(`'${VOLEI_MATA_SHEET}'!A1:Q21`);
+    const url   = `https://sheets.googleapis.com/v4/spreadsheets/${VOLEI_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
+
+    const response = await fetch(url);
+    const result   = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error ? result.error.message : response.statusText);
+    }
+
+    const rows = result.values || [];
+    const c = (r, col) => (rows[r] && rows[r][col] != null) ? rows[r][col].toString().trim() : '';
+
+    // ── Helper: monta string dos placares de cada set ─────────────
+    // Lado A = cols 2,3,4 | Lado B = cols 7,8,9
+    function buildSets(r) {
+      const parts = [];
+      [[2,7],[3,8],[4,9]].forEach(([ca,cb]) => {
+        const a = c(r, ca), b = c(r, cb);
+        if (a !== '' && b !== '') parts.push(`${a}/${b}`);
+      });
+      return parts.join('  ');
+    }
+
+    // ── Helper: aplica um duelo nos elementos do DOM ──────────────
+    function applyDuel(prefix, r) {
+      const nameA  = c(r, 1)  || '—';
+      const nameB  = c(r, 11) || '—';
+      const setsA  = c(r, 12) || '-';
+      const setsB  = c(r, 13) || '-';
+      const winner = c(r, 14);
+      const sets   = buildSets(r);
+
+      // Nomes
+      document.getElementById(`${prefix}-nameA`).textContent = nameA;
+      document.getElementById(`${prefix}-nameB`).textContent = nameB;
+
+      // Placar em sets
+      const elSA = document.getElementById(`${prefix}-scoreA`);
+      const elSB = document.getElementById(`${prefix}-scoreB`);
+      elSA.textContent = setsA;
+      elSB.textContent = setsB;
+
+      // Detalhe dos sets (ex: 25/20  25/21)
+      const detA = document.getElementById(`${prefix}-setsA`);
+      const detB = document.getElementById(`${prefix}-setsB`);
+      if (detA) detA.textContent = sets;
+      if (detB) detB.textContent = '';  // só mostra na linha casa (resumo único)
+
+      // Highlight do vencedor
+      const rowA = document.getElementById(`${prefix}-rowA`);
+      const rowB = document.getElementById(`${prefix}-rowB`);
+      rowA.classList.remove('winner');
+      rowB.classList.remove('winner');
+      elSA.classList.remove('winner-score','loser-score');
+      elSB.classList.remove('winner-score','loser-score');
+
+      const isAguardando = !winner || winner === '—' || winner.toLowerCase().includes('aguard');
+      if (!isAguardando) {
+        if (winner === nameA) {
+          rowA.classList.add('winner');
+          elSA.classList.add('winner-score');
+          elSB.classList.add('loser-score');
+        } else {
+          rowB.classList.add('winner');
+          elSB.classList.add('winner-score');
+          elSA.classList.add('loser-score');
+        }
+      }
+    }
+
+    // ── Quartas (rows 5-8, índices 5,6,7,8) ──────────────────────
+    applyDuel('vq1', 5);
+    applyDuel('vq2', 6);
+    applyDuel('vq3', 7);
+    applyDuel('vq4', 8);
+
+    // ── Semis (rows 13-14, índices 12,13) ────────────────────────
+    applyDuel('vsf1', 12);
+    applyDuel('vsf2', 13);
+
+    // ── Final (row 18, índice 17) ─────────────────────────────────
+    applyDuel('vfin', 17);
+
+    // ── Campeão (row 21, índice 20, coluna A) ─────────────────────
+    const campeo   = c(20, 0);
+    const campeoEl = document.getElementById('voleiCampeoName');
+    const isWaiting = !campeo || campeo === '—' || campeo.toLowerCase().includes('aguard');
+    if (!isWaiting) {
+      campeoEl.textContent = campeo;
+      campeoEl.classList.remove('pending');
+    } else {
+      campeoEl.textContent = 'Aguardando';
+      campeoEl.classList.add('pending');
+    }
+
+    // Mostra grid, esconde loading/error
+    loadingEl.classList.add('hidden');
+    errorEl.classList.add('hidden');
+    grid.style.display = '';
+
+  } catch (error) {
+    console.error('Volei Mata-Mata error:', error);
+    loadingEl.classList.add('hidden');
+    errorEl.textContent = `❌ Erro ao carregar Mata-Mata do Voleibol:\n\n${error.message}`;
+    errorEl.classList.remove('hidden');
   }
 }
 
