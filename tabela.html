@@ -788,151 +788,12 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
   <!-- VOLEI -->
   <div id="voleiContent">
     <div class="section-title">Classificação · Voleibol</div>
-    <div class="groups-grid">
-      <!-- Grupo A -->
-      <div class="group-card">
-        <div class="group-header">Grupo A</div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
-            <tbody>
-              <tr><td class="team">Montanhas</td><td>6</td><td>2</td><td>0</td></tr>
-              <tr><td class="team">Fênix</td><td>3</td><td>1</td><td>1</td></tr>
-              <tr><td class="team">Lobos</td><td>0</td><td>0</td><td>2</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- Grupo B -->
-      <div class="group-card">
-        <div class="group-header">Grupo B</div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
-            <tbody>
-              <tr><td class="team">Titans</td><td>6</td><td>2</td><td>0</td></tr>
-              <tr><td class="team">Dragons</td><td>3</td><td>1</td><td>1</td></tr>
-              <tr><td class="team">Stars</td><td>0</td><td>0</td><td>2</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- Grupo C -->
-      <div class="group-card">
-        <div class="group-header">Grupo C</div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
-            <tbody>
-              <tr><td class="team">Giants</td><td>6</td><td>2</td><td>0</td></tr>
-              <tr><td class="team">Impact</td><td>3</td><td>1</td><td>1</td></tr>
-              <tr><td class="team">Alpha</td><td>0</td><td>0</td><td>2</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- Grupo D -->
-      <div class="group-card">
-        <div class="group-header">Grupo D</div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
-            <tbody>
-              <tr><td class="team">Rangers</td><td>6</td><td>2</td><td>0</td></tr>
-              <tr><td class="team">Storm</td><td>3</td><td>1</td><td>1</td></tr>
-              <tr><td class="team">Power</td><td>0</td><td>0</td><td>2</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div class="groups-grid" id="voleiClassificationGrid">
+      <div class="loading">Carregando classificação do Google Sheets...</div>
     </div>
-
     <div class="section-title">Jogos · Voleibol</div>
-    <div class="games-list">
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo A</span><span class="game-hour">08:00</span></div>
-        <div class="game-team left">Montanhas</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
-        <div class="game-team right">Fênix</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo A</span><span class="game-hour">09:00</span></div>
-        <div class="game-team left">Fênix</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">1</span></div>
-        <div class="game-team right">Lobos</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo A</span><span class="game-hour">10:00</span></div>
-        <div class="game-team left">Montanhas</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
-        <div class="game-team right">Lobos</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo B</span><span class="game-hour">11:00</span></div>
-        <div class="game-team left">Titans</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">1</span></div>
-        <div class="game-team right">Dragons</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo B</span><span class="game-hour">12:00</span></div>
-        <div class="game-team left">Stars</div>
-        <div class="game-score"><span class="score">0</span><span class="x">X</span><span class="score">2</span></div>
-        <div class="game-team right">Titans</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo B</span><span class="game-hour">13:00</span></div>
-        <div class="game-team left">Dragons</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
-        <div class="game-team right">Stars</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo C</span><span class="game-hour">14:00</span></div>
-        <div class="game-team left">Giants</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">1</span></div>
-        <div class="game-team right">Impact</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo C</span><span class="game-hour">15:00</span></div>
-        <div class="game-team left">Impact</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
-        <div class="game-team right">Alpha</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo C</span><span class="game-hour">16:00</span></div>
-        <div class="game-team left">Giants</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
-        <div class="game-team right">Alpha</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo D</span><span class="game-hour">17:00</span></div>
-        <div class="game-team left">Rangers</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">1</span></div>
-        <div class="game-team right">Storm</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo D</span><span class="game-hour">18:00</span></div>
-        <div class="game-team left">Storm</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
-        <div class="game-team right">Power</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
-      <div class="game-card">
-        <div class="game-info"><span class="game-group">Grupo D</span><span class="game-hour">19:00</span></div>
-        <div class="game-team left">Rangers</div>
-        <div class="game-score"><span class="score">2</span><span class="x">X</span><span class="score">0</span></div>
-        <div class="game-team right">Power</div>
-        <div class="game-status">FINALIZADO</div>
-      </div>
+    <div class="games-list" id="voleiGamesList">
+      <div class="loading">Carregando jogos do Google Sheets...</div>
     </div>
   </div>
 
@@ -1180,11 +1041,8 @@ function showModalidade(mod, btn) {
 
   if (mod === 'volei') {
     document.getElementById('voleiContent').classList.remove('hidden');
-    // Voleibol também tem refresh (dados estáticos por enquanto, mas mantém o badge ativo)
-    startRefreshCycle(() => {
-      // placeholder: caso volei venha a ter dados dinâmicos no futuro
-      console.log('🏐 Voleibol refreshed');
-    });
+    loadVoleiData();
+    startRefreshCycle(loadVoleiData);
   } else if (mod === 'basquete') {
     document.getElementById('basqueteContent').classList.remove('hidden');
     loadBasketballData();
@@ -1195,6 +1053,154 @@ function showModalidade(mod, btn) {
     document.getElementById('basqueteMataContent').classList.remove('hidden');
     loadMataMata();
     startRefreshCycle(loadMataMata);
+  }
+}
+
+// ============================================
+// CARREGA DADOS VOLEIBOL (GOOGLE SHEETS)
+// Aba: "Fase de Grupos" da planilha de vôlei
+// ID da planilha de vôlei (substitua pelo ID real após importar no Google Sheets)
+// ============================================
+const VOLEI_SHEET_ID   = 'SEU_SHEET_ID_VOLEI_AQUI'; // ← cole o ID da planilha de vôlei
+const VOLEI_SHEET_NAME = 'Fase de Grupos';
+
+/*
+ * Mapeamento de linhas na planilha "Fase de Grupos" (índices base-0):
+ *
+ * Classificação:
+ *   Grupo A → linhas 4-6  (B=Equipe, C=PTS, D=V, E=D)
+ *   Grupo B → linhas 16-18
+ *   Grupo C → linhas 28-30
+ *   Grupo D → linhas 40-42
+ *
+ * Jogos:
+ *   Grupo A → linhas 10-12 (B=Casa, C/D/E=Sets Casa, H/I/J=Sets Visit, L=Visit, M=SetsC, N=SetsV, O=Vencedor)
+ *   Grupo B → linhas 22-24
+ *   Grupo C → linhas 34-36
+ *   Grupo D → linhas 46-48
+ */
+
+async function loadVoleiData() {
+  const grid = document.getElementById('voleiClassificationGrid');
+  const list = document.getElementById('voleiGamesList');
+
+  try {
+    const range = encodeURIComponent(`'${VOLEI_SHEET_NAME}'!A1:Q49`);
+    const url   = `https://sheets.googleapis.com/v4/spreadsheets/${VOLEI_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
+
+    const response = await fetch(url);
+    const result   = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`Erro do Google Sheets: ${result.error ? result.error.message : response.statusText}`);
+    }
+
+    const rows = result.values || [];
+    const c = (r, col) => (rows[r] && rows[r][col] != null) ? rows[r][col].toString().trim() : '';
+
+    // ── Classificação ────────────────────────────────────────────
+    // Colunas: A=0,B=1,C=2,D=3,E=4
+    // PTS=col C(2), V=col D(3), D=col E(4), Equipe=col B(1)
+    const classGrupos = [
+      { title: 'Grupo A', rows: [4, 5, 6] },
+      { title: 'Grupo B', rows: [16, 17, 18] },
+      { title: 'Grupo C', rows: [28, 29, 30] },
+      { title: 'Grupo D', rows: [40, 41, 42] },
+    ];
+
+    grid.innerHTML = '';
+    classGrupos.forEach(grupo => {
+      const card = document.createElement('div');
+      card.className = 'group-card';
+      let trs = '';
+      grupo.rows.forEach(r => {
+        const equipe = c(r, 1);
+        const pts    = c(r, 2);
+        const v      = c(r, 3);
+        const d      = c(r, 4);
+        if (!equipe) return;
+        trs += `<tr>
+          <td class="team">${equipe}</td>
+          <td>${pts}</td>
+          <td>${v}</td>
+          <td>${d}</td>
+        </tr>`;
+      });
+      card.innerHTML = `
+        <div class="group-header">${grupo.title}</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Equipe</th><th>Pontos</th><th>Vitórias</th><th>Derrotas</th></tr></thead>
+            <tbody>${trs}</tbody>
+          </table>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    // ── Jogos ────────────────────────────────────────────────────
+    // Colunas: B=1(Casa), C=2(S1C), D=3(S2C), E=4(S3C), H=7(S1V), I=8(S2V), J=9(S3V),
+    //          L=11(Visit), M=12(SetsC), N=13(SetsV), O=14(Vencedor)
+    const jogosGrupos = [
+      { title: 'Grupo A', rows: [10, 11, 12] },
+      { title: 'Grupo B', rows: [22, 23, 24] },
+      { title: 'Grupo C', rows: [34, 35, 36] },
+      { title: 'Grupo D', rows: [46, 47, 48] },
+    ];
+
+    list.innerHTML = '';
+    jogosGrupos.forEach(grupo => {
+      grupo.rows.forEach((r, idx) => {
+        const casa    = c(r, 1);
+        const visit   = c(r, 11);
+        if (!casa && !visit) return;
+
+        const s1c = c(r, 2), s2c = c(r, 3), s3c = c(r, 4);
+        const s1v = c(r, 7), s2v = c(r, 8), s3v = c(r, 9);
+        const setsC   = c(r, 12);
+        const setsV   = c(r, 13);
+        const vencedor = c(r, 14) || 'A DEFINIR';
+
+        // Monta o placar de sets  ex: "2 X 1"
+        const scoreLeft  = setsC || '0';
+        const scoreRight = setsV || '0';
+
+        // Monta os placares por set  ex: "25/20  25/21"
+        let setDetails = '';
+        if (s1c && s1v) setDetails += `${s1c}/${s1v}`;
+        if (s2c && s2v) setDetails += `  ${s2c}/${s2v}`;
+        if (s3c && s3v) setDetails += `  ${s3c}/${s3v}`;
+
+        // Estilo do status: verde se finalizado (tem vencedor), cinza se a definir
+        const statusStyle = (vencedor && vencedor !== 'A DEFINIR' && vencedor !== '—')
+          ? 'border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.08);color:#4ade80;'
+          : 'border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#5a6174;';
+
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `
+          <div class="game-info">
+            <span class="game-group">${grupo.title}</span>
+            <span class="game-hour">Jogo ${idx + 1}</span>
+          </div>
+          <div class="game-team left">${casa}</div>
+          <div class="game-score" style="flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:18px;">
+              <span class="score">${scoreLeft}</span>
+              <span class="x">X</span>
+              <span class="score">${scoreRight}</span>
+            </div>
+            ${setDetails ? `<div style="font-family:var(--M);font-size:12px;color:var(--muted);letter-spacing:1px;">${setDetails}</div>` : ''}
+          </div>
+          <div class="game-team right">${visit}</div>
+          <div class="game-status" style="${statusStyle}">${vencedor}</div>`;
+        list.appendChild(card);
+      });
+    });
+
+  } catch (error) {
+    console.error(error);
+    grid.innerHTML = `<div class="error-box">❌ Erro ao carregar dados do Voleibol:\n\n${error.message}\n\nVerifique:\n• O ID da planilha está correto? (VOLEI_SHEET_ID)\n• A chave da API está correta?\n• A planilha está pública?\n• O nome da aba: "${VOLEI_SHEET_NAME}"?</div>`;
+    list.innerHTML = '';
   }
 }
 
@@ -1524,9 +1530,10 @@ async function loadMataMata() {
 }
 
 // ============================================
-// INIT — começa na aba de Voleibol
+// INIT — começa na aba de Voleibol com dados do Google Sheets
 // ============================================
-startRefreshCycle(() => { console.log('🏐 Voleibol refreshed'); });
+loadVoleiData();
+startRefreshCycle(loadVoleiData);
 
 // NAVBAR SCROLL SHRINK
 (function(){
