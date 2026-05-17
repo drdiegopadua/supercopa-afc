@@ -495,6 +495,98 @@ footer{padding:80px 48px 40px;background:var(--surface);border-top:1px solid var
 }
 .btn-o:hover{border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
 
+.mod-opt-disabled{
+  cursor:not-allowed!important;
+  opacity:0.52;
+}
+.mod-opt-disabled .mod-label{
+  cursor:not-allowed;
+}
+.mod-label-disabled{
+  position:relative;
+  border-color:var(--border)!important;
+  background:rgba(255,255,255,0.01)!important;
+}
+.m-badge-soon{
+  display:inline-block;
+  margin-left:8px;
+  padding:2px 8px;
+  border-radius:99px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--muted);
+  vertical-align:middle;
+  font-family:var(--M);
+}
+.btn-submit-disabled{
+  background:rgba(255,255,255,0.06)!important;
+  color:var(--muted)!important;
+  cursor:not-allowed!important;
+  box-shadow:none!important;
+  transform:none!important;
+  border:1px solid var(--border)!important;
+  opacity:0.6;
+}
+.btn-submit-disabled::after{display:none!important}
+
+/* REGULATION LINKS */
+.reg-links-wrap{
+  max-width:720px;
+  margin:0 auto 32px;
+  padding:0 24px;
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.reg-link{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 22px;
+  border-radius:8px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.10);
+  text-decoration:none;
+  color:var(--text);
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.reg-link:hover{
+  background:rgba(58,134,240,0.08);
+  border-color:rgba(58,134,240,0.35);
+  transform:translateY(-2px);
+}
+.reg-link-icon{
+  font-size:18px;
+  flex-shrink:0;
+}
+.reg-link-text{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.reg-link-text strong{
+  font-size:13px;
+  color:var(--text);
+}
+.reg-link-text span{
+  font-size:10px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-family:var(--M);
+}
+@media(max-width:600px){
+  .reg-links-wrap{flex-direction:column;align-items:stretch}
+  .reg-link{justify-content:center}
+}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* RESPONSIVO */
@@ -1825,6 +1917,24 @@ nav.main-nav.scrolled{
 
   </div>
 
+  <!-- REGULAMENTOS -->
+  <div class="reg-links-wrap">
+    <a class="reg-link" href="regulamento-volei.pdf" target="_blank" rel="noopener">
+      <span class="reg-link-icon">🏐</span>
+      <span class="reg-link-text">
+        <strong>Regulamento · Supercopa de Vôlei</strong>
+        <span>📄 Baixar PDF</span>
+      </span>
+    </a>
+    <a class="reg-link" href="regulamento-basquete.pdf" target="_blank" rel="noopener">
+      <span class="reg-link-icon">🏀</span>
+      <span class="reg-link-text">
+        <strong>Regulamento · Supercopa de Basquete</strong>
+        <span>📄 Baixar PDF</span>
+      </span>
+    </a>
+  </div>
+
   <div class="form-wrap">
 
     <div class="form-card">
@@ -1843,26 +1953,28 @@ nav.main-nav.scrolled{
 
         <div class="mod-toggle">
 
-          <label class="mod-opt">
+          <label class="mod-opt mod-opt-disabled">
 
-            <input type="radio" name="modalidade" value="Voleibol">
+            <input type="radio" name="modalidade" value="Voleibol" disabled>
 
-            <div class="mod-label">
+            <div class="mod-label mod-label-disabled">
               <span class="m-icon">🏐</span>
               Voleibol
               <span class="m-sub">6ª Edição</span>
+              <span class="m-badge-soon">Em breve</span>
             </div>
 
           </label>
 
-          <label class="mod-opt">
+          <label class="mod-opt mod-opt-disabled">
 
-            <input type="radio" name="modalidade" value="Basquete">
+            <input type="radio" name="modalidade" value="Basquete" disabled>
 
-            <div class="mod-label">
+            <div class="mod-label mod-label-disabled">
               <span class="m-icon">🏀</span>
               Basquete
               <span class="m-sub">1ª Edição</span>
+              <span class="m-badge-soon">Em breve</span>
             </div>
 
           </label>
@@ -2017,7 +2129,7 @@ nav.main-nav.scrolled{
           ✓ Evento totalmente gratuito.
         </div>
 
-        <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+        <button class="btn-submit btn-submit-disabled" id="btnSubmit" disabled>
 
           <span class="btn-text">
             Enviar Pré-Inscrição
