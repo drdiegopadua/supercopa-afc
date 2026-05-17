@@ -140,14 +140,62 @@ nav{
   box-shadow: 0 6px 20px rgba(58,134,240,0.4);
 }
 
+/* ── dual-block layout ── */
+.urgency-bar {
+  justify-content: center !important;
+  gap: 0 !important;
+}
+.ub-block {
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 20px;
+}
+
+/* animated divider */
+.ub-divider {
+  display: flex; align-items: center; gap: 6px;
+  flex-shrink: 0; padding: 0 4px;
+}
+.ub-div-line {
+  display: block; width: 28px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(58,134,240,0.6), transparent);
+  animation: divPulse 2s ease-in-out infinite alternate;
+}
+.ub-div-line:last-child { animation-delay: .5s; }
+.ub-div-icon {
+  font-size: 13px; color: rgba(58,134,240,0.7);
+  animation: divSpin 4s linear infinite;
+  display: inline-block;
+}
+@keyframes divPulse {
+  from { opacity: 0.3; width: 18px; }
+  to   { opacity: 1;   width: 32px; }
+}
+@keyframes divSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* voleibol pulse — laranja */
+.ub-pulse-vl {
+  background: var(--accent2) !important;
+  box-shadow: 0 0 0 0 rgba(232,93,58,0.7) !important;
+  animation: ubPulseVl 1.8s ease-in-out infinite !important;
+}
+@keyframes ubPulseVl {
+  0%   { box-shadow: 0 0 0 0 rgba(232,93,58,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(232,93,58,0); }
+  100% { box-shadow: 0 0 0 0 rgba(232,93,58,0); }
+}
+
 /* mobile urgency bar */
 @media (max-width: 768px) {
-  .urgency-bar { padding: 0 14px; height: 56px; gap: 8px; }
-  .ub-label    { display: none; }
-  .ub-pulse    { display: none; }
-  .ub-unit     { min-width: 36px; padding: 3px 6px; }
-  .ub-num      { font-size: 17px; }
-  .ub-cta      { font-size: 9px; padding: 6px 10px; letter-spacing: 1px; }
+  .urgency-bar { padding: 4px 10px; height: auto; flex-direction: column; gap: 4px !important; }
+  .ub-block    { padding: 2px 6px; gap: 8px; }
+  .ub-label    { font-size: 8px; letter-spacing: 1.5px; }
+  .ub-unit     { min-width: 32px; padding: 2px 5px; }
+  .ub-num      { font-size: 15px; }
+  .ub-divider  { transform: rotate(90deg); padding: 0; }
+  .ub-div-line { width: 16px; }
 }
 .urgency-bar::before{
   content:'';position:absolute;inset:0;
@@ -844,69 +892,73 @@ nav:not(.main-nav){display:none!important}
 
 <header>
   <div class="urgency-bar">
-  <div class="ub-left-group">
-  <div class="ub-left">
-    <span class="ub-pulse"></span>
-    <span class="ub-label">EM JULHO · SUPERCOPA BASQUETE 2026</span>
-  </div>
-  <div class="ub-countdown" id="ubCountdown">
-    <div class="ub-unit">
-      <span class="ub-num" id="ubDays">00</span>
-      <span class="ub-unit-label">DIAS</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubHours">00</span>
-      <span class="ub-unit-label">HRS</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubMins">00</span>
-      <span class="ub-unit-label">MIN</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubSecs">00</span>
-      <span class="ub-unit-label">SEG</span>
-    </div>
-  </div>
 
-
-
-
-   <span class="ub-pulse"></span>
-    <span class="ub-label">EM NOVEMBRO · SUPERCOPA VOLEIBOL 2026</span>
-  </div>
-  <div class="ub-countdown" id="ubCountdown">
-    <div class="ub-unit">
-      <span class="ub-num" id="ubDays">00</span>
-      <span class="ub-unit-label">DIAS</span>
+    <!-- BLOCO 1 — BASQUETE -->
+    <div class="ub-block">
+      <div class="ub-left">
+        <span class="ub-pulse"></span>
+        <span class="ub-label">🏀 SUPERCOPA DE BASQUETE · 25/07 ÀS 13H</span>
+      </div>
+      <div class="ub-countdown">
+        <div class="ub-unit">
+          <span class="ub-num" id="bkDays">00</span>
+          <span class="ub-unit-label">DIAS</span>
+        </div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit">
+          <span class="ub-num" id="bkHours">00</span>
+          <span class="ub-unit-label">HRS</span>
+        </div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit">
+          <span class="ub-num" id="bkMins">00</span>
+          <span class="ub-unit-label">MIN</span>
+        </div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit">
+          <span class="ub-num" id="bkSecs">00</span>
+          <span class="ub-unit-label">SEG</span>
+        </div>
+      </div>
     </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubHours">00</span>
-      <span class="ub-unit-label">HRS</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubMins">00</span>
-      <span class="ub-unit-label">MIN</span>
-    </div>
-    <span class="ub-sep">:</span>
-    <div class="ub-unit">
-      <span class="ub-num" id="ubSecs">00</span>
-      <span class="ub-unit-label">SEG</span>
-    </div>
-  </div>
 
+    <!-- DIVISOR ANIMADO -->
+    <div class="ub-divider">
+      <span class="ub-div-line"></span>
+      <span class="ub-div-icon">◈</span>
+      <span class="ub-div-line"></span>
+    </div>
 
+    <!-- BLOCO 2 — VOLEIBOL -->
+    <div class="ub-block">
+      <div class="ub-left">
+        <span class="ub-pulse ub-pulse-vl"></span>
+        <span class="ub-label">🏐 SUPERCOPA DE VOLEIBOL · 28/11 ÀS 13H</span>
+      </div>
+      <div class="ub-countdown">
+        <div class="ub-unit">
+          <span class="ub-num" id="vlDays">00</span>
+          <span class="ub-unit-label">DIAS</span>
+        </div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit">
+          <span class="ub-num" id="vlHours">00</span>
+          <span class="ub-unit-label">HRS</span>
+        </div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit">
+          <span class="ub-num" id="vlMins">00</span>
+          <span class="ub-unit-label">MIN</span>
+        </div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit">
+          <span class="ub-num" id="vlSecs">00</span>
+          <span class="ub-unit-label">SEG</span>
+        </div>
+      </div>
+    </div>
 
-    
-  </div><!-- /ub-left-group -->
-  <div class="ub-right">
-<!--    <a class="ub-cta" href="inscricao.html">INSCREVA-SE</a>  -->
-  </div>
-</div>
+  </div><!-- /urgency-bar -->
 
   <!-- NAVBAR ÚNICA com logos + links na mesma linha -->
   <nav class="main-nav">
@@ -1343,47 +1395,26 @@ document.addEventListener('DOMContentLoaded', function(){
 /* ── COUNTDOWN — Supercopa Basquete 25/07/2026 13:00 ── */
 (function(){
   const target = new Date('2026-07-25T13:00:00');
-
-  const elD = document.getElementById('ubDays');
-  const elH = document.getElementById('ubHours');
-  const elM = document.getElementById('ubMins');
-  const elS = document.getElementById('ubSecs');
-
+  const elD = document.getElementById('bkDays');
+  const elH = document.getElementById('bkHours');
+  const elM = document.getElementById('bkMins');
+  const elS = document.getElementById('bkSecs');
   function pad(n){ return String(n).padStart(2,'0'); }
-
   function flip(el, newVal){
-    const cur = el.textContent;
-    if(cur === newVal) return;
+    if(!el) return;
+    if(el.textContent === newVal) return;
     el.classList.add('flip');
-    setTimeout(()=>{
-      el.textContent = newVal;
-      el.classList.remove('flip');
-    }, 180);
+    setTimeout(()=>{ el.textContent = newVal; el.classList.remove('flip'); }, 180);
   }
-
   function tick(){
-    const now  = new Date();
-    const diff = target - now;
-
-    if(diff <= 0){
-      [elD,elH,elM,elS].forEach(el => el.textContent = '00');
-      document.querySelector('.ub-label').textContent = '🏆 SUPERCOPA BASQUETE — AO VIVO AGORA!';
-      return;
-    }
-
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-
-    flip(elD, pad(days));
-    flip(elH, pad(hours));
-    flip(elM, pad(mins));
-    flip(elS, pad(secs));
+    const diff = target - new Date();
+    if(diff <= 0){ [elD,elH,elM,elS].forEach(el=>{ if(el) el.textContent='00'; }); return; }
+    flip(elD, pad(Math.floor(diff/86400000)));
+    flip(elH, pad(Math.floor((diff%86400000)/3600000)));
+    flip(elM, pad(Math.floor((diff%3600000)/60000)));
+    flip(elS, pad(Math.floor((diff%60000)/1000)));
   }
-
-  tick();
-  setInterval(tick, 1000);
+  tick(); setInterval(tick, 1000);
 })();
 </script>
 
@@ -1398,50 +1429,29 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 <script>
-/* ── COUNTDOWN — Supercopa VOLEI 28/11/2026 13:00 ── */
+/* ── COUNTDOWN — Supercopa Voleibol 28/11/2026 13:00 ── */
 (function(){
   const target = new Date('2026-11-28T13:00:00');
-
-  const elD = document.getElementById('ubDays');
-  const elH = document.getElementById('ubHours');
-  const elM = document.getElementById('ubMins');
-  const elS = document.getElementById('ubSecs');
-
+  const elD = document.getElementById('vlDays');
+  const elH = document.getElementById('vlHours');
+  const elM = document.getElementById('vlMins');
+  const elS = document.getElementById('vlSecs');
   function pad(n){ return String(n).padStart(2,'0'); }
-
   function flip(el, newVal){
-    const cur = el.textContent;
-    if(cur === newVal) return;
+    if(!el) return;
+    if(el.textContent === newVal) return;
     el.classList.add('flip');
-    setTimeout(()=>{
-      el.textContent = newVal;
-      el.classList.remove('flip');
-    }, 180);
+    setTimeout(()=>{ el.textContent = newVal; el.classList.remove('flip'); }, 180);
   }
-
   function tick(){
-    const now  = new Date();
-    const diff = target - now;
-
-    if(diff <= 0){
-      [elD,elH,elM,elS].forEach(el => el.textContent = '00');
-      document.querySelector('.ub-label').textContent = '🏆 SUPERCOPA VOLEIBOL — AO VIVO AGORA!';
-      return;
-    }
-
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-
-    flip(elD, pad(days));
-    flip(elH, pad(hours));
-    flip(elM, pad(mins));
-    flip(elS, pad(secs));
+    const diff = target - new Date();
+    if(diff <= 0){ [elD,elH,elM,elS].forEach(el=>{ if(el) el.textContent='00'; }); return; }
+    flip(elD, pad(Math.floor(diff/86400000)));
+    flip(elH, pad(Math.floor((diff%86400000)/3600000)));
+    flip(elM, pad(Math.floor((diff%3600000)/60000)));
+    flip(elS, pad(Math.floor((diff%60000)/1000)));
   }
-
-  tick();
-  setInterval(tick, 1000);
+  tick(); setInterval(tick, 1000);
 })();
 </script>
 
