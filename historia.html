@@ -3,53 +3,928 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>História</title>
+<title>História · SUPERCOPA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-<link rel="stylesheet" href="style.css">
+:root{
+  --bg:#07090d;--surface:#0d1018;--card:#111520;--border:rgba(255,255,255,0.07);
+  --accent:#3a86f0;--accent2:#e85d3a;--text:#e8eaf0;--muted:#5a6174;
+  --D:'Bebas Neue',sans-serif;--B:'DM Sans',sans-serif;--M:'Space Mono',monospace;
+}
 
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidden;}
 
+@keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes navSlideDown{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes titleShine{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes lineGrow{from{height:0}to{height:100%}}
+@keyframes dotPop{from{transform:scale(0)}to{transform:scale(1)}}
+
+header{position:sticky;top:0;z-index:1000;}
+
+.urgency-bar{
+  background:var(--accent);color:#000;text-align:center;
+  padding:10px;font-family:var(--M);font-size:11px;letter-spacing:2px;font-weight:700;
+  overflow:hidden;position:relative;
+}
+.urgency-bar::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  animation:shine 2.5s linear infinite;
+}
+
+nav.main-nav{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:0 36px;min-height:72px;
+  background:rgba(13,16,24,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  animation:navSlideDown .5s cubic-bezier(.22,1,.36,1) both;
+  transition:min-height .35s ease,background .35s ease,box-shadow .35s ease,border-color .35s ease;
+}
+nav.main-nav.scrolled{
+  min-height:58px;background:rgba(7,9,13,0.97);
+  box-shadow:0 4px 32px rgba(0,0,0,.5);border-bottom-color:rgba(58,134,240,0.15);
+}
+.nav-logo{
+  font-family:var(--D);font-size:26px;letter-spacing:3px;color:var(--accent);
+  text-decoration:none;flex-shrink:0;
+  opacity:0;animation:fadeUp .5s .05s ease forwards;
+  transition:letter-spacing .3s ease,color .2s;
+}
+.nav-logo:hover{letter-spacing:5px;color:var(--text)}
+.nav-logo span{color:rgba(255,255,255,0.3);}
+
+.main-nav-links{display:flex;list-style:none;gap:0;flex:1;justify-content:center;}
+.main-nav-links li{opacity:0;animation:fadeUp .45s ease forwards;}
+.main-nav-links li:nth-child(1){animation-delay:.10s}
+.main-nav-links li:nth-child(2){animation-delay:.15s}
+.main-nav-links li:nth-child(3){animation-delay:.20s}
+.main-nav-links li:nth-child(4){animation-delay:.25s}
+.main-nav-links li:nth-child(5){animation-delay:.30s}
+.main-nav-links li:nth-child(6){animation-delay:.35s}
+.main-nav-links li:nth-child(7){animation-delay:.40s}
+.main-nav-links li a{
+  display:block;padding:24px 18px;
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  position:relative;transition:color .2s;white-space:nowrap;
+}
+.main-nav-links li a::after{
+  content:'';position:absolute;bottom:0;left:18px;right:18px;height:2px;
+  background:var(--accent);border-radius:999px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+}
+.main-nav-links li a:hover{color:var(--text)}
+.main-nav-links li a:hover::after{transform:scaleX(1)}
+.main-nav-links li a.active{color:var(--accent)}
+.main-nav-links li a.active::after{transform:scaleX(1)}
+
+.nav-social{display:flex;gap:16px;align-items:center;flex-shrink:0;
+  opacity:0;animation:fadeUp .45s .4s ease forwards;}
+.nav-social a{color:var(--muted);text-decoration:none;transition:color .2s,transform .2s;display:flex;align-items:center;}
+.nav-social a:hover{color:var(--text);transform:translateY(-2px)}
+
+.hamburger{display:none;}
+.mobile-drawer{display:none;}
+.drawer-overlay{display:none;}
+
+@media(max-width:768px){
+  nav.main-nav{padding:0 16px;min-height:64px;}
+  .main-nav-links{display:none;}
+  .nav-social{display:none;}
+  .hamburger{
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+    width:40px;height:40px;background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);border-radius:6px;cursor:pointer;flex-shrink:0;transition:background .2s;
+  }
+  .hamburger:hover{background:rgba(58,134,240,0.15);}
+  .hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-drawer{
+    display:block;position:fixed;top:0;right:-100%;width:80vw;max-width:300px;
+    height:100dvh;background:#0d1018;border-left:1px solid rgba(58,134,240,0.2);
+    z-index:1200;transition:right .35s cubic-bezier(.22,1,.36,1);overflow-y:auto;padding:0 0 40px;
+  }
+  .mobile-drawer.open{right:0;}
+  .drawer-overlay{
+    display:block;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+    z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  .drawer-overlay.open{opacity:1;pointer-events:all;}
+  .drawer-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 20px;border-bottom:1px solid rgba(255,255,255,0.07);
+  }
+  .drawer-header .d-logo-txt{font-family:var(--D);font-size:20px;letter-spacing:3px;color:var(--accent);}
+  .drawer-header .d-logo-txt span{color:rgba(255,255,255,0.3);}
+  .drawer-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:22px;line-height:1;transition:color .2s;}
+  .drawer-close:hover{color:var(--text);}
+  .drawer-links{list-style:none;padding:12px 0;}
+  .drawer-links li{border-bottom:1px solid rgba(255,255,255,0.05);}
+  .drawer-links li a{
+    display:flex;align-items:center;gap:14px;padding:18px 24px;
+    font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+    color:var(--muted);text-decoration:none;transition:color .2s,padding-left .2s;
+  }
+  .drawer-links li a:hover,.drawer-links li a.active{color:var(--accent);padding-left:30px;}
+  .drawer-links li a .d-icon{font-size:16px;width:20px;text-align:center;}
+  .drawer-cta{
+    margin:28px 24px 0;display:block;text-align:center;background:var(--accent);color:#000;
+    padding:15px;border-radius:4px;font-weight:700;font-size:12px;letter-spacing:1.5px;
+    text-transform:uppercase;text-decoration:none;
+  }
+}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero{
+  position:relative;min-height:72vh;
+  display:flex;align-items:center;
+  overflow:hidden;padding:100px 48px 80px;
+}
+.hero-bg-lines{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.hero-bg-lines svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120%;height:120%;opacity:0.06;}
+.hero-glow{position:absolute;top:10%;right:5%;width:700px;height:700px;background:radial-gradient(ellipse at center,rgba(58,134,240,0.10) 0%,transparent 65%);pointer-events:none;z-index:0;}
+.hero-glow2{position:absolute;bottom:0;left:0;width:500px;height:500px;background:radial-gradient(ellipse at center,rgba(232,93,58,0.06) 0%,transparent 65%);pointer-events:none;z-index:0;}
+
+.hero-content{position:relative;z-index:10;max-width:680px;}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.28);
+  border-radius:100px;padding:6px 20px;
+  font-family:var(--M);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:28px;opacity:0;animation:fadeUp .6s .2s ease forwards;
+}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:blink 1.4s infinite;box-shadow:0 0 6px var(--accent)}
+
+.hero-content h1{
+  font-family:var(--D);font-size:clamp(3.8rem,7vw,7.5rem);
+  line-height:.92;letter-spacing:3px;text-transform:uppercase;
+  opacity:0;animation:fadeUp .7s .35s ease forwards;
+}
+.hero-content h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#a8d0ff 0%,#3a86f0 40%,#ffffff 60%,#3a86f0 80%,#1a4a9e 100%);
+  background-size:200% 200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:titleShine 4s ease-in-out infinite alternate;
+}
+.hero-content p{
+  margin-top:20px;color:var(--muted);font-size:16px;line-height:1.8;max-width:540px;
+  opacity:0;animation:fadeUp .7s .5s ease forwards;
+}
+
+.hero-stats{
+  display:flex;gap:40px;margin-top:44px;
+  opacity:0;animation:fadeUp .7s .65s ease forwards;
+}
+.hero-stat{display:flex;flex-direction:column;gap:4px;}
+.hero-stat-num{font-family:var(--D);font-size:42px;letter-spacing:2px;color:var(--accent);line-height:1;}
+.hero-stat-label{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+
+/* ══════════════════════════════
+   SOBRE A SUPERCOPA
+══════════════════════════════ */
+.about-section{
+  padding:80px 48px;
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.about-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.section-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--M);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.section-tag::before{content:'';width:24px;height:2px;background:var(--accent);}
+.section-title{
+  font-family:var(--D);font-size:clamp(2.2rem,4vw,3.6rem);
+  letter-spacing:2px;line-height:1.0;margin-bottom:24px;
+}
+.section-title em{font-style:normal;color:var(--accent);}
+.about-text p{
+  color:var(--muted);font-size:15px;line-height:1.85;margin-bottom:16px;
+}
+.about-text p:last-child{margin-bottom:0;}
+.about-text strong{color:var(--text);font-weight:600;}
+
+.about-cards{display:flex;flex-direction:column;gap:16px;}
+.about-card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:22px 24px;display:flex;align-items:flex-start;gap:16px;
+  transition:border-color .25s,transform .25s;
+}
+.about-card:hover{border-color:rgba(58,134,240,0.35);transform:translateX(4px);}
+.about-card-icon{font-size:28px;flex-shrink:0;line-height:1;}
+.about-card-body{}
+.about-card-title{font-family:var(--D);font-size:20px;letter-spacing:1.5px;margin-bottom:4px;}
+.about-card-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* ══════════════════════════════
+   TIMELINE
+══════════════════════════════ */
+.timeline-section{padding:100px 48px;}
+.timeline-section .section-tag{display:inline-flex;}
+.timeline-header{max-width:1100px;margin:0 auto 64px;}
+
+.timeline{
+  max-width:900px;margin:0 auto;
+  position:relative;
+}
+/* linha vertical central */
+.timeline::before{
+  content:'';position:absolute;
+  left:50%;top:0;bottom:0;
+  width:1px;background:linear-gradient(to bottom,transparent,var(--border) 5%,var(--border) 95%,transparent);
+  transform:translateX(-50%);
+}
+
+.tl-item{
+  display:grid;grid-template-columns:1fr 60px 1fr;
+  gap:0;align-items:start;
+  margin-bottom:64px;
+  opacity:0;transform:translateY(28px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.tl-item.visible{opacity:1;transform:translateY(0);}
+
+/* alternado: par = texto direita, ímpar = texto esquerda */
+.tl-item:nth-child(even) .tl-content{grid-column:3;text-align:left;}
+.tl-item:nth-child(even) .tl-center{grid-column:2;grid-row:1;}
+.tl-item:nth-child(even) .tl-empty{grid-column:1;grid-row:1;}
+
+.tl-item:nth-child(odd) .tl-content{grid-column:1;text-align:right;}
+.tl-item:nth-child(odd) .tl-center{grid-column:2;}
+.tl-item:nth-child(odd) .tl-empty{grid-column:3;}
+
+.tl-center{
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:6px;
+  grid-column:2;
+}
+.tl-dot{
+  width:16px;height:16px;border-radius:50%;
+  background:var(--accent);border:3px solid var(--bg);
+  box-shadow:0 0 0 2px var(--accent);
+  flex-shrink:0;
+  transform:scale(0);transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.tl-item.visible .tl-dot{transform:scale(1);}
+.tl-dot.special{background:var(--accent2);box-shadow:0 0 0 2px var(--accent2);}
+
+.tl-year-badge{
+  font-family:var(--M);font-size:10px;letter-spacing:2px;
+  background:var(--accent);color:#000;
+  padding:3px 10px;border-radius:100px;margin-top:8px;
+  white-space:nowrap;
+}
+.tl-year-badge.special{background:var(--accent2);}
+
+.tl-content{padding:0 24px;}
+.tl-edition{
+  font-family:var(--M);font-size:10px;letter-spacing:2px;color:var(--accent);
+  text-transform:uppercase;margin-bottom:8px;
+}
+.tl-edition.special{color:var(--accent2);}
+.tl-title{
+  font-family:var(--D);font-size:28px;letter-spacing:2px;
+  line-height:1.1;margin-bottom:10px;
+}
+.tl-desc{font-size:14px;color:var(--muted);line-height:1.75;}
+.tl-desc strong{color:var(--text);}
+
+.tl-champ{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:14px;
+  background:rgba(58,134,240,0.08);border:1px solid rgba(58,134,240,0.2);
+  border-radius:8px;padding:10px 16px;
+}
+.tl-champ.special{background:rgba(232,93,58,0.08);border-color:rgba(232,93,58,0.2);}
+.tl-champ-label{font-family:var(--M);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:2px;}
+.tl-champ-name{font-family:var(--D);font-size:18px;letter-spacing:1.5px;color:var(--text);}
+.tl-champ-icon{font-size:20px;}
+
+/* último item — 2026 — especial */
+.tl-item.future .tl-dot{background:var(--accent2);box-shadow:0 0 0 2px var(--accent2);animation:blink 1.4s infinite;}
+.tl-item.future .tl-content-box{
+  background:linear-gradient(135deg,rgba(232,93,58,0.06),rgba(58,134,240,0.06));
+  border:1px solid rgba(232,93,58,0.2);border-radius:12px;padding:20px;
+}
+
+/* ══════════════════════════════
+   COMISSÃO ORGANIZADORA
+══════════════════════════════ */
+.comissao-section{
+  padding:80px 48px 100px;
+  background:var(--surface);
+  border-top:1px solid var(--border);
+}
+.comissao-inner{max-width:1100px;margin:0 auto;}
+.comissao-header{margin-bottom:56px;}
+
+.comissao-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:20px;
+}
+.membro-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:28px 24px;display:flex;flex-direction:column;align-items:center;gap:12px;
+  text-align:center;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .5s ease,transform .5s ease,border-color .25s,box-shadow .25s;
+}
+.membro-card:hover{border-color:rgba(58,134,240,0.3);box-shadow:0 8px 32px rgba(58,134,240,0.08);}
+.membro-card.visible{opacity:1;transform:translateY(0);}
+
+.membro-avatar{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(58,134,240,0.2),rgba(58,134,240,0.05));
+  border:2px solid rgba(58,134,240,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;
+}
+.membro-name{font-family:var(--D);font-size:20px;letter-spacing:1.5px;line-height:1.1;}
+.membro-role{
+  font-family:var(--M);font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent);background:rgba(58,134,240,0.08);
+  border:1px solid rgba(58,134,240,0.18);border-radius:100px;
+  padding:4px 12px;
+}
+
+/* ══════════════════════════════
+   CAMPEÕES DESTAQUE
+══════════════════════════════ */
+.campeoes-section{padding:100px 48px;}
+.campeoes-inner{max-width:1100px;margin:0 auto;}
+.campeoes-header{margin-bottom:56px;}
+
+.campeoes-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px;
+}
+.campeon-card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:24px 16px;text-align:center;
+  position:relative;overflow:hidden;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .5s ease,transform .5s ease,border-color .25s,box-shadow .25s;
+}
+.campeon-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(58,134,240,0.05),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.campeon-card:hover::before{opacity:1;}
+.campeon-card:hover{border-color:rgba(58,134,240,0.3);box-shadow:0 8px 28px rgba(58,134,240,0.10);transform:translateY(-4px) !important;}
+.campeon-card.visible{opacity:1;transform:translateY(0);}
+
+.campeon-trophy{font-size:32px;margin-bottom:10px;display:block;}
+.campeon-year{font-family:var(--M);font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:6px;}
+.campeon-edition{font-family:var(--D);font-size:13px;letter-spacing:1px;color:var(--muted);margin-bottom:10px;}
+.campeon-name{font-family:var(--D);font-size:19px;letter-spacing:1.5px;line-height:1.1;}
+.campeon-sport{
+  margin-top:10px;display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--M);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 10px;border-radius:100px;
+  background:rgba(58,134,240,0.08);border:1px solid rgba(58,134,240,0.18);color:var(--accent);
+}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* FOOTER */
+footer{padding:60px 48px 32px;background:var(--surface);border-top:1px solid var(--border);}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:48px;}
+.footer-logo{font-family:var(--D);font-size:24px;letter-spacing:2px;color:var(--text);margin-bottom:10px;}
+.footer-tagline{font-size:12px;color:var(--muted);max-width:240px;line-height:1.6;}
+.footer-links{list-style:none;display:flex;gap:36px;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;transition:color .2s;}
+.footer-links a:hover{color:var(--text);}
+.footer-bottom{max-width:1200px;margin:0 auto;padding-top:32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+/* TRANSIÇÃO */
+#sc-transition{position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center;}
+.sc-t-panel{position:absolute;top:0;bottom:0;width:51%;background:#07090d;transform:scaleX(0);transition:transform 0.55s cubic-bezier(0.86,0,0.07,1);}
+.sc-t-p1{left:0;transform-origin:left;}
+.sc-t-p2{right:0;transform-origin:right;}
+.sc-t-logo{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:scale(0.85) translateY(10px);transition:opacity .35s ease .3s,transform .45s cubic-bezier(.22,1,.36,1) .3s;pointer-events:none;}
+.sc-t-logo-text{font-family:"Bebas Neue",sans-serif;font-size:clamp(42px,8vw,72px);letter-spacing:6px;color:#3a86f0;line-height:1;}
+.sc-t-logo-text em{font-style:normal;color:rgba(255,255,255,0.25);}
+.sc-t-logo-year{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:6px;color:rgba(255,255,255,0.35);text-transform:uppercase;}
+.sc-t-logo-bar{display:block;width:0;height:2px;background:#3a86f0;border-radius:2px;transition:width .45s cubic-bezier(.22,1,.36,1) .45s;box-shadow:0 0 12px rgba(58,134,240,0.6);}
+#sc-transition.sc-t-active .sc-t-p1,#sc-transition.sc-t-active .sc-t-p2{transform:scaleX(1);}
+#sc-transition.sc-t-active .sc-t-logo{opacity:1;transform:scale(1) translateY(0);}
+#sc-transition.sc-t-active .sc-t-logo-bar{width:120px;}
+#sc-transition.sc-t-leaving .sc-t-p1{transform:scaleX(0);transform-origin:right;transition:transform .65s cubic-bezier(.86,0,.07,1) .15s;}
+#sc-transition.sc-t-leaving .sc-t-p2{transform:scaleX(0);transform-origin:left;transition:transform .65s cubic-bezier(.86,0,.07,1) .15s;}
+#sc-transition.sc-t-leaving .sc-t-logo{opacity:0;transform:scale(0.9) translateY(-8px);transition:opacity .2s ease 0s,transform .2s ease 0s;}
+#sc-transition.sc-t-leaving .sc-t-logo-bar{width:0;transition:width .2s ease 0s;}
+
+/* RESPONSIVO */
+@media(max-width:1024px){
+  .about-inner{grid-template-columns:1fr;gap:48px;}
+  .campeoes-grid{grid-template-columns:repeat(3,1fr);}
+  .timeline::before{left:24px;}
+  .tl-item{grid-template-columns:48px 1fr;gap:0;}
+  .tl-item:nth-child(odd) .tl-content,
+  .tl-item:nth-child(even) .tl-content{grid-column:2;text-align:left;}
+  .tl-item:nth-child(odd) .tl-center,
+  .tl-item:nth-child(even) .tl-center{grid-column:1;grid-row:1;}
+  .tl-item:nth-child(odd) .tl-empty,
+  .tl-item:nth-child(even) .tl-empty{display:none;}
+  .tl-content{padding:0 0 0 16px;}
+}
+@media(max-width:768px){
+  .hero{padding:60px 20px 40px;min-height:auto;}
+  .hero-stats{gap:24px;}
+  .hero-stat-num{font-size:32px;}
+  .about-section,.timeline-section,.comissao-section,.campeoes-section{padding:60px 20px;}
+  .campeoes-grid{grid-template-columns:repeat(2,1fr);}
+  .comissao-grid{grid-template-columns:repeat(2,1fr);}
+  .footer-inner{flex-direction:column;gap:32px;}
+  .footer-links{flex-wrap:wrap;gap:20px;}
+  .footer-bottom{flex-direction:column;gap:8px;}
+  footer{padding:40px 20px 24px;}
+  .tl-item{margin-bottom:48px;}
+}
+@media(max-width:480px){
+  .campeoes-grid{grid-template-columns:1fr 1fr;}
+  .comissao-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
 </head>
 <body>
 
-<header class="hero">
-
-<nav class="navbar">
-
-<div class="logo">SUPERCOPA AFC</div>
-
-<ul>
-<li><a href="index.html">Início</a></li>
-<li><a href="quem-somos.html">Quem Somos</a></li>
-<li><a href="historia.html">História</a></li>
-<li><a href="tabela.html">Tabela</a></li>
-<li><a href="galeria.html">Galeria</a></li>
-</ul>
-
-</nav>
-
-<div class="hero-content">
-
-<span class="tag">NOSSA HISTÓRIA</span>
-
-<h1>
-UMA HISTÓRIA<br>
-MOVIDA PELO<br>
-VÔLEI
-</h1>
-
-<p>
-Desde sua criação, a Supercopa AFC reúne atletas, equipes e
-apaixonados pelo voleibol em um campeonato competitivo,
-moderno e emocionante.
-</p>
-
-</div>
-
-<div class="glow glow1"></div>
-<div class="glow glow2"></div>
-
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="urgency-bar">
+    🏆 HISTÓRIA DA SUPERCOPA · AFONSO CLÁUDIO · ES · DESDE 2021
+  </div>
+  <nav class="main-nav" id="mainNav">
+    <a class="nav-logo" href="index.html">SUPER<span>◥</span>COPA</a>
+    <ul class="main-nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="historia.html" class="active">História</a></li>
+      <li><a href="index.html#fases">Fases</a></li>
+      <li><a href="times.html">Times</a></li>
+      <li><a href="tabela.html">Jogos / Classificação</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="index.html#faq">Dúvidas</a></li>
+    </ul>
+    <div class="nav-social">
+      <a href="https://www.instagram.com/supercopaafc/" title="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://wa.link/900kb2" title="WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 </header>
 
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-header">
+    <span class="d-logo-txt">SUPER<span>◥</span>COPA</span>
+    <button class="drawer-close" id="drawerClose">&#10005;</button>
+  </div>
+  <ul class="drawer-links">
+    <li><a href="index.html"><span class="d-icon">🏠</span>Início</a></li>
+    <li><a href="historia.html" class="active"><span class="d-icon">🏆</span>História</a></li>
+    <li><a href="index.html#fases"><span class="d-icon">📋</span>Fases</a></li>
+    <li><a href="times.html"><span class="d-icon">🏐</span>Times</a></li>
+    <li><a href="tabela.html"><span class="d-icon">📊</span>Jogos / Classificação</a></li>
+    <li><a href="galeria.html"><span class="d-icon">📸</span>Galeria</a></li>
+    <li><a href="index.html#faq"><span class="d-icon">❓</span>Dúvidas</a></li>
+  </ul>
+  <a class="drawer-cta" href="inscricao.html">Inscrever Meu Time</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg-lines">
+    <svg viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="600" cy="400" rx="550" ry="380" stroke="white" stroke-width="1"/>
+      <ellipse cx="600" cy="400" rx="430" ry="290" stroke="white" stroke-width="1"/>
+      <ellipse cx="600" cy="400" rx="310" ry="200" stroke="white" stroke-width="1"/>
+      <ellipse cx="600" cy="400" rx="190" ry="120" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="400" x2="1200" y2="400" stroke="white" stroke-width="0.5"/>
+      <line x1="600" y1="0" x2="600" y2="800" stroke="white" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="hero-tag-dot"></span>Afonso Cláudio · ES · Desde 2021</div>
+    <h1>A <em>História</em><br>da Supercopa</h1>
+    <p>De uma ideia simples nasceu o maior campeonato multiesporte de Afonso Cláudio. Cinco edições de pura emoção, e a sexta está chegando — agora com uma nova modalidade.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">5</span>
+        <span class="hero-stat-label">Edições realizadas</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">6ª</span>
+        <span class="hero-stat-label">Edição em 2026</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">2</span>
+        <span class="hero-stat-label">Modalidades em 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOBRE A SUPERCOPA ═══ -->
+<section class="about-section" id="sobre">
+  <div class="about-inner">
+    <div class="about-text">
+      <div class="section-tag reveal">Sobre o torneio</div>
+      <div class="section-title reveal">O que é a<br><em>Supercopa?</em></div>
+      <div class="reveal">
+        <p>A <strong>Supercopa de Afonso Cláudio</strong> é o principal campeonato multiesporte da cidade, realizado anualmente desde 2021. Nasceu da vontade de reunir a comunidade em torno do esporte, promovendo competição, integração e valorização dos atletas locais.</p>
+        <p>O torneio começou focado no <strong>Vôlei</strong>, modalidade que apaixona a região, e ao longo dos anos foi crescendo em estrutura, número de times e qualidade técnica. Em 2026, damos um passo histórico: <strong>o Basquete entra no torneio</strong>, ampliando ainda mais o alcance da competição.</p>
+        <p>Cada edição é marcada por jogos acirrados, rivalidades saudáveis e muito esporte de alto nível — tudo isso no coração do Espírito Santo.</p>
+      </div>
+    </div>
+    <div class="about-cards reveal">
+      <div class="about-card">
+        <div class="about-card-icon">📍</div>
+        <div class="about-card-body">
+          <div class="about-card-title">Afonso Cláudio · ES</div>
+          <div class="about-card-desc">Realizado na cidade de Afonso Cláudio, no coração do Espírito Santo, reunindo atletas da região.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🏐</div>
+        <div class="about-card-body">
+          <div class="about-card-title">Vôlei desde 2021</div>
+          <div class="about-card-desc">5 edições consecutivas de vôlei de alto nível, com times cada vez mais competitivos e disputas emocionantes.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🏀</div>
+        <div class="about-card-body">
+          <div class="about-card-title">Basquete estreia em 2026</div>
+          <div class="about-card-desc">A 6ª edição marca a chegada do Basquete ao torneio, com 6 times na disputa inaugural da modalidade.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🤝</div>
+        <div class="about-card-body">
+          <div class="about-card-title">Comunidade e esporte</div>
+          <div class="about-card-desc">Mais do que um campeonato, a Supercopa é um evento que une famílias, amigos e a comunidade em torno do esporte.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TIMELINE ═══ -->
+<section class="timeline-section" id="timeline">
+  <div class="timeline-header">
+    <div class="section-tag reveal">Linha do tempo</div>
+    <div class="section-title reveal">Edição por<br><em>Edição</em></div>
+  </div>
+
+  <div class="timeline">
+
+    <!-- 2021 — 1ª Edição -->
+    <div class="tl-item">
+      <div class="tl-content">
+        <div class="tl-edition">1ª Edição · Vôlei</div>
+        <div class="tl-title">O começo de tudo</div>
+        <div class="tl-desc">A Supercopa nasce em Afonso Cláudio com sua primeira edição de Vôlei. Um sonho que se tornou realidade, reunindo times da cidade e da região pela primeira vez em uma competição organizada e apaixonante.</div>
+        <div class="tl-champ">
+          <span class="tl-champ-icon">🏆</span>
+          <div>
+            <span class="tl-champ-label">Campeão · Vôlei</span>
+            <span class="tl-champ-name">A DEFINIR</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-center">
+        <div class="tl-dot"></div>
+        <div class="tl-year-badge">2021</div>
+      </div>
+      <div class="tl-empty"></div>
+    </div>
+
+    <!-- 2022 — 2ª Edição -->
+    <div class="tl-item">
+      <div class="tl-empty"></div>
+      <div class="tl-center">
+        <div class="tl-dot"></div>
+        <div class="tl-year-badge">2022</div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-edition">2ª Edição · Vôlei</div>
+        <div class="tl-title">Crescendo e evoluindo</div>
+        <div class="tl-desc">A segunda edição chegou com mais times, mais público e ainda mais emoção. O torneio consolida seu lugar no calendário esportivo da cidade e a rivalidade entre os times começa a ganhar força.</div>
+        <div class="tl-champ">
+          <span class="tl-champ-icon">🏆</span>
+          <div>
+            <span class="tl-champ-label">Campeão · Vôlei</span>
+            <span class="tl-champ-name">A DEFINIR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023 — 3ª Edição -->
+    <div class="tl-item">
+      <div class="tl-content">
+        <div class="tl-edition">3ª Edição · Vôlei</div>
+        <div class="tl-title">Rivalidades acirradas</div>
+        <div class="tl-desc">A terceira edição entra para a história como uma das mais disputadas. Times já experientes no torneio se enfrentam em jogos que ficaram na memória de quem esteve presente nas arquibancadas.</div>
+        <div class="tl-champ">
+          <span class="tl-champ-icon">🏆</span>
+          <div>
+            <span class="tl-champ-label">Campeão · Vôlei</span>
+            <span class="tl-champ-name">A DEFINIR</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-center">
+        <div class="tl-dot"></div>
+        <div class="tl-year-badge">2023</div>
+      </div>
+      <div class="tl-empty"></div>
+    </div>
+
+    <!-- 2024 — 4ª Edição -->
+    <div class="tl-item">
+      <div class="tl-empty"></div>
+      <div class="tl-center">
+        <div class="tl-dot"></div>
+        <div class="tl-year-badge">2024</div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-edition">4ª Edição · Vôlei</div>
+        <div class="tl-title">Alto nível técnico</div>
+        <div class="tl-desc">A qualidade técnica atingiu um novo patamar. Com mais atletas experientes e uma organização ainda mais profissional, a quarta edição mostrou que a Supercopa veio para ficar e crescer a cada ano.</div>
+        <div class="tl-champ">
+          <span class="tl-champ-icon">🏆</span>
+          <div>
+            <span class="tl-champ-label">Campeão · Vôlei</span>
+            <span class="tl-champ-name">A DEFINIR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2025 — 5ª Edição -->
+    <div class="tl-item">
+      <div class="tl-content">
+        <div class="tl-edition">5ª Edição · Vôlei</div>
+        <div class="tl-title">Cinco anos de história</div>
+        <div class="tl-desc">A edição comemorativa de cinco anos celebrou tudo o que a Supercopa construiu: amizades, rivalidades, emoções e um legado esportivo sólido para Afonso Cláudio. Um marco inesquecível na trajetória do torneio.</div>
+        <div class="tl-champ">
+          <span class="tl-champ-icon">🏆</span>
+          <div>
+            <span class="tl-champ-label">Campeão · Vôlei</span>
+            <span class="tl-champ-name">A DEFINIR</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-center">
+        <div class="tl-dot"></div>
+        <div class="tl-year-badge">2025</div>
+      </div>
+      <div class="tl-empty"></div>
+    </div>
+
+    <!-- 2026 — 6ª Edição — ESPECIAL -->
+    <div class="tl-item future">
+      <div class="tl-empty"></div>
+      <div class="tl-center">
+        <div class="tl-dot special"></div>
+        <div class="tl-year-badge special">2026</div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-edition special">6ª Edição · Vôlei + Basquete 🔥</div>
+        <div class="tl-content-box">
+          <div class="tl-title">Um novo capítulo começa</div>
+          <div class="tl-desc">A edição mais ambiciosa da história chega em 2026. Pela primeira vez, <strong>duas modalidades</strong> disputam simultaneamente: 12 times de Vôlei e 6 times de Basquete. A Supercopa escreve um novo capítulo — e você faz parte dele.</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;">
+            <div class="tl-champ">
+              <span class="tl-champ-icon">🏐</span>
+              <div>
+                <span class="tl-champ-label">Vôlei · 12 times</span>
+                <span class="tl-champ-name">6ª Edição</span>
+              </div>
+            </div>
+            <div class="tl-champ special">
+              <span class="tl-champ-icon">🏀</span>
+              <div>
+                <span class="tl-champ-label">Basquete · 6 times</span>
+                <span class="tl-champ-name">1ª Edição</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CAMPEÕES ═══ -->
+<section class="campeoes-section" id="campeoes">
+  <div class="campeoes-inner">
+    <div class="campeoes-header">
+      <div class="section-tag reveal">Hall da fama</div>
+      <div class="section-title reveal">Campeões da<br><em>Supercopa</em></div>
+    </div>
+    <div class="campeoes-grid">
+      <div class="campeon-card">
+        <span class="campeon-trophy">🥇</span>
+        <div class="campeon-year">2021</div>
+        <div class="campeon-edition">1ª Edição</div>
+        <div class="campeon-name">A DEFINIR</div>
+        <div class="campeon-sport">🏐 Vôlei</div>
+      </div>
+      <div class="campeon-card">
+        <span class="campeon-trophy">🥇</span>
+        <div class="campeon-year">2022</div>
+        <div class="campeon-edition">2ª Edição</div>
+        <div class="campeon-name">A DEFINIR</div>
+        <div class="campeon-sport">🏐 Vôlei</div>
+      </div>
+      <div class="campeon-card">
+        <span class="campeon-trophy">🥇</span>
+        <div class="campeon-year">2023</div>
+        <div class="campeon-edition">3ª Edição</div>
+        <div class="campeon-name">A DEFINIR</div>
+        <div class="campeon-sport">🏐 Vôlei</div>
+      </div>
+      <div class="campeon-card">
+        <span class="campeon-trophy">🥇</span>
+        <div class="campeon-year">2024</div>
+        <div class="campeon-edition">4ª Edição</div>
+        <div class="campeon-name">A DEFINIR</div>
+        <div class="campeon-sport">🏐 Vôlei</div>
+      </div>
+      <div class="campeon-card">
+        <span class="campeon-trophy">🥇</span>
+        <div class="campeon-year">2025</div>
+        <div class="campeon-edition">5ª Edição</div>
+        <div class="campeon-name">A DEFINIR</div>
+        <div class="campeon-sport">🏐 Vôlei</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMISSÃO ORGANIZADORA ═══ -->
+<section class="comissao-section" id="comissao">
+  <div class="comissao-inner">
+    <div class="comissao-header">
+      <div class="section-tag reveal">Por trás do torneio</div>
+      <div class="section-title reveal">Comissão<br><em>Organizadora</em></div>
+      <p class="reveal" style="color:var(--muted);font-size:15px;line-height:1.8;max-width:560px;margin-top:16px;">A Supercopa existe graças ao trabalho dedicado de pessoas apaixonadas pelo esporte e pela comunidade de Afonso Cláudio. Conheça quem faz tudo acontecer.</p>
+    </div>
+    <div class="comissao-grid">
+      <div class="membro-card">
+        <div class="membro-avatar">👤</div>
+        <div class="membro-name">A DEFINIR</div>
+        <div class="membro-role">Coordenador Geral</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">👤</div>
+        <div class="membro-name">A DEFINIR</div>
+        <div class="membro-role">Coordenador de Vôlei</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">👤</div>
+        <div class="membro-name">A DEFINIR</div>
+        <div class="membro-role">Coordenador de Basquete</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">👤</div>
+        <div class="membro-name">A DEFINIR</div>
+        <div class="membro-role">Arbitragem</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">👤</div>
+        <div class="membro-name">A DEFINIR</div>
+        <div class="membro-role">Comunicação</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">👤</div>
+        <div class="membro-name">A DEFINIR</div>
+        <div class="membro-role">Logística</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">SUPERCOPA</div>
+      <div class="footer-tagline">Campeonato Multiesporte de Afonso Cláudio · 6ª Edição · 2026</div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="historia.html" style="color:var(--accent)">História</a></li>
+      <li><a href="index.html#fases">Regulamento</a></li>
+      <li><a href="times.html">Times</a></li>
+      <li><a href="tabela.html">Tabela</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="inscricao.html">Inscrição</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Supercopa. Todos os direitos reservados.</span>
+    <span>Feito com 🏆 para atletas de verdade</span>
+  </div>
+</footer>
+
+<!-- ═══ TRANSIÇÃO ═══ -->
+<div id="sc-transition">
+  <div class="sc-t-panel sc-t-p1"></div>
+  <div class="sc-t-panel sc-t-p2"></div>
+  <div class="sc-t-logo">
+    <span class="sc-t-logo-text">SUPER<em>◥</em>COPA</span>
+    <span class="sc-t-logo-year">2026</span>
+    <span class="sc-t-logo-bar"></span>
+  </div>
+</div>
+<script src="transicao.js"></script>
+
+<script>
+/* ── NAVBAR SCROLL SHRINK ── */
+(function(){
+  const nav = document.getElementById('mainNav');
+  if(!nav) return;
+  window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  },{passive:true});
+})();
+
+/* ── MOBILE DRAWER ── */
+document.addEventListener('DOMContentLoaded',function(){
+  const btn      = document.getElementById('hamburger');
+  const drawer   = document.getElementById('mobileDrawer');
+  const overlay  = document.getElementById('drawerOverlay');
+  const closeBtn = document.getElementById('drawerClose');
+  if(!btn||!drawer||!overlay||!closeBtn) return;
+  function openDrawer(){drawer.classList.add('open');overlay.classList.add('open');btn.classList.add('open');document.body.style.overflow='hidden';}
+  function closeDrawer(){drawer.classList.remove('open');overlay.classList.remove('open');btn.classList.remove('open');document.body.style.overflow='';}
+  btn.addEventListener('click',openDrawer);
+  closeBtn.addEventListener('click',closeDrawer);
+  overlay.addEventListener('click',closeDrawer);
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeDrawer));
+});
+
+/* ── SCROLL REVEAL ── */
+const revealObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+/* ── TIMELINE REVEAL ── */
+const tlObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');tlObs.unobserve(e.target);}
+  });
+},{threshold:0.15});
+document.querySelectorAll('.tl-item').forEach(el=>tlObs.observe(el));
+
+/* ── CARDS REVEAL ── */
+const cardObs = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*80);
+      cardObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.05});
+document.querySelectorAll('.membro-card,.campeon-card').forEach(el=>cardObs.observe(el));
+</script>
 </body>
 </html>
