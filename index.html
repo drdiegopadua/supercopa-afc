@@ -904,7 +904,7 @@ nav:not(.main-nav){display:none!important}
     
   </div><!-- /ub-left-group -->
   <div class="ub-right">
-    <a class="ub-cta" href="inscricao.html">INSCREVA-SE</a>
+<!--    <a class="ub-cta" href="inscricao.html">INSCREVA-SE</a>  -->
   </div>
 </div>
 
@@ -1387,6 +1387,75 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 </script>
 
+
+
+
+
+
+
+
+
+
+
+<script>
+/* ── COUNTDOWN — Supercopa VOLEI 28/11/2026 13:00 ── */
+(function(){
+  const target = new Date('2026-11-28T13:00:00');
+
+  const elD = document.getElementById('ubDays');
+  const elH = document.getElementById('ubHours');
+  const elM = document.getElementById('ubMins');
+  const elS = document.getElementById('ubSecs');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function flip(el, newVal){
+    const cur = el.textContent;
+    if(cur === newVal) return;
+    el.classList.add('flip');
+    setTimeout(()=>{
+      el.textContent = newVal;
+      el.classList.remove('flip');
+    }, 180);
+  }
+
+  function tick(){
+    const now  = new Date();
+    const diff = target - now;
+
+    if(diff <= 0){
+      [elD,elH,elM,elS].forEach(el => el.textContent = '00');
+      document.querySelector('.ub-label').textContent = '🏆 SUPERCOPA VOLEIBOL — AO VIVO AGORA!';
+      return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    flip(elD, pad(days));
+    flip(elH, pad(hours));
+    flip(elM, pad(mins));
+    flip(elS, pad(secs));
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+
+
+
+
+
+  
+
+
+
+
+
+  
 
 <div id="sc-transition">
   <div class="sc-t-panel sc-t-p1"></div>
