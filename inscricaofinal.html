@@ -18,41 +18,240 @@ body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidd
 
 /* ── URGENCY BAR ── */
 .urgency-bar{
-  background:linear-gradient(90deg,#071428 0%,#0a1a38 50%,#071428 100%);
-  border-bottom:1px solid rgba(58,134,240,0.3);
-  padding:0 24px;height:44px;
-  display:flex;align-items:center;justify-content:center;gap:24px;
-  position:relative;overflow:hidden;font-size:11px;letter-spacing:1.5px;
-  font-family:var(--M);text-transform:uppercase;color:rgba(255,255,255,0.6);
+  background: linear-gradient(90deg, #071428 0%, #0a1a38 40%, #071428 100%);
+  border-bottom: 1px solid rgba(58,134,240,0.3);
+  color: var(--text);
+  padding: 6px 32px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; gap: 0;
 }
 .urgency-bar::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(58,134,240,0.08),transparent);
-  animation:ubScan 3s linear infinite;
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: ubScan 2.5s linear infinite;
 }
-@keyframes ubScan{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-.ub-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
-  animation:ubPulse 1.8s ease-in-out infinite;flex-shrink:0}
-@keyframes ubPulse{0%{box-shadow:0 0 0 0 rgba(58,134,240,.7)}70%{box-shadow:0 0 0 8px rgba(58,134,240,0)}100%{box-shadow:0 0 0 0 rgba(58,134,240,0)}}
+@keyframes ubScan { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
+.ub-left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ub-pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(58,134,240,0.7);
+  animation: ubPulse 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes ubPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(58,134,240,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(58,134,240,0); }
+  100% { box-shadow: 0 0 0 0 rgba(58,134,240,0); }
+}
+.ub-label {
+  font-family: var(--M); font-size: 10px; letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.55); white-space: nowrap;
+}
+.ub-countdown {
+  display: flex; align-items: center; gap: 6px;
+  position: relative; z-index: 1;
+}
+.ub-unit {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(58,134,240,0.12);
+  border: 1px solid rgba(58,134,240,0.25);
+  border-radius: 5px; padding: 3px 10px; min-width: 46px;
+  position: relative; overflow: hidden;
+}
+.ub-unit::before {
+  content:''; position:absolute;
+  top:50%; left:0; right:0; height:1px;
+  background: rgba(58,134,240,0.2);
+}
+.ub-num {
+  font-family: var(--D); font-size: 22px; line-height: 1;
+  color: var(--accent); text-shadow: 0 0 12px rgba(58,134,240,0.7);
+  letter-spacing: 2px; transition: transform .18s cubic-bezier(.34,1.56,.64,1), opacity .18s;
+}
+.ub-num.flip { transform: translateY(-6px) scale(1.1); opacity: 0.4; }
+.ub-unit-label { font-family: var(--M); font-size: 7px; letter-spacing: 1.5px; color: rgba(255,255,255,0.35); margin-top: 1px; }
+.ub-sep {
+  font-family: var(--D); font-size: 20px;
+  color: rgba(58,134,240,0.5);
+  animation: sepBlink 1s step-end infinite; margin-bottom: 8px;
+}
+@keyframes sepBlink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.ub-block {
+  display: flex; align-items: center; gap: 10px;
+  padding: 4px 18px; flex-shrink: 0;
+}
+.ub-divider {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  flex-shrink: 0; padding: 0 6px;
+}
+.ub-div-line {
+  display: block; height: 16px; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(58,134,240,0.7), transparent);
+  animation: divPulse 2s ease-in-out infinite alternate;
+}
+.ub-div-line:last-child { animation-delay: .6s; }
+.ub-div-icon {
+  font-size: 11px; color: rgba(58,134,240,0.8);
+  animation: divSpin 4s linear infinite; display: inline-block; line-height: 1;
+}
+@keyframes divPulse { from { opacity: 0.25; height: 10px; } to { opacity: 1; height: 20px; } }
+@keyframes divSpin  { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.ub-pulse-vl {
+  background: var(--accent2) !important;
+  box-shadow: 0 0 0 0 rgba(232,93,58,0.7) !important;
+  animation: ubPulseVl 1.8s ease-in-out infinite !important;
+}
+@keyframes ubPulseVl {
+  0%   { box-shadow: 0 0 0 0 rgba(232,93,58,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(232,93,58,0); }
+  100% { box-shadow: 0 0 0 0 rgba(232,93,58,0); }
+}
+@media (max-width: 820px) {
+  .urgency-bar { flex-direction: column !important; padding: 5px 10px !important; gap: 3px !important; }
+  .ub-block { width: 100%; padding: 3px 8px; gap: 8px; justify-content: space-between; }
+  .ub-left  { gap: 6px; flex-shrink: 1; min-width: 0; }
+  .ub-label { font-size: 8px !important; letter-spacing: 1.2px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ub-pulse { width: 6px; height: 6px; flex-shrink: 0; }
+  .ub-unit  { min-width: 30px; padding: 2px 5px; }
+  .ub-num   { font-size: 14px; }
+  .ub-unit-label { font-size: 6px; }
+  .ub-sep   { font-size: 14px; margin-bottom: 4px; }
+  .ub-countdown { gap: 4px; flex-shrink: 0; }
+  .ub-divider { flex-direction: row !important; padding: 0 !important; gap: 4px !important; width: 100%; }
+  .ub-div-line { height: 1px !important; width: auto !important; flex: 1; background: linear-gradient(90deg, transparent, rgba(58,134,240,0.5), transparent) !important; animation: none !important; }
+  .ub-div-icon { font-size: 9px; }
+}
 
 /* ── NAV ── */
 nav.main-nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(13,16,24,0.92);backdrop-filter:blur(16px);
+  background:rgba(13,16,24,0.85);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
-  padding:0 36px;min-height:68px;
+  padding:0 36px;
   display:flex;align-items:center;justify-content:space-between;
-  animation:navDown .5s cubic-bezier(.22,1,.36,1) both;
-  transition:min-height .3s,background .3s;
+  gap:16px; min-height:72px;
+  animation:navSlideDown .5s cubic-bezier(.22,1,.36,1) both;
+  transition:min-height .35s ease, background .35s ease, box-shadow .35s ease, border-color .35s ease;
 }
-@keyframes navDown{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
-nav.main-nav.scrolled{min-height:56px;background:rgba(7,9,13,.97)}
-.nav-brand{font-family:var(--D);font-size:22px;letter-spacing:3px;color:var(--accent);text-decoration:none}
+@keyframes navSlideDown{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
+nav.main-nav.scrolled{
+  min-height:58px; background:rgba(7,9,13,0.97);
+  box-shadow:0 4px 32px rgba(0,0,0,.5); border-bottom-color:rgba(58,134,240,0.15);
+}
+.nav-brand{font-family:var(--D);font-size:22px;letter-spacing:3px;color:var(--accent);text-decoration:none;flex-shrink:0;}
 .nav-brand span{color:rgba(255,255,255,.25)}
-.nav-back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;
-  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  transition:color .2s,transform .2s}
-.nav-back:hover{color:var(--accent);transform:translateX(-3px)}
+.main-nav-links{
+  display:flex;list-style:none;gap:0;flex:1;justify-content:center;
+}
+.main-nav-links li{opacity:0;animation:fadeUp .45s ease forwards;}
+.main-nav-links li:nth-child(1){animation-delay:.1s}
+.main-nav-links li:nth-child(2){animation-delay:.15s}
+.main-nav-links li:nth-child(3){animation-delay:.2s}
+.main-nav-links li:nth-child(4){animation-delay:.25s}
+.main-nav-links li:nth-child(5){animation-delay:.3s}
+.main-nav-links li:nth-child(6){animation-delay:.35s}
+.main-nav-links li:nth-child(7){animation-delay:.40s}
+.main-nav-links li a{
+  display:block; padding:24px 18px;
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  position:relative;transition:color .2s;white-space:nowrap;
+}
+.main-nav-links li a::after{
+  content:'';position:absolute;bottom:0;left:18px;right:18px;height:2px;
+  background:var(--accent);border-radius:999px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+}
+.main-nav-links li a:hover{color:var(--text)}
+.main-nav-links li a:hover::after{transform:scaleX(1)}
+.main-nav-links li a.active{color:var(--accent)}
+.main-nav-links li a.active::after{transform:scaleX(1)}
+.nav-social{display:flex;gap:16px;align-items:center;flex-shrink:0;
+  opacity:0;animation:fadeUp .45s .4s ease forwards;}
+.nav-social a{color:var(--muted);font-size:13px;text-decoration:none;
+  transition:color .2s,transform .2s;display:flex;align-items:center;}
+.nav-social a:hover{color:var(--text);transform:translateY(-2px)}
+
+/* ── HAMBURGER + DRAWER ── */
+.hamburger      { display: none; }
+.mobile-drawer  { display: none; }
+.drawer-overlay { display: none; }
+
+@media (max-width: 768px) {
+  nav.main-nav   { padding: 0 16px; min-height: 64px; }
+  .main-nav-links { display: none; }
+  .nav-social    { display: none; }
+  .hamburger {
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; gap: 5px;
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; cursor: pointer; flex-shrink: 0; transition: background .2s;
+  }
+  .hamburger:hover { background: rgba(58,134,240,0.15); }
+  .hamburger span {
+    display: block; width: 20px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: transform .3s, opacity .3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-drawer {
+    display: block; position: fixed;
+    top: 0; right: -100%;
+    width: 80vw; max-width: 300px; height: 100dvh;
+    background: #0d1018;
+    border-left: 1px solid rgba(58,134,240,0.2);
+    z-index: 300; transition: right .35s cubic-bezier(.22,1,.36,1);
+    overflow-y: auto; padding: 0 0 40px;
+  }
+  .mobile-drawer.open { right: 0; }
+  .drawer-overlay {
+    display: block; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 299;
+    opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .drawer-overlay.open { opacity: 1; pointer-events: all; }
+  .drawer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .drawer-header .d-logo-text {
+    font-family: var(--D); font-size: 20px; letter-spacing: 3px; color: var(--accent);
+  }
+  .drawer-header .d-logo-text span { color: rgba(255,255,255,0.25); }
+  .drawer-close {
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-size: 22px; line-height: 1; transition: color .2s;
+  }
+  .drawer-close:hover { color: var(--text); }
+  .drawer-links { list-style: none; padding: 12px 0; }
+  .drawer-links li { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .drawer-links li a {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 24px;
+    font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color .2s, padding-left .2s;
+  }
+  .drawer-links li a:hover, .drawer-links li a.active { color: var(--accent); padding-left: 30px; }
+  .drawer-links li a .d-icon { font-size: 16px; width: 20px; text-align: center; }
+  .drawer-social { display: flex; gap: 20px; padding: 28px 24px 0; }
+  .drawer-social a { color: var(--muted); transition: color .2s, transform .2s; display: flex; align-items: center; }
+  .drawer-social a:hover { color: var(--text); transform: translateY(-2px); }
+  .drawer-cta {
+    margin: 28px 24px 0; display: block; text-align: center;
+    background: var(--accent); color: #000;
+    padding: 15px; border-radius: 4px;
+    font-weight: 700; font-size: 12px; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+  }
+}
 
 /* ── PAGE HERO ── */
 .page-hero{position:relative;overflow:hidden;padding:64px 24px 40px;text-align:center}
@@ -349,18 +548,104 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
 </head>
 <body>
 
-<!-- URGENCY BAR -->
-<div class="urgency-bar">
-  <div class="ub-dot"></div>
-  <span>🏀 SUPERCOPA DE BASQUETE · AFONSO CLÁUDIO · 2026 · INSCRIÇÃO OFICIAL</span>
-  <div class="ub-dot"></div>
-</div>
+<header>
+  <div class="urgency-bar">
+    <!-- BLOCO 1 — BASQUETE -->
+    <div class="ub-block">
+      <div class="ub-left">
+        <span class="ub-pulse"></span>
+        <span class="ub-label">🏀 SUPERCOPA DE BASQUETE · EM JULHO</span>
+      </div>
+      <div class="ub-countdown">
+        <div class="ub-unit"><span class="ub-num" id="bkDays">00</span><span class="ub-unit-label">DIAS</span></div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit"><span class="ub-num" id="bkHours">00</span><span class="ub-unit-label">HRS</span></div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit"><span class="ub-num" id="bkMins">00</span><span class="ub-unit-label">MIN</span></div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit"><span class="ub-num" id="bkSecs">00</span><span class="ub-unit-label">SEG</span></div>
+      </div>
+    </div>
+    <!-- DIVISOR ANIMADO -->
+    <div class="ub-divider">
+      <span class="ub-div-line"></span>
+      <span class="ub-div-icon">◈</span>
+      <span class="ub-div-line"></span>
+    </div>
+    <!-- BLOCO 2 — VOLEIBOL -->
+    <div class="ub-block">
+      <div class="ub-left">
+        <span class="ub-pulse ub-pulse-vl"></span>
+        <span class="ub-label">🏐 SUPERCOPA DE VOLEIBOL · EM NOVEMBRO</span>
+      </div>
+      <div class="ub-countdown">
+        <div class="ub-unit"><span class="ub-num" id="vlDays">00</span><span class="ub-unit-label">DIAS</span></div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit"><span class="ub-num" id="vlHours">00</span><span class="ub-unit-label">HRS</span></div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit"><span class="ub-num" id="vlMins">00</span><span class="ub-unit-label">MIN</span></div>
+        <span class="ub-sep">:</span>
+        <div class="ub-unit"><span class="ub-num" id="vlSecs">00</span><span class="ub-unit-label">SEG</span></div>
+      </div>
+    </div>
+  </div>
+</header>
 
 <!-- NAV -->
 <nav class="main-nav" id="mainNav">
-  <a class="nav-brand" href="#">SUPER<span>◥</span>COPA</a>
-  <a class="nav-back" href="#">← Voltar ao Início</a>
+  <a class="nav-brand" href="index.html">SUPER<span>◥</span>COPA</a>
+  <ul class="main-nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="historia.html">História</a></li>
+    <li><a href="index.html#fases">Fases</a></li>
+    <li><a href="times.html">Times</a></li>
+    <li><a href="tabela.html">Jogos / Classificação</a></li>
+    <li><a href="galeria.html">Galeria</a></li>
+    <li><a href="index.html#faq">Dúvidas</a></li>
+  </ul>
+  <div class="nav-social">
+    <a href="https://instagram.com" target="_blank" rel="noopener" title="Instagram">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://wa.me" target="_blank" rel="noopener" title="WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+    <a class="nav-brand" href="inscricaofinal.html" style="background:var(--accent);color:#000;padding:8px 18px;border-radius:3px;font-size:11px;font-family:var(--M);font-weight:700;letter-spacing:1.5px;">INSCRIÇÃO 🏀</a>
+  </div>
+  <!-- HAMBURGER -->
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- DRAWER OVERLAY -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-header">
+    <div class="d-logo-text">SUPER<span>◥</span>COPA</div>
+    <button class="drawer-close" id="drawerClose">&#10005;</button>
+  </div>
+  <ul class="drawer-links">
+    <li><a href="index.html"><span class="d-icon">🏠</span>Início</a></li>
+    <li><a href="historia.html"><span class="d-icon">🏆</span>História</a></li>
+    <li><a href="index.html#fases"><span class="d-icon">📋</span>Fases</a></li>
+    <li><a href="times.html"><span class="d-icon">🏐</span>Times</a></li>
+    <li><a href="tabela.html"><span class="d-icon">📊</span>Jogos / Classificação</a></li>
+    <li><a href="galeria.html"><span class="d-icon">📸</span>Galeria</a></li>
+    <li><a href="index.html#faq"><span class="d-icon">❓</span>Dúvidas</a></li>
+  </ul>
+  <div class="drawer-social">
+    <a href="https://instagram.com" target="_blank" rel="noopener" title="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://wa.me" target="_blank" rel="noopener" title="WhatsApp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+  <a class="drawer-cta" href="inscricaofinal.html">Inscrever Meu Time</a>
+</div>
 
 <div id="formWrap">
 
@@ -631,6 +916,50 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw96gGIjYMpdL4P6tP-j
 window.addEventListener('scroll',()=>{
   document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40)
 },{passive:true});
+
+// ── HAMBURGER / DRAWER ───────────────────────────────────────────────────────
+(function(){
+  const ham = document.getElementById('hamburger');
+  const drawer = document.getElementById('mobileDrawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const closeBtn = document.getElementById('drawerClose');
+  function openDrawer(){ ham.classList.add('open'); drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeDrawer(){ ham.classList.remove('open'); drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow=''; }
+  if(ham) ham.addEventListener('click', ()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+  if(overlay) overlay.addEventListener('click', closeDrawer);
+  if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  drawer && drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+})();
+
+// ── COUNTDOWN — Supercopa Basquete 25/07/2026 13:00 ──────────────────────────
+(function(){
+  const target = new Date('2026-07-25T13:00:00');
+  const elD=document.getElementById('bkDays'), elH=document.getElementById('bkHours'),
+        elM=document.getElementById('bkMins'), elS=document.getElementById('bkSecs');
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function flip(el,v){ if(!el||el.textContent===v) return; el.classList.add('flip'); setTimeout(()=>{ el.textContent=v; el.classList.remove('flip'); },180); }
+  function tick(){
+    const d=target-new Date(); if(d<=0){[elD,elH,elM,elS].forEach(e=>{if(e)e.textContent='00'});return;}
+    flip(elD,pad(Math.floor(d/86400000))); flip(elH,pad(Math.floor((d%86400000)/3600000)));
+    flip(elM,pad(Math.floor((d%3600000)/60000))); flip(elS,pad(Math.floor((d%60000)/1000)));
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+// ── COUNTDOWN — Supercopa Voleibol 28/11/2026 13:00 ──────────────────────────
+(function(){
+  const target = new Date('2026-11-28T13:00:00');
+  const elD=document.getElementById('vlDays'), elH=document.getElementById('vlHours'),
+        elM=document.getElementById('vlMins'), elS=document.getElementById('vlSecs');
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function flip(el,v){ if(!el||el.textContent===v) return; el.classList.add('flip'); setTimeout(()=>{ el.textContent=v; el.classList.remove('flip'); },180); }
+  function tick(){
+    const d=target-new Date(); if(d<=0){[elD,elH,elM,elS].forEach(e=>{if(e)e.textContent='00'});return;}
+    flip(elD,pad(Math.floor(d/86400000))); flip(elH,pad(Math.floor((d%86400000)/3600000)));
+    flip(elM,pad(Math.floor((d%3600000)/60000))); flip(elS,pad(Math.floor((d%60000)/1000)));
+  }
+  tick(); setInterval(tick,1000);
+})();
 
 // ── DRAG & DROP ──────────────────────────────────────────────────────────────
 const uploadArea = document.getElementById('uploadArea');
