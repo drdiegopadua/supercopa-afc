@@ -1,1 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscrição Oficial · Supercopa de Basquete 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07090d;--surface:#0d1018;--card:#111520;--border:rgba(255,255,255,0.07);
+  --accent:#3a86f0;--accent2:#e85d3a;--green:#4ade80;--green-bg:rgba(74,222,128,0.08);
+  --text:#e8eaf0;--muted:#5a6174;
+  --D:'Bebas Neue',sans-serif;--B:'DM Sans',sans-serif;--M:'Space Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidden}
 
+/* ── URGENCY BAR ── */
+.urgency-bar{
+  background:linear-gradient(90deg,#071428 0%,#0a1a38 50%,#071428 100%);
+  border-bottom:1px solid rgba(58,134,240,0.3);
+  padding:0 24px;height:44px;
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  position:relative;overflow:hidden;font-size:11px;letter-spacing:1.5px;
+  font-family:var(--M);text-transform:uppercase;color:rgba(255,255,255,0.6);
+}
+.urgency-bar::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(58,134,240,0.08),transparent);
+  animation:ubScan 3s linear infinite;
+}
+@keyframes ubScan{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.ub-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  animation:ubPulse 1.8s ease-in-out infinite;flex-shrink:0}
+@keyframes ubPulse{0%{box-shadow:0 0 0 0 rgba(58,134,240,.7)}70%{box-shadow:0 0 0 8px rgba(58,134,240,0)}100%{box-shadow:0 0 0 0 rgba(58,134,240,0)}}
+
+/* ── NAV ── */
+nav.main-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(13,16,24,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 36px;min-height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  animation:navDown .5s cubic-bezier(.22,1,.36,1) both;
+  transition:min-height .3s,background .3s;
+}
+@keyframes navDown{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
+nav.main-nav.scrolled{min-height:56px;background:rgba(7,9,13,.97)}
+.nav-brand{font-family:var(--D);font-size:22px;letter-spacing:3px;color:var(--accent);text-decoration:none}
+.nav-brand span{color:rgba(255,255,255,.25)}
+.nav-back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  transition:color .2s,transform .2s}
+.nav-back:hover{color:var(--accent);transform:translateX(-3px)}
+
+/* ── PAGE HERO ── */
+.page-hero{position:relative;overflow:hidden;padding:64px 24px 40px;text-align:center}
+.hero-dots{position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(58,134,240,.06) 1px,transparent 1px);
+  background-size:38px 38px;animation:dotsDrift 28s linear infinite}
+@keyframes dotsDrift{from{background-position:0 0}to{background-position:38px 38px}}
+.hero-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);
+  width:700px;height:400px;
+  background:radial-gradient(ellipse at 50% 30%,rgba(58,134,240,.12) 0%,rgba(58,134,240,.04) 45%,transparent 72%);
+  pointer-events:none}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 20px;border-radius:100px;
+  background:rgba(58,134,240,.1);border:1px solid rgba(58,134,240,.28);
+  font-family:var(--M);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);
+  position:relative;z-index:2;opacity:0;animation:fadeUp .7s .1s ease forwards}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 6px var(--accent);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.page-hero h1{
+  margin-top:24px;font-family:var(--D);font-size:clamp(2.2rem,6vw,4.5rem);
+  line-height:1;letter-spacing:.08em;text-transform:uppercase;
+  background:linear-gradient(155deg,#a8d0ff 0%,#3a86f0 25%,#fff 50%,#3a86f0 75%,#1a4a9e 100%);
+  background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;filter:drop-shadow(0 0 12px rgba(58,134,240,.5));
+  animation:titleShine 4.5s ease-in-out infinite alternate,fadeUp .7s .2s ease both;
+  position:relative;z-index:2}
+@keyframes titleShine{from{background-position:0 50%}to{background-position:100% 50%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-sub{margin-top:16px;color:var(--muted);font-size:15px;line-height:1.7;
+  max-width:560px;margin-left:auto;margin-right:auto;position:relative;z-index:2;
+  opacity:0;animation:fadeUp .7s .35s ease forwards}
+.hero-alert{
+  margin:28px auto 0;max-width:640px;
+  padding:18px 24px;border-radius:10px;
+  background:rgba(232,93,58,.08);border:1px solid rgba(232,93,58,.25);
+  font-size:13px;line-height:1.6;color:rgba(232,93,58,.9);
+  position:relative;z-index:2;opacity:0;animation:fadeUp .7s .5s ease forwards;
+  display:flex;align-items:flex-start;gap:12px
+}
+.hero-alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+
+/* ── INTRO CARD ── */
+.intro-card{
+  max-width:720px;margin:32px auto 0;padding:0 24px;
+  opacity:0;animation:fadeUp .7s .6s ease forwards;position:relative;z-index:2
+}
+.intro-card-inner{
+  background:rgba(58,134,240,.05);border:1px solid rgba(58,134,240,.18);
+  border-radius:12px;padding:24px 28px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:10px
+}
+.intro-card-inner::before{
+  content:'';position:absolute;top:0;left:8%;right:8%;height:1px;
+  background:linear-gradient(to right,transparent,rgba(58,134,240,.7),rgba(255,255,255,.3),rgba(58,134,240,.7),transparent)
+}
+.intro-line{font-size:14px;color:var(--text);line-height:1.6;display:flex;align-items:flex-start;gap:10px}
+.intro-line-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+
+/* ── FORM WRAP ── */
+.form-wrap{max-width:720px;margin:40px auto 80px;padding:0 24px}
+.form-card{
+  overflow:hidden;border-radius:16px;
+  background:var(--card);border:1px solid var(--border);position:relative
+}
+.form-card::before{
+  content:'';position:absolute;top:0;left:8%;right:8%;height:1px;
+  background:linear-gradient(to right,transparent,rgba(58,134,240,.7),rgba(255,255,255,.3),rgba(58,134,240,.7),transparent)
+}
+.form-section{padding:32px 40px;border-bottom:1px solid var(--border)}
+.form-section:last-of-type{border-bottom:none}
+.form-section-title{font-family:var(--D);font-size:21px;letter-spacing:1.5px;color:var(--text)}
+.form-section-sub{margin-top:5px;margin-bottom:24px;font-size:13px;color:var(--muted)}
+.field-group{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.field-group.single{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-family:var(--M);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent)}
+.field input,.field select,.field textarea{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;
+  color:var(--text);font-size:15px;font-family:var(--B);outline:none;transition:.2s;
+  resize:none
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--accent);background:rgba(58,134,240,.06);
+  box-shadow:0 0 0 3px rgba(58,134,240,.12)
+}
+.field input.error,.field select.error,.field textarea.error{
+  border-color:var(--accent2)!important;box-shadow:0 0 0 3px rgba(232,93,58,.12)!important
+}
+.field-error{display:none;font-size:11px;color:var(--accent2)}
+.field-error.show{display:block}
+
+/* ── LOGO UPLOAD ── */
+.logo-upload-area{
+  border:2px dashed var(--border);border-radius:8px;
+  padding:32px 16px;text-align:center;cursor:pointer;
+  background:rgba(255,255,255,.02);transition:.2s;position:relative
+}
+.logo-upload-area:hover,.logo-upload-area.drag-over{
+  border-color:var(--accent);background:rgba(58,134,240,.06)
+}
+.logo-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.logo-upload-icon{font-size:32px;margin-bottom:8px}
+.logo-upload-text{font-size:13px;color:var(--muted);line-height:1.5}
+.logo-upload-text strong{color:var(--accent)}
+.logo-preview{
+  display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px
+}
+.logo-preview img{max-width:100px;max-height:100px;object-fit:contain;border-radius:6px;
+  border:1px solid var(--border)}
+.logo-preview-name{font-size:12px;color:var(--green)}
+
+/* ── ALOJAMENTO ── */
+.aloj-toggle{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.toggle-opt{position:relative}
+.toggle-opt input{position:absolute;opacity:0}
+.toggle-label{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px;border-radius:8px;background:rgba(255,255,255,.02);
+  border:1px solid var(--border);cursor:pointer;transition:.2s;font-size:14px
+}
+.toggle-opt input:checked + .toggle-label{
+  border-color:var(--accent);background:rgba(58,134,240,.08);
+  box-shadow:0 0 0 3px rgba(58,134,240,.12)
+}
+.aloj-qty{display:none;margin-top:16px}
+.aloj-qty.visible{display:block}
+.aloj-note{
+  margin-top:18px;display:flex;align-items:center;gap:8px;
+  padding:12px 16px;border-radius:6px;
+  background:var(--green-bg);border:1px solid rgba(74,222,128,.2);
+  color:var(--green);font-size:13px
+}
+
+/* ── TERMOS ── */
+.termo-block{
+  background:rgba(255,255,255,.02);border:1px solid var(--border);
+  border-radius:8px;padding:0;overflow:hidden;margin-bottom:20px
+}
+.termo-header{
+  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;user-select:none;transition:background .2s
+}
+.termo-header:hover{background:rgba(255,255,255,.03)}
+.termo-header-left{display:flex;align-items:center;gap:12px}
+.termo-icon{font-size:18px}
+.termo-title{font-family:var(--M);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text)}
+.termo-arrow{color:var(--muted);transition:transform .3s;font-size:14px}
+.termo-header.open .termo-arrow{transform:rotate(180deg);color:var(--accent)}
+.termo-body{
+  max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(0,1,0,1)
+}
+.termo-body.open{max-height:600px;transition:max-height .4s cubic-bezier(1,0,1,0)}
+.termo-body-inner{
+  padding:0 20px 20px;font-size:13px;line-height:1.7;color:var(--muted);
+  border-top:1px solid var(--border)
+}
+.termo-body-inner p{margin-top:12px}
+.termo-body-inner strong{color:var(--text)}
+.termo-checkbox-wrap{
+  margin-top:20px;padding:14px 18px;border-radius:8px;
+  background:rgba(58,134,240,.06);border:1px solid rgba(58,134,240,.2);
+  display:flex;align-items:flex-start;gap:12px
+}
+.termo-checkbox-wrap input[type=checkbox]{
+  width:18px;height:18px;min-width:18px;margin-top:2px;cursor:pointer;accent-color:var(--accent)
+}
+.termo-checkbox-label{font-size:13px;line-height:1.5;color:var(--text);cursor:pointer}
+.termo-checkbox-label strong{color:var(--accent)}
+.termo-err{display:none;font-size:11px;color:var(--accent2);margin-top:6px}
+.termo-err.show{display:block}
+
+/* ── FOOTER FORM ── */
+.form-footer{padding:32px 40px}
+.form-zero-taxa{
+  display:flex;align-items:center;gap:10px;margin-bottom:24px;
+  padding:14px 18px;border-radius:8px;
+  background:var(--green-bg);border:1px solid rgba(74,222,128,.2);
+  color:var(--green);font-size:13px;font-weight:600
+}
+.btn-submit{
+  width:100%;border:none;cursor:pointer;padding:18px 36px;border-radius:6px;
+  background:var(--accent);color:#000;font-size:14px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;position:relative;overflow:hidden;transition:.2s;
+  font-family:var(--M)
+}
+.btn-submit::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);
+  transform:translateX(-100%);transition:transform .5s
+}
+.btn-submit:hover::after{transform:translateX(100%)}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(58,134,240,.4)}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-submit:disabled::after{display:none}
+.btn-spinner{display:none;width:18px;height:18px;margin:auto;border:2px solid rgba(0,0,0,.3);
+  border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite}
+.btn-submit.loading .btn-text{display:none}
+.btn-submit.loading .btn-spinner{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── SUCCESS ── */
+.success-screen{
+  display:none;max-width:600px;margin:0 auto;padding:0 24px 80px;text-align:center
+}
+.success-screen.visible{display:block}
+.success-icon{
+  width:80px;height:80px;margin:0 auto 28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--green-bg);border:2px solid rgba(74,222,128,.35);font-size:36px
+}
+.success-screen h2{font-family:var(--D);font-size:clamp(2rem,6vw,3.5rem);letter-spacing:2px}
+.success-screen h2 em{color:var(--accent);font-style:normal}
+.success-screen p{margin:16px auto 32px;max-width:440px;color:var(--muted);line-height:1.8}
+.success-details{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:24px;margin-bottom:32px;text-align:left
+}
+.sd-row{display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--border)}
+.sd-row:last-child{border-bottom:none}
+.sd-label{font-family:var(--M);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.sd-value{font-weight:600;text-align:right;max-width:200px;word-break:break-word}
+
+/* ── FOOTER ── */
+footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var(--border);text-align:center}
+.footer-logo{font-family:var(--D);font-size:26px;letter-spacing:2px;color:var(--accent)}
+.footer-tagline{margin-top:4px;color:var(--muted);font-size:12px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .form-section{padding:24px 18px}
+  .form-footer{padding:24px 18px}
+  .field-group{grid-template-columns:1fr}
+  .aloj-toggle{grid-template-columns:1fr}
+  nav.main-nav{padding:0 16px}
+  .urgency-bar{font-size:9px;gap:12px}
+  .intro-card-inner{padding:18px}
+}
+</style>
+</head>
+<body>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  <div class="ub-dot"></div>
+  <span>🏀 SUPERCOPA DE BASQUETE · AFONSO CLÁUDIO · 2025 · INSCRIÇÃO OFICIAL</span>
+  <div class="ub-dot"></div>
+</div>
+
+<!-- NAV -->
+<nav class="main-nav" id="mainNav">
+  <a class="nav-brand" href="#">SUPER<span>◥</span>COPA</a>
+  <a class="nav-back" href="#">← Voltar ao Início</a>
+</nav>
+
+<div id="formWrap">
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div class="badge"><span class="badge-dot"></span>Inscrição Oficial · Afonso Cláudio</div>
+  <h1>🏐 Inscrição Oficial – Supercopa de Voleibol de Afonso Cláudio - 2025 🏆</h1>
+  <p class="hero-sub">Seja bem-vindo(a)! Esta é a página oficial de formalização da inscrição da sua equipe na <strong>Supercopa de Basquete de Afonso Cláudio - 2025</strong>! 🎉</p>
+
+  <div class="hero-alert">
+    <span class="hero-alert-icon">⚠️</span>
+    <div>
+      <strong>IMPORTANTE:</strong> Você terá um prazo de <strong>7 dias</strong> para concluir sua inscrição após o recebimento do convite. Caso não finalize nesse período, a vaga será automaticamente repassada para outra equipe interessada.
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-card">
+  <div class="intro-card-inner">
+    <div class="intro-line"><span class="intro-line-icon">👉</span><span>Antes de iniciar o processo, leia com atenção todas as informações apresentadas.</span></div>
+    <div class="intro-line"><span class="intro-line-icon">📌</span><span>Finalize sua inscrição <strong>apenas se estiver totalmente de acordo</strong> com os termos e compromissos estabelecidos.</span></div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+  <div class="form-card">
+
+    <!-- DADOS DA EQUIPE -->
+    <div class="form-section">
+      <div class="form-section-title">Dados da Equipe</div>
+      <div class="form-section-sub">Informações básicas do time participante</div>
+
+      <div class="field-group single">
+        <div class="field">
+          <label>Nome da Equipe *</label>
+          <input type="text" id="nomeEquipe" placeholder="Ex: Águias das Montanhas">
+          <span class="field-error" id="nomeEquipeError">Campo obrigatório.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESPONSÁVEL -->
+    <div class="form-section">
+      <div class="form-section-title">Responsável pela Equipe</div>
+      <div class="form-section-sub">Contato oficial que será usado pela organização</div>
+
+      <div class="field-group">
+        <div class="field">
+          <label>Nome Completo do Responsável *</label>
+          <input type="text" id="nomeResp" placeholder="Nome do técnico ou capitão">
+          <span class="field-error" id="nomeRespError">Campo obrigatório.</span>
+        </div>
+        <div class="field">
+          <label>Telefone / WhatsApp *</label>
+          <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX">
+          <span class="field-error" id="telefoneError">Telefone inválido.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESCUDO DO TIME -->
+    <div class="form-section">
+      <div class="form-section-title">Escudo do Time</div>
+      <div class="form-section-sub">Envie a imagem do escudo/logo do seu time em formato PNG</div>
+
+      <div class="field">
+        <label>Imagem do Escudo (PNG) *</label>
+        <div class="logo-upload-area" id="uploadArea">
+          <input type="file" id="escudo" accept=".png,image/png" onchange="handleFileChange(event)">
+          <div id="uploadContent">
+            <div class="logo-upload-icon">🖼️</div>
+            <div class="logo-upload-text">
+              <strong>Clique aqui</strong> ou arraste o arquivo PNG<br>
+              <small style="font-size:11px;color:var(--muted)">Somente arquivos .PNG</small>
+            </div>
+          </div>
+          <div class="logo-preview" id="logoPreview">
+            <img id="previewImg" src="" alt="Preview">
+            <div class="logo-preview-name" id="previewName"></div>
+          </div>
+        </div>
+        <span class="field-error" id="escudoError">Envie o escudo em formato PNG.</span>
+      </div>
+    </div>
+
+    <!-- ALOJAMENTO -->
+    <div class="form-section">
+      <div class="form-section-title">Alojamento</div>
+      <div class="form-section-sub">O alojamento é 100% gratuito para equipes visitantes</div>
+
+      <div class="aloj-toggle">
+        <label class="toggle-opt">
+          <input type="radio" name="alojamento" value="nao" checked onchange="toggleAlojQty()">
+          <div class="toggle-label">🏠 Não preciso de alojamento</div>
+        </label>
+        <label class="toggle-opt">
+          <input type="radio" name="alojamento" value="sim" onchange="toggleAlojQty()">
+          <div class="toggle-label">🛏️ Sim, precisarei de alojamento</div>
+        </label>
+      </div>
+
+      <div class="aloj-qty" id="alojQtyWrap">
+        <div class="field">
+          <label>Para quantas pessoas? *</label>
+          <input type="number" id="alojQty" placeholder="Ex: 12" min="1">
+          <span class="field-error" id="alojQtyError">Informe a quantidade de pessoas.</span>
+        </div>
+      </div>
+
+      <div class="aloj-note">
+        ✓ O alojamento é 100% gratuito para todas as equipes visitantes.
+      </div>
+    </div>
+
+    <!-- TERMO DE ALOJAMENTO -->
+    <div class="form-section">
+      <div class="form-section-title">Termos e Compromissos</div>
+      <div class="form-section-sub">Leia com atenção e assine os termos abaixo para concluir a inscrição</div>
+
+      <!-- TERMO 1 -->
+      <div class="termo-block">
+        <div class="termo-header" id="termoHeader1" onclick="toggleTermo(1)">
+          <div class="termo-header-left">
+            <span class="termo-icon">🏠</span>
+            <span class="termo-title">Termo de Alojamento</span>
+          </div>
+          <span class="termo-arrow" id="termoArrow1">▼</span>
+        </div>
+        <div class="termo-body" id="termoBody1">
+          <div class="termo-body-inner">
+            <p>Declaro, para os devidos fins, estar ciente e de pleno acordo com as regras e condições estabelecidas pela organização da Supercopa de Voleibol de Afonso Cláudio – 2025, comprometendo-me com os seguintes termos:</p>
+            <p><strong>Responsabilidade pelo Alojamento:</strong><br>
+            Comprometo-me a zelar pela boa utilização do espaço de alojamento disponibilizado para minha equipe, mantendo o local limpo, organizado e sem causar qualquer tipo de dano.</p>
+            <p><strong>Danos, Avarias ou Desaparecimento de Itens:</strong><br>
+            Em caso de danos, avarias ou desaparecimento de quaisquer objetos ou bens presentes no alojamento, inclusive itens eletrônicos e utensílios fornecidos, comprometo-me a arcar com todos os custos relacionados à reposição ou conserto dos mesmos.</p>
+            <p><strong>Pertences Pessoais:</strong><br>
+            Estou ciente de que a equipe organizadora não se responsabiliza por nenhum pertence pessoal de atletas ou membros de qualquer equipe, sendo esta responsabilidade exclusivamente dos mesmos.</p>
+            <p><strong>Roupa de Cama e Colchão:</strong><br>
+            É de total responsabilidade da equipe e de seu responsável a trazida de roupa de cama e colchão, sendo estes itens não fornecidos pela organização do evento.</p>
+            <p><strong>Alimentação:</strong><br>
+            A alimentação da equipe também será de responsabilidade exclusiva da equipe, não sendo oferecida pela organização da Supercopa.</p>
+            <p>Declaro, ainda, que estou ciente de que o não cumprimento das condições acima poderá acarretar em sanções, inclusive a desclassificação da equipe da competição, conforme avaliação da organização do evento.</p>
+          </div>
+        </div>
+        <div class="termo-checkbox-wrap">
+          <input type="checkbox" id="checkAloj">
+          <label class="termo-checkbox-label" for="checkAloj">
+            Li e estou de acordo com o <strong>Termo de Alojamento</strong>. Ao marcar esta caixa, a equipe se compromete integralmente com todas as condições descritas acima.
+          </label>
+        </div>
+        <span class="termo-err" id="termoAlojError">Você precisa aceitar o Termo de Alojamento para continuar.</span>
+      </div>
+
+      <!-- TERMO 2 -->
+      <div class="termo-block">
+        <div class="termo-header" id="termoHeader2" onclick="toggleTermo(2)">
+          <div class="termo-header-left">
+            <span class="termo-icon">📋</span>
+            <span class="termo-title">Termo de Compromisso de Comparecimento</span>
+          </div>
+          <span class="termo-arrow" id="termoArrow2">▼</span>
+        </div>
+        <div class="termo-body" id="termoBody2">
+          <div class="termo-body-inner">
+            <p>Declaro estar plenamente ciente das condições para participação na Supercopa de Voleibol de Afonso Cláudio – 2025, e assumo total compromisso com o comparecimento da minha equipe no evento.</p>
+            <p>A equipe organizadora deste torneio atua com o objetivo de incentivar e apoiar o voleibol amador, proporcionando às equipes a oportunidade de participar de uma competição estruturada sem cobrança de taxas ou custos de inscrição.</p>
+            <p><strong>Sabendo que:</strong><br>
+            Os convites para participação são enviados com antecedência mínima de 1 (um) mês, justamente para que cada equipe possa se organizar adequadamente;<br><br>
+            A ausência injustificada de uma equipe pode retirar a vaga de outro grupo interessado e pronto para participar, comprometendo a dinâmica e a seriedade do torneio;<br><br>
+            A organização não cobra taxa de inscrição, buscando reduzir ao máximo os custos para os participantes, como forma de incentivo ao esporte;</p>
+            <p><strong>Declaro, portanto, que:</strong><br>
+            Estou plenamente comprometido com a presença da minha equipe no evento na data e local estipulados;<br><br>
+            Assumo a responsabilidade de organizar a logística necessária para o deslocamento da equipe, incluindo a possibilidade de um plano alternativo (plano B) para o transporte;<br><br>
+            Tenho ciência de que a inscrição somente será finalizada mediante este compromisso formal de comparecimento, e que o não cumprimento poderá afetar futuras participações da equipe em eventos organizados por esta comissão.</p>
+            <p>Firmo este termo por livre e espontânea vontade, com total ciência das condições aqui descritas.</p>
+          </div>
+        </div>
+        <div class="termo-checkbox-wrap">
+          <input type="checkbox" id="checkComp">
+          <label class="termo-checkbox-label" for="checkComp">
+            Li e estou de acordo com o <strong>Termo de Compromisso de Comparecimento</strong>. Ao marcar esta caixa, confirmo o comprometimento da equipe com a presença no evento.
+          </label>
+        </div>
+        <span class="termo-err" id="termoCompError">Você precisa aceitar o Termo de Compromisso para continuar.</span>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="form-footer">
+      <div class="form-zero-taxa">✓ Evento 100% gratuito · Sem taxas de inscrição</div>
+      <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+        <span class="btn-text">🏀 Finalizar Inscrição</span>
+        <div class="btn-spinner"></div>
+      </button>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div style="padding-top:60px"></div>
+  <div class="success-icon">✅</div>
+  <h2>Inscrição <em>Enviada!</em></h2>
+  <p>Sua inscrição foi registrada com sucesso. Nossa comissão organizadora entrará em contato em breve para confirmar sua participação na Supercopa 2025.</p>
+  <div class="success-details" id="successDetails"></div>
+  <a href="#" class="btn-submit" style="text-decoration:none;display:block;text-align:center;max-width:360px;margin:0 auto;padding:16px">← Voltar ao Início</a>
+</div>
+
+<footer>
+  <div class="footer-logo">SUPERCOPA</div>
+  <div class="footer-tagline">Supercopa de Basquete · Afonso Cláudio · 2025</div>
+</footer>
+
+<script>
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40)
+},{passive:true});
+
+// DRAG & DROP
+const uploadArea = document.getElementById('uploadArea');
+uploadArea.addEventListener('dragover',e=>{e.preventDefault();uploadArea.classList.add('drag-over')});
+uploadArea.addEventListener('dragleave',()=>uploadArea.classList.remove('drag-over'));
+uploadArea.addEventListener('drop',e=>{
+  e.preventDefault();uploadArea.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if(file) processFile(file);
+});
+
+function handleFileChange(e){
+  const file = e.target.files[0];
+  if(file) processFile(file);
+}
+
+function processFile(file){
+  if(!file.type.includes('png')){
+    document.getElementById('escudoError').classList.add('show');
+    return;
+  }
+  document.getElementById('escudoError').classList.remove('show');
+  const reader = new FileReader();
+  reader.onload = ev => {
+    document.getElementById('previewImg').src = ev.target.result;
+    document.getElementById('previewName').textContent = '✓ ' + file.name;
+    document.getElementById('uploadContent').style.display = 'none';
+    document.getElementById('logoPreview').style.display = 'flex';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ALOJAMENTO TOGGLE
+function toggleAlojQty(){
+  const radios = document.querySelectorAll('input[name=alojamento]');
+  let sim = false;
+  radios.forEach(r=>{if(r.value==='sim' && r.checked) sim=true;});
+  document.getElementById('alojQtyWrap').classList.toggle('visible', sim);
+}
+
+// TERMO ACCORDIONS
+function toggleTermo(n){
+  const body = document.getElementById('termoBody'+n);
+  const header = document.getElementById('termoHeader'+n);
+  body.classList.toggle('open');
+  header.classList.toggle('open');
+}
+
+// PHONE MASK
+document.getElementById('telefone').addEventListener('input', e=>{
+  let v = e.target.value.replace(/\D/g,'');
+  if(v.length>11) v=v.slice(0,11);
+  if(v.length>7) v=`(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  else if(v.length>2) v=`(${v.slice(0,2)}) ${v.slice(2)}`;
+  else if(v.length>0) v=`(${v}`;
+  e.target.value = v;
+});
+
+// VALIDATION
+function setErr(id, errId, show){
+  const el = document.getElementById(id);
+  const err = document.getElementById(errId);
+  if(show){el.classList.add('error');err.classList.add('show');}
+  else{el.classList.remove('error');err.classList.remove('show');}
+}
+
+function submitForm(){
+  let valid = true;
+
+  // equipe
+  const nome = document.getElementById('nomeEquipe').value.trim();
+  setErr('nomeEquipe','nomeEquipeError', !nome);
+  if(!nome) valid=false;
+
+  // responsável
+  const resp = document.getElementById('nomeResp').value.trim();
+  setErr('nomeResp','nomeRespError', !resp);
+  if(!resp) valid=false;
+
+  // telefone
+  const tel = document.getElementById('telefone').value.replace(/\D/g,'');
+  setErr('telefone','telefoneError', tel.length < 10);
+  if(tel.length < 10) valid=false;
+
+  // escudo
+  const escudo = document.getElementById('escudo');
+  const hasFile = escudo.files && escudo.files.length > 0;
+  if(!hasFile){
+    document.getElementById('escudoError').classList.add('show');
+    valid=false;
+  }
+
+  // alojamento qty
+  const alojSim = document.querySelector('input[name=alojamento][value=sim]').checked;
+  if(alojSim){
+    const qty = document.getElementById('alojQty').value;
+    setErr('alojQty','alojQtyError', !qty || parseInt(qty)<1);
+    if(!qty || parseInt(qty)<1) valid=false;
+  }
+
+  // termos
+  const checkAloj = document.getElementById('checkAloj').checked;
+  const checkComp = document.getElementById('checkComp').checked;
+  if(!checkAloj){
+    document.getElementById('termoAlojError').classList.add('show');
+    valid=false;
+    // Open accordion
+    const body = document.getElementById('termoBody1');
+    if(!body.classList.contains('open')){
+      toggleTermo(1);
+    }
+  } else {
+    document.getElementById('termoAlojError').classList.remove('show');
+  }
+  if(!checkComp){
+    document.getElementById('termoCompError').classList.add('show');
+    valid=false;
+    const body = document.getElementById('termoBody2');
+    if(!body.classList.contains('open')){
+      toggleTermo(2);
+    }
+  } else {
+    document.getElementById('termoCompError').classList.remove('show');
+  }
+
+  if(!valid){
+    const firstErr = document.querySelector('.error, .field-error.show, .termo-err.show');
+    if(firstErr) firstErr.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  // SUBMIT SIMULATION
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  setTimeout(()=>{
+    btn.classList.remove('loading');
+    showSuccess();
+  }, 2000);
+}
+
+function showSuccess(){
+  const nome = document.getElementById('nomeEquipe').value.trim();
+  const resp = document.getElementById('nomeResp').value.trim();
+  const tel = document.getElementById('telefone').value.trim();
+  const alojSim = document.querySelector('input[name=alojamento][value=sim]').checked;
+  const qty = alojSim ? document.getElementById('alojQty').value : 'Não solicitado';
+
+  document.getElementById('formWrap').style.display = 'none';
+  const sc = document.getElementById('successScreen');
+  sc.classList.add('visible');
+
+  document.getElementById('successDetails').innerHTML = `
+    <div class="sd-row"><span class="sd-label">Equipe</span><span class="sd-value">${nome}</span></div>
+    <div class="sd-row"><span class="sd-label">Responsável</span><span class="sd-value">${resp}</span></div>
+    <div class="sd-row"><span class="sd-label">Telefone</span><span class="sd-value">${tel}</span></div>
+    <div class="sd-row"><span class="sd-label">Alojamento</span><span class="sd-value">${alojSim ? `Sim · ${qty} pessoa(s)` : 'Não necessário'}</span></div>
+    <div class="sd-row"><span class="sd-label">Termo Alojamento</span><span class="sd-value" style="color:var(--green)">✓ Assinado</span></div>
+    <div class="sd-row"><span class="sd-label">Termo Compromisso</span><span class="sd-value" style="color:var(--green)">✓ Assinado</span></div>
+  `;
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
