@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inscrição Oficial · Supercopa de Basquete 2025</title>
+<title>Inscrição Oficial · Supercopa de Basquete 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -72,16 +71,58 @@ nav.main-nav.scrolled{min-height:56px;background:rgba(7,9,13,.97)}
 .badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
   box-shadow:0 0 6px var(--accent);animation:blink 1.4s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.page-hero h1{
-  margin-top:24px;font-family:var(--D);font-size:clamp(2.2rem,6vw,4.5rem);
+
+/* ── HERO TITLE NOVA ESTRUTURA ── */
+.hero-title-wrap{
+  margin-top:24px;position:relative;z-index:2;
+  opacity:0;animation:fadeUp .7s .2s ease forwards;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.hero-title-line1{
+  font-family:var(--D);
+  font-size:clamp(2.4rem,7vw,5rem);
   line-height:1;letter-spacing:.08em;text-transform:uppercase;
   background:linear-gradient(155deg,#a8d0ff 0%,#3a86f0 25%,#fff 50%,#3a86f0 75%,#1a4a9e 100%);
   background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;filter:drop-shadow(0 0 12px rgba(58,134,240,.5));
-  animation:titleShine 4.5s ease-in-out infinite alternate,fadeUp .7s .2s ease both;
-  position:relative;z-index:2}
+  animation:titleShine 4.5s ease-in-out infinite alternate;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+}
+.hero-title-line2{
+  font-family:var(--D);
+  font-size:clamp(1rem,2.8vw,1.9rem);
+  line-height:1.1;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(232,93,58,.92);
+  filter:drop-shadow(0 0 8px rgba(232,93,58,.35));
+  white-space:nowrap;
+}
+@media(max-width:480px){
+  .hero-title-line2{font-size:clamp(.75rem,3.8vw,1.1rem);letter-spacing:.06em;}
+}
 @keyframes titleShine{from{background-position:0 50%}to{background-position:100% 50%}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── BOLA DE BASQUETE ANIMADA ── */
+.bball{
+  display:inline-block;
+  width:clamp(36px,5.5vw,62px);
+  height:clamp(36px,5.5vw,62px);
+  flex-shrink:0;
+  animation:bballBounce 1.1s cubic-bezier(.36,.07,.19,.97) infinite alternate,
+             bballSpin 2.2s linear infinite;
+  filter:drop-shadow(0 0 10px rgba(232,93,58,.55));
+  position:relative;top:2px;
+}
+@keyframes bballBounce{
+  0%{transform:translateY(0) scaleX(1) scaleY(1);}
+  85%{transform:translateY(-14px) scaleX(1) scaleY(1);}
+  100%{transform:translateY(-18px) scaleX(.96) scaleY(1.04);}
+}
+@keyframes bballSpin{
+  from{filter:drop-shadow(0 0 10px rgba(232,93,58,.55)) hue-rotate(0deg);}
+  to{filter:drop-shadow(0 0 10px rgba(232,93,58,.55)) hue-rotate(0deg);}
+}
+
 .hero-sub{margin-top:16px;color:var(--muted);font-size:15px;line-height:1.7;
   max-width:560px;margin-left:auto;margin-right:auto;position:relative;z-index:2;
   opacity:0;animation:fadeUp .7s .35s ease forwards}
@@ -256,6 +297,16 @@ nav.main-nav.scrolled{min-height:56px;background:rgba(7,9,13,.97)}
 .btn-submit.loading .btn-spinner{display:block}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* ── STATUS MSG ── */
+.status-msg{
+  display:none;margin-top:16px;padding:14px 18px;border-radius:8px;
+  font-size:13px;text-align:center;
+}
+.status-msg.erro{
+  display:block;
+  background:rgba(232,93,58,.1);border:1px solid rgba(232,93,58,.3);color:rgba(232,93,58,.95)
+}
+
 /* ── SUCCESS ── */
 .success-screen{
   display:none;max-width:600px;margin:0 auto;padding:0 24px 80px;text-align:center
@@ -301,7 +352,7 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
 <!-- URGENCY BAR -->
 <div class="urgency-bar">
   <div class="ub-dot"></div>
-  <span>🏀 SUPERCOPA DE BASQUETE · AFONSO CLÁUDIO · 2025 · INSCRIÇÃO OFICIAL</span>
+  <span>🏀 SUPERCOPA DE BASQUETE · AFONSO CLÁUDIO · 2026 · INSCRIÇÃO OFICIAL</span>
   <div class="ub-dot"></div>
 </div>
 
@@ -318,8 +369,48 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
   <div class="hero-dots"></div>
   <div class="hero-glow"></div>
   <div class="badge"><span class="badge-dot"></span>Inscrição Oficial · Afonso Cláudio</div>
-  <h1>🏐 Inscrição Oficial – Supercopa de Voleibol de Afonso Cláudio - 2025 🏆</h1>
-  <p class="hero-sub">Seja bem-vindo(a)! Esta é a página oficial de formalização da inscrição da sua equipe na <strong>Supercopa de Basquete de Afonso Cláudio - 2025</strong>! 🎉</p>
+
+  <!-- TÍTULO COM BOLA ANIMADA -->
+  <div class="hero-title-wrap">
+    <div class="hero-title-line1">
+      <!-- Bola de basquete SVG animada -->
+      <svg class="bball" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="ballGrad" cx="38%" cy="35%" r="60%">
+            <stop offset="0%" stop-color="#ff9f43"/>
+            <stop offset="60%" stop-color="#e85d3a"/>
+            <stop offset="100%" stop-color="#a33a1d"/>
+          </radialGradient>
+          <clipPath id="ballClip">
+            <circle cx="50" cy="50" r="48"/>
+          </clipPath>
+        </defs>
+        <!-- Corpo -->
+        <circle cx="50" cy="50" r="48" fill="url(#ballGrad)"/>
+        <!-- Linhas pretas do basquete -->
+        <g clip-path="url(#ballClip)" fill="none" stroke="#1a0800" stroke-width="3.2" stroke-linecap="round">
+          <!-- vertical central -->
+          <path d="M50 2 Q50 50 50 98"/>
+          <!-- horizontal central -->
+          <path d="M2 50 Q50 50 98 50"/>
+          <!-- curva esquerda superior -->
+          <path d="M2 50 Q18 18 50 2"/>
+          <!-- curva direita superior -->
+          <path d="M50 2 Q82 18 98 50"/>
+          <!-- curva esquerda inferior -->
+          <path d="M2 50 Q18 82 50 98"/>
+          <!-- curva direita inferior -->
+          <path d="M50 98 Q82 82 98 50"/>
+        </g>
+        <!-- Brilho -->
+        <ellipse cx="36" cy="30" rx="12" ry="7" fill="rgba(255,255,255,0.22)" transform="rotate(-30,36,30)"/>
+      </svg>
+      INSCRIÇÃO FINAL
+    </div>
+    <div class="hero-title-line2">Supercopa de Basquete de Afonso Cláudio 2026</div>
+  </div>
+
+  <p class="hero-sub">Seja bem-vindo(a)! Esta é a página oficial de formalização da inscrição da sua equipe na <strong>Supercopa de Basquete de Afonso Cláudio - 2026</strong>! 🎉</p>
 
   <div class="hero-alert">
     <span class="hero-alert-icon">⚠️</span>
@@ -428,7 +519,7 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
       </div>
     </div>
 
-    <!-- TERMO DE ALOJAMENTO -->
+    <!-- TERMOS -->
     <div class="form-section">
       <div class="form-section-title">Termos e Compromissos</div>
       <div class="form-section-sub">Leia com atenção e assine os termos abaixo para concluir a inscrição</div>
@@ -444,7 +535,7 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
         </div>
         <div class="termo-body" id="termoBody1">
           <div class="termo-body-inner">
-            <p>Declaro, para os devidos fins, estar ciente e de pleno acordo com as regras e condições estabelecidas pela organização da Supercopa de Voleibol de Afonso Cláudio – 2025, comprometendo-me com os seguintes termos:</p>
+            <p>Declaro, para os devidos fins, estar ciente e de pleno acordo com as regras e condições estabelecidas pela organização da Supercopa de Basquete de Afonso Cláudio – 2026, comprometendo-me com os seguintes termos:</p>
             <p><strong>Responsabilidade pelo Alojamento:</strong><br>
             Comprometo-me a zelar pela boa utilização do espaço de alojamento disponibilizado para minha equipe, mantendo o local limpo, organizado e sem causar qualquer tipo de dano.</p>
             <p><strong>Danos, Avarias ou Desaparecimento de Itens:</strong><br>
@@ -478,8 +569,8 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
         </div>
         <div class="termo-body" id="termoBody2">
           <div class="termo-body-inner">
-            <p>Declaro estar plenamente ciente das condições para participação na Supercopa de Voleibol de Afonso Cláudio – 2025, e assumo total compromisso com o comparecimento da minha equipe no evento.</p>
-            <p>A equipe organizadora deste torneio atua com o objetivo de incentivar e apoiar o voleibol amador, proporcionando às equipes a oportunidade de participar de uma competição estruturada sem cobrança de taxas ou custos de inscrição.</p>
+            <p>Declaro estar plenamente ciente das condições para participação na Supercopa de Basquete de Afonso Cláudio – 2026, e assumo total compromisso com o comparecimento da minha equipe no evento.</p>
+            <p>A equipe organizadora deste torneio atua com o objetivo de incentivar e apoiar o basquete amador, proporcionando às equipes a oportunidade de participar de uma competição estruturada sem cobrança de taxas ou custos de inscrição.</p>
             <p><strong>Sabendo que:</strong><br>
             Os convites para participação são enviados com antecedência mínima de 1 (um) mês, justamente para que cada equipe possa se organizar adequadamente;<br><br>
             A ausência injustificada de uma equipe pode retirar a vaga de outro grupo interessado e pronto para participar, comprometendo a dinâmica e a seriedade do torneio;<br><br>
@@ -508,6 +599,7 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
         <span class="btn-text">🏀 Finalizar Inscrição</span>
         <div class="btn-spinner"></div>
       </button>
+      <div class="status-msg" id="statusMsg"></div>
     </div>
 
   </div>
@@ -519,23 +611,27 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
   <div style="padding-top:60px"></div>
   <div class="success-icon">✅</div>
   <h2>Inscrição <em>Enviada!</em></h2>
-  <p>Sua inscrição foi registrada com sucesso. Nossa comissão organizadora entrará em contato em breve para confirmar sua participação na Supercopa 2025.</p>
+  <p>Sua inscrição foi registrada com sucesso. Nossa comissão organizadora entrará em contato em breve para confirmar sua participação na Supercopa 2026.</p>
   <div class="success-details" id="successDetails"></div>
   <a href="#" class="btn-submit" style="text-decoration:none;display:block;text-align:center;max-width:360px;margin:0 auto;padding:16px">← Voltar ao Início</a>
 </div>
 
 <footer>
   <div class="footer-logo">SUPERCOPA</div>
-  <div class="footer-tagline">Supercopa de Basquete · Afonso Cláudio · 2025</div>
+  <div class="footer-tagline">Supercopa de Basquete · Afonso Cláudio · 2026</div>
 </footer>
 
 <script>
-// NAV SCROLL
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+// Cole aqui a URL gerada após implantar o Apps Script como "App da Web"
+const SCRIPT_URL = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
+
+// ── NAV SCROLL ───────────────────────────────────────────────────────────────
 window.addEventListener('scroll',()=>{
   document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40)
 },{passive:true});
 
-// DRAG & DROP
+// ── DRAG & DROP ──────────────────────────────────────────────────────────────
 const uploadArea = document.getElementById('uploadArea');
 uploadArea.addEventListener('dragover',e=>{e.preventDefault();uploadArea.classList.add('drag-over')});
 uploadArea.addEventListener('dragleave',()=>uploadArea.classList.remove('drag-over'));
@@ -566,7 +662,7 @@ function processFile(file){
   reader.readAsDataURL(file);
 }
 
-// ALOJAMENTO TOGGLE
+// ── ALOJAMENTO TOGGLE ────────────────────────────────────────────────────────
 function toggleAlojQty(){
   const radios = document.querySelectorAll('input[name=alojamento]');
   let sim = false;
@@ -574,7 +670,7 @@ function toggleAlojQty(){
   document.getElementById('alojQtyWrap').classList.toggle('visible', sim);
 }
 
-// TERMO ACCORDIONS
+// ── TERMO ACCORDIONS ─────────────────────────────────────────────────────────
 function toggleTermo(n){
   const body = document.getElementById('termoBody'+n);
   const header = document.getElementById('termoHeader'+n);
@@ -582,7 +678,7 @@ function toggleTermo(n){
   header.classList.toggle('open');
 }
 
-// PHONE MASK
+// ── PHONE MASK ───────────────────────────────────────────────────────────────
 document.getElementById('telefone').addEventListener('input', e=>{
   let v = e.target.value.replace(/\D/g,'');
   if(v.length>11) v=v.slice(0,11);
@@ -592,7 +688,7 @@ document.getElementById('telefone').addEventListener('input', e=>{
   e.target.value = v;
 });
 
-// VALIDATION
+// ── VALIDATION ───────────────────────────────────────────────────────────────
 function setErr(id, errId, show){
   const el = document.getElementById(id);
   const err = document.getElementById(errId);
@@ -600,25 +696,22 @@ function setErr(id, errId, show){
   else{el.classList.remove('error');err.classList.remove('show');}
 }
 
+// ── SUBMIT ───────────────────────────────────────────────────────────────────
 function submitForm(){
   let valid = true;
 
-  // equipe
   const nome = document.getElementById('nomeEquipe').value.trim();
   setErr('nomeEquipe','nomeEquipeError', !nome);
   if(!nome) valid=false;
 
-  // responsável
   const resp = document.getElementById('nomeResp').value.trim();
   setErr('nomeResp','nomeRespError', !resp);
   if(!resp) valid=false;
 
-  // telefone
   const tel = document.getElementById('telefone').value.replace(/\D/g,'');
   setErr('telefone','telefoneError', tel.length < 10);
   if(tel.length < 10) valid=false;
 
-  // escudo
   const escudo = document.getElementById('escudo');
   const hasFile = escudo.files && escudo.files.length > 0;
   if(!hasFile){
@@ -626,7 +719,6 @@ function submitForm(){
     valid=false;
   }
 
-  // alojamento qty
   const alojSim = document.querySelector('input[name=alojamento][value=sim]').checked;
   if(alojSim){
     const qty = document.getElementById('alojQty').value;
@@ -634,17 +726,13 @@ function submitForm(){
     if(!qty || parseInt(qty)<1) valid=false;
   }
 
-  // termos
   const checkAloj = document.getElementById('checkAloj').checked;
   const checkComp = document.getElementById('checkComp').checked;
   if(!checkAloj){
     document.getElementById('termoAlojError').classList.add('show');
     valid=false;
-    // Open accordion
     const body = document.getElementById('termoBody1');
-    if(!body.classList.contains('open')){
-      toggleTermo(1);
-    }
+    if(!body.classList.contains('open')) toggleTermo(1);
   } else {
     document.getElementById('termoAlojError').classList.remove('show');
   }
@@ -652,9 +740,7 @@ function submitForm(){
     document.getElementById('termoCompError').classList.add('show');
     valid=false;
     const body = document.getElementById('termoBody2');
-    if(!body.classList.contains('open')){
-      toggleTermo(2);
-    }
+    if(!body.classList.contains('open')) toggleTermo(2);
   } else {
     document.getElementById('termoCompError').classList.remove('show');
   }
@@ -665,17 +751,54 @@ function submitForm(){
     return;
   }
 
-  // SUBMIT SIMULATION
   const btn = document.getElementById('btnSubmit');
+  const statusMsg = document.getElementById('statusMsg');
   btn.disabled = true;
   btn.classList.add('loading');
+  statusMsg.className = 'status-msg';
 
-  setTimeout(()=>{
-    btn.classList.remove('loading');
-    showSuccess();
-  }, 2000);
+  // Lê o arquivo como base64 e envia
+  const file = escudo.files[0];
+  const reader = new FileReader();
+  reader.onload = async function(ev){
+    const payload = {
+      nomeEquipe:   nome,
+      nomeResp:     resp,
+      telefone:     document.getElementById('telefone').value.trim(),
+      alojamento:   document.querySelector('input[name=alojamento]:checked').value,
+      alojQty:      alojSim ? document.getElementById('alojQty').value : '',
+      termoAloj:    true,
+      termoComp:    true,
+      escudoBase64: ev.target.result,
+      escudoNome:   file.name
+    };
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      btn.classList.remove('loading');
+
+      if(json.status === 'ok'){
+        showSuccess();
+      } else {
+        btn.disabled = false;
+        statusMsg.textContent = '⚠️ Erro ao enviar: ' + (json.msg || 'tente novamente.');
+        statusMsg.className = 'status-msg erro';
+      }
+    } catch(err){
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      statusMsg.textContent = '⚠️ Falha de conexão. Verifique sua internet e tente novamente.';
+      statusMsg.className = 'status-msg erro';
+    }
+  };
+  reader.readAsDataURL(file);
 }
 
+// ── SUCCESS SCREEN ───────────────────────────────────────────────────────────
 function showSuccess(){
   const nome = document.getElementById('nomeEquipe').value.trim();
   const resp = document.getElementById('nomeResp').value.trim();
