@@ -506,6 +506,46 @@ nav.main-nav.scrolled{
   background:rgba(232,93,58,.1);border:1px solid rgba(232,93,58,.3);color:rgba(232,93,58,.95)
 }
 
+/* ── CÓDIGO DE INSCRIÇÃO ── */
+.code-section{
+  background:rgba(58,134,240,.04);
+  border-top:1px solid rgba(58,134,240,.15);
+}
+.code-field-wrap{
+  display:flex;flex-direction:column;gap:7px;position:relative;
+}
+.code-input-row{
+  display:flex;align-items:center;gap:10px;
+}
+.code-input-row input{
+  font-family:var(--M)!important;
+  letter-spacing:4px;
+  font-size:17px!important;
+  text-transform:uppercase;
+}
+.code-lock-icon{
+  font-size:22px;flex-shrink:0;
+  filter:drop-shadow(0 0 6px rgba(58,134,240,.4));
+}
+.code-hint{
+  font-size:11px;color:var(--muted);line-height:1.5;
+  display:flex;align-items:center;gap:6px;margin-top:2px;
+}
+.code-hint-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--accent);flex-shrink:0;
+  box-shadow:0 0 5px var(--accent);
+}
+.code-error-msg{
+  display:none;
+  margin-top:10px;padding:12px 16px;border-radius:8px;
+  background:rgba(232,93,58,.1);border:1px solid rgba(232,93,58,.35);
+  color:rgba(232,93,58,.95);font-size:13px;font-weight:600;
+  align-items:center;gap:10px;
+}
+.code-error-msg.show{display:flex;}
+.code-error-msg .ce-icon{font-size:18px;flex-shrink:0;}
+
 /* ── SUCCESS ── */
 .success-screen{
   display:none;max-width:600px;margin:0 auto;padding:0 24px 80px;text-align:center
@@ -877,6 +917,33 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
       </div>
     </div>
 
+    <!-- CÓDIGO DE INSCRIÇÃO -->
+    <div class="form-section code-section">
+      <div class="form-section-title">Código de Inscrição</div>
+      <div class="form-section-sub">Digite o código recebido junto ao seu convite oficial</div>
+
+      <div class="code-field-wrap">
+        <div class="code-input-row">
+          <span class="code-lock-icon">🔐</span>
+          <div class="field" style="flex:1;gap:0">
+            <label>Código de Convite *</label>
+            <input type="text" id="codigoInscricao" placeholder="Digite o código aqui" maxlength="20"
+              autocomplete="off" spellcheck="false"
+              oninput="this.value=this.value.toUpperCase();clearCodeError()">
+            <span class="field-error" id="codigoInscricaoError">Campo obrigatório.</span>
+          </div>
+        </div>
+        <div class="code-hint">
+          <span class="code-hint-dot"></span>
+          O código foi enviado junto ao convite oficial da sua equipe. Em caso de dúvidas, entre em contato com a organização.
+        </div>
+        <div class="code-error-msg" id="codeErrorMsg">
+          <span class="ce-icon">⛔</span>
+          <span id="codeErrorText">Código inválido. Verifique o código recebido no convite e tente novamente.</span>
+        </div>
+      </div>
+    </div>
+
     <!-- SUBMIT -->
     <div class="form-footer">
       <div class="form-zero-taxa">✓ Evento 100% gratuito · Sem taxas de inscrição</div>
@@ -911,6 +978,15 @@ footer{padding:48px 36px 32px;background:var(--surface);border-top:1px solid var
 // ── CONFIG ──────────────────────────────────────────────────────────────────
 // Cole aqui a URL gerada após implantar o Apps Script como "App da Web"
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw96gGIjYMpdL4P6tP-jk8bKOMfd_5lQF65lXKfHdXiDjfjNfllRyVu0_fD2Lz1tMenRQ/exec';
+
+// ── CÓDIGOS VÁLIDOS DE INSCRIÇÃO ─────────────────────────────────────────────
+const VALID_CODES = ['SUPA26', 'BKAC26', 'COPA26', 'MONTANHA26', 'AFC2026'];
+
+function clearCodeError(){
+  document.getElementById('codeErrorMsg').classList.remove('show');
+  document.getElementById('codigoInscricao').classList.remove('error');
+  document.getElementById('codigoInscricaoError').classList.remove('show');
+}
 
 // ── NAV SCROLL ───────────────────────────────────────────────────────────────
 window.addEventListener('scroll',()=>{
@@ -1030,6 +1106,36 @@ function setErr(id, errId, show){
 function submitForm(){
   let valid = true;
 
+  // ── VALIDAÇÃO DO CÓDIGO (verificada ANTES de tudo) ────────────────────────
+  const codigoInput = document.getElementById('codigoInscricao');
+  const codigo = codigoInput.value.trim().toUpperCase();
+  const codeErrorMsg = document.getElementById('codeErrorMsg');
+  const codeErrorText = document.getElementById('codeErrorText');
+
+  if(!codigo){
+    codigoInput.classList.add('error');
+    document.getElementById('codigoInscricaoError').classList.add('show');
+    codeErrorText.textContent = 'Por favor, informe o código de inscrição recebido no convite.';
+    codeErrorMsg.classList.add('show');
+    codigoInput.scrollIntoView({behavior:'smooth', block:'center'});
+    setTimeout(()=>codigoInput.focus(), 400);
+    return;
+  }
+
+  if(!VALID_CODES.includes(codigo)){
+    codigoInput.classList.add('error');
+    document.getElementById('codigoInscricaoError').classList.remove('show');
+    codeErrorText.textContent = 'Código inválido. Verifique o código recebido no convite e tente novamente.';
+    codeErrorMsg.classList.add('show');
+    codigoInput.scrollIntoView({behavior:'smooth', block:'center'});
+    setTimeout(()=>{ codigoInput.focus(); codigoInput.select(); }, 400);
+    return;
+  }
+
+  // Código OK — limpa estado de erro
+  codigoInput.classList.remove('error');
+  codeErrorMsg.classList.remove('show');
+
   const nome = document.getElementById('nomeEquipe').value.trim();
   setErr('nomeEquipe','nomeEquipeError', !nome);
   if(!nome) valid=false;
@@ -1145,6 +1251,7 @@ function showSuccess(){
     <div class="sd-row"><span class="sd-label">Responsável</span><span class="sd-value">${resp}</span></div>
     <div class="sd-row"><span class="sd-label">Telefone</span><span class="sd-value">${tel}</span></div>
     <div class="sd-row"><span class="sd-label">Alojamento</span><span class="sd-value">${alojSim ? `Sim · ${qty} pessoa(s)` : 'Não necessário'}</span></div>
+    <div class="sd-row"><span class="sd-label">Código</span><span class="sd-value" style="font-family:var(--M);letter-spacing:2px;color:var(--green)">${document.getElementById('codigoInscricao').value.trim().toUpperCase()}</span></div>
     <div class="sd-row"><span class="sd-label">Termo Alojamento</span><span class="sd-value" style="color:var(--green)">✓ Assinado</span></div>
     <div class="sd-row"><span class="sd-label">Termo Compromisso</span><span class="sd-value" style="color:var(--green)">✓ Assinado</span></div>
   `;
