@@ -915,6 +915,10 @@ nav:not(.main-nav){display:none!important}
 #sc-transition.sc-t-leaving .sc-t-logo-bar{width:0;transition:width .2s ease 0s;}
 
 
+
+.hero-banner-btns{
+  display:flex;flex-direction:column;gap:10px;flex-shrink:0;
+}
 /* BOTÃO REGULAMENTOS */
 .hero-banner-reg{
   position:relative;z-index:2;
@@ -927,7 +931,6 @@ nav:not(.main-nav){display:none!important}
   overflow:hidden;
   transition:transform .2s,box-shadow .3s,background .3s,color .3s;
   display:inline-block;
-  margin-top:12px;
 }
 .hero-banner-reg:hover{
   background:var(--accent);
@@ -1080,8 +1083,10 @@ nav:not(.main-nav){display:none!important}
           </div>
         </div>
       </div>
-     <a class="hero-banner-cta" href="inscricaofinal.html">INSCRIÇÃO FINAL 🏀</a>
-     <a class="hero-banner-reg" href="regulamento.html">📋 REGULAMENTOS</a>  
+     <div class="hero-banner-btns">
+       <a class="hero-banner-cta" href="inscricaofinal.html">INSCRIÇÃO FINAL 🏀</a>
+       <a class="hero-banner-reg" href="regulamento.html">📋 REGULAMENTOS</a>
+     </div>
     </div>
   </div>
 
