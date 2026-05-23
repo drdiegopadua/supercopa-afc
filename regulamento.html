@@ -779,12 +779,16 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
 /* TAB SWITCHER */
 function switchTab(sport) {
   ['basquete','voleibol'].forEach(function(k){
-    document.getElementById('tab'+k.charAt(0).toUpperCase()+k.slice(1)).classList.toggle('active', k===sport);
-    document.getElementById('panel'+k.charAt(0).toUpperCase()+k.slice(1)).classList.toggle('active', k===sport);
+    var tab = document.getElementById('tab'+k.charAt(0).toUpperCase()+k.slice(1));
+    var panel = document.getElementById('panel'+k.charAt(0).toUpperCase()+k.slice(1));
+    if(tab) tab.classList.toggle('active', k===sport);
+    if(panel) panel.classList.toggle('active', k===sport);
   });
-  var top = document.getElementById('sportSelector').getBoundingClientRect().top + window.scrollY - 80;
-  window.scrollTo({top: top, behavior:'smooth'});
-  // re-trigger reveals for newly visible panel
+  var sel = document.getElementById('sportSelector');
+  if(sel) {
+    var top = sel.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({top: top, behavior:'smooth'});
+  }
   document.querySelectorAll('#panel'+sport.charAt(0).toUpperCase()+sport.slice(1)+' .reveal').forEach(function(el){
     if(!el.classList.contains('visible')) observer.observe(el);
   });
@@ -792,25 +796,8 @@ function switchTab(sport) {
 
 /* NAV SCROLL */
 window.addEventListener('scroll', function(){
-  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 30);
-});
-
-/* HAMBURGER */
-var hamburger = document.getElementById('hamburger');
-var drawer = document.getElementById('mobileDrawer');
-var overlay = document.getElementById('drawerOverlay');
-var drawerClose = document.getElementById('drawerClose');
-hamburger.addEventListener('click', function(){
-  hamburger.classList.toggle('open');
-  drawer.classList.toggle('open');
-  overlay.classList.toggle('open');
-});
-[overlay, drawerClose].forEach(function(el){
-  el.addEventListener('click', function(){
-    hamburger.classList.remove('open');
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-  });
+  var nav = document.getElementById('mainNav');
+  if(nav) nav.classList.toggle('scrolled', window.scrollY > 30);
 });
 
 /* REVEAL */
@@ -819,9 +806,31 @@ var observer = new IntersectionObserver(function(entries){
 }, {threshold:0.08});
 document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
 
-/* PAGE TRANSITION — só ao clicar em links internos */
+/* HAMBURGER */
+var hamburger = document.getElementById('hamburger');
+var drawer = document.getElementById('mobileDrawer');
+var overlay = document.getElementById('drawerOverlay');
+var drawerClose = document.getElementById('drawerClose');
+if(hamburger && drawer && overlay) {
+  hamburger.addEventListener('click', function(){
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  [overlay, drawerClose].forEach(function(el){
+    if(!el) return;
+    el.addEventListener('click', function(){
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+  });
+}
+
+/* PAGE TRANSITION */
 (function(){
   var t = document.getElementById('sc-transition');
+  if(!t) return;
   document.querySelectorAll('a[href]').forEach(function(a){
     var href = a.getAttribute('href');
     if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
