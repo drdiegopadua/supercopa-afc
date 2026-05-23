@@ -13,141 +13,79 @@
   --D:'Bebas Neue',sans-serif;--B:'DM Sans',sans-serif;--M:'Space Mono',monospace;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidden;width:100%;max-width:100%;}
+body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidden;}
 
-/* ── NAV ── */
+/* NAV */
 nav.main-nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(13,16,24,0.92);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  background:rgba(13,16,24,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,0.07);
-  padding:0 36px;
-  display:flex;align-items:center;justify-content:space-between;
+  padding:0 36px;display:flex;align-items:center;justify-content:space-between;
   gap:16px;min-height:72px;
-  animation:navSlideDown .5s cubic-bezier(.22,1,.36,1) both;
-  transition:min-height .35s,background .35s,box-shadow .35s,border-color .35s;
+  transition:min-height .35s,background .35s,box-shadow .35s;
 }
-nav.main-nav.scrolled{min-height:58px;background:rgba(7,9,13,0.97);box-shadow:0 4px 32px rgba(0,0,0,.5);border-bottom-color:rgba(58,134,240,0.15);}
+nav.main-nav.scrolled{min-height:58px;background:rgba(7,9,13,0.97);box-shadow:0 4px 32px rgba(0,0,0,.5);}
 .nav-logo-block{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .nav-logo-text{font-family:var(--D);font-size:22px;letter-spacing:3px;color:var(--accent);}
 .nav-logo-text span{color:rgba(255,255,255,0.3);}
 .main-nav-links{display:flex;list-style:none;gap:0;flex:1;justify-content:center;}
-.main-nav-links li a{display:block;padding:24px 18px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;position:relative;transition:color .2s;white-space:nowrap;}
-.main-nav-links li a::after{content:'';position:absolute;bottom:0;left:18px;right:18px;height:2px;background:var(--accent);border-radius:999px;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.22,1,.36,1);}
+.main-nav-links li a{display:block;padding:24px 16px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;position:relative;transition:color .2s;white-space:nowrap;}
+.main-nav-links li a::after{content:'';position:absolute;bottom:0;left:16px;right:16px;height:2px;background:var(--accent);border-radius:999px;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.22,1,.36,1);}
 .main-nav-links li a:hover{color:var(--text);}
-.main-nav-links li a:hover::after{transform:scaleX(1);}
+.main-nav-links li a:hover::after,.main-nav-links li a.active::after{transform:scaleX(1);}
 .main-nav-links li a.active{color:var(--accent);}
-.main-nav-links li a.active::after{transform:scaleX(1);}
 .hamburger{display:none;}
 .mobile-drawer{display:none;}
 .drawer-overlay{display:none;}
 
-@keyframes navSlideDown{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── MARQUEE ── */
-.marquee-wrap{overflow:hidden;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;}
-.marquee-track{display:flex;gap:0;animation:marquee 28s linear infinite;width:max-content;}
-.marquee-item{font-family:var(--M);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:0 8px;}
-.msep{color:var(--accent);}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px var(--accent)}50%{opacity:.2;box-shadow:none}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ── PAGE HERO ── */
-.page-hero{
-  padding:80px 48px 64px;
-  background:linear-gradient(to bottom, var(--surface), var(--bg));
-  border-bottom:1px solid var(--border);
-  text-align:center;
-  position:relative;overflow:hidden;
-}
-.page-hero::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(58,134,240,0.08), transparent);
-  pointer-events:none;
-}
-.page-hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.28);
-  border-radius:100px;padding:6px 20px;
-  font-family:var(--M);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;
-  margin-bottom:28px;
-  opacity:0;animation:fadeUp .7s .1s ease forwards;
-}
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;}
+.marquee-track{display:flex;animation:marquee 28s linear infinite;width:max-content;}
+.marquee-item{font-family:var(--M);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:0 8px;}
+.msep{color:var(--accent);}
+
+/* PAGE HERO */
+.page-hero{padding:80px 48px 64px;background:linear-gradient(to bottom,var(--surface),var(--bg));border-bottom:1px solid var(--border);text-align:center;position:relative;overflow:hidden;}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(58,134,240,0.08),transparent);pointer-events:none;}
+.page-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.28);border-radius:100px;padding:6px 20px;font-family:var(--M);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fadeUp .7s .1s ease forwards;}
 .page-hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;animation:blink 1.4s infinite;box-shadow:0 0 6px var(--accent);}
-@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px var(--accent)}50%{opacity:.2;box-shadow:none}}
 .page-hero h1{font-family:var(--D);font-size:clamp(2.8rem,7vw,5rem);letter-spacing:3px;line-height:1.05;text-transform:uppercase;opacity:0;animation:fadeUp .7s .2s ease forwards;}
 .page-hero h1 em{font-style:normal;color:var(--accent);}
 .page-hero p{margin-top:20px;color:var(--muted);font-size:16px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;opacity:0;animation:fadeUp .7s .3s ease forwards;}
 
-/* ── SPORT SELECTOR TABS ── */
-.sport-selector{
-  display:flex;gap:0;justify-content:center;
-  padding:40px 48px 0;
-  position:sticky;top:71px;z-index:90;
-  background:var(--bg);
-  border-bottom:1px solid var(--border);
-}
-.sport-tab{
-  display:flex;align-items:center;gap:12px;
-  padding:18px 48px;
-  background:none;border:none;cursor:pointer;
-  font-family:var(--D);font-size:22px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);position:relative;
-  transition:color .3s;border-bottom:3px solid transparent;
-}
-.sport-tab .tab-icon{font-size:20px;}
+/* SPORT TABS */
+.sport-selector{display:flex;justify-content:center;position:sticky;top:71px;z-index:90;background:var(--bg);border-bottom:1px solid var(--border);}
+.sport-tab{display:flex;align-items:center;gap:10px;padding:18px 48px;background:none;border:none;cursor:pointer;font-family:var(--D);font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);position:relative;transition:color .3s;}
 .sport-tab::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:center;transition:transform .3s cubic-bezier(.22,1,.36,1);}
 .sport-tab.active{color:var(--text);}
 .sport-tab.active::after{transform:scaleX(1);}
 .sport-tab.vl.active::after{background:var(--accent2);}
-.sport-tab.vl.active{color:var(--text);}
 .sport-tab:hover{color:var(--text);}
 
-/* ── CONTENT PANELS ── */
-.reg-panel{display:none;animation:fadeUp .5s ease forwards;}
-.reg-panel.active{display:block;}
+/* PANELS */
+.reg-panel{display:none;}
+.reg-panel.active{display:block;animation:fadeUp .4s ease forwards;}
 
-/* ── REGULATION LAYOUT ── */
+/* REG WRAP */
 .reg-wrap{max-width:960px;margin:0 auto;padding:64px 48px 100px;}
 
-/* chapter nav sidebar-style scrollspy */
-.reg-meta{
-  display:flex;align-items:center;gap:16px;
-  margin-bottom:48px;
-  padding-bottom:24px;
-  border-bottom:1px solid var(--border);
-  flex-wrap:wrap;
-}
-.reg-meta-pill{
-  display:inline-flex;align-items:center;gap:7px;
-  background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.22);
-  border-radius:100px;padding:5px 16px;
-  font-family:var(--M);font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;
-}
+.reg-meta{display:flex;align-items:center;gap:12px;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.reg-meta-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.22);border-radius:100px;padding:5px 16px;font-family:var(--M);font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;}
 .reg-meta-pill.orange{background:rgba(232,93,58,0.10);border-color:rgba(232,93,58,0.22);color:var(--accent2);}
 
-/* chapters */
-.chapter{margin-bottom:56px;}
-.chapter-header{
-  display:flex;align-items:flex-start;gap:20px;
-  margin-bottom:28px;padding-bottom:16px;
-  border-bottom:1px solid var(--border);
-}
-.chapter-num{
-  font-family:var(--M);font-size:10px;letter-spacing:2px;color:var(--accent);
-  background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.2);
-  border-radius:4px;padding:6px 12px;white-space:nowrap;flex-shrink:0;margin-top:4px;
-}
+/* CHAPTERS */
+.chapter{margin-bottom:52px;}
+.chapter-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.chapter-num{font-family:var(--M);font-size:10px;letter-spacing:2px;color:var(--accent);background:rgba(58,134,240,0.10);border:1px solid rgba(58,134,240,0.2);border-radius:4px;padding:6px 12px;white-space:nowrap;flex-shrink:0;margin-top:4px;}
 .chapter-num.orange{color:var(--accent2);background:rgba(232,93,58,0.10);border-color:rgba(232,93,58,0.2);}
 .chapter-title{font-family:var(--D);font-size:clamp(1.4rem,3vw,2rem);letter-spacing:2px;text-transform:uppercase;line-height:1.1;}
 
-/* articles */
-.article{
-  background:var(--card);border:1px solid var(--border);border-radius:6px;
-  padding:28px 32px;margin-bottom:16px;
-  position:relative;overflow:hidden;
-  transition:border-color .3s,transform .3s;
-}
+/* ARTICLES */
+.article{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:28px 32px;margin-bottom:14px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
 .article:hover{border-color:rgba(58,134,240,0.2);transform:translateX(4px);}
 .article.orange:hover{border-color:rgba(232,93,58,0.2);}
 .article::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);}
@@ -157,49 +95,38 @@ nav.main-nav.scrolled{min-height:58px;background:rgba(7,9,13,0.97);box-shadow:0 
 .article-text{font-size:15px;line-height:1.7;color:rgba(232,234,240,0.85);}
 .article-text strong{color:var(--text);font-weight:700;}
 
-/* incisos (sub-items) */
-.incisos{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:8px;}
-.incisos li{
-  display:flex;gap:14px;
-  font-size:14px;line-height:1.6;color:var(--muted);
-  padding:10px 14px;
-  background:rgba(255,255,255,0.02);border-radius:4px;
-  border:1px solid rgba(255,255,255,0.04);
-}
+/* INCISOS */
+.incisos{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+.incisos li{display:flex;gap:14px;font-size:14px;line-height:1.6;color:var(--muted);padding:10px 14px;background:rgba(255,255,255,0.02);border-radius:4px;border:1px solid rgba(255,255,255,0.04);}
 .inc-label{font-family:var(--M);font-size:10px;color:var(--accent);flex-shrink:0;padding-top:2px;min-width:28px;}
 .article.orange .inc-label{color:var(--accent2);}
 
-/* parágrafo único */
-.par-unico{
-  margin-top:16px;padding:14px 18px;
-  background:rgba(255,255,255,0.03);border-left:2px solid rgba(255,255,255,0.1);
-  border-radius:0 4px 4px 0;font-size:13px;color:var(--muted);line-height:1.6;
-}
+/* PARÁGRAFO */
+.par-unico{margin-top:14px;padding:14px 18px;background:rgba(255,255,255,0.03);border-left:2px solid rgba(255,255,255,0.1);border-radius:0 4px 4px 0;font-size:13px;color:var(--muted);line-height:1.6;}
 .par-label{font-weight:700;color:rgba(255,255,255,0.3);font-size:11px;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;}
 
-/* highlight box */
-.highlight-box{
-  background:linear-gradient(135deg,rgba(58,134,240,0.08),rgba(58,134,240,0.03));
-  border:1px solid rgba(58,134,240,0.25);border-radius:8px;
-  padding:28px 32px;margin-top:32px;
-}
+/* HIGHLIGHT */
+.highlight-box{background:linear-gradient(135deg,rgba(58,134,240,0.08),rgba(58,134,240,0.03));border:1px solid rgba(58,134,240,0.25);border-radius:8px;padding:28px 32px;margin-top:32px;}
 .highlight-box.orange{background:linear-gradient(135deg,rgba(232,93,58,0.08),rgba(232,93,58,0.03));border-color:rgba(232,93,58,0.25);}
-.hl-title{font-family:var(--D);font-size:16px;letter-spacing:2px;margin-bottom:12px;color:var(--accent);}
+.hl-title{font-family:var(--D);font-size:16px;letter-spacing:2px;margin-bottom:10px;color:var(--accent);}
 .highlight-box.orange .hl-title{color:var(--accent2);}
-.hl-text{font-size:14px;color:var(--muted);line-height:1.6;}
+.hl-text{font-size:14px;color:var(--muted);line-height:1.7;}
+.hl-text strong{color:var(--text);}
 
-/* classification criteria */
-.criteria-list{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
-.criteria-item{
-  display:flex;align-items:center;gap:16px;
-  padding:12px 16px;background:rgba(255,255,255,0.02);
-  border:1px solid rgba(255,255,255,0.05);border-radius:4px;
-  font-size:14px;color:rgba(232,234,240,0.8);
-}
+/* CRITERIA */
+.criteria-list{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+.criteria-item{display:flex;align-items:center;gap:16px;padding:12px 16px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:4px;font-size:14px;color:rgba(232,234,240,0.8);}
 .criteria-n{font-family:var(--D);font-size:22px;color:var(--accent);min-width:30px;line-height:1;}
 .article.orange .criteria-n{color:var(--accent2);}
 
-/* reveal */
+/* POINTS TABLE */
+.pts-table{width:100%;border-collapse:collapse;margin-top:14px;}
+.pts-table th{text-align:left;padding:12px 16px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);border-bottom:1px solid var(--border);font-family:var(--M);}
+.pts-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(232,234,240,0.8);}
+.pts-table tr:last-child td{border-bottom:none;}
+.pts-table .pts-val{font-family:var(--D);font-size:20px;color:var(--accent2);}
+
+/* REVEAL */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
@@ -213,64 +140,50 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
 .footer-links a:hover{color:var(--text);}
 .footer-bottom{max-width:1200px;margin:0 auto;padding-top:32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;flex-wrap:wrap;gap:10px;}
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(max-width:768px){
   nav.main-nav{padding:0 16px;min-height:64px;}
   .main-nav-links{display:none;}
-  .hamburger{
-    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
-    width:40px;height:40px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
-    border-radius:6px;cursor:pointer;flex-shrink:0;transition:background .2s;
-  }
-  .hamburger:hover{background:rgba(58,134,240,0.15);}
+  .hamburger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;cursor:pointer;flex-shrink:0;transition:background .2s;}
   .hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s;}
   .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
   .hamburger.open span:nth-child(2){opacity:0;}
   .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  .mobile-drawer{
-    display:block;position:fixed;top:0;right:-100%;
-    width:80vw;max-width:300px;height:100dvh;
-    background:#0d1018;border-left:1px solid rgba(58,134,240,0.2);
-    z-index:300;transition:right .35s cubic-bezier(.22,1,.36,1);overflow-y:auto;padding:0 0 40px;
-  }
+  .mobile-drawer{display:block;position:fixed;top:0;right:-100%;width:80vw;max-width:300px;height:100dvh;background:#0d1018;border-left:1px solid rgba(58,134,240,0.2);z-index:300;transition:right .35s cubic-bezier(.22,1,.36,1);overflow-y:auto;padding-bottom:40px;}
   .mobile-drawer.open{right:0;}
-  .drawer-overlay{
-    display:block;position:fixed;inset:0;background:rgba(0,0,0,0.6);
-    z-index:299;opacity:0;pointer-events:none;transition:opacity .3s;
-  }
+  .drawer-overlay{display:block;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:299;opacity:0;pointer-events:none;transition:opacity .3s;}
   .drawer-overlay.open{opacity:1;pointer-events:all;}
   .drawer-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,0.07);}
-  .drawer-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:22px;line-height:1;transition:color .2s;}
-  .drawer-close:hover{color:var(--text);}
+  .drawer-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:22px;line-height:1;}
   .drawer-links{list-style:none;padding:12px 0;}
   .drawer-links li{border-bottom:1px solid rgba(255,255,255,0.05);}
   .drawer-links li a{display:flex;align-items:center;gap:14px;padding:18px 24px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s,padding-left .2s;}
   .drawer-links li a:hover,.drawer-links li a.active{color:var(--accent);padding-left:30px;}
   .d-icon{font-size:16px;width:20px;text-align:center;}
-
   .page-hero{padding:52px 20px 44px;}
-  .sport-selector{padding:0;top:64px;flex-direction:row;}
-  .sport-tab{flex:1;padding:16px 20px;font-size:16px;justify-content:center;}
-  .reg-wrap{padding:40px 20px 72px;}
-  .article{padding:20px 22px;}
+  .sport-selector{top:64px;}
+  .sport-tab{flex:1;padding:16px 12px;font-size:15px;justify-content:center;text-align:center;}
+  .reg-wrap{padding:36px 20px 72px;}
+  .article{padding:20px 20px;}
   .chapter-header{flex-direction:column;gap:10px;}
   footer{padding:40px 20px 28px;}
-  .footer-inner{flex-direction:column;gap:20px;}
+  .footer-inner{flex-direction:column;}
   .footer-links{gap:14px;}
-  .footer-bottom{flex-direction:column;gap:8px;}
+  .footer-bottom{flex-direction:column;}
+  .pts-table th,.pts-table td{padding:10px 12px;font-size:13px;}
 }
 
-/* ── PAGE TRANSITION ── */
+/* PAGE TRANSITION — only on exit, never blocks load */
 #sc-transition{position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center;visibility:hidden;}
 #sc-transition.sc-t-active{visibility:visible;}
-.sc-t-panel{position:absolute;top:0;bottom:0;width:51%;background:#07090d;transform:scaleX(0);transition:transform 0.55s cubic-bezier(0.86,0,0.07,1);}
+.sc-t-panel{position:absolute;top:0;bottom:0;width:51%;background:#07090d;transform:scaleX(0);transition:transform .55s cubic-bezier(.86,0,.07,1);}
 .sc-t-p1{left:0;transform-origin:left;}
 .sc-t-p2{right:0;transform-origin:right;}
-.sc-t-logo{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:scale(0.85) translateY(10px);transition:opacity .35s ease .3s,transform .45s cubic-bezier(.22,1,.36,1) .3s;pointer-events:none;}
-.sc-t-logo-text{font-family:"Bebas Neue",sans-serif;font-size:clamp(42px,8vw,72px);letter-spacing:6px;color:#3a86f0;line-height:1;}
+.sc-t-logo{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:scale(.85) translateY(10px);transition:opacity .35s ease .3s,transform .45s cubic-bezier(.22,1,.36,1) .3s;pointer-events:none;}
+.sc-t-logo-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,8vw,72px);letter-spacing:6px;color:#3a86f0;line-height:1;}
 .sc-t-logo-text em{font-style:normal;color:rgba(255,255,255,0.25);}
-.sc-t-logo-year{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:6px;color:rgba(255,255,255,0.35);text-transform:uppercase;}
-.sc-t-logo-bar{display:block;width:0;height:2px;background:#3a86f0;border-radius:2px;transition:width .45s cubic-bezier(.22,1,.36,1) .45s;box-shadow:0 0 12px rgba(58,134,240,0.6);}
+.sc-t-logo-year{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:6px;color:rgba(255,255,255,0.35);}
+.sc-t-logo-bar{display:block;width:0;height:2px;background:#3a86f0;border-radius:2px;transition:width .45s cubic-bezier(.22,1,.36,1) .45s;}
 #sc-transition.sc-t-active .sc-t-p1,#sc-transition.sc-t-active .sc-t-p2{transform:scaleX(1);}
 #sc-transition.sc-t-active .sc-t-logo{opacity:1;transform:scale(1) translateY(0);}
 #sc-transition.sc-t-active .sc-t-logo-bar{width:120px;}
@@ -319,18 +232,18 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
     <div class="marquee-item">REGULAMENTO OFICIAL<span class="msep"> ◥ </span></div>
     <div class="marquee-item">SUPERCOPA DE BASQUETE<span class="msep"> ◥ </span></div>
     <div class="marquee-item">SUPERCOPA DE VOLEIBOL<span class="msep"> ◥ </span></div>
-    <div class="marquee-item">AFONSO CLÁUDIO<span class="msep"> ◥ </span></div>
+    <div class="marquee-item">AFONSO CLÁUDIO · ES<span class="msep"> ◥ </span></div>
     <div class="marquee-item">EDIÇÃO 2026<span class="msep"> ◥ </span></div>
     <div class="marquee-item">REGRAS OFICIAIS<span class="msep"> ◥ </span></div>
-    <div class="marquee-item">FIBA<span class="msep"> ◥ </span></div>
+    <div class="marquee-item">FIBA · CBV<span class="msep"> ◥ </span></div>
     <div class="marquee-item">REGIÃO DAS MONTANHAS<span class="msep"> ◥ </span></div>
     <div class="marquee-item">REGULAMENTO OFICIAL<span class="msep"> ◥ </span></div>
     <div class="marquee-item">SUPERCOPA DE BASQUETE<span class="msep"> ◥ </span></div>
     <div class="marquee-item">SUPERCOPA DE VOLEIBOL<span class="msep"> ◥ </span></div>
-    <div class="marquee-item">AFONSO CLÁUDIO<span class="msep"> ◥ </span></div>
+    <div class="marquee-item">AFONSO CLÁUDIO · ES<span class="msep"> ◥ </span></div>
     <div class="marquee-item">EDIÇÃO 2026<span class="msep"> ◥ </span></div>
     <div class="marquee-item">REGRAS OFICIAIS<span class="msep"> ◥ </span></div>
-    <div class="marquee-item">FIBA<span class="msep"> ◥ </span></div>
+    <div class="marquee-item">FIBA · CBV<span class="msep"> ◥ </span></div>
     <div class="marquee-item">REGIÃO DAS MONTANHAS<span class="msep"> ◥ </span></div>
   </div>
 </div>
@@ -348,15 +261,15 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
 <!-- SPORT SELECTOR -->
 <div class="sport-selector" id="sportSelector">
   <button class="sport-tab active" id="tabBasquete" onclick="switchTab('basquete')">
-    <span class="tab-icon">🏀</span> Regulamento Supercopa de Basquete
+    🏀 Regulamento Supercopa de Basquete
   </button>
   <button class="sport-tab vl" id="tabVoleibol" onclick="switchTab('voleibol')">
-    <span class="tab-icon">🏐</span> Regulamento Supercopa de Voleibol
+    🏐 Regulamento Supercopa de Voleibol
   </button>
 </div>
 
 <!-- ═══════════════════════════════════
-     PAINEL — BASQUETE
+     PAINEL BASQUETE
      ═══════════════════════════════════ -->
 <div class="reg-panel active" id="panelBasquete">
 <div class="reg-wrap">
@@ -368,29 +281,26 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
     <span class="reg-meta-pill">⚖️ Regras FIBA</span>
   </div>
 
-  <!-- CAPÍTULO I -->
+  <!-- CAP I -->
   <div class="chapter reveal">
     <div class="chapter-header">
       <span class="chapter-num">CAPÍTULO I</span>
       <h2 class="chapter-title">Finalidades e Objetivos</h2>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 1º</span>
       <p class="article-text">Este regulamento estabelece as normas da <strong>Supercopa de Basquete de Afonso Cláudio – Edição 2026</strong>, com base nas regras oficiais do basquetebol (FIBA), com as adaptações previstas neste documento.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 2º</span>
       <p class="article-text">As equipes participantes declaram-se cientes deste regulamento e das regras do basquetebol, comprometendo-se ao seu integral cumprimento. Ao formalizar a inscrição, a equipe e seus atletas declaram estar em plenas condições de saúde para a prática esportiva e assumem total responsabilidade por quaisquer incidentes, isentando a Organização de responsabilidades civis ou criminais.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 3º</span>
       <p class="article-text">A competição é promovida pela <strong>Prefeitura Municipal de Afonso Cláudio</strong>, por meio da Secretaria Municipal de Esportes e Lazer, com apoio do Instituto Cultural das Montanhas.</p>
       <div class="par-unico">
         <span class="par-label">§1º – Objetivos</span>
-        <ul class="incisos">
+        <ul class="incisos" style="margin-top:8px;">
           <li><span class="inc-label">I</span>Promover a integração social por meio do esporte;</li>
           <li><span class="inc-label">II</span>Incentivar a prática do basquetebol no município e região;</li>
           <li><span class="inc-label">III</span>Estimular o desenvolvimento técnico dos participantes;</li>
@@ -400,131 +310,112 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
     </div>
   </div>
 
-  <!-- CAPÍTULO II -->
+  <!-- CAP II -->
   <div class="chapter reveal">
     <div class="chapter-header">
       <span class="chapter-num">CAPÍTULO II</span>
       <h2 class="chapter-title">Inscrições e Participação</h2>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 4º</span>
-      <p class="article-text">A competição contará com até <strong>06 (seis) equipes</strong>, que serão convidadas pela Organização dentre aquelas que apresentarem inscrições válidas.</p>
+      <p class="article-text">A competição contará com até <strong>06 (seis) equipes</strong>, convidadas pela Organização dentre aquelas que apresentarem inscrições válidas.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 5º – Equipes e Atletas</span>
       <ul class="incisos">
         <li><span class="inc-label">I</span>Cada equipe poderá inscrever até <strong>12 (doze) atletas</strong> no total;</li>
-        <li><span class="inc-label">II</span>A idade mínima para participação é de <strong>16 anos completos</strong>. Atletas menores de 18 anos deverão, obrigatoriamente, apresentar autorização assinada pelos pais ou responsáveis legais;</li>
-        <li><span class="inc-label">III</span>O evento é <strong>100% gratuito</strong>, não havendo cobrança de taxa de inscrição ou qualquer outro tipo de taxa aos participantes;</li>
-        <li><span class="inc-label">IV</span>A pré-inscrição não garante a vaga da equipe. A comissão organizadora selecionará as equipes por critérios internos e enviará os convites para formalização;</li>
-        <li><span class="inc-label">V</span>A relação nominal dos atletas deverá ser entregue até o início da primeira partida da equipe na competição. Após esta entrega, não será permitida a inclusão ou substituição de nomes em nenhuma hipótese.</li>
+        <li><span class="inc-label">II</span>Idade mínima: <strong>16 anos completos</strong>. Menores de 18 anos devem apresentar autorização dos pais ou responsáveis;</li>
+        <li><span class="inc-label">III</span>O evento é <strong>100% gratuito</strong>, sem taxa de inscrição;</li>
+        <li><span class="inc-label">IV</span>A pré-inscrição não garante vaga. A Organização seleciona as equipes por critérios internos e envia convites formais;</li>
+        <li><span class="inc-label">V</span>A relação nominal dos atletas deve ser entregue até o início do primeiro jogo da equipe. Após a entrega, <strong>não é permitida inclusão ou substituição</strong> de nomes.</li>
       </ul>
     </div>
-
     <div class="article">
-      <span class="article-num">ART. 6º – Cronograma de Referência</span>
+      <span class="article-num">ART. 6º – Cronograma</span>
       <ul class="incisos">
-        <li><span class="inc-label">I</span>Prazo final para confirmação de inscrição: a definir;</li>
-        <li><span class="inc-label">II</span>Divulgação da tabela oficial: a definir;</li>
-        <li><span class="inc-label">III</span>Entrega da relação de atletas por partida: <strong>15 minutos antes de cada jogo</strong>;</li>
-        <li><span class="inc-label">IV</span>Fase de grupos (Sábado): a definir;</li>
-        <li><span class="inc-label">V</span>Fase eliminatória (Domingo): a definir.</li>
+        <li><span class="inc-label">I</span>Prazo final para confirmação de inscrição: a divulgar;</li>
+        <li><span class="inc-label">II</span>Divulgação da tabela oficial: a divulgar;</li>
+        <li><span class="inc-label">III</span>Entrega da relação de atletas: <strong>15 minutos antes de cada jogo</strong>;</li>
+        <li><span class="inc-label">IV</span>Fase de grupos (Sábado, 25/07/2026);</li>
+        <li><span class="inc-label">V</span>Fase eliminatória (Domingo, 26/07/2026).</li>
       </ul>
     </div>
   </div>
 
-  <!-- CAPÍTULO III -->
+  <!-- CAP III -->
   <div class="chapter reveal">
     <div class="chapter-header">
       <span class="chapter-num">CAPÍTULO III</span>
       <h2 class="chapter-title">Sistema de Disputa</h2>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 7º</span>
       <p class="article-text">A competição será disputada em duas fases: <strong>Fase de Grupos</strong> e <strong>Fase Eliminatória</strong>.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 8º</span>
-      <p class="article-text">A Fase de Grupos será realizada no sábado, contando com <strong>02 (dois) grupos de 03 (três) equipes</strong> cada. Todas as equipes jogam entre si dentro de seus respectivos grupos.</p>
+      <p class="article-text">A Fase de Grupos será realizada no sábado, com <strong>02 grupos de 03 equipes</strong> cada. Todas as equipes de um grupo jogam entre si.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 9º</span>
-      <p class="article-text">Classificam-se para a Fase Eliminatória as <strong>02 (duas) melhores equipes de cada grupo</strong>.</p>
+      <p class="article-text">Classificam-se para a Fase Eliminatória as <strong>02 melhores equipes de cada grupo</strong>.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 10º</span>
-      <p class="article-text">A Fase Eliminatória será realizada no domingo, composta por <strong>Semifinais</strong> (1º do Grupo A x 2º do Grupo B e 1º do Grupo B x 2º do Grupo A) e a <strong>Grande Final</strong>. Não haverá disputa de 3º lugar.</p>
+      <p class="article-text">A Fase Eliminatória (domingo) é composta por <strong>Semifinais</strong> — 1º Grupo A x 2º Grupo B e 1º Grupo B x 2º Grupo A — e a <strong>Grande Final</strong>. Não haverá disputa de 3º lugar.</p>
     </div>
-
     <div class="highlight-box">
       <div class="hl-title">🏆 Formato do Torneio</div>
-      <div class="hl-text">Sábado: Fase de Grupos — 2 grupos de 3 equipes. &nbsp;|&nbsp; Domingo: Semifinais + Grande Final. Sem disputa de 3º lugar.</div>
+      <div class="hl-text"><strong>Sábado:</strong> Fase de Grupos — 2 grupos de 3 equipes. &nbsp;|&nbsp; <strong>Domingo:</strong> Semifinais + Grande Final. Sem disputa de 3º lugar.</div>
     </div>
   </div>
 
-  <!-- CAPÍTULO IV -->
+  <!-- CAP IV -->
   <div class="chapter reveal">
     <div class="chapter-header">
       <span class="chapter-num">CAPÍTULO IV</span>
       <h2 class="chapter-title">Formato das Partidas e Tempo</h2>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 11º – Fase de Grupos (Tempo Corrido)</span>
       <ul class="incisos">
-        <li><span class="inc-label">I</span><strong>04 (quatro) períodos de 10 (dez) minutos</strong> cada;</li>
-        <li><span class="inc-label">II</span>O cronômetro não será paralisado, exceto em situações de extrema necessidade a critério exclusivo da arbitragem;</li>
-        <li><span class="inc-label">III</span>Os intervalos entre períodos e de meio de jogo serão reduzidos para garantir o cumprimento da tabela.</li>
+        <li><span class="inc-label">I</span><strong>4 períodos de 10 minutos</strong> cada com tempo corrido;</li>
+        <li><span class="inc-label">II</span>O cronômetro só para em situações de extrema necessidade, a critério da arbitragem;</li>
+        <li><span class="inc-label">III</span>Intervalos reduzidos para cumprimento da tabela.</li>
       </ul>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 12º – Fase Eliminatória (Tempo Oficial)</span>
-      <p class="article-text">Os jogos das Semifinais e da Final seguirão o <strong>formato oficial</strong>, com tempo cronometrado (parado em todas as interrupções de jogo) e aplicação integral das regras da FIBA.</p>
+      <p class="article-text">Semifinais e Final seguem o <strong>formato oficial FIBA</strong>, com tempo parado em todas as interrupções.</p>
     </div>
-
     <div class="article">
-      <span class="article-num">ART. 13º – Início das Partidas</span>
-      <p class="article-text">A partida somente será iniciada com o mínimo de <strong>05 (cinco) atletas por equipe</strong> em quadra.</p>
-      <div class="par-unico">
-        <span class="par-label">§1º</span>
-        Será concedida uma tolerância de <strong>05 (cinco) minutos</strong> após o horário previsto para o início da partida.
-      </div>
-      <div class="par-unico" style="margin-top:8px;">
-        <span class="par-label">§2º</span>
-        Caso o número mínimo de atletas não seja atingido após o tempo de tolerância, será caracterizado <strong>W.O.</strong>, com placar de <strong>20 x 00</strong> em favor da equipe presente.
-      </div>
+      <span class="article-num">ART. 13º – Início da Partida</span>
+      <p class="article-text">Mínimo de <strong>05 atletas por equipe</strong> em quadra para iniciar o jogo.</p>
+      <div class="par-unico"><span class="par-label">§1º</span>Tolerância de <strong>05 minutos</strong> após o horário previsto.</div>
+      <div class="par-unico" style="margin-top:8px;"><span class="par-label">§2º</span>Após a tolerância sem o mínimo de atletas: <strong>W.O. com placar 20 x 00</strong> para a equipe presente.</div>
     </div>
   </div>
 
-  <!-- CAPÍTULO V -->
+  <!-- CAP V -->
   <div class="chapter reveal">
     <div class="chapter-header">
       <span class="chapter-num">CAPÍTULO V</span>
       <h2 class="chapter-title">Regras Técnicas e Classificação</h2>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 14º – Regras Técnicas (FIBA)</span>
       <ul class="incisos">
-        <li><span class="inc-label">I</span>Posse de bola de <strong>24 segundos</strong>, com reinício de 14 segundos quando aplicável;</li>
-        <li><span class="inc-label">II</span>Limite de <strong>05 (cinco) faltas individuais</strong> por atleta;</li>
-        <li><span class="inc-label">III</span>Penalidade de lances livres coletivos a partir da <strong>5ª falta da equipe</strong> em cada período;</li>
-        <li><span class="inc-label">IV</span>Em caso de empate na fase eliminatória, será disputada <strong>prorrogação de 05 (cinco) minutos</strong> sucessivamente até que haja um vencedor.</li>
+        <li><span class="inc-label">I</span>Posse de bola de <strong>24 segundos</strong>, reinício de 14 segundos quando aplicável;</li>
+        <li><span class="inc-label">II</span>Limite de <strong>05 faltas individuais</strong> por atleta;</li>
+        <li><span class="inc-label">III</span>Lances livres coletivos a partir da <strong>5ª falta da equipe</strong> por período;</li>
+        <li><span class="inc-label">IV</span>Empate na fase eliminatória: <strong>prorrogações de 05 minutos</strong> sucessivas até desempate.</li>
       </ul>
     </div>
-
     <div class="article">
-      <span class="article-num">ART. 15º – Critérios de Classificação (por ordem)</span>
+      <span class="article-num">ART. 15º – Critérios de Classificação (em ordem)</span>
       <div class="criteria-list">
         <div class="criteria-item"><span class="criteria-n">1</span>Maior número de vitórias</div>
-        <div class="criteria-item"><span class="criteria-n">2</span>Confronto direto (em caso de empate entre duas equipes)</div>
+        <div class="criteria-item"><span class="criteria-n">2</span>Confronto direto (empate entre duas equipes)</div>
         <div class="criteria-item"><span class="criteria-n">3</span>Maior saldo de pontos</div>
         <div class="criteria-item"><span class="criteria-n">4</span>Maior número de pontos marcados</div>
         <div class="criteria-item"><span class="criteria-n">5</span>Sorteio</div>
@@ -532,85 +423,68 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
     </div>
   </div>
 
-  <!-- CAPÍTULO VI -->
+  <!-- CAP VI -->
   <div class="chapter reveal">
     <div class="chapter-header">
       <span class="chapter-num">CAPÍTULO VI</span>
       <h2 class="chapter-title">Arbitragem e Disciplina</h2>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 16º</span>
-      <p class="article-text">A arbitragem será designada pela Organização, e suas <strong>decisões técnicas em quadra são soberanas</strong>.</p>
+      <p class="article-text">A arbitragem é designada pela Organização. Suas <strong>decisões técnicas em quadra são soberanas</strong>.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 17º</span>
-      <p class="article-text">A súmula da partida deverá ser conferida e assinada pelo <strong>capitão e/ou técnico</strong> de cada equipe imediatamente ao final do jogo, sendo estes responsáveis pelas informações ali registradas.</p>
+      <p class="article-text">A súmula deve ser conferida e assinada pelo <strong>capitão e/ou técnico</strong> de cada equipe ao final do jogo.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 18º – Condutas e Penalidades</span>
-      <p class="article-text">Atletas e comissões técnicas deverão manter conduta esportiva adequada. Infrações sujeitam-se a:</p>
       <ul class="incisos">
         <li><span class="inc-label">I</span>Advertência verbal ou por escrito;</li>
         <li><span class="inc-label">II</span>Exclusão da partida;</li>
         <li><span class="inc-label">III</span>Suspensão da competição.</li>
       </ul>
-      <div class="par-unico">
-        <span class="par-label">Parágrafo Único</span>
-        A exclusão por conduta grave (agressão física, ofensas morais graves ou atos de vandalismo) poderá implicar em <strong>suspensão automática da partida seguinte ou banimento do evento</strong>, a critério da Organização.
-      </div>
+      <div class="par-unico"><span class="par-label">Parágrafo Único</span>Conduta grave (agressão física, ofensas morais ou vandalismo) pode implicar <strong>suspensão automática da partida seguinte ou banimento do evento</strong>, a critério da Organização.</div>
     </div>
   </div>
 
-  <!-- CAPÍTULO VII -->
+  <!-- CAP VII -->
   <div class="chapter reveal">
     <div class="chapter-header">
       <span class="chapter-num">CAPÍTULO VII</span>
-      <h2 class="chapter-title">Disposições Gerais e Casos Omissos</h2>
+      <h2 class="chapter-title">Disposições Gerais</h2>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 19º</span>
-      <p class="article-text">As equipes deverão se apresentar com <strong>numeração visível e distinta</strong> entre os atletas. Recomenda-se a utilização de uniformes com cores alternativas ou reserva para evitar conflitos visuais em quadra.</p>
+      <p class="article-text">Equipes devem se apresentar com <strong>numeração visível e distinta</strong>. Recomenda-se uniforme reserva para evitar conflitos visuais.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 20º</span>
-      <p class="article-text">Fica expressamente <strong>proibido o consumo de bebidas alcoólicas</strong> nas dependências da quadra e áreas de competição por parte dos atletas inscritos.</p>
+      <p class="article-text">É expressamente <strong>proibido o consumo de bebidas alcoólicas</strong> nas dependências da quadra e áreas de competição.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 21º – Casos Omissos</span>
-      <p class="article-text">Os casos omissos neste regulamento serão resolvidos pela Organização.</p>
-      <div class="par-unico">
-        <span class="par-label">Parágrafo Único</span>
-        Quando a natureza da omissão impactar diretamente o equilíbrio competitivo ou o andamento do torneio, a Organização poderá, se julgar aplicável, submeter a questão à votação entre os representantes das equipes presentes, onde prevalecerá a decisão da <strong>maioria simples</strong>.
-      </div>
+      <p class="article-text">Casos omissos serão resolvidos pela Organização. Quando impactarem o equilíbrio competitivo, poderá ser submetido à votação entre representantes das equipes, prevalecendo a <strong>maioria simples</strong>.</p>
     </div>
   </div>
 
-  <!-- CAPÍTULO VIII -->
+  <!-- CAP VIII -->
   <div class="chapter reveal">
     <div class="chapter-header">
       <span class="chapter-num">CAPÍTULO VIII</span>
       <h2 class="chapter-title">Premiação</h2>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 22º</span>
-      <p class="article-text">Serão premiadas com <strong>troféu e medalhas</strong> a equipe campeã e a equipe vice-campeã da Supercopa de Basquete de Afonso Cláudio.</p>
+      <p class="article-text">Serão premiadas com <strong>troféu e medalhas</strong> a equipe campeã e a equipe vice-campeã.</p>
     </div>
-
     <div class="article">
       <span class="article-num">ART. 23º</span>
       <p class="article-text">Este regulamento entra em vigor na <strong>data de sua publicação oficial</strong>.</p>
     </div>
-
-    <div class="highlight-box" style="margin-top:32px;">
+    <div class="highlight-box">
       <div class="hl-title">🥇 Premiação</div>
-      <div class="hl-text">Campeão e Vice-campeão receberão troféu e medalhas. Participação 100% gratuita — sem taxa de inscrição.</div>
+      <div class="hl-text"><strong>Campeão:</strong> Troféu + Medalhas &nbsp;|&nbsp; <strong>Vice-campeão:</strong> Troféu + Medalhas &nbsp;|&nbsp; Participação <strong>100% gratuita</strong>.</div>
     </div>
   </div>
 
@@ -618,7 +492,7 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
 </div><!-- /panelBasquete -->
 
 <!-- ═══════════════════════════════════
-     PAINEL — VOLEIBOL
+     PAINEL VOLEIBOL
      ═══════════════════════════════════ -->
 <div class="reg-panel" id="panelVoleibol">
 <div class="reg-wrap">
@@ -627,22 +501,241 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
     <span class="reg-meta-pill orange">🏐 Voleibol</span>
     <span class="reg-meta-pill orange">📅 28 e 29 de Novembro de 2026</span>
     <span class="reg-meta-pill orange">📍 Afonso Cláudio – ES</span>
+    <span class="reg-meta-pill orange">⚖️ Regras CBV</span>
   </div>
 
+  <!-- CAP 1 -->
   <div class="chapter reveal">
     <div class="chapter-header">
-      <span class="chapter-num orange">EM BREVE</span>
-      <h2 class="chapter-title">Regulamento da Supercopa de Voleibol</h2>
+      <span class="chapter-num orange">CAPÍTULO 1</span>
+      <h2 class="chapter-title">Finalidades e Objetivos</h2>
     </div>
-
     <div class="article orange">
-      <span class="article-num">AVISO</span>
-      <p class="article-text">O regulamento oficial da <strong>Supercopa de Voleibol – Edição 2026</strong> será publicado em breve pela Organização. Fique atento aos canais oficiais da Supercopa para acompanhar as atualizações.</p>
+      <span class="article-num">ART. 1º</span>
+      <p class="article-text">Este regulamento é o conjunto das disposições que regem a disputa da <strong>Supercopa de Voleibol de Afonso Cláudio – Edição 2026</strong>, de acordo com as regras oficiais da Confederação Brasileira de Vôlei.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 2º</span>
+      <p class="article-text">Os clubes/entidades/associações participantes serão julgados conhecedores das leis e regras atuais do voleibol e deste regulamento, concordando expressamente e submetendo-se, sem reservas, a todas as disposições e consequências que destas possam emanar.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 3º</span>
+      <p class="article-text">A competição é promovida e realizada pela <strong>Prefeitura Municipal de Afonso Cláudio</strong>, via Secretaria Municipal de Esportes e Lazer, com apoio do Instituto Cultural das Montanhas e CT das Montanhas.</p>
+      <div class="par-unico">
+        <span class="par-label">§1º – Objetivos</span>
+        <ul class="incisos" style="margin-top:8px;">
+          <li><span class="inc-label" style="color:var(--accent2)">•</span>Promover a integração social e o lazer dos cidadãos de modo voluntário no contexto do esporte amador, fazendo prevalecer a ordem e a disciplina, de acordo com a ética e a moral desportiva;</li>
+          <li><span class="inc-label" style="color:var(--accent2)">•</span>Realizar uma competição saudável e harmoniosa, maximizando e difundindo a prática do voleibol;</li>
+          <li><span class="inc-label" style="color:var(--accent2)">•</span>Elevar o nível técnico da modalidade para aprimoramento das representações municipais;</li>
+          <li><span class="inc-label" style="color:var(--accent2)">•</span>Desenvolver o espírito de equipe, devendo imperar o respeito e a disciplina, sobrepondo-se aos triunfos e troféus conquistados.</li>
+        </ul>
+      </div>
+      <div class="par-unico" style="margin-top:8px;">
+        <span class="par-label">§2º – Atribuições da Organização</span>
+        <ul class="incisos" style="margin-top:8px;">
+          <li><span class="inc-label" style="color:var(--accent2)">•</span>Tomar todas as providências de ordem técnica e administrativa com respeito à realização do campeonato;</li>
+          <li><span class="inc-label" style="color:var(--accent2)">•</span>Organizar o regulamento e a tabela de jogos;</li>
+          <li><span class="inc-label" style="color:var(--accent2)">•</span>Transferir, se necessário, as datas dos jogos;</li>
+          <li><span class="inc-label" style="color:var(--accent2)">•</span>Julgar e sancionar possíveis punições no decorrer da competição.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAP 2 -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num orange">CAPÍTULO 2</span>
+      <h2 class="chapter-title">Inscrições</h2>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 4º</span>
+      <p class="article-text">As equipes participantes deverão, para fins de inscrição, acessar o link presente no convite recebido e preencher todos os dados requisitados.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 5º</span>
+      <p class="article-text"><strong>Não será cobrado quaisquer taxas</strong> para a inscrição da equipe nesta competição.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 6º</span>
+      <p class="article-text">A comissão organizadora define como <strong>categoria única masculina adulta</strong>, compreendendo atletas com idade superior a 15 anos. Atletas menores de 18 anos devem apresentar autorização dos pais ou responsáveis, cuja responsabilidade recai sobre o responsável da equipe.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 7º</span>
+      <p class="article-text">O sorteio da primeira fase de grupos será realizado em data a ser divulgada nas redes sociais do evento.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 8º</span>
+      <p class="article-text">Serão aceitas inclusões ou substituições de atletas <strong>somente até o início do 1º jogo da equipe</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 9º</span>
+      <p class="article-text">Para fins de premiação, cada equipe poderá inscrever no máximo <strong>14 (quatorze) atletas</strong> e <strong>2 (dois) membros da comissão técnica</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 10º</span>
+      <p class="article-text">Os atletas e membros da comissão técnica declaram estar em perfeitas condições de saúde, aptos a participar da competição. A Organização, patrocinadores e demais envolvidos ficam isentos de culpa por quaisquer ocorrências. Os participantes autorizam ainda a utilização de sua imagem e voz para fins de divulgação do evento.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 11º</span>
+      <p class="article-text">Serão permitidas até <strong>6 substituições por set</strong>. O jogador que retornar ao mesmo set substituirá, obrigatoriamente, o jogador que entrou em seu lugar.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 12º</span>
+      <p class="article-text">Serão permitidos até <strong>2 pedidos de tempo por set</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 13º</span>
+      <p class="article-text">Nenhum jogo poderá ser iniciado com menos de <strong>6 atletas</strong>. A equipe com menos de 6 sofrerá W.O. Se ambas estiverem incompletas, as duas deixarão de pontuar.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 14º</span>
+      <p class="article-text">Os jogos poderão ser suspensos quando ocorrerem condições inadequadas das instalações que tornem impraticável ou perigosa a realização do jogo.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 15º</span>
+      <p class="article-text">A organização não se responsabilizará pela alimentação dos atletas e comissão técnica.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 16º – Alojamento</span>
+      <p class="article-text">A Organização, por meio da Secretaria Municipal de Esporte e Lazer, fornecerá alojamento para atletas e comissão técnica. Cada participante deve trazer <strong>colchão, roupa de cama e produtos de higiene pessoal</strong>, mantendo o ambiente limpo e organizado. Danos ao patrimônio público são de responsabilidade do responsável da equipe.</p>
+    </div>
+  </div>
+
+  <!-- CAP 3 -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num orange">CAPÍTULO 3</span>
+      <h2 class="chapter-title">Regulamento Técnico</h2>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 17º – Formato dos Sets</span>
+      <p class="article-text">Os jogos serão disputados em <strong>melhor de 3 sets</strong>. Os dois primeiros até 25 pontos. Se necessário, o terceiro set (tie-break) vai até 15 pontos. Em caso de empate 24x24 ou 14x14, o set se estende até que uma equipe abra <strong>2 pontos de diferença</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 18º – Critérios de Desempate na Fase Classificatória</span>
+      <div class="criteria-list">
+        <div class="criteria-item"><span class="criteria-n" style="color:var(--accent2)">1</span>Número de vitórias</div>
+        <div class="criteria-item"><span class="criteria-n" style="color:var(--accent2)">2</span>Saldo de sets</div>
+        <div class="criteria-item"><span class="criteria-n" style="color:var(--accent2)">3</span>Saldo de pontos</div>
+        <div class="criteria-item"><span class="criteria-n" style="color:var(--accent2)">4</span>Sorteio</div>
+      </div>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 19º – Pontuação</span>
+      <table class="pts-table">
+        <thead><tr><th>Resultado</th><th>Pontos</th></tr></thead>
+        <tbody>
+          <tr><td>Vitória de 2x0 sets</td><td class="pts-val">3 pts</td></tr>
+          <tr><td>Vitória de 2x1 sets</td><td class="pts-val">2 pts</td></tr>
+          <tr><td>Derrota de 1x2 sets</td><td class="pts-val">1 pt</td></tr>
+          <tr><td>Derrota de 0x2 sets</td><td class="pts-val">0 pts</td></tr>
+          <tr><td>Vitória por W.O.</td><td class="pts-val">3 pts</td></tr>
+          <tr><td>Derrota por W.O.</td><td class="pts-val">0 pts</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 20º</span>
+      <p class="article-text">As súmulas estarão disponíveis aos representantes das equipes ao término dos jogos e <strong>deverão ser assinadas pelo capitão e/ou treinador</strong>, que serão responsáveis pelas informações.</p>
+    </div>
+  </div>
+
+  <!-- CAP 4 -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num orange">CAPÍTULO 4</span>
+      <h2 class="chapter-title">Arbitragem e Premiação</h2>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 21º</span>
+      <p class="article-text">A arbitragem será contratada pela equipe organizadora. <strong>Nenhuma equipe pode vetar um árbitro</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 22º</span>
+      <p class="article-text">Todos os jogos contarão com <strong>dois árbitros</strong> (principal e auxiliar) e um anotador.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 23º</span>
+      <p class="article-text">O árbitro principal é a autoridade competente para determinar, por motivo relevante ou de força maior, a <strong>interrupção ou suspensão da partida</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 24º – Premiação</span>
+      <ul class="incisos">
+        <li><span class="inc-label" style="color:var(--accent2)">🥇</span><strong>1º Lugar:</strong> Troféu, medalhas e prêmio em dinheiro (valor a ser divulgado nas redes sociais);</li>
+        <li><span class="inc-label" style="color:var(--accent2)">🥈</span><strong>2º Lugar:</strong> Troféu, medalhas e prêmio em dinheiro (valor a ser divulgado nas redes sociais);</li>
+        <li><span class="inc-label" style="color:var(--accent2)">⭐</span><strong>Destaque dos Jogos:</strong> Troféu;</li>
+        <li><span class="inc-label" style="color:var(--accent2)">🏅</span><strong>Seleção do Campeonato:</strong> Troféu.</li>
+      </ul>
+    </div>
+    <div class="highlight-box orange">
+      <div class="hl-title">💰 Prêmio em Dinheiro</div>
+      <div class="hl-text">O valor dos prêmios em dinheiro para 1º e 2º lugar será revelado posteriormente nas redes sociais da competição. Fique ligado!</div>
+    </div>
+  </div>
+
+  <!-- CAP 5 -->
+  <div class="chapter reveal">
+    <div class="chapter-header">
+      <span class="chapter-num orange">CAPÍTULO 5</span>
+      <h2 class="chapter-title">Disposições Gerais</h2>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 25º</span>
+      <p class="article-text">A Supercopa de Voleibol de Afonso Cláudio – Edição 2026 ocorrerá nos dias <strong>28 e 29 de novembro de 2026</strong>, na cidade de Afonso Cláudio – ES, na <strong>Quadra de Esportes Eurico Vieira de Rezende</strong> e na <strong>Quadra de Esportes Anadir Barone</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 26º</span>
+      <p class="article-text">A coordenação geral não se responsabilizará por acidentes ocorridos com atletas e/ou comissão técnica, dentro ou fora da quadra.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 27º e 28º</span>
+      <p class="article-text">As equipes são responsáveis pelos atos de seus atletas e demais integrantes. Caso utilize atletas sem condições de jogo ou estratégia fraudulenta, os pontos serão revertidos ao adversário e a equipe será <strong>eliminada da competição</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 29º – Alojamento</span>
+      <p class="article-text">A abertura do alojamento ocorre no <strong>sábado às 9h30</strong>. O portão será fechado sempre às <strong>23 horas</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 30º</span>
+      <p class="article-text">Somente poderão estar no banco de reservas <strong>8 atletas</strong> mais <strong>2 membros da comissão técnica</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 31º</span>
+      <p class="article-text">O atleta que chegar atrasado deverá já estar com o nome na súmula antes do início do jogo, avisando ao mesário e aos juízes seu ingresso em quadra.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 32º</span>
+      <p class="article-text">As equipes deverão se apresentar com <strong>uniformes completos</strong>. A numeração dos atletas não pode sofrer alteração durante a competição.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 33º – Tolerância para Início</span>
+      <p class="article-text">O horário marcado na tabela deverá ser cumprido. O primeiro jogo tem <strong>15 minutos de tolerância</strong>. Para os demais, 15 minutos a contar do término da partida anterior. Após a tolerância: <strong>W.O.</strong></p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 34º</span>
+      <p class="article-text">O W.O. dará à equipe uma vitória de <strong>2x0 sets com pontuação de duplo 25x0</strong>.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 35º</span>
+      <p class="article-text">É expressamente proibido o uso de <strong>garrafas de vidro e bebidas alcoólicas no banco de reservas</strong>. Se constatado durante a partida, a equipe perderá os pontos do jogo.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 36º</span>
+      <p class="article-text">A organização pede que todas as equipes participem da <strong>cerimônia de abertura e encerramento</strong> da competição, se houver.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 37º</span>
+      <p class="article-text">Ao finalizar a inscrição, a equipe acata tudo que está disposto neste regulamento. Dúvidas ou colocações devem ser feitas <strong>antes</strong> de finalizar o processo de inscrição.</p>
+    </div>
+    <div class="article orange">
+      <span class="article-num">ART. 38º – Casos Omissos</span>
+      <p class="article-text">Quaisquer ocorrências não tratadas neste regulamento serão de responsabilidade única da <strong>comissão organizadora</strong> julgar e delimitar. Tal decisão deve ser acatada por todas as equipes participantes.</p>
     </div>
 
     <div class="highlight-box orange" style="margin-top:32px;">
-      <div class="hl-title">📅 Supercopa de Voleibol</div>
-      <div class="hl-text">Data prevista: <strong>28 e 29 de Novembro de 2026</strong> · Afonso Cláudio, Espírito Santo.<br><br>O regulamento detalhado, com sistema de disputa, critérios de classificação e demais normas, será divulgado em breve. Aguarde!</div>
+      <div class="hl-title">📍 Local e Data — Edição 2026</div>
+      <div class="hl-text"><strong>28 e 29 de novembro de 2026</strong> · Afonso Cláudio – ES<br>Quadra Eurico Vieira de Rezende &amp; Quadra Anadir Barone</div>
     </div>
   </div>
 
@@ -671,7 +764,7 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
   </div>
 </footer>
 
-<!-- PAGE TRANSITION -->
+<!-- PAGE TRANSITION — só ativa ao sair, nunca bloqueia o carregamento -->
 <div id="sc-transition">
   <div class="sc-t-panel sc-t-p1"></div>
   <div class="sc-t-panel sc-t-p2"></div>
@@ -683,56 +776,59 @@ footer{padding:60px 48px 36px;background:var(--surface);border-top:1px solid var
 </div>
 
 <script>
-/* ── TAB SWITCHER ── */
+/* TAB SWITCHER */
 function switchTab(sport) {
-  const tabs = { basquete: document.getElementById('tabBasquete'), voleibol: document.getElementById('tabVoleibol') };
-  const panels = { basquete: document.getElementById('panelBasquete'), voleibol: document.getElementById('panelVoleibol') };
-  Object.keys(tabs).forEach(k => {
-    tabs[k].classList.toggle('active', k === sport);
-    panels[k].classList.toggle('active', k === sport);
+  ['basquete','voleibol'].forEach(function(k){
+    document.getElementById('tab'+k.charAt(0).toUpperCase()+k.slice(1)).classList.toggle('active', k===sport);
+    document.getElementById('panel'+k.charAt(0).toUpperCase()+k.slice(1)).classList.toggle('active', k===sport);
   });
-  window.scrollTo({ top: document.getElementById('sportSelector').offsetTop - 80, behavior: 'smooth' });
+  var top = document.getElementById('sportSelector').getBoundingClientRect().top + window.scrollY - 80;
+  window.scrollTo({top: top, behavior:'smooth'});
+  // re-trigger reveals for newly visible panel
+  document.querySelectorAll('#panel'+sport.charAt(0).toUpperCase()+sport.slice(1)+' .reveal').forEach(function(el){
+    if(!el.classList.contains('visible')) observer.observe(el);
+  });
 }
 
-/* ── NAV SCROLL EFFECT ── */
-window.addEventListener('scroll', () => {
+/* NAV SCROLL */
+window.addEventListener('scroll', function(){
   document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 30);
 });
 
-/* ── HAMBURGER ── */
-const hamburger = document.getElementById('hamburger');
-const drawer = document.getElementById('mobileDrawer');
-const overlay = document.getElementById('drawerOverlay');
-const drawerClose = document.getElementById('drawerClose');
-hamburger.addEventListener('click', () => {
+/* HAMBURGER */
+var hamburger = document.getElementById('hamburger');
+var drawer = document.getElementById('mobileDrawer');
+var overlay = document.getElementById('drawerOverlay');
+var drawerClose = document.getElementById('drawerClose');
+hamburger.addEventListener('click', function(){
   hamburger.classList.toggle('open');
   drawer.classList.toggle('open');
   overlay.classList.toggle('open');
 });
-[overlay, drawerClose].forEach(el => el.addEventListener('click', () => {
-  hamburger.classList.remove('open');
-  drawer.classList.remove('open');
-  overlay.classList.remove('open');
-}));
+[overlay, drawerClose].forEach(function(el){
+  el.addEventListener('click', function(){
+    hamburger.classList.remove('open');
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+});
 
-/* ── REVEAL ON SCROLL ── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+/* REVEAL */
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, {threshold:0.08});
+document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
 
-/* ── PAGE TRANSITION ── */
+/* PAGE TRANSITION — só ao clicar em links internos */
 (function(){
-  const t = document.getElementById('sc-transition');
-  if (!t) return;
-  // Leaving animation on internal links
-  document.querySelectorAll('a[href]').forEach(a => {
-    const href = a.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
-    a.addEventListener('click', e => {
+  var t = document.getElementById('sc-transition');
+  document.querySelectorAll('a[href]').forEach(function(a){
+    var href = a.getAttribute('href');
+    if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+    a.addEventListener('click', function(e){
       e.preventDefault();
       t.classList.add('sc-t-active');
-      setTimeout(() => { window.location.href = href; }, 700);
+      setTimeout(function(){ window.location.href = href; }, 700);
     });
   });
 })();
