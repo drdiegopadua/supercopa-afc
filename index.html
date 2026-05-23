@@ -938,6 +938,29 @@ nav:not(.main-nav){display:none!important}
   transform:translateY(-2px);
   box-shadow:0 12px 36px rgba(58,134,240,.35);
 }
+
+/* PATROCINADORES */
+.sponsors-section{
+  background:#000;
+  padding:48px 24px;
+  border-top:1px solid rgba(255,255,255,0.07);
+}
+.sponsors-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  justify-content:center;
+}
+.sponsors-img{
+  width:100%;
+  max-width:900px;
+  height:auto;
+  opacity:0.9;
+  filter:brightness(1.1);
+}
+@media(max-width:768px){
+  .sponsors-img{ max-width:100%; }
+}
 </style></head>
 <body>
 
@@ -1275,6 +1298,14 @@ nav:not(.main-nav){display:none!important}
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Haverá premiação?<span class="faq-arrow">+</span></button><div class="faq-a">Sim. A Supercopa de Afonso Cláudio terá premiação nas duas modalidades. No voleibol, haverá premiação em dinheiro (valor a divulgar), além de troféus, medalhas para campeão e vice e destaques individuais. No basquete, haverá troféus, medalhas para campeão e vice e premiação para destaques individuais.</div></div>
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Onde acompanho resultados e tabela?<span class="faq-arrow">+</span></button><div class="faq-a">Nas redes sociais oficiais e no site da Supercopa de Afonso Cláudio. No site, as tabelas e classificações são atualizadas em tempo real.</div></div>
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Por que a Supercopa é diferente?<span class="faq-arrow">+</span></button><div class="faq-a">Porque é a primeira competição multiesporte da região, reunindo diferentes modalidades em um único evento moderno e organizado, além de não cobrar TAXA de participação.</div></div>
+  </div>
+</section>
+
+
+<!-- PATROCINADORES -->
+<section class="sponsors-section">
+  <div class="sponsors-inner">
+    <img src="rodape.PNG" alt="Apoio e Realização" class="sponsors-img">
   </div>
 </section>
 
