@@ -909,14 +909,14 @@ nav:not(.main-nav){display:none!important}
 
 /* ── TRANSIÇÃO DE PÁGINA · SUPERCOPA 2026 ── */
 #sc-transition{position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center;}
-.sc-t-panel{position:absolute;top:0;bottom:0;width:51%;background:#0d1f5c;transform:scaleX(0);transition:transform 0.55s cubic-bezier(0.86,0,0.07,1);}
+.sc-t-panel{position:absolute;top:0;bottom:0;width:51%;background:#ffffff;transform:scaleX(0);transition:transform 0.55s cubic-bezier(0.86,0,0.07,1);}
 .sc-t-p1{left:0;transform-origin:left;}
 .sc-t-p2{right:0;transform-origin:right;}
 .sc-t-logo{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:scale(0.85) translateY(10px);transition:opacity .35s ease .3s,transform .45s cubic-bezier(.22,1,.36,1) .3s;pointer-events:none;}
-.sc-t-logo-text{font-family:"Bebas Neue",sans-serif;font-size:clamp(42px,8vw,72px);letter-spacing:6px;color:#3a86f0;line-height:1;}
-.sc-t-logo-text em{font-style:normal;color:rgba(255,255,255,0.25);}
-.sc-t-logo-year{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:6px;color:rgba(255,255,255,0.35);text-transform:uppercase;}
-.sc-t-logo-bar{display:block;width:0;height:2px;background:#3a86f0;border-radius:2px;transition:width .45s cubic-bezier(.22,1,.36,1) .45s;box-shadow:0 0 12px rgba(58,134,240,0.6);}
+.sc-t-logo-text{font-family:"Bebas Neue",sans-serif;font-size:clamp(42px,8vw,72px);letter-spacing:6px;color:#1a3fa8;line-height:1;}
+.sc-t-logo-text em{font-style:normal;color:rgba(26,63,168,0.4);}
+.sc-t-logo-year{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:6px;color:rgba(26,63,168,0.5);text-transform:uppercase;}
+.sc-t-logo-bar{display:block;width:0;height:2px;background:#c8a84b;border-radius:2px;transition:width .45s cubic-bezier(.22,1,.36,1) .45s;box-shadow:0 0 12px rgba(200,168,75,0.5);}
 #sc-transition.sc-t-active .sc-t-p1,#sc-transition.sc-t-active .sc-t-p2{transform:scaleX(1);}
 #sc-transition.sc-t-active .sc-t-logo{opacity:1;transform:scale(1) translateY(0);}
 #sc-transition.sc-t-active .sc-t-logo-bar{width:120px;}
