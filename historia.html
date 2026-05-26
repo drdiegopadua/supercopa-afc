@@ -190,18 +190,23 @@ h2 em{font-style:normal;color:var(--accent2)}
 .hero-hist-stat{display:flex;flex-direction:column;gap:4px;}
 .hero-hist-stat-num{font-family:var(--D);font-size:42px;letter-spacing:2px;color:var(--accent);line-height:1;}
 .hero-hist-stat-label{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+@keyframes floatA{0%,100%{transform:translateY(0px) rotate(-1deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+@keyframes floatB{0%,100%{transform:translateY(-8px) rotate(1deg)}50%{transform:translateY(4px) rotate(-1deg)}}
 .hero-hist-logos{
   position:relative;flex-shrink:0;
-  display:flex;flex-direction:column;gap:20px;align-items:center;z-index:10;
+  display:flex;flex-direction:row;gap:24px;align-items:center;z-index:10;
   opacity:0;animation:fadeUp .8s .8s ease forwards;
 }
 .hero-hist-logo-wrap{
-  border-radius:18px;padding:6px;background:#fff;
-  border:2px solid rgba(200,168,75,0.3);box-shadow:0 8px 32px rgba(26,63,168,0.12);
-  transition:transform .3s,box-shadow .3s;
+  border-radius:20px;padding:7px;background:#fff;
+  border:2px solid rgba(200,168,75,0.35);
+  box-shadow:0 12px 40px rgba(26,63,168,0.15),0 2px 8px rgba(200,168,75,0.15);
+  transition:box-shadow .3s;
 }
-.hero-hist-logo-wrap:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(26,63,168,0.18);}
-.hero-hist-logo-img{width:130px;height:auto;display:block;border-radius:12px;}
+.hero-hist-logo-wrap:nth-child(1){animation:floatA 4s ease-in-out infinite;}
+.hero-hist-logo-wrap:nth-child(2){animation:floatB 4.6s ease-in-out infinite;}
+.hero-hist-logo-wrap:hover{box-shadow:0 20px 56px rgba(26,63,168,0.22),0 4px 16px rgba(200,168,75,0.25);}
+.hero-hist-logo-img{width:160px;height:auto;display:block;border-radius:14px;}
 
 /* ── SOBRE ── */
 .about-section{
@@ -443,8 +448,8 @@ footer{padding:80px 48px 40px;background:#0d1f5c;border-top:3px solid var(--gold
   .drawer-social a:hover{color:var(--text);transform:translateY(-2px);}
 
   .hero-hist{padding:80px 20px 60px;min-height:auto;flex-wrap:wrap;}
-  .hero-hist-logos{position:relative;right:auto;top:auto;transform:none;flex-direction:row;margin-top:32px;width:100%;justify-content:center;}
-  .hero-hist-logo-img{width:80px;}
+  .hero-hist-logos{flex-direction:row;margin-top:32px;width:100%;justify-content:center;gap:16px;}
+  .hero-hist-logo-img{width:100px;}
   .hero-hist-stats{flex-wrap:wrap;gap:24px;}
   .hero-hist-stat-num{font-size:32px;}
 
