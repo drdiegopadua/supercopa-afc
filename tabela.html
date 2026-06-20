@@ -1251,19 +1251,21 @@ async function loadVoleiData() {
       const card = document.createElement('div');
       card.className = 'group-card';
       let trs = '';
-      grupo.rows.forEach(r => {
-        const pos    = cc(rowsJ, r, 0);
-        const equipe = cc(rowsJ, r, 1);
-        const pts    = cc(rowsJ, r, 2);
-        const v      = cc(rowsJ, r, 3);
-        const d      = cc(rowsJ, r, 4);
-        if (!equipe || equipe.length < 2) return;
+      const teams = grupo.rows.map(r => ({
+        equipe: cc(rowsJ, r, 1),
+        pts: parseInt(cc(rowsJ, r, 2) || '0'),
+        v: cc(rowsJ, r, 3),
+        d: cc(rowsJ, r, 4),
+        sp: parseInt(cc(rowsJ, r, 5) || '0')
+      })).filter(t => t.equipe && t.equipe.length >= 2);
+      teams.sort((a, b) => b.pts - a.pts || b.sp - a.sp);
+      teams.forEach((t, i) => {
         trs += `<tr>
-          <td style="color:var(--muted);font-size:12px;font-weight:700;">${pos}º</td>
-          <td class="team">${equipe}</td>
-          <td>${pts}</td>
-          <td>${v}</td>
-          <td>${d}</td>
+          <td style="color:var(--muted);font-size:12px;font-weight:700;">${i+1}º</td>
+          <td class="team">${t.equipe}</td>
+          <td>${t.pts}</td>
+          <td>${t.v}</td>
+          <td>${t.d}</td>
         </tr>`;
       });
       card.innerHTML = `
