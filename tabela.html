@@ -1505,45 +1505,43 @@ async function loadBasketballData() {
 }
 
 // ── EXTRAI CLASSIFICAÇÃO ──────────────────────────────────────────────────────
+// Grupo A cols: pos=0, equipe=1, j=2, v=3, d=4, pts=5, sd=6, pm=7
+// Grupo B cols: pos=10, equipe=11, j=12, v=13, d=14, pts=15, sd=16, pm=17
 function extractClassification(rows, startRow, endRow, startCol) {
-  const headerRow = rows[10] || [];
+  const c = (r, col) => (rows[r] && rows[r][col] != null) ? rows[r][col].toString().trim() : '';
 
-  function findCol(names, fromCol) {
-    for (let offset = 0; offset < 12; offset++) {
-      const val = (headerRow[fromCol + offset] || '').toString().trim().toUpperCase();
-      for (const name of names) {
-        if (val === name) return fromCol + offset;
-      }
-    }
-    return -1;
-  }
-
-  const iPOS    = findCol(['POS'],    startCol);
-  const iEQUIPE = findCol(['EQUIPE'], startCol);
-  const iJ      = findCol(['J'],      startCol);
-  const iV      = findCol(['V'],      startCol);
-  const iD      = findCol(['D'],      startCol);
-  const iPTS    = findCol(['PTS'],    startCol);
-  const iSD     = findCol(['SD'],     startCol);
-  const iPM     = findCol(['PM'],     startCol);
-  const iSTATUS = findCol(['STATUS'], startCol);
+  const iEQUIPE = startCol + 1;
+  const iJ      = startCol + 2;
+  const iV      = startCol + 3;
+  const iD      = startCol + 4;
+  const iPTS    = startCol + 5;
+  const iSD     = startCol + 6;
+  const iPM     = startCol + 7;
 
   const data = [];
   for (let i = startRow; i <= endRow; i++) {
-    const row = rows[i] || [];
+    const equipe = c(i, iEQUIPE);
+    if (!equipe || equipe.length < 2) continue;
     data.push({
-      pos:    iPOS    >= 0 ? row[iPOS]    || '-' : '-',
-      equipe: iEQUIPE >= 0 ? row[iEQUIPE] || '-' : '-',
-      j:      iJ      >= 0 ? row[iJ]      || '0' : '0',
-      v:      iV      >= 0 ? row[iV]      || '0' : '0',
-      d:      iD      >= 0 ? row[iD]      || '0' : '0',
-      pts:    iPTS    >= 0 ? row[iPTS]    || '0' : '0',
-      sd:     iSD     >= 0 ? row[iSD]     || '0' : '0',
-      pm:     iPM     >= 0 ? row[iPM]     || '0' : '0',
-      status: iSTATUS >= 0 ? row[iSTATUS] || '-' : '-',
+      equipe,
+      j:   c(i, iJ)   || '0',
+      v:   parseInt(c(i, iV)   || '0'),
+      d:   parseInt(c(i, iD)   || '0'),
+      pts: parseInt(c(i, iPTS) || '0'),
+      sd:  parseInt(c(i, iSD)  || '0'),
+      pm:  c(i, iPM)  || '0',
     });
   }
-  return data;
+
+  // Ordenar por PTS desc, SD desc
+  data.sort((a, b) => b.pts - a.pts || b.sd - a.sd);
+
+  // Atribuir posição e status automaticamente
+  return data.map((t, i) => ({
+    ...t,
+    pos:    (i + 1) + 'o',
+    status: i < 2 ? 'Classificado' : 'Eliminado',
+  }));
 }
 
 // ── EXTRAI JOGOS ─────────────────────────────────────────────────────────────
