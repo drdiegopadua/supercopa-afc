@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
@@ -787,6 +787,7 @@ footer{padding:80px 48px 40px;background:#0d1f5c;border-top:3px solid var(--gold
       <li><a href="times.html">Times</a></li>
       <li><a href="tabela.html">Jogos / Classificação</a></li>
       <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" style="color:var(--gold)!important;font-weight:700">ðŸ“± App</a></li>
       <li><a href="#faq">Dúvidas</a></li>
     </ul>
 
@@ -1840,6 +1841,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <li><a href="times.html">Times</a></li>
       <li><a href="tabela.html">Tabela</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" style="color:rgba(200,168,75,0.8)">ðŸ“± App</a></li>
       <li><a href="inscricao.html" style="color:var(--accent)">Inscrição</a></li>
     </ul>
   </div>
@@ -1891,5 +1893,27 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </div>
 <script src="transicao.js"></script>
+<!-- APP BANNER -->
+<style>
+.app-float-banner{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#1a3fa8,#0d1f5c);border:1px solid rgba(200,168,75,0.4);border-radius:100px;padding:12px 20px 12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.35);cursor:pointer;text-decoration:none;white-space:nowrap;animation:appBannerIn .6s 1.5s cubic-bezier(.34,1.2,.64,1) both}
+@keyframes appBannerIn{from{opacity:0;transform:translateX(-50%) translateY(80px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.app-float-banner:hover{transform:translateX(-50%) translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.45)}
+.app-float-icon{width:36px;height:36px;background:linear-gradient(135deg,#c8a84b,#e8c96a);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.app-float-text{display:flex;flex-direction:column;gap:1px}
+.app-float-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;color:#fff;line-height:1}
+.app-float-sub{font-size:10px;color:rgba(255,255,255,0.65);letter-spacing:.5px;line-height:1}
+.app-float-arrow{font-size:16px;color:rgba(200,168,75,0.9);margin-left:4px}
+.app-float-close{position:absolute;top:-8px;right:-8px;width:20px;height:20px;background:#0d1f5c;border:1px solid rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,0.6);cursor:pointer}
+@media(min-width:769px){.app-float-banner{display:none}}
+</style>
+<a class="app-float-banner" href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" rel="noopener" id="appFloatBanner">
+  <span class="app-float-close" onclick="event.preventDefault();event.stopPropagation();document.getElementById('appFloatBanner').style.display='none'">âœ•</span>
+  <div class="app-float-icon">ðŸ“±</div>
+  <div class="app-float-text">
+    <span class="app-float-title">App Supercopa AFC</span>
+    <span class="app-float-sub">BolÃ£o Â· Quiz Â· Resultados ao vivo</span>
+  </div>
+  <span class="app-float-arrow">â€º</span>
+</a>
 </body>
 </html>
