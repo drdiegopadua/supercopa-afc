@@ -1490,9 +1490,9 @@ async function loadBasketballData() {
     const rows = result.values || [];
 
     const gamesA = extractGames(rows, 4, 6, 0,  'Grupo A');
-    const gamesB = extractGames(rows, 4, 6, 11, 'Grupo B');
+    const gamesB = extractGames(rows, 4, 6, 10, 'Grupo B');
     const classA = extractClassification(rows, 11, 13, 0);
-    const classB = extractClassification(rows, 11, 13, 11);
+    const classB = extractClassification(rows, 11, 13, 10);
 
     renderClassification(classA, classB);
     renderGames(gamesA, gamesB);
