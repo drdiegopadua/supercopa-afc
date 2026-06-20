@@ -1237,11 +1237,13 @@ async function loadVoleiData() {
     // ── Classificação ordenada pela aba "Classificação" ──────────
     // Grupo A → índices 5-7  | Grupo B → 11-13 | Grupo C → 17-19 | Grupo D → 23-25
     // Colunas: A=0(POS) B=1(Equipe) C=2(PTS) D=3(V) E=4(D)
+    // Lê da aba Fase de Grupos (rowsJ) - dados auto-calculados e corretos
+    // Grupos A=[4,5,6] B=[16,17,18] C=[28,29,30] D=[40,41,42]
     const classGrupos = [
-      { title: 'Grupo A', rows: [5, 6, 7] },
-      { title: 'Grupo B', rows: [11, 12, 13] },
-      { title: 'Grupo C', rows: [17, 18, 19] },
-      { title: 'Grupo D', rows: [23, 24, 25] },
+      { title: 'Grupo A', rows: [4, 5, 6] },
+      { title: 'Grupo B', rows: [16, 17, 18] },
+      { title: 'Grupo C', rows: [28, 29, 30] },
+      { title: 'Grupo D', rows: [40, 41, 42] },
     ];
 
     grid.innerHTML = '';
@@ -1250,12 +1252,12 @@ async function loadVoleiData() {
       card.className = 'group-card';
       let trs = '';
       grupo.rows.forEach(r => {
-        const pos    = cc(rowsC, r, 0);
-        const equipe = cc(rowsC, r, 1);
-        const pts    = cc(rowsC, r, 2);
-        const v      = cc(rowsC, r, 3);
-        const d      = cc(rowsC, r, 4);
-        if (!equipe) return;
+        const pos    = cc(rowsJ, r, 0);
+        const equipe = cc(rowsJ, r, 1);
+        const pts    = cc(rowsJ, r, 2);
+        const v      = cc(rowsJ, r, 3);
+        const d      = cc(rowsJ, r, 4);
+        if (!equipe || equipe.length < 2) return;
         trs += `<tr>
           <td style="color:var(--muted);font-size:12px;font-weight:700;">${pos}º</td>
           <td class="team">${equipe}</td>
