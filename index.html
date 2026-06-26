@@ -474,7 +474,7 @@ h2 em{font-style:normal;color:var(--accent2)}
 .fase-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:3px;background:var(--gold);transition:width .4s}
 .fase-card:hover::after{width:100%}
 .fase-num{font-family:var(--M);font-size:10px;color:var(--gold);margin-bottom:24px;display:block;letter-spacing:2px}
-.fase-icon{font-size:24px;margin-bottom:16px;display:block}
+.fase-icon{width:32px;height:32px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;color:var(--gold)}
 h3{font-family:var(--D);font-size:24px;letter-spacing:1px;margin-bottom:12px;text-transform:uppercase}
 .fase-card p{font-size:14px;color:var(--muted);line-height:1.6}
 .fase-date{margin-top:24px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent2);opacity:.9}
@@ -484,7 +484,7 @@ h3{font-family:var(--D);font-size:24px;letter-spacing:1px;margin-bottom:12px;tex
 .counter-title{text-align:center;font-family:var(--M);font-size:11px;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:3px;margin-bottom:48px}
 .counter-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
 .counter-box{text-align:center}
-.counter-box .icon{font-size:20px;margin-bottom:16px;opacity:.7}
+.counter-box .icon{width:24px;height:24px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;opacity:.7;color:#fff}
 .counter-num{display:block;font-family:var(--D);font-size:56px;color:var(--gold2);line-height:1}
 .counter-label{display:block;font-size:11px;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:2px;margin-top:10px}
 
@@ -525,7 +525,7 @@ td{padding:18px 24px;font-size:14px;border-bottom:1px solid var(--border)}
 .transform-col h4{font-family:var(--D);font-size:24px;letter-spacing:1px;margin-bottom:32px;text-transform:uppercase}
 .transform-col h4 b{color:var(--accent2)}
 .transform-item{display:flex;gap:20px;margin-bottom:24px}
-.t-icon{font-size:18px;margin-top:2px}
+.t-icon{width:20px;height:20px;margin-top:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .t-text strong{display:block;font-size:15px;margin-bottom:4px}
 .t-text p{font-size:13px;color:var(--muted);line-height:1.5}
 
@@ -1167,10 +1167,10 @@ nav:not(.main-nav){display:none!important}
   <h2 class="reveal visible">Do primeiro saque e da primeira cesta<br>à <em>grande final</em></h2>
   <p class="reveal visible" style="color:var(--muted);max-width:520px">Quatro fases, cada uma mais intensa. Somente os melhores avançam.</p>
   <div class="fases-grid">
-    <div class="fase-card reveal visible" style="transition-delay:.05s"><div class="fase-num">01</div><span class="fase-icon">🏐</span><h3>Fase de Grupos</h3><p>Todos se enfretam dentro do seu grupo e 2 avançam de fase.</p><div class="fase-date">1º dia → Todo ponto importa</div></div>
-    <div class="fase-card reveal visible" style="transition-delay:.15s"><div class="fase-num">02</div><span class="fase-icon">⚡</span><h3>Quartas de Final</h3><p>Os 8 classificados se enfrentam em um mata-mata. Melhor de 3 sets. Erro aqui é eliminação.</p><div class="fase-date">Só para o volei → Basquete pula pra semi</div></div>
-    <div class="fase-card reveal visible" style="transition-delay:.25s"><div class="fase-num">03</div><span class="fase-icon">🔥</span><h3>Semifinal</h3><p>Quatro times. Dois jogos. Cada ponto vale ouro. Os vencedores vão à grande final.</p><div class="fase-date">2º dia → Faça história na nossa quadra</div></div>
-    <div class="fase-card reveal visible" style="transition-delay:.35s"><div class="fase-num">04</div><span class="fase-icon">🏆</span><h3>Grande Final</h3><p>Arena lotada, transmissão ao vivo, equipes de vários estados e uma premiação de primeira para os campeões da maior competição multiesportiva da região.</p><div class="fase-date">Vale ouro · Ginásio Central</div></div>
+    <div class="fase-card reveal visible" style="transition-delay:.05s"><div class="fase-num">01</div><span class="fase-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><h3>Fase de Grupos</h3><p>Todos se enfretam dentro do seu grupo e 2 avançam de fase.</p><div class="fase-date">1º dia → Todo ponto importa</div></div>
+    <div class="fase-card reveal visible" style="transition-delay:.15s"><div class="fase-num">02</div><span class="fase-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><h3>Quartas de Final</h3><p>Os 8 classificados se enfrentam em um mata-mata. Melhor de 3 sets. Erro aqui é eliminação.</p><div class="fase-date">Só para o volei → Basquete pula pra semi</div></div>
+    <div class="fase-card reveal visible" style="transition-delay:.25s"><div class="fase-num">03</div><span class="fase-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span><h3>Semifinal</h3><p>Quatro times. Dois jogos. Cada ponto vale ouro. Os vencedores vão à grande final.</p><div class="fase-date">2º dia → Faça história na nossa quadra</div></div>
+    <div class="fase-card reveal visible" style="transition-delay:.35s"><div class="fase-num">04</div><span class="fase-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></span><h3>Grande Final</h3><p>Arena lotada, transmissão ao vivo, equipes de vários estados e uma premiação de primeira para os campeões da maior competição multiesportiva da região.</p><div class="fase-date">Vale ouro · Ginásio Central</div></div>
   </div>
 </section>
 
@@ -1178,10 +1178,10 @@ nav:not(.main-nav){display:none!important}
 <div class="counter-section">
   <div class="counter-title">📊 Números da Supercopa de Afonso Cláudio</div>
   <div class="counter-inner">
-    <div class="counter-box"><div class="icon">⏱️</div><span class="counter-num" data-target="164">0</span><span class="counter-label">Horas de jogo</span></div>
-    <div class="counter-box"><div class="icon">🔥</div><span class="counter-num" data-target="9840">0</span><span class="counter-label">Minutos de esporte</span></div>
-    <div class="counter-box"><div class="icon">💰</div><span class="counter-num" data-target="200000">0</span><span class="counter-label">Reais movimentados</span></div>
-    <div class="counter-box"><div class="icon">🏐</div><span class="counter-num" data-target="1000">0</span><span class="counter-label">Atletas envolvidos</span></div>
+    <div class="counter-box"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="counter-num" data-target="164">0</span><span class="counter-label">Horas de jogo</span></div>
+    <div class="counter-box"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span class="counter-num" data-target="9840">0</span><span class="counter-label">Minutos de esporte</span></div>
+    <div class="counter-box"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><span class="counter-num" data-target="200000">0</span><span class="counter-label">Reais movimentados</span></div>
+    <div class="counter-box"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span class="counter-num" data-target="1000">0</span><span class="counter-label">Atletas envolvidos</span></div>
   </div>
 </div>
 
@@ -1241,15 +1241,15 @@ nav:not(.main-nav){display:none!important}
   <div class="transform-grid">
     <div class="transform-col reveal-left">
       <h4>SEM A SUPERCOPA… <b>você perde isso</b></h4>
-      <div class="transform-item"><div class="t-icon">❌</div><div class="t-text"><strong>Treina sem objetivo</strong><p>Sem competição real, o nível estagna e a motivação cai ao longo da temporada.</p></div></div>
-      <div class="transform-item"><div class="t-icon">❌</div><div class="t-text"><strong>Visibilidade zero</strong><p>Bons times ficam desconhecidos por falta de palco para mostrar o jogo.</p></div></div>
-      <div class="transform-item"><div class="t-icon">❌</div><div class="t-text"><strong>Sem rede de contatos</strong><p>Perde a chance de conectar com técnicos, outros times e patrocinadores.</p></div></div>
+      <div class="transform-item"><div class="t-icon" style="color:#e74c3c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="t-text"><strong>Treina sem objetivo</strong><p>Sem competição real, o nível estagna e a motivação cai ao longo da temporada.</p></div></div>
+      <div class="transform-item"><div class="t-icon" style="color:#e74c3c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="t-text"><strong>Visibilidade zero</strong><p>Bons times ficam desconhecidos por falta de palco para mostrar o jogo.</p></div></div>
+      <div class="transform-item"><div class="t-icon" style="color:#e74c3c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="t-text"><strong>Sem rede de contatos</strong><p>Perde a chance de conectar com técnicos, outros times e patrocinadores.</p></div></div>
     </div>
     <div class="transform-col after reveal-right">
       <h4>NA SUPERCOPA… <b>você conquista</b></h4>
-      <div class="transform-item"><div class="t-icon">🏐</div><div class="t-text"><strong>Competição de elite</strong><p>Enfrente os melhores times da região e de outros estados, elevando seu nível técnico.</p></div></div>
-      <div class="transform-item"><div class="t-icon">🎥</div><div class="t-text"><strong>Palco de Estrela</strong><p>Jogos transmitidos, fotos profissionais e cobertura completa nas redes sociais.</p></div></div>
-      <div class="transform-item"><div class="t-icon">🤝</div><div class="t-text"><strong>Comunidade e prêmios</strong><p>R$5.000 em premiação, troféus e visibilidade real para todo o elenco.</p></div></div>
+      <div class="transform-item"><div class="t-icon" style="color:#c8a84b"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="t-text"><strong>Competição de elite</strong><p>Enfrente os melhores times da região e de outros estados, elevando seu nível técnico.</p></div></div>
+      <div class="transform-item"><div class="t-icon" style="color:#c8a84b"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div><div class="t-text"><strong>Palco de Estrela</strong><p>Jogos transmitidos, fotos profissionais e cobertura completa nas redes sociais.</p></div></div>
+      <div class="transform-item"><div class="t-icon" style="color:#c8a84b"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="t-text"><strong>Comunidade e prêmios</strong><p>R$5.000 em premiação, troféus e visibilidade real para todo o elenco.</p></div></div>
     </div>
   </div>
 </section>
@@ -1268,42 +1268,51 @@ nav:not(.main-nav){display:none!important}
 
 <!-- APP SECTION -->
 <section class="section" id="app-section" style="background:linear-gradient(135deg,#0d1f5c 0%,#1a3fa8 60%,#0d1f5c 100%);padding:80px 48px;text-align:center;border-top:3px solid rgba(200,168,75,0.4);border-bottom:3px solid rgba(200,168,75,0.4)">
-  <div style="max-width:700px;margin:0 auto">
+  <div style="max-width:760px;margin:0 auto">
     <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(200,168,75,0.15);border:1px solid rgba(200,168,75,0.3);border-radius:100px;padding:6px 16px;margin-bottom:24px">
-      <span style="font-size:13px">📱</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
       <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(200,168,75,0.9);letter-spacing:2px;text-transform:uppercase">Aplicativo Oficial</span>
     </div>
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,7vw,72px);letter-spacing:3px;color:#fff;line-height:1;margin-bottom:16px">SUPERCOPA NO SEU BOLSO</h2>
     <p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto">Acompanhe resultados ao vivo, participe do bolão, faça o quiz e receba notificações dos jogos — tudo no app gratuito da Supercopa AFC.</p>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:40px">
       <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:16px 20px;text-align:center;min-width:120px">
-        <div style="font-size:28px;margin-bottom:6px">🏆</div>
+        <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px">Bolão</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px">Palpites ao vivo</div>
       </div>
       <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:16px 20px;text-align:center;min-width:120px">
-        <div style="font-size:28px;margin-bottom:6px">🧠</div>
+        <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px">Quiz</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px">40 perguntas</div>
       </div>
       <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:16px 20px;text-align:center;min-width:120px">
-        <div style="font-size:28px;margin-bottom:6px">🔔</div>
+        <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px">Alertas</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px">Push em tempo real</div>
       </div>
       <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:16px 20px;text-align:center;min-width:120px">
-        <div style="font-size:28px;margin-bottom:6px">📊</div>
+        <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px">Resultados</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px">Tabela ao vivo</div>
       </div>
     </div>
-    <a href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" rel="noopener"
-       style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#c8a84b,#e8c96a);color:#0d1f5c;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;text-decoration:none;padding:18px 40px;border-radius:8px;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 32px rgba(200,168,75,0.4)"
-       onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 40px rgba(200,168,75,0.5)'"
-       onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(200,168,75,0.4)'">
-      <span>📱</span> ACESSAR O APP GRÁTIS
-    </a>
-    <p style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:16px;letter-spacing:1px;text-transform:uppercase">Funciona no celular · Sem necessidade de download na loja</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap">
+      <div style="background:rgba(255,255,255,0.95);border-radius:16px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Fsupercopa-app.vercel.app&bgcolor=ffffff&color=0d1f5c&qzone=1&format=png" alt="QR Code App Supercopa" width="140" height="140" style="display:block;border-radius:8px">
+        <span style="font-family:'Space Mono',monospace;font-size:9px;color:#0d1f5c;letter-spacing:1px;text-transform:uppercase;font-weight:700">Aponte a câmera</span>
+      </div>
+      <div style="text-align:left">
+        <a href="https://supercopa-app.vercel.app" target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#c8a84b,#e8c96a);color:#0d1f5c;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;text-decoration:none;padding:18px 36px;border-radius:8px;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 32px rgba(200,168,75,0.4);margin-bottom:12px;display:flex"
+           onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 40px rgba(200,168,75,0.5)'"
+           onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(200,168,75,0.4)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d1f5c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          ACESSAR O APP GRÁTIS
+        </a>
+        <p style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;letter-spacing:1px;text-transform:uppercase">Funciona no celular · Sem download na loja</p>
+      </div>
+    </div>
   </div>
 </section>
 <style>
