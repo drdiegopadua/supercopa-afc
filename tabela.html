@@ -1622,6 +1622,7 @@ function renderClassification(dataA, dataB) {
 }
 
 // ── RENDERIZA JOGOS ───────────────────────────────────────────────────────────
+const BASQ_HORARIOS = {"Grupo A-1":"13:00","Grupo B-1":"~14:10","Grupo A-2":"~15:30","Grupo B-2":"~16:45","Grupo A-3":"~18:00","Grupo B-3":"~19:10"};
 function renderGames(gamesA, gamesB) {
   const list = document.getElementById('basketballGamesList');
   list.innerHTML = '';
@@ -1632,7 +1633,7 @@ function renderGames(gamesA, gamesB) {
     card.innerHTML = `
       <div class="game-info">
         <span class="game-group">${game.grupo}</span>
-        <span class="game-hour">Jogo ${game.jogo}</span>
+        <span class="game-hour">Jogo ${game.jogo} · ${BASQ_HORARIOS[game.grupo+"-"+game.jogo]||""}</span>
       </div>
       <div class="game-team left">${game.equipe1}</div>
       <div class="game-score">
