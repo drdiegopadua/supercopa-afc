@@ -846,6 +846,7 @@ footer{padding:80px 48px 40px;background:#0d1f5c;border-top:3px solid var(--gold
       <div class="loading">Carregando dados do Google Sheets...</div>
     </div>
     <div class="section-title">Jogos · Basquete</div>
+    <div style="margin:0 0 14px;background:rgba(142,14,32,.08);border:1px solid rgba(142,14,32,.25);border-radius:13px;padding:11px 14px;font-size:12px;color:#e2e2e2;line-height:1.6">⚠️ <strong>Horários são previsão.</strong> É responsabilidade da equipe estar na quadra a partir das 13h de sábado — podem ocorrer imprevistos, inclusive W.O.</div>
     <div class="games-list" id="basketballGamesList">
       <div class="loading">Carregando dados do Google Sheets...</div>
     </div>
@@ -1623,11 +1624,16 @@ function renderClassification(dataA, dataB) {
 
 // ── RENDERIZA JOGOS ───────────────────────────────────────────────────────────
 const BASQ_HORARIOS = {"Grupo A-1":"13:00","Grupo B-1":"~14:10","Grupo A-2":"~15:30","Grupo B-2":"~16:45","Grupo A-3":"~18:00","Grupo B-3":"~19:10"};
+const BASQ_ORDEM = {"Grupo A-1":1,"Grupo B-1":2,"Grupo A-2":3,"Grupo B-2":4,"Grupo A-3":5,"Grupo B-3":6};
 function renderGames(gamesA, gamesB) {
   const list = document.getElementById('basketballGamesList');
   list.innerHTML = '';
 
-  [...gamesA, ...gamesB].forEach(game => {
+  const todos = [...gamesA, ...gamesB].sort((x, y) =>
+    (BASQ_ORDEM[x.grupo + '-' + x.jogo] || 99) - (BASQ_ORDEM[y.grupo + '-' + y.jogo] || 99)
+  );
+
+  todos.forEach(game => {
     const card = document.createElement('div');
     card.className = 'game-card';
     card.innerHTML = `
