@@ -756,6 +756,34 @@ footer{padding:80px 48px 40px;background:#0d1f5c;border-top:3px solid var(--gold
 #sc-transition.sc-t-leaving .sc-t-logo{opacity:0;transform:scale(0.9) translateY(-8px);transition:opacity .2s ease 0s,transform .2s ease 0s;}
 #sc-transition.sc-t-leaving .sc-t-logo-bar{width:0;transition:width .2s ease 0s;}
 
+/* ── TRANSMISSÃO AO VIVO · BASQUETE ── */
+.yt-live-banner{display:flex;align-items:center;gap:14px;border-radius:14px;padding:14px 18px;margin:0 0 18px;cursor:pointer;background:linear-gradient(135deg,#1c1c1c,#3a1010);color:#fff;box-shadow:0 8px 24px rgba(0,0,0,0.18);position:relative;overflow:hidden;transition:transform .25s ease}
+.yt-live-banner:hover{transform:translateY(-2px)}
+.yt-live-banner.on{background:linear-gradient(135deg,var(--accent2),#c0392b)}
+.yt-live-icon{width:42px;height:42px;border-radius:12px;background:#FF0000;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.yt-live-title{font-family:var(--D);font-size:16px;letter-spacing:1px}
+.yt-live-sub{font-family:var(--B);font-size:11.5px;opacity:.85;margin-top:2px}
+.yt-live-dot{width:9px;height:9px;border-radius:50%;background:#fff;margin-left:auto;flex-shrink:0;animation:ytPulse 1.2s infinite}
+@keyframes ytPulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+.yt-modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.75);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px}
+.yt-modal-overlay.open{display:flex}
+.yt-modal-box{background:#0d1f5c;border:1px solid rgba(200,168,75,0.35);border-top:3px solid var(--gold);border-radius:16px;padding:28px;max-width:640px;width:100%;position:relative;max-height:88vh;overflow-y:auto}
+.yt-modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.7);font-size:22px;cursor:pointer;line-height:1}
+.yt-modal-close:hover{color:#fff}
+.yt-modal-title{font-family:var(--D);font-size:24px;letter-spacing:1px;color:#fff;margin-bottom:16px}
+.yt-player-wrap{position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden;background:#000}
+.yt-player-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-open-link{display:flex;align-items:center;justify-content:center;gap:10px;background:#FF0000;color:#fff;text-decoration:none;border-radius:10px;padding:13px;font-family:var(--B);font-size:14px;font-weight:700;margin-top:14px}
+.yt-live-list-title{font-family:var(--M);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin:22px 0 10px}
+.yt-live-item{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;margin-bottom:6px;cursor:pointer;border:1px solid transparent}
+.yt-live-item.active{background:rgba(200,168,75,0.12);border-color:rgba(200,168,75,0.35)}
+.yt-live-item:not(.active){background:rgba(255,255,255,0.04)}
+.yt-live-item-name{flex:1;font-family:var(--B);font-size:13px;font-weight:600;color:#fff}
+.yt-live-item-badge{font-family:var(--M);font-size:9px;font-weight:700;padding:3px 9px;border-radius:100px}
+.yt-live-item.active .yt-live-item-badge{background:var(--accent2);color:#fff}
+.yt-live-item:not(.active) .yt-live-item-badge{color:rgba(255,255,255,0.5)}
+
 </style>
 </head>
 <body>
@@ -841,6 +869,7 @@ footer{padding:80px 48px 40px;background:#0d1f5c;border-top:3px solid var(--gold
 
   <!-- BASQUETE -->
   <div id="basqueteContent" class="hidden">
+    <div class="yt-live-banner" id="liveYtBanner" onclick="openLiveYt()" style="display:none;"></div>
     <div class="section-title">Classificação · Basquete</div>
     <div class="groups-grid" id="basketballClassificationGrid">
       <div class="loading">Carregando dados do Google Sheets...</div>
@@ -1102,6 +1131,101 @@ const GOOGLE_API_KEY  = 'AIzaSyBzIsc4TKy_he2P8PcOgOzs8Eor3EVHBzw';
 const SHEET_NAME      = 'Fase de Grupos';
 
 // ============================================
+// TRANSMISSÃO AO VIVO — BASQUETE (uma live por jogo)
+// Lida de 'Configuracao'!A11:B30 da planilha do basquete:
+// coluna A = nome do jogo, coluna B = link do YouTube.
+// A última linha preenchida é a transmissão AO VIVO; as
+// anteriores viram "Reveja" no mesmo modal.
+// ============================================
+let liveList = [];
+
+function ytEmbedUrl(url) {
+  var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:live\/|embed\/|shorts\/|watch\?v=))([\w-]{6,})/);
+  return m ? 'https://www.youtube.com/embed/' + m[1] + '?autoplay=1' : null;
+}
+
+function loadLiveList() {
+  var range = encodeURIComponent("'Configuracao'!A11:B30");
+  var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + GOOGLE_SHEET_ID + '/values/' + range + '?key=' + GOOGLE_API_KEY;
+  fetch(url).then(function(r){ return r.json(); }).then(function(data){
+    liveList = [];
+    (data.values || []).forEach(function(row){
+      var a = (row[0] || '').toString().trim(), b = (row[1] || '').toString().trim();
+      var isUrl = function(s){ return /^https?:\/\//i.test(s) || /youtu/i.test(s); };
+      var link = isUrl(b) ? b : (isUrl(a) ? a : '');
+      if (!link) return;
+      var titulo = (link === b ? a : b) || ('Transmissão ' + (liveList.length + 1));
+      liveList.push({ titulo: titulo, url: link });
+    });
+    renderLiveBanner();
+  }).catch(function(){});
+}
+
+function renderLiveBanner() {
+  var b = document.getElementById('liveYtBanner');
+  if (!b) return;
+  b.style.display = 'flex';
+  if (liveList.length) {
+    b.classList.add('on');
+    b.innerHTML =
+      '<div class="yt-live-icon">▶</div>' +
+      '<div><div class="yt-live-title">AO VIVO NO YOUTUBE</div>' +
+      '<div class="yt-live-sub">' + (liveList.length > 1
+        ? 'Toque para assistir · ' + liveList.length + ' transmissões'
+        : 'Toque para assistir à transmissão') + '</div></div>' +
+      '<div class="yt-live-dot"></div>';
+  } else {
+    b.classList.remove('on');
+    b.innerHTML =
+      '<div class="yt-live-icon" style="background:rgba(255,255,255,0.14);">📺</div>' +
+      '<div><div class="yt-live-title">Transmissão ao vivo</div>' +
+      '<div class="yt-live-sub">Os jogos serão transmitidos no YouTube — em breve</div></div>';
+  }
+}
+
+function openLiveYt() {
+  if (!liveList.length) return;
+  document.getElementById('liveYtModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  loadLiveVideo(liveList.length - 1);
+}
+
+function closeLiveYt(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('liveYtModal').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('ytPlayerWrap').innerHTML = '';
+}
+
+function loadLiveVideo(i) {
+  var item = liveList[i];
+  if (!item) return;
+  var emb = ytEmbedUrl(item.url);
+  if (!emb) { window.open(item.url, '_blank', 'noopener'); return; }
+  document.getElementById('ytPlayerWrap').innerHTML =
+    '<iframe src="' + emb + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  document.getElementById('ytOpenLink').href = item.url;
+  renderLiveList(i);
+}
+
+function renderLiveList(activeIdx) {
+  var el = document.getElementById('ytLiveList');
+  if (!el) return;
+  if (liveList.length <= 1) { el.innerHTML = ''; return; }
+  var html = '<div class="yt-live-list-title">Transmissões dos jogos</div>';
+  for (var i = liveList.length - 1; i >= 0; i--) {
+    var it = liveList[i];
+    var aoVivo = i === liveList.length - 1;
+    html += '<div class="yt-live-item' + (i === activeIdx ? ' active' : '') + '" onclick="loadLiveVideo(' + i + ')">' +
+      '<span>' + (aoVivo ? '🔴' : '▶') + '</span>' +
+      '<span class="yt-live-item-name">' + it.titulo + '</span>' +
+      '<span class="yt-live-item-badge">' + (aoVivo ? 'AO VIVO' : 'Reveja') + '</span>' +
+    '</div>';
+  }
+  el.innerHTML = html;
+}
+
+// ============================================
 // ESTADO GLOBAL
 // ============================================
 let autoRefreshInterval = null;
@@ -1175,7 +1299,8 @@ function showModalidade(mod, btn) {
   } else if (mod === 'basquete') {
     document.getElementById('basqueteContent').classList.remove('hidden');
     loadBasketballData();
-    startRefreshCycle(loadBasketballData);
+    loadLiveList();
+    startRefreshCycle(function(){ loadBasketballData(); loadLiveList(); });
   } else if (mod === 'voleiMata') {
     document.getElementById('voleiMataContent').classList.remove('hidden');
     loadVoleiMataMata();
@@ -1804,6 +1929,8 @@ async function loadMataMata() {
 // ============================================
 loadVoleiData();
 startRefreshCycle(loadVoleiData);
+loadLiveList();
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLiveYt(); });
 
 // NAVBAR SCROLL SHRINK
 (function(){
@@ -1890,6 +2017,17 @@ document.addEventListener('DOMContentLoaded', function(){
     </a>
   </div>
   <a class="drawer-cta" href="inscricao.html">Inscrever Meu Time</a>
+</div>
+
+<!-- MODAL TRANSMISSÃO AO VIVO -->
+<div class="yt-modal-overlay" id="liveYtModal" onclick="closeLiveYt(event)">
+  <div class="yt-modal-box" onclick="event.stopPropagation()">
+    <button class="yt-modal-close" onclick="closeLiveYt()">✕</button>
+    <div class="yt-modal-title">🏀 Transmissão ao vivo</div>
+    <div class="yt-player-wrap" id="ytPlayerWrap"></div>
+    <a id="ytOpenLink" href="#" target="_blank" rel="noopener" class="yt-open-link">▶ Abrir no YouTube</a>
+    <div id="ytLiveList"></div>
+  </div>
 </div>
 
 <div id="sc-transition">
