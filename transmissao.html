@@ -414,7 +414,11 @@ let activeIdx = -1;
 
 function ytEmbedUrl(url) {
   const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:live\/|embed\/|shorts\/|watch\?v=))([\w-]{6,})/);
-  return m ? 'https://www.youtube.com/embed/' + m[1] + '?autoplay=1' : null;
+  if (m) return 'https://www.youtube.com/embed/' + m[1] + '?autoplay=1';
+  const chan = url.match(/youtube\.com\/channel\/(UC[\w-]{10,})/);
+  if (chan) return 'https://www.youtube.com/embed/live_stream?channel=' + chan[1] + '&autoplay=1';
+  if (/^UC[\w-]{10,}$/.test((url || '').trim())) return 'https://www.youtube.com/embed/live_stream?channel=' + url.trim() + '&autoplay=1';
+  return null;
 }
 
 function loadLiveList() {
