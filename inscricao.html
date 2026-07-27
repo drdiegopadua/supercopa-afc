@@ -590,8 +590,19 @@ footer{padding:48px 36px 32px;background:#0d1f5c;border-top:3px solid var(--gold
   </div>
 </div>
 
+<!-- INSCRIÇÕES FECHADAS -->
+<div class="intro-card" id="closedNotice" style="display:none">
+  <div class="intro-card-inner" style="text-align:center;align-items:center">
+    <div style="font-size:38px;margin-bottom:6px">🔒</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:var(--text)">Inscrições fechadas no momento</div>
+    <p style="color:var(--muted);font-size:14px;margin-top:8px;max-width:480px">
+      As inscrições da Supercopa de Vôlei abrem em <strong>02/08/2026</strong>. As inscrições de Basquete estão encerradas para esta edição.
+    </p>
+  </div>
+</div>
+
 <!-- INTRO -->
-<div class="intro-card">
+<div class="intro-card" id="introCard">
   <div class="intro-card-inner">
     <div class="intro-line"><span class="intro-line-icon">👉</span><span>Antes de enviar, leia com atenção todas as informações do formulário.</span></div>
     <div class="intro-line"><span class="intro-line-icon">📌</span><span>Envie sua inscrição <strong>apenas se estiver totalmente de acordo</strong> com os termos e compromissos estabelecidos.</span></div>
@@ -599,8 +610,25 @@ footer{padding:48px 36px 32px;background:#0d1f5c;border-top:3px solid var(--gold
 </div>
 
 <!-- FORM -->
-<div class="form-wrap">
+<div class="form-wrap" id="formWrap2">
   <div class="form-card">
+
+    <!-- MODALIDADE -->
+    <div class="form-section">
+      <div class="form-section-title">Modalidade</div>
+      <div class="form-section-sub">Escolha a modalidade da sua equipe</div>
+      <div class="aloj-toggle">
+        <label class="toggle-opt">
+          <input type="radio" name="modalidade" value="Vôlei" checked>
+          <div class="toggle-label">🏐 Vôlei</div>
+        </label>
+        <label class="toggle-opt">
+          <input type="radio" name="modalidade" value="Basquete" disabled>
+          <div class="toggle-label" style="opacity:.5">🏀 Basquete <span style="font-size:9px;font-weight:800;background:#eee;color:#888;padding:2px 6px;border-radius:999px;margin-left:4px">FECHADO</span></div>
+        </label>
+      </div>
+      <span class="field-error" id="modalidadeError">Selecione a modalidade.</span>
+    </div>
 
     <!-- DADOS DA EQUIPE -->
     <div class="form-section">
@@ -833,6 +861,17 @@ footer{padding:48px 36px 32px;background:#0d1f5c;border-top:3px solid var(--gold
 <script>
 // ── CONFIG ──────────────────────────────────────────────────────────────────
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw96gGIjYMpdL4P6tP-jk8bKOMfd_5lQF65lXKfHdXiDjfjNfllRyVu0_fD2Lz1tMenRQ/exec';
+const INSCRICAO_ABRE_VOLEI = new Date('2026-08-02T00:00:00');
+
+// ── GATE DE INSCRIÇÃO (fechada até a data de abertura do Vôlei) ──────────────
+(function(){
+  const fechada = new Date() < INSCRICAO_ABRE_VOLEI;
+  if (fechada) {
+    document.getElementById('closedNotice').style.display = '';
+    document.getElementById('introCard').style.display = 'none';
+    document.getElementById('formWrap2').style.display = 'none';
+  }
+})();
 
 // ── NAV SCROLL ───────────────────────────────────────────────────────────────
 window.addEventListener('scroll',()=>{
@@ -952,6 +991,11 @@ function setErr(id, errId, show){
 function submitForm(){
   let valid = true;
 
+  const modalidadeSel = document.querySelector('input[name=modalidade]:checked');
+  const modalidade = modalidadeSel ? modalidadeSel.value : '';
+  document.getElementById('modalidadeError').classList.toggle('show', !modalidade);
+  if(!modalidade) valid=false;
+
   const nome = document.getElementById('nomeEquipe').value.trim();
   setErr('nomeEquipe','nomeEquipeError', !nome);
   if(!nome) valid=false;
@@ -1019,6 +1063,7 @@ function submitForm(){
   const reader = new FileReader();
   reader.onload = async function(ev){
     const payload = {
+      modalidade:    modalidade,
       nomeEquipe:    nome,
       nomeResp:      resp,
       instagram:     document.getElementById('instagram').value.trim(),
@@ -1056,6 +1101,8 @@ function submitForm(){
 
 // ── SUCCESS SCREEN ───────────────────────────────────────────────────────────
 function showSuccess(){
+  const modalidadeSel2 = document.querySelector('input[name=modalidade]:checked');
+  const modalidade = modalidadeSel2 ? modalidadeSel2.value : '';
   const nome = document.getElementById('nomeEquipe').value.trim();
   const resp = document.getElementById('nomeResp').value.trim();
   const tel = document.getElementById('telefone').value.trim();
@@ -1068,6 +1115,7 @@ function showSuccess(){
 
   const cidadeVal = document.getElementById('cidade').value.trim() + ' - ' + document.getElementById('estado').value;
   document.getElementById('successDetails').innerHTML = `
+    <div class="sd-row"><span class="sd-label">Modalidade</span><span class="sd-value">${modalidade}</span></div>
     <div class="sd-row"><span class="sd-label">Equipe</span><span class="sd-value">${nome}</span></div>
     <div class="sd-row"><span class="sd-label">Cidade</span><span class="sd-value">${cidadeVal}</span></div>
     <div class="sd-row"><span class="sd-label">Responsável</span><span class="sd-value">${resp}</span></div>
