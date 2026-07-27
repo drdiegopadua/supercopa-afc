@@ -543,11 +543,13 @@ footer{
       <li><a href="index.html">Início</a></li>
       <li><a href="historia.html">História</a></li>
       <li><a href="index.html#fases">Fases</a></li>
-      <li><a href="index.html#times">Times</a></li>
+      <li><a href="times.html">Times</a></li>
       <li><a href="tabela.html">Jogos / Classificação</a></li>
       <li><a href="transmissao.html">Transmissão</a></li>
       <li><a href="galeria.html" class="active">Galeria</a></li>
-      <li><a href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" style="color:var(--gold)!important;font-weight:700">&#128242; App</a></li>
+      <li><a href="downloads.html">Downloads</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+      <li><a href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" style="color:var(--gold)!important;font-weight:700">&#128241; App</a></li>
       <li><a href="index.html#faq">Dúvidas</a></li>
     </ul>
     <div class="nav-social">
@@ -575,10 +577,12 @@ footer{
     <li><a href="index.html"><span class="d-icon">🏠</span>Início</a></li>
     <li><a href="historia.html"><span class="d-icon">🏆</span>História</a></li>
     <li><a href="index.html#fases"><span class="d-icon">📋</span>Fases</a></li>
-    <li><a href="index.html#times"><span class="d-icon">🏐</span>Times</a></li>
+    <li><a href="times.html"><span class="d-icon">🏐</span>Times</a></li>
     <li><a href="tabela.html"><span class="d-icon">📊</span>Jogos / Classificação</a></li>
     <li><a href="transmissao.html"><span class="d-icon">📺</span>Transmissão</a></li>
     <li><a href="galeria.html" class="active"><span class="d-icon">📸</span>Galeria</a></li>
+    <li><a href="downloads.html"><span class="d-icon">⬇️</span>Downloads</a></li>
+    <li><a href="feedback.html"><span class="d-icon">📝</span>Feedback</a></li>
     <li><a href="index.html#faq"><span class="d-icon">❓</span>Dúvidas</a></li>
   </ul>
   <a class="drawer-cta" href="inscricao.html">Inscrever Meu Time</a>
@@ -688,6 +692,7 @@ footer{
     <button class="filter-btn active" data-filter="all">Tudo</button>
     <button class="filter-btn" data-filter="foto">📸 Fotos</button>
     <button class="filter-btn" data-filter="video">🎬 Vídeos</button>
+    <button class="filter-btn" data-filter="basquete">🏀 Basquete</button>
   <!--  <button class="filter-btn" data-filter="2025">2025</button>
     <button class="filter-btn" data-filter="2024">2024</button>  -->
   </div>
@@ -906,11 +911,12 @@ footer{
 
 
 
-   
+
 </div>
 
+<div class="gallery-grid" id="galleryGridDrive" style="display:none"></div>
 
-  <!-- Dica de como adicionar fotos 
+  <!-- Dica de como adicionar fotos
   <div class="upload-hint reveal">
     <h3>📂 Como adicionar fotos</h3>
     <p>Substitua os placeholders pelos seus arquivos. Para foto: <code style="color:var(--accent);font-size:12px">&lt;img src="foto.jpg" alt="..."&gt;</code>. Para vídeo: <code style="color:var(--accent);font-size:12px">&lt;video src="video.mp4" controls&gt;&lt;/video&gt;</code>. Use <code style="color:var(--accent);font-size:12px">data-year="2025"</code> e <code style="color:var(--accent);font-size:12px">data-type="foto"</code> para os filtros funcionarem.</p>
@@ -946,6 +952,7 @@ footer{
     <button class="lightbox-close" id="lightboxClose">✕</button>
     <img id="lightboxImg" src="" alt="" style="display:none;">
     <video id="lightboxVideo" controls style="display:none;"></video>
+    <iframe id="lightboxDriveVideo" src="" style="display:none;width:100%;aspect-ratio:16/9;border:none;border-radius:8px;background:#000" allow="autoplay" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -1004,6 +1011,68 @@ const galleryObs = new IntersectionObserver(entries => {
 }, {threshold:0.05});
 document.querySelectorAll('.gallery-item').forEach(el => galleryObs.observe(el));
 
+/* ── GALERIA DO BASQUETE (Google Drive) ── */
+const DRIVE_GALLERY_FOLDER_ID = "1vEa7KjtSEIaVx4jURw9MBMQ0RZE6V6AE";
+const DRIVE_GALLERY_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvfCnvO1xWUJu2qjayr93e0lQCB_56AClrZ3nj2eR3zwgfyKbHJrLOu7s0j20hXIV5/exec";
+let _driveGalleryCache = null;
+function driveThumb(id, size) { return "https://drive.google.com/thumbnail?id=" + id + "&sz=w" + (size || 900); }
+
+async function renderDriveGallery() {
+  const grid = document.getElementById('galleryGridDrive');
+  if (!grid) return;
+  if (_driveGalleryCache) { _renderDriveItems(_driveGalleryCache); return; }
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--muted);font-size:13px"><div style="font-size:28px;margin-bottom:8px">⏳</div>Carregando fotos e vídeos do Basquete...</div>';
+  try {
+    const r = await fetch(DRIVE_GALLERY_SCRIPT_URL);
+    const data = await r.json();
+    if (!data.ok) throw new Error(data.erro || "Erro no Apps Script");
+    _driveGalleryCache = data.files || [];
+    _renderDriveItems(_driveGalleryCache);
+  } catch (e) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--muted);font-size:13px"><div style="font-size:28px;margin-bottom:8px">⚠️</div>Não foi possível carregar as fotos do Drive agora.</div>';
+    console.warn("Drive gallery error:", e);
+  }
+}
+
+function _renderDriveItems(files) {
+  const grid = document.getElementById('galleryGridDrive');
+  if (!grid) return;
+  if (!files.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--muted);font-size:13px"><div style="font-size:28px;margin-bottom:8px">🏀</div>Nenhuma foto ou vídeo no Drive ainda.</div>';
+    return;
+  }
+  grid.innerHTML = files.map(f => {
+    const thumb = driveThumb(f.id, 900);
+    const nomeEsc = (f.name || "").replace(/'/g, "\\'");
+    return `
+      <div class="gallery-item" onclick="openDriveItem('${f.id}', ${!!f.isVideo}, '${nomeEsc}')" style="position:relative;overflow:hidden;">
+        <img src="${thumb}" alt="${f.name || ''}" loading="lazy" onerror="this.style.display='none'">
+        <div class="gallery-item-overlay"><div class="gallery-item-meta">${f.isVideo ? 'Vídeo' : 'Foto'} · Basquete 2026</div></div>
+        <span class="gallery-item-type">${f.isVideo ? '🎬 Vídeo' : 'Foto'}</span>
+      </div>`;
+  }).join('');
+}
+
+function openDriveItem(id, isVideo, name) {
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  const lbVid = document.getElementById('lightboxVideo');
+  const lbDrive = document.getElementById('lightboxDriveVideo');
+  lbImg.style.display = 'none';
+  lbVid.style.display = 'none';
+  lbVid.pause && lbVid.pause();
+  if (isVideo) {
+    lbDrive.src = 'https://drive.google.com/file/d/' + id + '/preview';
+    lbDrive.style.display = 'block';
+  } else {
+    lbDrive.style.display = 'none';
+    lbDrive.src = '';
+    lbImg.src = driveThumb(id, 1600);
+    lbImg.style.display = 'block';
+  }
+  lb.classList.add('open');
+}
+
 /* ── FILTROS ── */
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', function(){
@@ -1011,6 +1080,18 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     this.classList.add('active');
 
     const filter = this.dataset.filter;
+    const staticGrid = document.getElementById('galleryGrid');
+    const driveGrid = document.getElementById('galleryGridDrive');
+
+    if (filter === 'basquete') {
+      staticGrid.style.display = 'none';
+      driveGrid.style.display = 'grid';
+      renderDriveGallery();
+      return;
+    }
+    staticGrid.style.display = 'grid';
+    driveGrid.style.display = 'none';
+
     document.querySelectorAll('.gallery-item').forEach(item => {
       const type = item.dataset.type;
       const year = item.dataset.year;
@@ -1047,12 +1128,14 @@ document.getElementById('lightboxClose').addEventListener('click', () => {
   const lb = document.getElementById('lightbox');
   lb.classList.remove('open');
   document.getElementById('lightboxVideo').pause && document.getElementById('lightboxVideo').pause();
+  const _ld = document.getElementById('lightboxDriveVideo'); _ld.style.display = 'none'; _ld.src = '';
 });
 
 document.getElementById('lightbox').addEventListener('click', function(e){
   if(e.target === this){
     this.classList.remove('open');
     document.getElementById('lightboxVideo').pause && document.getElementById('lightboxVideo').pause();
+    const _ld = document.getElementById('lightboxDriveVideo'); _ld.style.display = 'none'; _ld.src = '';
   }
 });
 </script>
