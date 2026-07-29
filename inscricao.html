@@ -662,8 +662,9 @@ footer{padding:48px 36px 32px;background:#0d1f5c;border-top:3px solid var(--gold
       </div>
       <div class="field-group single">
         <div class="field">
-          <label>Instagram da Equipe</label>
+          <label>Instagram da Equipe *</label>
           <input type="text" id="instagram" placeholder="@suaequipe">
+          <span class="field-error" id="instagramError">Campo obrigatório.</span>
         </div>
       </div>
     </div>
@@ -1007,6 +1008,10 @@ function submitForm(){
   const estado = document.getElementById('estado').value;
   setErr('estado','estadoError', !estado);
   if(!estado) valid=false;
+
+  const instagram = document.getElementById('instagram').value.trim();
+  setErr('instagram','instagramError', !instagram);
+  if(!instagram) valid=false;
 
   const resp = document.getElementById('nomeResp').value.trim();
   setErr('nomeResp','nomeRespError', !resp);
