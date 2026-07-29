@@ -860,7 +860,7 @@ footer{padding:48px 36px 32px;background:#0d1f5c;border-top:3px solid var(--gold
 
 <script>
 // ── CONFIG ──────────────────────────────────────────────────────────────────
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby10sS3olyBsLodqSYgooojqDIwnpecanZqlNwF1b7iQvWPZHzABjy0RbvcOtuxQaYPwQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzKdXYBZZdDS9MQXvl-XPHWieX67o4Noi9coUYIxBE4-HP2oFndn7iU9OYhzFzSDU4P/exec';
 const INSCRICAO_ABRE_VOLEI = new Date('2026-08-02T00:00:00');
 
 // ── GATE DE INSCRIÇÃO (fechada até a data de abertura do Vôlei) ──────────────
@@ -1063,6 +1063,7 @@ function submitForm(){
   const reader = new FileReader();
   reader.onload = async function(ev){
     const payload = {
+      acao:          'inscrever',
       modalidade:    modalidade,
       nomeEquipe:    nome,
       nomeResp:      resp,
