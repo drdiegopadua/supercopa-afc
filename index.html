@@ -120,6 +120,7 @@ nav{
   margin-bottom: 8px;
 }
 @keyframes sepBlink { 0%,100%{opacity:1} 50%{opacity:.2} }
+@keyframes pulseLiveSite { 0%,100%{opacity:1} 50%{opacity:.3} }
 
 /* right CTA */
 .ub-right { flex-shrink: 0; }
@@ -1079,6 +1080,9 @@ nav:not(.main-nav){display:none!important}
     </div>
   </div>
 
+  <!-- AO VIVO AGORA (súmula do Vôlei) -->
+  <div id="aoVivoWrap" style="display:none;max-width:1400px;margin:0 auto;padding:0 24px 16px"></div>
+
   <!-- FULL IMAGE WITH OVERLAY BANNER -->
   <div class="hero-image-block" style="padding:0 24px">
     <img
@@ -1465,6 +1469,40 @@ function toggleFaq(btn) {
   if (!open) { a.classList.add('open'); btn.classList.add('open'); }
 }
 window.toggleFaq = toggleFaq;
+
+/* ── AO VIVO AGORA (súmula do Vôlei) ── */
+const SUMULA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwi4wts5VWU9mo_B8HLLKYZQcEDds_7XFOv0jWbdh4jSg4g58dsX9R6BLr0nV24GFer/exec";
+function renderAoVivoSite(partidas){
+  const wrap = document.getElementById('aoVivoWrap');
+  if (!wrap) return;
+  if (!partidas || !partidas.length) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+  wrap.style.display = '';
+  wrap.innerHTML = '<div style="font-size:11px;font-weight:800;color:#e63946;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px">'
+    + '<span style="width:8px;height:8px;border-radius:50%;background:#e63946;display:inline-block;animation:pulseLiveSite 1.2s infinite"></span>Ao vivo agora</div>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:12px">'
+    + partidas.map(p => {
+        const setsTxt = (p.historicoSets || []).map(s => s.a + '-' + s.b).join(', ');
+        return '<div style="flex:1;min-width:260px;background:#fff;border:1px solid #f3d9db;border-radius:14px;padding:14px 18px;box-shadow:0 4px 14px rgba(0,0,0,.06)">'
+          + '<div style="display:flex;justify-content:space-between;align-items:center">'
+          + '<div style="font-weight:800;font-size:14px;color:#0d1f5c">' + p.equipeCasa + ' <span style="color:#94a3b8;font-weight:400">vs</span> ' + p.equipeVisitante + '</div>'
+          + '<div style="font-size:11px;color:#94a3b8">Set ' + p.setAtual + '</div>'
+          + '</div>'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">'
+          + '<div style="font-size:26px;font-weight:900;color:#0d1f5c">' + p.pontosCasa + ' <span style="color:#94a3b8;font-size:15px">×</span> ' + p.pontosVisitante + '</div>'
+          + '<div style="font-size:11px;color:#94a3b8">Sets: ' + p.setsCasa + '-' + p.setsVisitante + (setsTxt ? ' · ' + setsTxt : '') + '</div>'
+          + '</div></div>';
+      }).join('')
+    + '</div>';
+}
+function pollAoVivoSite(){
+  fetch(SUMULA_SCRIPT_URL + '?action=partidasAoVivo').then(r => r.json()).then(res => {
+    renderAoVivoSite((res && res.partidas) || []);
+  }).catch(() => {});
+}
+document.addEventListener('DOMContentLoaded', function(){
+  pollAoVivoSite();
+  setInterval(pollAoVivoSite, 5000);
+});
 
 /* ── MOBILE DRAWER ── */
 document.addEventListener('DOMContentLoaded', function(){
