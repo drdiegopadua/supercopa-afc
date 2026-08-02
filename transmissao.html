@@ -526,5 +526,17 @@ setInterval(loadLiveList, 30000);
   </div>
   <span class="app-float-arrow">›</span>
 </a>
+<script>
+(function(){
+  try{
+    var BOLAO_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxAJ33xHRJH1AoNAMRV_o2KOasCvufl6JN_4kK--SBeh2LA1grmiIiYNNrNBfKqgbZs/exec";
+    if (sessionStorage.getItem('site_acesso_tracked')) return;
+    var id = localStorage.getItem('_device_id');
+    if (!id) { id = 'dev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); localStorage.setItem('_device_id', id); }
+    fetch(BOLAO_SHEETS_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({tipo:'site_acesso', deviceId:id}) });
+    sessionStorage.setItem('site_acesso_tracked', '1');
+  } catch(e) {}
+})();
+</script>
 </body>
 </html>
