@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite Oficial · Supercopa AFC 2026</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1f5c;--accent:#1a3fa8;--gold:#c8a84b;--gold2:#e8c96a;
+  --text:#0d1a3a;--muted:#4a5578;
+  --D:'Bebas Neue',sans-serif;--B:'DM Sans',sans-serif;--M:'Space Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{
+  background:radial-gradient(circle at 50% 0%,#1a3fa8 0%,#0d1f5c 55%,#081341 100%);
+  color:#fff;font-family:var(--B);min-height:100vh;overflow-x:hidden;
+  display:flex;align-items:center;justify-content:center;padding:24px 16px;
+}
+.card{
+  max-width:480px;width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(200,168,75,0.35);border-radius:24px;
+  padding:40px 32px;text-align:center;backdrop-filter:blur(6px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  animation:fadeUp .6s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;background:rgba(200,168,75,0.15);
+  border:1px solid rgba(200,168,75,0.4);border-radius:100px;padding:6px 16px;
+  font-family:var(--M);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);
+  margin-bottom:22px;
+}
+.trophy{font-size:44px;margin-bottom:14px}
+h1{font-family:var(--D);font-size:34px;letter-spacing:1px;line-height:1.1;margin-bottom:6px}
+h1 em{font-style:normal;color:var(--gold2)}
+.equipe-nome{font-family:var(--D);font-size:26px;letter-spacing:1px;color:#fff;margin:10px 0 18px;
+  background:linear-gradient(135deg,rgba(200,168,75,0.2),rgba(200,168,75,0.05));
+  border:1px solid rgba(200,168,75,0.35);border-radius:14px;padding:14px;
+}
+.sub{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:26px}
+.pin-box{
+  background:#fff;color:var(--text);border-radius:16px;padding:20px;margin-bottom:26px;
+}
+.pin-label{font-family:var(--M);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.pin-valor{font-family:var(--D);font-size:44px;letter-spacing:12px;color:var(--accent);padding-left:12px}
+.steps{text-align:left;background:rgba(255,255,255,0.06);border-radius:14px;padding:18px 20px;margin-bottom:26px}
+.steps div{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);font-weight:700;margin-bottom:10px}
+.steps ol{padding-left:18px;font-size:13px;line-height:1.9;color:rgba(255,255,255,0.85)}
+.btn-app{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0d1f5c;
+  font-family:var(--D);font-size:18px;letter-spacing:1px;text-decoration:none;
+  padding:16px;border-radius:12px;box-shadow:0 8px 24px rgba(200,168,75,0.35);margin-bottom:12px;
+}
+.btn-outline{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.85);
+  font-size:12px;font-weight:700;letter-spacing:1px;text-decoration:none;
+  padding:12px;border-radius:12px;
+}
+.footer{margin-top:26px;font-family:var(--M);font-size:10px;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase}
+.err{font-size:14px;color:rgba(255,255,255,0.8)}
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="content">
+    <div class="badge">✦ Convite Oficial · Supercopa AFC 2026</div>
+    <div class="trophy">🏆</div>
+    <h1>Sua equipe foi<br><em>selecionada!</em></h1>
+    <div class="equipe-nome" id="equipeNome">—</div>
+    <p class="sub">Parabéns! Sua equipe foi selecionada pela comissão organizadora para participar da <strong>Supercopa de Vôlei de Afonso Cláudio 2026</strong>. Use o PIN abaixo para cadastrar os atletas da sua equipe no app oficial.</p>
+    <div class="pin-box">
+      <div class="pin-label">PIN da sua equipe</div>
+      <div class="pin-valor" id="pinValor">····</div>
+    </div>
+    <div class="steps">
+      <div>Como cadastrar seus atletas</div>
+      <ol>
+        <li>Baixe o app oficial da Supercopa (botão abaixo)</li>
+        <li>Vá em <strong>Social → Cadastrar Atletas</strong></li>
+        <li>Selecione o nome da sua equipe</li>
+        <li>Digite o PIN acima e cadastre até 14 atletas + 2 membros da comissão técnica</li>
+      </ol>
+    </div>
+    <a class="btn-app" href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" rel="noopener">📱 Baixar o App Oficial</a>
+    <a class="btn-outline" href="https://www.supercopaafc.com.br/regulamento.html" target="_blank" rel="noopener">Ver Regulamento Completo</a>
+  </div>
+  <div class="footer">Supercopa AFC · Afonso Cláudio · 2026</div>
+</div>
+
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  const equipe = (params.get('equipe') || '').trim();
+  const pin = (params.get('pin') || '').trim();
+  if (!equipe || !pin) {
+    document.getElementById('content').innerHTML = '<p class="err">Link de convite inválido ou incompleto. Fale com a organização da Supercopa.</p>';
+    return;
+  }
+  document.getElementById('equipeNome').textContent = equipe;
+  document.getElementById('pinValor').textContent = pin;
+})();
+</script>
+</body>
+</html>
