@@ -870,14 +870,20 @@ footer{padding:48px 36px 32px;background:#0d1f5c;border-top:3px solid var(--gold
 // ── CONFIG ──────────────────────────────────────────────────────────────────
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwwTT4C5NQ6awTRsdzl-t__mKxK0LdMlUKoPVxla43Xj5k_BsKoS5PJGIk-4wNJuDe0Kw/exec';
 const INSCRICAO_ABRE_VOLEI = new Date('2026-08-02T00:00:00');
+const INSCRICAO_FECHA_VOLEI = new Date('2026-09-30T23:59:59-03:00');
 
-// ── GATE DE INSCRIÇÃO (fechada até a data de abertura do Vôlei) ──────────────
+// ── GATE DE INSCRIÇÃO (fechada antes da abertura ou depois do prazo final) ──
 (function(){
-  const fechada = new Date() < INSCRICAO_ABRE_VOLEI;
-  if (fechada) {
+  const antesDeAbrir = new Date() < INSCRICAO_ABRE_VOLEI;
+  const prazoEncerrado = new Date() > INSCRICAO_FECHA_VOLEI;
+  if (antesDeAbrir || prazoEncerrado) {
     document.getElementById('closedNotice').style.display = '';
     document.getElementById('introCard').style.display = 'none';
     document.getElementById('formWrap2').style.display = 'none';
+    if (prazoEncerrado) {
+      document.querySelector('#closedNotice .intro-card-inner > div:nth-child(2)').textContent = 'Inscrições encerradas';
+      document.querySelector('#closedNotice .intro-card-inner > p').innerHTML = 'O prazo de inscrição da Supercopa de Vôlei 2026 se encerrou em <strong>30/09/2026</strong>. Acompanhe nossas redes sociais para saber sobre as equipes convocadas e as próximas edições.';
+    }
   }
 })();
 
@@ -997,6 +1003,11 @@ function setErr(id, errId, show){
 
 // ── SUBMIT ───────────────────────────────────────────────────────────────────
 function submitForm(){
+  if (new Date() > INSCRICAO_FECHA_VOLEI) {
+    alert('As inscrições da Supercopa de Vôlei 2026 estão encerradas. Obrigado pelo interesse!');
+    location.reload();
+    return;
+  }
   let valid = true;
 
   const modalidadeSel = document.querySelector('input[name=modalidade]:checked');
