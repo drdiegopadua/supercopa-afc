@@ -88,22 +88,87 @@ h1 em{font-style:normal;color:var(--gold2)}
     </div>
     <a class="btn-app" href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" rel="noopener">📱 Baixar o App Oficial</a>
     <a class="btn-outline" href="https://www.supercopaafc.com.br/regulamento.html" target="_blank" rel="noopener">Ver Regulamento Completo</a>
+
+    <div id="confirmaBox" style="margin-top:22px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.15)">
+      <p class="sub" style="margin-bottom:16px">Agora confirme oficialmente a presença da sua equipe na Supercopa:</p>
+      <button class="btn-app" id="btnConfirmarPresenca" style="background:linear-gradient(135deg,#2e7d32,#43a047);color:#fff;border:none;width:100%;cursor:pointer" onclick="abrirTermo()">✅ Confirmar Presença da Equipe</button>
+    </div>
   </div>
   <div class="footer">Supercopa AFC · Afonso Cláudio · 2026</div>
 </div>
 
+<!-- MODAL DO TERMO -->
+<div id="modalTermo" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:20px">
+  <div style="max-width:460px;width:100%;background:#fff;color:var(--text);border-radius:20px;padding:28px 24px;max-height:85vh;overflow-y:auto">
+    <div style="font-family:var(--D);font-size:22px;color:var(--text);margin-bottom:14px">Termo de Compromisso</div>
+    <div style="font-size:13px;line-height:1.7;color:var(--muted)">
+      <p style="margin-bottom:12px">Ao confirmar, a equipe <strong id="termoEquipeNome" style="color:var(--text)"></strong> declara que:</p>
+      <p style="margin-bottom:10px">✅ Se compromete a <strong>participar da Supercopa AFC 2026</strong>, equivalente à assinatura do termo de compromisso da organização.</p>
+      <p style="margin-bottom:10px">🚐 É de responsabilidade da equipe providenciar <strong>transporte próprio</strong> para estar presente no dia e horário de seus jogos.</p>
+      <p style="margin-bottom:10px">⚠️ Caso confirme a presença e <strong>não compareça</strong> no dia da partida, a equipe fica <strong>excluída de qualquer outro evento</strong> organizado por esta comissão organizadora.</p>
+    </div>
+    <button onclick="confirmarPresencaFinal()" id="btnAssinar" style="width:100%;margin-top:18px;background:linear-gradient(135deg,#2e7d32,#43a047);color:#fff;border:none;padding:15px;border-radius:12px;font-family:var(--D);font-size:16px;letter-spacing:1px;cursor:pointer">Eu confirmo e assino este termo</button>
+    <button onclick="fecharTermo()" style="width:100%;margin-top:10px;background:transparent;color:var(--muted);border:1px solid #ddd;padding:12px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer">Cancelar</button>
+  </div>
+</div>
+
 <script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwwTT4C5NQ6awTRsdzl-t__mKxK0LdMlUKoPVxla43Xj5k_BsKoS5PJGIk-4wNJuDe0Kw/exec';
+const params = new URLSearchParams(location.search);
+const equipeConvite = (params.get('equipe') || '').trim();
+const pinConvite = (params.get('pin') || '').trim();
+
 (function(){
-  const params = new URLSearchParams(location.search);
-  const equipe = (params.get('equipe') || '').trim();
-  const pin = (params.get('pin') || '').trim();
-  if (!equipe || !pin) {
+  if (!equipeConvite || !pinConvite) {
     document.getElementById('content').innerHTML = '<p class="err">Link de convite inválido ou incompleto. Fale com a organização da Supercopa.</p>';
     return;
   }
-  document.getElementById('equipeNome').textContent = equipe;
-  document.getElementById('pinValor').textContent = pin;
+  document.getElementById('equipeNome').textContent = equipeConvite;
+  document.getElementById('pinValor').textContent = pinConvite;
+  document.getElementById('termoEquipeNome').textContent = equipeConvite;
+
+  fetch(SCRIPT_URL + '?action=statusConfirmacao&equipe=' + encodeURIComponent(equipeConvite))
+    .then(r => r.json())
+    .then(res => {
+      if (res.ok && res.confirmado) mostrarJaConfirmado(res.confirmadoEm);
+    })
+    .catch(() => {});
 })();
+
+function abrirTermo(){ document.getElementById('modalTermo').style.display = 'flex'; }
+function fecharTermo(){ document.getElementById('modalTermo').style.display = 'none'; }
+
+function mostrarJaConfirmado(dataHora){
+  document.getElementById('confirmaBox').innerHTML =
+    '<div style="background:rgba(46,125,50,0.2);border:1px solid rgba(67,160,71,0.5);border-radius:14px;padding:16px;text-align:center">' +
+    '<div style="font-size:24px;margin-bottom:6px">✅</div>' +
+    '<div style="font-weight:700;color:#fff">Presença confirmada' + (dataHora ? (' em ' + dataHora) : '') + '</div>' +
+    '</div>';
+}
+
+async function confirmarPresencaFinal(){
+  const btn = document.getElementById('btnAssinar');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ acao: 'confirmarPresenca', equipe: equipeConvite, pin: pinConvite })
+    }).then(r => r.json());
+    if (res.ok) {
+      fecharTermo();
+      mostrarJaConfirmado(res.confirmadoEm);
+    } else {
+      alert('❌ ' + (res.erro || 'Erro ao confirmar. Tente novamente.'));
+      btn.disabled = false;
+      btn.textContent = 'Eu confirmo e assino este termo';
+    }
+  } catch(e) {
+    alert('❌ Erro de conexão. Tente novamente.');
+    btn.disabled = false;
+    btn.textContent = 'Eu confirmo e assino este termo';
+  }
+}
 </script>
 </body>
 </html>
