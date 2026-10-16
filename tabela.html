@@ -1339,66 +1339,49 @@ const VOLEI_SHEET_NAME = 'Fase de Grupos';
  *   Grupo D → linhas 46-48
  */
 
+const SC_API_ = 'https://hngwasixgyvnvfanpuax.supabase.co/functions/v1/api';
+
+// Lê o torneio do Supabase; se a internet falhar, mostra a última versão guardada neste aparelho.
+async function scTorneio_() {
+  const KEY = 'sc_torneio_site';
+  try {
+    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 12000);
+    const r = await fetch(SC_API_ + '?action=torneio&modalidade=volei', { signal: ctrl.signal });
+    clearTimeout(to);
+    const d = await r.json();
+    if (!d.ok) throw new Error(d.erro || 'resposta inválida');
+    try { localStorage.setItem(KEY, JSON.stringify({ t: d, em: Date.now() })); } catch (e) { /* sem cache */ }
+    return { t: d, offline: false };
+  } catch (e) {
+    try { const c = JSON.parse(localStorage.getItem(KEY) || 'null'); if (c && c.t) return { t: c.t, offline: true, em: c.em }; } catch (_) { /* sem cache */ }
+    throw e;
+  }
+}
+const scEsc_ = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const scAvisoOffline_ = (r) => r.offline ? `<div style="grid-column:1/-1;font-size:12px;color:#fbbf24;text-align:center;padding:6px">⚠️ Sem conexão — mostrando a última tabela carregada (${new Date(r.em).toLocaleString('pt-BR')})</div>` : '';
+
 async function loadVoleiData() {
   const grid = document.getElementById('voleiClassificationGrid');
   const list = document.getElementById('voleiGamesList');
-
   try {
-    // ── Busca classificação (aba "Classificação") e jogos (aba "Fase de Grupos") em paralelo ──
-    const makeUrl = (sheet, range) =>
-      `https://sheets.googleapis.com/v4/spreadsheets/${VOLEI_SHEET_ID}/values/${encodeURIComponent(`'${sheet}'!${range}`)}?key=${GOOGLE_API_KEY}`;
-
-    const [resClass, resJogos] = await Promise.all([
-      fetch(makeUrl('Classificação', 'A1:K26')),
-      fetch(makeUrl('Fase de Grupos', 'A1:Q49')),
-    ]);
-
-    const [dataClass, dataJogos] = await Promise.all([resClass.json(), resJogos.json()]);
-
-    if (!resClass.ok)  throw new Error(`Classificação: ${dataClass.error?.message || resClass.statusText}`);
-    if (!resJogos.ok)  throw new Error(`Fase de Grupos: ${dataJogos.error?.message || resJogos.statusText}`);
-
-    const rowsC = dataClass.values || [];   // aba Classificação
-    const rowsJ = dataJogos.values || [];   // aba Fase de Grupos
-
-    const cc = (rows, r, col) => (rows[r] && rows[r][col] != null) ? rows[r][col].toString().trim() : '';
-
-    // ── Classificação ordenada pela aba "Classificação" ──────────
-    // Grupo A → índices 5-7  | Grupo B → 11-13 | Grupo C → 17-19 | Grupo D → 23-25
-    // Colunas: A=0(POS) B=1(Equipe) C=2(PTS) D=3(V) E=4(D)
-    // Lê da aba Fase de Grupos (rowsJ) - dados auto-calculados e corretos
-    // Grupos A=[4,5,6] B=[16,17,18] C=[28,29,30] D=[40,41,42]
-    const classGrupos = [
-      { title: 'Grupo A', rows: [4, 5, 6] },
-      { title: 'Grupo B', rows: [16, 17, 18] },
-      { title: 'Grupo C', rows: [28, 29, 30] },
-      { title: 'Grupo D', rows: [40, 41, 42] },
-    ];
-
-    grid.innerHTML = '';
-    classGrupos.forEach(grupo => {
+    const r = await scTorneio_(), t = r.t;
+    if (!t.jogos.length) {
+      grid.innerHTML = '<div class="error-box" style="border-color:rgba(255,255,255,.12);color:#9aa3b5">A tabela oficial será divulgada em breve.</div>';
+      list.innerHTML = ''; return;
+    }
+    grid.innerHTML = scAvisoOffline_(r);
+    t.grupos.forEach(g => {
       const card = document.createElement('div');
       card.className = 'group-card';
-      let trs = '';
-      const teams = grupo.rows.map(r => ({
-        equipe: cc(rowsJ, r, 1),
-        pts: parseInt(cc(rowsJ, r, 2) || '0'),
-        v: cc(rowsJ, r, 3),
-        d: cc(rowsJ, r, 4),
-        sp: parseInt(cc(rowsJ, r, 5) || '0')
-      })).filter(t => t.equipe && t.equipe.length >= 2);
-      teams.sort((a, b) => b.pts - a.pts || b.sp - a.sp);
-      teams.forEach((t, i) => {
-        trs += `<tr>
-          <td style="color:var(--muted);font-size:12px;font-weight:700;">${i+1}º</td>
-          <td class="team">${t.equipe}</td>
-          <td>${t.pts}</td>
-          <td>${t.v}</td>
-          <td>${t.d}</td>
-        </tr>`;
-      });
+      const trs = g.tabela.map((l, i) => `<tr>
+          <td style="color:var(--muted);font-size:12px;font-weight:700;">${l.pos}º</td>
+          <td class="team">${scEsc_(l.equipe)}</td>
+          <td>${l.pontos}</td>
+          <td>${l.vitorias}</td>
+          <td>${l.derrotas}</td>
+        </tr>`).join('');
       card.innerHTML = `
-        <div class="group-header">${grupo.title}</div>
+        <div class="group-header">Grupo ${scEsc_(g.grupo)}</div>
         <div class="table-wrap">
           <table>
             <thead><tr><th>#</th><th>Equipe</th><th>Pontos</th><th>V</th><th>D</th></tr></thead>
@@ -1408,192 +1391,90 @@ async function loadVoleiData() {
       grid.appendChild(card);
     });
 
-    // ── Jogos (aba "Fase de Grupos") ─────────────────────────────
-    // Colunas: B=1(Casa), C=2(S1C), D=3(S2C), E=4(S3C), H=7(S1V), I=8(S2V), J=9(S3V),
-    //          L=11(Visit), M=12(SetsC), N=13(SetsV), O=14(Vencedor)
-    const jogosGrupos = [
-      { title: 'Grupo A', rows: [10, 11, 12] },
-      { title: 'Grupo B', rows: [22, 23, 24] },
-      { title: 'Grupo C', rows: [34, 35, 36] },
-      { title: 'Grupo D', rows: [46, 47, 48] },
-    ];
-
     list.innerHTML = '';
-    jogosGrupos.forEach(grupo => {
-      grupo.rows.forEach((r, idx) => {
-        const casa   = cc(rowsJ, r, 1);
-        const visit  = cc(rowsJ, r, 11);
-        if (!casa && !visit) return;
-
-        const s1c = cc(rowsJ, r, 2), s2c = cc(rowsJ, r, 3), s3c = cc(rowsJ, r, 4);
-        const s1v = cc(rowsJ, r, 7), s2v = cc(rowsJ, r, 8), s3v = cc(rowsJ, r, 9);
-        const setsC    = cc(rowsJ, r, 12) || '0';
-        const setsV    = cc(rowsJ, r, 13) || '0';
-        const vencedor = cc(rowsJ, r, 14) || 'A DEFINIR';
-
-        let setDetails = '';
-        if (s1c && s1v) setDetails += `${s1c}/${s1v}`;
-        if (s2c && s2v) setDetails += `  ${s2c}/${s2v}`;
-        if (s3c && s3v) setDetails += `  ${s3c}/${s3v}`;
-
-        const finalizado = vencedor && vencedor !== 'A DEFINIR' && vencedor !== '—';
-        const statusStyle = finalizado
-          ? 'border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.08);color:#4ade80;'
-          : 'border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#5a6174;';
-
-        const card = document.createElement('div');
-        card.className = 'game-card';
-        card.innerHTML = `
-          <div class="game-info">
-            <span class="game-group">${grupo.title}</span>
-            <span class="game-hour">Jogo ${idx + 1}</span>
+    t.jogos.filter(j => j.fase === 'grupos').forEach(j => {
+      const decidido = j.status === 'finalizado' || j.status === 'wo';
+      const setDetails = j.wo ? 'W.O.' : (j.parciais || []).map(p => `${p.a}/${p.b}`).join('  ');
+      const rotuloHora = [j.data ? j.data.split('-').reverse().slice(0, 2).join('/') : '', j.hora || ''].filter(Boolean).join(' ');
+      const statusTxt = decidido ? (j.vencedor || '—') : (j.status === 'ao_vivo' ? 'AO VIVO' : 'A DEFINIR');
+      const statusStyle = decidido
+        ? 'border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.08);color:#4ade80;'
+        : j.status === 'ao_vivo' ? 'border-color:rgba(239,68,68,0.35);background:rgba(239,68,68,0.10);color:#f87171;'
+        : 'border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#5a6174;';
+      const card = document.createElement('div');
+      card.className = 'game-card';
+      card.innerHTML = `
+        <div class="game-info">
+          <span class="game-group">Grupo ${scEsc_(j.grupo)}</span>
+          <span class="game-hour">${rotuloHora ? scEsc_(rotuloHora) : 'Jogo ' + (j.rodada || '')}</span>
+        </div>
+        <div class="game-team left">${scEsc_(j.casa)}</div>
+        <div class="game-score" style="flex-direction:column;gap:4px;">
+          <div style="display:flex;align-items:center;gap:18px;">
+            <span class="score">${decidido || j.status === 'ao_vivo' ? j.setsCasa : '-'}</span>
+            <span class="x">X</span>
+            <span class="score">${decidido || j.status === 'ao_vivo' ? j.setsVisitante : '-'}</span>
           </div>
-          <div class="game-team left">${casa}</div>
-          <div class="game-score" style="flex-direction:column;gap:4px;">
-            <div style="display:flex;align-items:center;gap:18px;">
-              <span class="score">${setsC}</span>
-              <span class="x">X</span>
-              <span class="score">${setsV}</span>
-            </div>
-            ${setDetails ? `<div style="font-family:var(--M);font-size:12px;color:var(--muted);letter-spacing:1px;">${setDetails}</div>` : ''}
-          </div>
-          <div class="game-team right">${visit}</div>
-          <div class="game-status" style="${statusStyle}">${vencedor}</div>`;
-        list.appendChild(card);
-      });
+          ${setDetails ? `<div style="font-family:var(--M);font-size:12px;color:var(--muted);letter-spacing:1px;">${scEsc_(setDetails)}</div>` : ''}
+        </div>
+        <div class="game-team right">${scEsc_(j.visitante)}</div>
+        <div class="game-status" style="${statusStyle}">${scEsc_(statusTxt)}</div>`;
+      list.appendChild(card);
     });
-
   } catch (error) {
     console.error(error);
-    grid.innerHTML = `<div class="error-box">❌ Erro ao carregar dados do Voleibol:\n\n${error.message}\n\nVerifique:\n• O ID da planilha (VOLEI_SHEET_ID)\n• A chave da API\n• A planilha está pública?</div>`;
+    grid.innerHTML = `<div class="error-box">❌ Não foi possível carregar a tabela do Voleibol agora.\n\nVerifique sua conexão e tente de novo em instantes.</div>`;
     list.innerHTML = '';
   }
 }
 
 // ============================================
-// CARREGA MATA-MATA VOLEIBOL (aba "Mata-Mata")
+// MATA-MATA VOLEIBOL (Supabase)
 // ============================================
-// Mapeamento (índices base-0):
-//  Quartas: rows 5-8  → Q1(r5), Q2(r6), Q3(r7), Q4(r8)
-//  Semis:   rows 12-13 → SF1(r12), SF2(r13)
-//  Final:   row 17    → FINAL(r17)
-//  Campeão: row 20, col A
-//  Colunas: B=1(Casa) C=2 D=3 E=4(Sets Casa) H=7 I=8 J=9(Sets Visit)
-//           L=11(Visit) M=12(SetsC) N=13(SetsV) O=14(Vencedor)
-
-const VOLEI_MATA_SHEET = 'Mata-Mata';
-
 async function loadVoleiMataMata() {
   const loadingEl = document.getElementById('voleiMataLoading');
   const errorEl   = document.getElementById('voleiMataError');
   const grid      = document.getElementById('voleiMataGrid');
-
   try {
-    const range = encodeURIComponent(`'${VOLEI_MATA_SHEET}'!A1:Q21`);
-    const url   = `https://sheets.googleapis.com/v4/spreadsheets/${VOLEI_SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
+    const r = await scTorneio_(), t = r.t;
+    const J = {}; t.jogos.forEach(j => { J[j.id] = j; });
 
-    const response = await fetch(url);
-    const result   = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.error ? result.error.message : response.statusText);
-    }
-
-    const rows = result.values || [];
-    const c = (r, col) => (rows[r] && rows[r][col] != null) ? rows[r][col].toString().trim() : '';
-
-    // ── Helper: monta string dos placares de cada set ─────────────
-    // Lado A = cols 2,3,4 | Lado B = cols 7,8,9
-    function buildSets(r) {
-      const parts = [];
-      [[2,7],[3,8],[4,9]].forEach(([ca,cb]) => {
-        const a = c(r, ca), b = c(r, cb);
-        if (a !== '' && b !== '') parts.push(`${a}/${b}`);
-      });
-      return parts.join('  ');
-    }
-
-    // ── Helper: aplica um duelo nos elementos do DOM ──────────────
-    function applyDuel(prefix, r) {
-      const nameA  = c(r, 1)  || '—';
-      const nameB  = c(r, 11) || '—';
-      const setsA  = c(r, 12) || '-';
-      const setsB  = c(r, 13) || '-';
-      const winner = c(r, 14);
-      const sets   = buildSets(r);
-
-      // Nomes
+    function applyDuel(prefix, id) {
+      const j = J[id] || {};
+      const decidido = j.status === 'finalizado' || j.status === 'wo';
+      const nome = (def, nm, rot) => def ? nm : (rot || 'Aguardando');
+      const nameA = nome(j.casaDefinida, j.casa, j.rotuloCasa), nameB = nome(j.visitanteDefinida, j.visitante, j.rotuloVisitante);
       document.getElementById(`${prefix}-nameA`).textContent = nameA;
       document.getElementById(`${prefix}-nameB`).textContent = nameB;
-
-      // Placar em sets
-      const elSA = document.getElementById(`${prefix}-scoreA`);
-      const elSB = document.getElementById(`${prefix}-scoreB`);
-      elSA.textContent = setsA;
-      elSB.textContent = setsB;
-
-      // Detalhe dos sets (ex: 25/20  25/21)
-      const detA = document.getElementById(`${prefix}-setsA`);
-      const detB = document.getElementById(`${prefix}-setsB`);
-      if (detA) detA.textContent = sets;
-      if (detB) detB.textContent = '';  // só mostra na linha casa (resumo único)
-
-      // Highlight do vencedor
-      const rowA = document.getElementById(`${prefix}-rowA`);
-      const rowB = document.getElementById(`${prefix}-rowB`);
-      rowA.classList.remove('winner');
-      rowB.classList.remove('winner');
-      elSA.classList.remove('winner-score','loser-score');
-      elSB.classList.remove('winner-score','loser-score');
-
-      const isAguardando = !winner || winner === '—' || winner.toLowerCase().includes('aguard');
-      if (!isAguardando) {
-        if (winner === nameA) {
-          rowA.classList.add('winner');
-          elSA.classList.add('winner-score');
-          elSB.classList.add('loser-score');
-        } else {
-          rowB.classList.add('winner');
-          elSB.classList.add('winner-score');
-          elSA.classList.add('loser-score');
-        }
+      const elSA = document.getElementById(`${prefix}-scoreA`), elSB = document.getElementById(`${prefix}-scoreB`);
+      elSA.textContent = decidido || j.status === 'ao_vivo' ? j.setsCasa : '-';
+      elSB.textContent = decidido || j.status === 'ao_vivo' ? j.setsVisitante : '-';
+      const detA = document.getElementById(`${prefix}-setsA`), detB = document.getElementById(`${prefix}-setsB`);
+      if (detA) detA.textContent = j.wo ? 'W.O.' : (j.parciais || []).map(p => `${p.a}/${p.b}`).join('  ');
+      if (detB) detB.textContent = '';
+      const rowA = document.getElementById(`${prefix}-rowA`), rowB = document.getElementById(`${prefix}-rowB`);
+      rowA.classList.remove('winner'); rowB.classList.remove('winner');
+      elSA.classList.remove('winner-score', 'loser-score'); elSB.classList.remove('winner-score', 'loser-score');
+      if (decidido && j.vencedor) {
+        const casaVenceu = j.vencedor === j.casa;
+        (casaVenceu ? rowA : rowB).classList.add('winner');
+        (casaVenceu ? elSA : elSB).classList.add('winner-score');
+        (casaVenceu ? elSB : elSA).classList.add('loser-score');
       }
     }
+    ['Q1', 'Q2', 'Q3', 'Q4'].forEach((id, i) => applyDuel('vq' + (i + 1), id));
+    applyDuel('vsf1', 'SF1'); applyDuel('vsf2', 'SF2'); applyDuel('vfin', 'FINAL');
 
-    // ── Quartas (rows 5-8, índices 5,6,7,8) ──────────────────────
-    applyDuel('vq1', 5);
-    applyDuel('vq2', 6);
-    applyDuel('vq3', 7);
-    applyDuel('vq4', 8);
-
-    // ── Semis (rows 13-14, índices 12,13) ────────────────────────
-    applyDuel('vsf1', 12);
-    applyDuel('vsf2', 13);
-
-    // ── Final (row 18, índice 17) ─────────────────────────────────
-    applyDuel('vfin', 17);
-
-    // ── Campeão (row 21, índice 20, coluna A) ─────────────────────
-    const campeo   = c(20, 0);
     const campeoEl = document.getElementById('voleiCampeoName');
-    const isWaiting = !campeo || campeo === '—' || campeo.toLowerCase().includes('aguard');
-    if (!isWaiting) {
-      campeoEl.textContent = campeo;
-      campeoEl.classList.remove('pending');
-    } else {
-      campeoEl.textContent = 'Aguardando';
-      campeoEl.classList.add('pending');
-    }
-
-    // Mostra grid, esconde loading/error
+    if (t.campeao) { campeoEl.textContent = t.campeao; campeoEl.classList.remove('pending'); }
+    else { campeoEl.textContent = 'Aguardando'; campeoEl.classList.add('pending'); }
     loadingEl.classList.add('hidden');
     errorEl.classList.add('hidden');
     grid.style.display = '';
-
   } catch (error) {
     console.error('Volei Mata-Mata error:', error);
     loadingEl.classList.add('hidden');
-    errorEl.textContent = `❌ Erro ao carregar Mata-Mata do Voleibol:\n\n${error.message}`;
+    errorEl.textContent = '❌ Não foi possível carregar o Mata-Mata do Voleibol agora. Tente de novo em instantes.';
     errorEl.classList.remove('hidden');
   }
 }
