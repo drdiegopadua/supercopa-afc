@@ -346,7 +346,7 @@ nav.main-nav.scrolled{
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
 })();
 
-const FEEDBACK_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwI8SlXs8chIPW9ounZjULMD-z0FdmkYjTZJDjKSQQqjfy8-HcpuXv2Zixw8ZiV16OH/exec';
+const FEEDBACK_SCRIPT_URL = 'https://hngwasixgyvnvfanpuax.supabase.co/functions/v1/api';
 
 const scaleFields = ['organizacao','arbitragem','app','notaGeral','recomendaria'];
 const respostas = {};
@@ -392,7 +392,7 @@ document.getElementById('fbSubmit').onclick = async () => {
     await fetch(FEEDBACK_SCRIPT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(respostas)
+      body: JSON.stringify(Object.assign({ acao: 'feedback' }, respostas))
     });
   } catch (e) { /* segue mesmo se falhar a leitura da resposta */ }
 
@@ -404,11 +404,11 @@ document.getElementById('fbSubmit').onclick = async () => {
 <script>
 (function(){
   try{
-    var BOLAO_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyhmN1mCzUWNpwyQ_AT6SKj1YqodCd2At3rLCu6rAn2cNqFjvwXidnw86wu3z3iTLdt9Q/exec";
+    var ACESSOS_URL = "https://hngwasixgyvnvfanpuax.supabase.co/functions/v1/api";
     if (sessionStorage.getItem('site_acesso_tracked')) return;
     var id = localStorage.getItem('_device_id');
     if (!id) { id = 'dev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); localStorage.setItem('_device_id', id); }
-    fetch(BOLAO_SHEETS_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({tipo:'site_acesso', deviceId:id}) });
+    fetch(ACESSOS_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({tipo:'site_acesso', deviceId:id}) });
     sessionStorage.setItem('site_acesso_tracked', '1');
   } catch(e) {}
 })();

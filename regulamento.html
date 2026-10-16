@@ -1104,18 +1104,18 @@ if(hamburger && drawer && overlay) {
   <div class="app-float-icon">📱</div>
   <div class="app-float-text">
     <span class="app-float-title">App Supercopa AFC</span>
-    <span class="app-float-sub">Bolão · Quiz · Resultados ao vivo</span>
+    <span class="app-float-sub">Quiz · Notícias · Resultados ao vivo</span>
   </div>
   <span class="app-float-arrow">›</span>
 </a>
 <script>
 (function(){
   try{
-    var BOLAO_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyhmN1mCzUWNpwyQ_AT6SKj1YqodCd2At3rLCu6rAn2cNqFjvwXidnw86wu3z3iTLdt9Q/exec";
+    var ACESSOS_URL = "https://hngwasixgyvnvfanpuax.supabase.co/functions/v1/api";
     if (sessionStorage.getItem('site_acesso_tracked')) return;
     var id = localStorage.getItem('_device_id');
     if (!id) { id = 'dev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); localStorage.setItem('_device_id', id); }
-    fetch(BOLAO_SHEETS_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({tipo:'site_acesso', deviceId:id}) });
+    fetch(ACESSOS_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({tipo:'site_acesso', deviceId:id}) });
     sessionStorage.setItem('site_acesso_tracked', '1');
   } catch(e) {}
 })();

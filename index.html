@@ -1263,13 +1263,8 @@ nav:not(.main-nav){display:none!important}
       <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(200,168,75,0.9);letter-spacing:2px;text-transform:uppercase">Aplicativo Oficial</span>
     </div>
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,7vw,72px);letter-spacing:3px;color:#fff;line-height:1;margin-bottom:16px">SUPERCOPA NO SEU BOLSO</h2>
-    <p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto">Acompanhe resultados ao vivo, participe do bolão, faça o quiz e receba notificações dos jogos — tudo no app gratuito da Supercopa AFC.</p>
+    <p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto">Acompanhe resultados ao vivo, faça o quiz, leia as notícias e receba notificações dos jogos — tudo no app gratuito da Supercopa AFC.</p>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:40px">
-      <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:16px 20px;text-align:center;min-width:120px">
-        <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px">Bolão</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px">Palpites ao vivo</div>
-      </div>
       <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:16px 20px;text-align:center;min-width:120px">
         <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px">Quiz</div>
@@ -1677,18 +1672,18 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="app-float-icon">📱</div>
   <div class="app-float-text">
     <span class="app-float-title">App Supercopa AFC</span>
-    <span class="app-float-sub">Bolão · Quiz · Resultados ao vivo</span>
+    <span class="app-float-sub">Quiz · Notícias · Resultados ao vivo</span>
   </div>
   <span class="app-float-arrow">›</span>
 </a>
 <script>
 (function(){
   try{
-    var BOLAO_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyhmN1mCzUWNpwyQ_AT6SKj1YqodCd2At3rLCu6rAn2cNqFjvwXidnw86wu3z3iTLdt9Q/exec";
+    var ACESSOS_URL = "https://hngwasixgyvnvfanpuax.supabase.co/functions/v1/api";
     if (sessionStorage.getItem('site_acesso_tracked')) return;
     var id = localStorage.getItem('_device_id');
     if (!id) { id = 'dev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); localStorage.setItem('_device_id', id); }
-    fetch(BOLAO_SHEETS_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({tipo:'site_acesso', deviceId:id}) });
+    fetch(ACESSOS_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({tipo:'site_acesso', deviceId:id}) });
     sessionStorage.setItem('site_acesso_tracked', '1');
   } catch(e) {}
 })();
