@@ -271,18 +271,29 @@ async function pollVivo(){try{const r=await getJ('action=partidasAoVivo',8000);c
 AFTER.inicio=async()=>{pollVivo();syncTeams().then(()=>{const g=$id('hteams');if(g)g.innerHTML=D.teams.map((t,i)=>tcard(t,i,'v')).join('');const c=$id('hcount');if(c)c.textContent=D.teams.length});clearInterval(window._poll);window._poll=setInterval(()=>{if(location.hash===''||location.hash==='#inicio')pollVivo()},8000)};
 
 /* ===== patrocinadores ===== */
-const PARC={master:[['coroa-instituto','Coroa Instituto']],prata:[['planet-sports','Planet Sports'],['acai-do-diego','Açaí do Diego'],['casa-homem-do-campo','Casa Homem do Campo'],['sicredi','Sicredi'],['express-pizzas-e-lanches','Express Pizzas e Lanches']],bronze:[['prato-fino','Prato Fino Restaurante e Churrascaria']],apoio:[['basquetebol-das-montanhas','Basquetebol das Montanhas']],realizacao:[['prefeitura-afonso-claudio','Prefeitura Municipal de Afonso Cláudio'],['instituto-cultural-das-montanhas','Instituto Cultural das Montanhas']]};
-const PTIER=[['master','Patrocinador Master','pl-m'],['prata','Patrocinadores Prata','pl-p'],['bronze','Patrocinador Bronze','pl-b'],['apoio','Apoio','pl-b'],['realizacao','Realização','pl-r']];
+const PARC={master:[['coroa-instituto','Coroa Instituto']],prata:[['planet-sports','Planet Sports'],['acai-do-diego','Açaí do Diego'],['casa-homem-do-campo','Casa Homem do Campo'],['sicredi','Sicredi'],['express-pizzas-e-lanches','Express Pizzas e Lanches']],bronze:[['prato-fino','Prato Fino Restaurante e Churrascaria']],apoio:[['basquetebol-das-montanhas','Basquetebol das Montanhas'],['instituto-cultural-das-montanhas','Instituto Cultural das Montanhas']],realizacao:[['prefeitura-afonso-claudio','Prefeitura Municipal de Afonso Cláudio']]};
+const PTIER=[['master','Patrocinador Master','pl-m'],['prata','Patrocinadores Prata','pl-p'],['bronze','Patrocinador Bronze','pl-b'],['realizacao','Realização','pl-r'],['apoio','Apoio','pl-a']];
 const plogo=(s,n)=>`<figure class="pl"><img src="novo/parceiros/${s}.png" alt="${escH(n)}" loading="lazy" width="600" height="360"><figcaption>${escH(n)}</figcaption></figure>`;
 P.patrocinadores=()=>`
 <section class="sc" style="padding-block:46px 80px"><canvas class="mosaic"></canvas><div class="wrap"><span class="tag">Quem faz a Supercopa acontecer</span><h1 class="h1" style="margin-top:14px">Patrocinadores<br>e <em>realização</em></h1><p class="lead" style="margin-top:16px">Empresas e instituições que acreditam no esporte da Região das Montanhas e tornam o torneio gratuito para as equipes.</p></div></section>
 ${PTIER.map((t,i)=>`<section class="${i%2?'lt alt':'lt'} sec"><div class="wrap"><div class="sech"><span class="box">${t[1]}</span></div><div class="plgrid ${t[2]}">${PARC[t[0]].map(x=>plogo(x[0],x[1])).join('')}</div></div></section>`).join('')}`;
-const PALL=['master','prata','bronze','apoio','realizacao'].flatMap(k=>PARC[k]);
+const PALL=['realizacao','master','prata','bronze','apoio'].flatMap(k=>PARC[k]);
 const plstrip=()=>`<section class="lt alt sec"><div class="wrap"><div class="sech"><span class="box">Patrocinadores e realização</span><h2 class="h2">Quem apoia a <em>Supercopa</em></h2></div></div><div class="plmq"><div>${PALL.concat(PALL).map(x=>`<img src="novo/parceiros/${x[0]}.png" alt="${escH(x[1])}" loading="lazy">`).join('')}</div></div><div class="wrap" style="text-align:center;margin-top:18px"><a class="btn" href="#patrocinadores">Ver todos os parceiros</a></div></section>`;
 
 const NAV=[['inicio','Início'],['historia','História'],['times','Times'],['jogos','Jogos / Classificação'],['transmissao','Transmissão'],['galeria','Galeria'],['destaque','Atleta Destaque'],['regulamento','Regulamento'],['downloads','Downloads'],['feedback','Feedback'],['patrocinadores','Patrocinadores']];
 function route(){const h=(location.hash||'#inicio').slice(1);const k=P[h]?h:'inicio';document.getElementById('page').innerHTML=P[k]();document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.k===k));window.scrollTo(0,0);mosaic();clearInterval(window._poll);if(typeof AFTER!=="undefined"&&AFTER[k])AFTER[k]();const c=document.getElementById('cd');if(c)countdown(c);const v=document.getElementById('vh');const g=document.getElementById('gch');if(g)g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById('gtb').innerHTML=tabela(b.dataset.g)})}
 document.querySelectorAll('#lg,#lg2').forEach(i=>i.src=D.logo);document.getElementById('nav').innerHTML=NAV.map(n=>`<a href="#${n[0]}" data-k="${n[0]}">${n[1]}</a>`).join('')+`<a href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" rel="noopener">App</a><a class="btn" href="#inscricao" style="padding:10px 18px">Inscrição</a>`;
 window.addEventListener('hashchange',route);window.addEventListener('resize',()=>mosaic());route();document.fonts&&document.fonts.ready.then(()=>mosaic());
+
+(function(){const nav=document.getElementById('nav');if(!nav||typeof NAV==='undefined')return;const by={};NAV.forEach(n=>by[n[0]]=n[1]);
+ const lk=k=>'<a href="#'+k+'" data-k="'+k+'">'+by[k]+'</a>';
+ nav.innerHTML=['inicio','jogos','times','transmissao','destaque'].map(lk).join('')+'<div class="dd"><button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false">Mais<i></i></button><div class="dd-menu" role="menu">'+['historia','galeria','regulamento','downloads','patrocinadores','feedback'].map(lk).join('')+'<a href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" rel="noopener">App</a></div></div><a class="btn" href="#inscricao" style="padding:10px 18px">Inscrição</a>';
+ const dd=nav.querySelector('.dd'),bt=nav.querySelector('.dd-btn');
+ const set=o=>{dd.classList.toggle('open',o);bt.setAttribute('aria-expanded',o)};
+ bt.onclick=e=>{e.stopPropagation();set(!dd.classList.contains('open'))};
+ document.addEventListener('click',e=>{if(!dd.contains(e.target))set(false)});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});
+ const mark=()=>{const k=(location.hash||'#inicio').slice(1);nav.querySelectorAll('a[data-k]').forEach(a=>a.classList.toggle('on',a.dataset.k===k));set(false)};
+ addEventListener('hashchange',mark);mark()})();
 
 (function(){const b=document.getElementById('navbtn'),n=document.getElementById('nav');if(!b)return;b.onclick=()=>{b.classList.toggle('open');n.classList.toggle('open')};n.addEventListener('click',e=>{if(e.target.closest('a')){b.classList.remove('open');n.classList.remove('open')}})})();

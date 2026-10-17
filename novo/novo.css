@@ -252,3 +252,32 @@ textarea{font-family:var(--body)}
 @media (min-width:1061px){#top .bar{flex-wrap:nowrap!important}#nav{flex:1;justify-content:flex-end;flex-wrap:nowrap!important;gap:4px 14px!important}#nav a:not(.btn){font-size:11px!important;letter-spacing:1.1px!important;white-space:nowrap}#nav .btn{padding:12px 20px!important;white-space:nowrap}.logo{flex:none}}
 @media (min-width:1500px){#nav{gap:4px 20px!important}#nav a:not(.btn){font-size:12px!important;letter-spacing:1.5px!important}}
 .h1 .w{padding:.14em 0 .16em!important;margin:-.14em 0 -.16em!important}
+
+html{overflow-x:hidden}body{overflow-x:clip;max-width:100vw}
+.dd{position:relative;display:flex;align-items:center}
+.dd-btn{all:unset;cursor:pointer;font:600 11px var(--body);letter-spacing:1.1px;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:7px;padding:6px 2px;white-space:nowrap}
+@media (min-width:1500px){.dd-btn{font-size:12px;letter-spacing:1.5px}}
+.dd-btn i{width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .3s}
+.dd.open .dd-btn i,.dd:hover .dd-btn i{transform:rotate(225deg) translateY(-1px)}
+#top.sm .dd-btn{color:#0b2a8f}
+.dd:has(a.on) .dd-btn{box-shadow:0 2px 0 currentColor}
+.dd-menu{position:absolute;right:-14px;top:calc(100% + 16px);min-width:250px;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border:1px solid #dfe6f5;box-shadow:0 34px 70px -22px rgba(5,13,36,.6);padding:8px;display:grid;gap:2px;opacity:0;visibility:hidden;transform:translateY(12px) scale(.97);transform-origin:top right;transition:opacity .22s,transform .28s cubic-bezier(.2,.9,.2,1),visibility .22s;z-index:60}
+.dd-menu::before{content:"";position:absolute;right:30px;top:-7px;width:12px;height:12px;background:#fff;border-left:1px solid #dfe6f5;border-top:1px solid #dfe6f5;transform:rotate(45deg)}
+.dd::after{content:"";position:absolute;left:-10px;right:-10px;top:100%;height:20px}
+.dd:hover .dd-menu,.dd.open .dd-menu{opacity:1;visibility:visible;transform:none}
+#nav .dd-menu a{color:#0b2a8f!important;padding:13px 16px!important;font:600 12px var(--body)!important;letter-spacing:1.4px!important;text-transform:uppercase;display:flex!important;justify-content:space-between;align-items:center;border-bottom:0!important;opacity:1!important;position:relative;transition:background .2s,padding .25s}
+#nav .dd-menu a::after{content:"›";position:static;background:none;height:auto;transform:none;font-size:20px;opacity:0;margin-left:10px;transition:opacity .2s,transform .2s}
+#nav .dd-menu a:hover{background:#eef3fc;padding-left:22px!important}#nav .dd-menu a:hover::after{opacity:1}
+#nav .dd-menu a.on{background:#e4ebf9}
+#nav .dd-menu a:nth-child(n){animation:ddIn .35s both}
+@keyframes ddIn{from{opacity:0;transform:translateY(6px)}}
+@media (max-width:1060px){.dd-btn,.dd::after,.dd-menu::before{display:none}.dd{display:contents}.dd-menu{position:static!important;opacity:1;visibility:visible;transform:none;background:none;border:0;box-shadow:none;padding:0;display:contents;backdrop-filter:none}#nav .dd-menu a{color:#fff!important;padding:13px 4px!important;border-bottom:1px solid rgba(255,255,255,.18)!important}#top.sm #nav .dd-menu a{color:#0b2a8f!important;border-bottom-color:#e3eaf8!important}#nav .dd-menu a::after{display:none}#nav .dd-menu a:hover{background:none;padding-left:4px!important}}
+
+.plgrid{grid-template-columns:repeat(auto-fill,minmax(200px,230px))!important;gap:16px!important}
+.plgrid.pl-m{grid-template-columns:minmax(240px,320px)!important}
+.plgrid.pl-r{grid-template-columns:minmax(280px,400px)!important}
+.pl img{filter:none!important;opacity:1!important}
+.pl{border-color:#e3eaf8}
+.pl-r .pl{border-color:#1b52e0;box-shadow:0 18px 40px -24px rgba(11,42,143,.55)}
+.plmq img{width:170px!important;height:102px!important;filter:none!important;opacity:1!important}
+.plmq div{gap:14px!important}
