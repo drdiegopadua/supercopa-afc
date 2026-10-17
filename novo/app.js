@@ -297,3 +297,23 @@ window.addEventListener('hashchange',route);window.addEventListener('resize',()=
  addEventListener('hashchange',mark);mark()})();
 
 (function(){const b=document.getElementById('navbtn'),n=document.getElementById('nav');if(!b)return;b.onclick=()=>{b.classList.toggle('open');n.classList.toggle('open')};n.addEventListener('click',e=>{if(e.target.closest('a')){b.classList.remove('open');n.classList.remove('open')}})})();
+
+/* ===== menu agrupado (dropdowns) ===== */
+(function(){
+ const nav=document.getElementById('nav');if(!nav)return;
+ const IC={jogos:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',destaque:'<path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.3l1.1-6.2L3 9.7l6.2-.9z"/>',transmissao:'<circle cx="12" cy="12" r="2.5"/><path d="M7.5 7.5a6.4 6.4 0 000 9M16.5 7.5a6.4 6.4 0 010 9M4.5 4.5a10.6 10.6 0 000 15M19.5 4.5a10.6 10.6 0 010 15"/>',regulamento:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',galeria:'<path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13.5" r="3.5"/>',downloads:'<path d="M12 4v11M7 11l5 5 5-5M4 20h16"/>',historia:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',patrocinadores:'<path d="M12 21s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.6-7 10-7 10z"/>',feedback:'<path d="M4 5h16v11H9l-5 4z"/>',app:'<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>'};
+ const G=[
+  {t:'Torneio',i:[['jogos','Jogos e classificação','Placar, tabela e mata-mata'],['destaque','Atleta destaque','Vote e veja o ranking'],['transmissao','Transmissão ao vivo','Assista aos jogos'],['regulamento','Regulamento','Regras e PDF para baixar']]},
+  {t:'Mídia',i:[['galeria','Galeria','Fotos oficiais do evento'],['downloads','Downloads','Wallpapers e regulamentos']]},
+  {t:'Sobre',i:[['historia','História','Edições e campeões'],['patrocinadores','Patrocinadores','Quem apoia a Supercopa'],['feedback','Feedback','Conte como foi'],['app','App Supercopa','Quiz, notícias e ao vivo','https://drdiegopadua.github.io/supercopa-app/']]}
+ ];
+ const item=x=>'<a href="'+(x[3]||'#'+x[0])+'"'+(x[3]?' target="_blank" rel="noopener"':'')+' data-k="'+x[0]+'" role="menuitem"><span class="ddi"><svg viewBox="0 0 24 24">'+IC[x[0]]+'</svg></span><span class="ddt"><b>'+x[1]+'</b><small>'+x[2]+'</small></span></a>';
+ nav.innerHTML='<a href="#inicio" data-k="inicio">Início</a><a href="#times" data-k="times">Times</a>'+G.map(g=>'<div class="dd"><button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false">'+g.t+'<i></i></button><div class="dd-menu" role="menu">'+g.i.map(item).join('')+'</div></div>').join('')+'<a class="btn" href="#inscricao" style="padding:10px 18px">Inscrição</a>';
+ const dds=[].slice.call(nav.querySelectorAll('.dd'));
+ const close=o=>dds.forEach(d=>{if(d!==o){d.classList.remove('open');d.querySelector('.dd-btn').setAttribute('aria-expanded','false')}});
+ dds.forEach(d=>{const b=d.querySelector('.dd-btn');b.onclick=e=>{e.stopPropagation();close(d);const o=!d.classList.contains('open');d.classList.toggle('open',o);b.setAttribute('aria-expanded',o)};d.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover) and (min-width:1061px)').matches)close(d)})});
+ document.addEventListener('click',e=>{if(!e.target.closest('.dd'))close(null)});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')close(null)});
+ const mark=()=>{const k=(location.hash||'#inicio').slice(1);nav.querySelectorAll('a[data-k]').forEach(a=>a.classList.toggle('on',a.dataset.k===k));dds.forEach(d=>d.classList.remove('open'))};
+ addEventListener('hashchange',mark);mark();
+})();
