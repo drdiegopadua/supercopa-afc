@@ -443,3 +443,5 @@ html{overflow-x:hidden}body{overflow-x:clip;max-width:100vw}
 .dpi h3{margin:4px 0 2px;font:800 28px/1 var(--display);text-transform:uppercase;color:#0b2a8f;letter-spacing:.3px}
 .dpi b{font:600 15px var(--body);color:#1b52e0}
 .dpi p{margin-top:8px;font-size:13.5px;line-height:1.45;color:#4a5b86}
+
+[style*="flex-wrap:nowrap"] .escimg{width:clamp(48px,16vw,84px);height:clamp(48px,16vw,84px);object-fit:contain;flex:none}
