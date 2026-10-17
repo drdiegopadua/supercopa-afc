@@ -1,6 +1,6 @@
 
 (function(){
-const PH={"inicio": "novo/fotos/inicio.webp", "historia": "novo/fotos/historia.webp", "times": "novo/fotos/times.webp", "jogos": "novo/fotos/jogos.webp", "transmissao": "novo/fotos/transmissao.webp", "galeria": "novo/fotos/galeria.webp", "destaque": "novo/fotos/destaque.webp", "regulamento": "novo/fotos/regulamento.webp", "downloads": "novo/fotos/downloads.webp", "inscricao": "novo/fotos/inscricao.webp", "feedback": "novo/fotos/feedback.webp"};
+const PH={"inicio": "novo/fotos/inicio.webp", "historia": "novo/fotos/historia.webp", "times": "novo/fotos/times.webp", "jogos": "novo/fotos/jogos.webp", "transmissao": "novo/fotos/transmissao.webp", "galeria": "novo/fotos/galeria.webp", "destaque": "novo/fotos/destaque.webp", "regulamento": "novo/fotos/regulamento.webp", "downloads": "novo/fotos/downloads.webp", "inscricao": "novo/fotos/inscricao.webp", "feedback": "novo/fotos/feedback.webp", "patrocinadores": "novo/fotos/patrocinadores.webp"};
 const page=document.getElementById('page');
 const bar=document.createElement('div');bar.id='fxbar';document.body.appendChild(bar);
 const wipe=document.createElement('div');wipe.id='wipe';document.body.appendChild(wipe);
