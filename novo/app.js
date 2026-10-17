@@ -207,10 +207,18 @@ function voteReal(host){
      if(r.jaVotou){const m={equipe:'',nome:'(seu voto já foi registrado)',numero:''};lsSet(VK,m);done(m);return}
      msg.textContent=r.erro||'Não foi possível votar.'}catch(x){msg.textContent='Sem conexão. Tente de novo.'}ok.disabled=false;ok.textContent='Confirmar meu voto'}};
   draw()}).catch(()=>{host.innerHTML='<p class="lead" style="color:#cdd9f7">Não foi possível carregar agora. Atualize a página.</p>'})}
+
+/* ---- destaques das partidas (cards) ---- */
+function loadDpj(){const h=$id('dpj');if(!h)return;
+ fetch(API+'?action=destaques',{cache:'no-store'}).then(r=>r.json()).then(j=>{
+  const l=(j.destaques||[]).filter(x=>x.nome).reverse();
+  h.innerHTML=l.length?l.map((x,i)=>`<article class="dpc" style="animation-delay:${Math.min(i,8)*70}ms"><div class="dpf">${x.foto?`<img src="${escH(x.foto)}" alt="${escH(x.nome)}" loading="lazy">`:'<span></span>'}<i>${escH(x.modalidade||'')}</i></div><div class="dpi"><small>${escH(x.jogo||'Destaque da partida')}</small><h3>${escH(x.nome)}</h3><b>${escH(x.equipe)}</b>${x.observacao?`<p>${escH(x.observacao)}</p>`:''}</div></article>`).join(''):'<p class="lead" style="color:#4a5b86">Os destaques de cada partida aparecem aqui assim que os jogos acontecem.</p>'
+ }).catch(()=>{h.innerHTML='<p class="lead" style="color:#4a5b86">Não foi possível carregar agora.</p>'})}
 P.destaque=()=>`
 <section class="sc" style="padding-block:46px 70px"><canvas class="mosaic"></canvas><div class="wrap"><span class="tag">Supercopa 2026 · Vôlei</span><h1 class="h1" style="margin-top:14px">Quem foi o<br>atleta destaque?</h1><p class="lead" style="margin-top:16px">Vote no jogador que mais brilhou. Cada pessoa vota uma única vez.</p></div></section>
-<section class="cut"><div class="wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px"><div class="dk" style="padding:22px"><h2 class="h2" style="margin-bottom:14px">Seu voto</h2><div id="vh"></div></div><div class="dk" style="padding:22px"><h2 class="h2" style="margin-bottom:14px">Mais votados</h2><div id="dvrank"></div></div></div></section>`;
-AFTER.destaque=()=>{voteReal($id('vh'));loadRank();clearInterval(window._poll);window._poll=setInterval(()=>{if(location.hash==='#destaque')loadRank()},30000)};
+<section class="cut"><div class="wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px"><div class="dk" style="padding:22px"><h2 class="h2" style="margin-bottom:14px">Seu voto</h2><div id="vh"></div></div><div class="dk" style="padding:22px"><h2 class="h2" style="margin-bottom:14px">Mais votados</h2><div id="dvrank"></div></div></div></section>
+<section class="lt sec"><div class="wrap"><div class="sech"><span class="box">Partida a partida</span><h2 class="h2">Destaques dos <em>jogos</em></h2></div><div class="dpg" id="dpj"></div></div></section>`;
+AFTER.destaque=()=>{loadDpj();voteReal($id('vh'));loadRank();clearInterval(window._poll);window._poll=setInterval(()=>{if(location.hash==='#destaque')loadRank()},30000)};
 /* ---- galeria real ---- */
 P.galeria=()=>`
 <section class="sc" style="padding-block:46px 70px"><canvas class="mosaic"></canvas><div class="wrap"><span class="tag">Supercopa 2026 · Galeria oficial</span><h1 class="h1" style="margin-top:14px">Os melhores<br>momentos</h1><p class="lead" style="margin-top:16px">Quadra cheia, torcida em festa e lances que ninguém esquece.</p></div></section>
