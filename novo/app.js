@@ -155,10 +155,36 @@ const fdt=j=>j.data?j.data.split('-').reverse().slice(0,2).join('/')+(j.hora?' �
 const nomeCasa=j=>j.casaDefinida===false?(j.rotuloCasa||'A definir'):j.casa;
 const nomeVis=j=>j.visitanteDefinida===false?(j.rotuloVisitante||'A definir'):j.visitante;
 const dec=j=>j.status==='finalizado'||j.status==='wo';
-const jrow=j=>`<div class="game"><div class="r">${escH(nomeCasa(j))}</div><div class="m ${j.status==='ao_vivo'?'live':''}">${dec(j)||j.status==='ao_vivo'?`<b>${j.setsCasa||0} × ${j.setsVisitante||0}</b>${j.status==='ao_vivo'?'AO VIVO':(j.status==='wo'?'W.O.':'FINAL')}`:fdt(j).replace(' · ','<br>')}</div><div>${escH(nomeVis(j))}</div></div>`;
+const jrow=(j,i)=>{const T=window.__T,sc=dec(j)||j.status==='ao_vivo',lv=j.status==='ao_vivo';return `<div class="game ${i%2?'alt':''}"><span class="gs">${shBy(T,j.casaDefinida===false?'':j.casa,0)}</span><div class="tn"><b>${escH(nomeCasa(j))}</b><small>${fdt(j)}</small></div><div class="m ${lv?'live':''}">${sc?`<b>${j.setsCasa||0}<i>×</i>${j.setsVisitante||0}</b><em>${lv?'AO VIVO':(j.status==='wo'?'W.O.':'FINAL')}</em>`:'<b class="vs">VS</b>'}</div><div class="tn r"><b>${escH(nomeVis(j))}</b><small>${escH(j.quadra||'Quadra')}</small></div><span class="gs">${shBy(T,j.visitanteDefinida===false?'':j.visitante,1)}</span></div>`};
 const FASE={grupos:'Fase de grupos',quartas:'Quartas de final',semifinal:'Semifinal',final:'Grande final'};
 function tabelaReal(g){return `<table><tr><th>#</th><th>Equipe</th><th>J</th><th>V</th><th>Sets</th><th>Pts</th></tr>${g.tabela.map((l,i)=>`<tr class="${i<2?'q':''}"><td>${l.pos||i+1}</td><td>${escH(l.equipe)}</td><td>${l.jogos}</td><td>${l.vitorias}</td><td>${l.saldoSets>0?'+':''}${l.saldoSets}</td><td>${l.pontos}</td></tr>`).join('')}</table>`}
-function renderJogos(T){
+
+/* ===== chave do mata-mata em árvore (modelo: sorteio da Champions) ===== */
+function nbBracket(T,esc,shf){
+ var J={};(T.jogos||[]).forEach(function(j){J[j.id]=j});
+ function dtx(j){return j.data?j.data.split('-').reverse().slice(0,2).join('/')+(j.hora?' '+j.hora:''):''}
+ function team(j,s){
+  var n=s?j.visitante:j.casa,def=s?j.visitanteDefinida:j.casaDefinida,rot=s?j.rotuloVisitante:j.rotuloCasa,sc=s?j.setsVisitante:j.setsCasa;
+  var fin=j.status==='finalizado'||j.status==='wo',lv=j.status==='ao_vivo',win=fin&&j.vencedor&&j.vencedor===n;
+  return '<div class="nbt'+(win?' w':fin?' l':'')+'"><i>'+shf(def?n:'')+'</i><span>'+esc(def?n:(rot||'A definir'))+'</span><b>'+((fin||lv)?(sc||0):'')+'</b></div>'}
+ function box(id,tit,cls){
+  var j=J[id];if(!j)return '<div class="nbm ph '+(cls||'')+'"></div>';
+  return '<div class="nbm '+(cls||'')+(j.status==='ao_vivo'?' live':'')+'"><div class="nbh"><span>'+tit+'</span><em>'+(j.status==='ao_vivo'?'AO VIVO':dtx(j))+'</em></div>'+team(j,0)+team(j,1)+'</div>'}
+ var fin=J.FINAL,camp=T.campeao;
+ var champ='<div class="nbc3"><div class="nbfin">'+box('FINAL','Grande final')+'</div>'
+  +'<div class="nbcamp'+(camp?' on':'')+'"><small>Campeão</small>'+(camp?'<span>'+shf(camp)+'</span><b>'+esc(camp)+'</b>':'<b>A definir</b>')+'</div></div>';
+ return '<div class="nbw"><div class="nbk">'
+  +'<div class="nbq" style="grid-area:1/1">'+box('Q1','Quartas 1')+'</div><div class="nbq" style="grid-area:2/1">'+box('Q2','Quartas 2')+'</div>'
+  +'<div class="nbq" style="grid-area:3/1">'+box('Q3','Quartas 3')+'</div><div class="nbq" style="grid-area:4/1">'+box('Q4','Quartas 4')+'</div>'
+  +'<div class="nbv" style="grid-area:1/2/3/3"></div><div class="nbv" style="grid-area:3/2/5/3"></div>'
+  +'<div class="nbs" style="grid-area:1/3/3/4">'+box('SF1','Semifinal 1')+'</div><div class="nbs" style="grid-area:3/3/5/4">'+box('SF2','Semifinal 2')+'</div>'
+  +'<div class="nbv big" style="grid-area:1/4/5/5"></div>'
+  +'<div class="nbf" style="grid-area:1/5/5/6">'+champ+'</div>'
+  +'</div><p class="nbh2">Deslize para o lado para ver a chave inteira</p></div>';
+}
+
+function renderJogos(T){renderJogos0(T);const mm=$id('jmm');if(mm&&T&&T.jogos&&T.jogos.length)mm.innerHTML=nbBracket(T,escH,n=>n?shBy(T,n,0):'<span class="nph"></span>')}
+function renderJogos0(T){window.__T=T;
  const hero=$id('jhero'),cls=$id('jcls'),rod=$id('jrod'),mm=$id('jmm');if(!hero)return;
  if(!T||!T.jogos||!T.jogos.length){hero.innerHTML='<div class="bar-title" style="max-width:520px"><b>A tabela oficial será divulgada em breve</b><small>Jogos, classificação e mata-mata aparecem aqui assim que a chave for criada</small></div>';cls.innerHTML='<p class="lead">Ainda não há grupos definidos.</p>';rod.innerHTML='<p class="lead">Ainda não há jogos cadastrados.</p>';mm.innerHTML='<p class="lead">O mata-mata é definido por sorteio depois da fase de grupos.</p>';return}
  const J=T.jogos;const vivo=J.filter(j=>j.status==='ao_vivo')[0];const fin=J.filter(dec).sort((a,b)=>(b.data||'').localeCompare(a.data||'')||(b.hora||'').localeCompare(a.hora||''))[0];const prox=J.filter(j=>!dec(j)&&j.status!=='ao_vivo'&&j.data).sort((a,b)=>(a.data+(a.hora||'')).localeCompare(b.data+(b.hora||'')))[0];
