@@ -420,6 +420,27 @@ function nmInit(){
   $('nmPl').innerHTML=nmDonut([{v:s.total||0},{v:a.total||0}])+'<div class="nmdl"><div><i class="s0"></i>Site<b>'+nmN(s.total||0)+'</b><small>'+nmN(s.unicos||0)+' aparelhos únicos</small></div><div><i class="s1"></i>App<b>'+nmN(a.total||0)+'</b><small>'+nmN(a.unicos||0)+' aparelhos únicos</small></div></div>';
   rev()}).catch(()=>{$('nmD').innerHTML='<div class="stat"><b>—</b><small>Não foi possível carregar os acessos agora</small></div>'})}
 
+/* ===== contagem de exibições dos logos dos patrocinadores (cada vez que o logo é visto conta 1) ===== */
+function scTrackPatroc(plat, rules) {
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var el = e.target, st = el.__trk; if (!st) return;
+      if (e.isIntersecting && e.intersectionRatio >= 0.3) { if (!st.on && Date.now() - st.t > 8000) { st.on = true; st.t = Date.now(); enviar(el, st.local); } }
+      else if (!e.isIntersecting) { st.on = false; }
+    });
+  }, { threshold: [0, 0.3] }) : null;
+  function slugs(el) { var o = []; el.querySelectorAll('img').forEach(function (i) { var m = /parceiros\/([a-z0-9-]+)\.png/.exec(i.getAttribute('src') || ''); if (m && o.indexOf(m[1]) < 0) o.push(m[1]); }); return o; }
+  function enviar(el, local) {
+    var s = slugs(el); if (!s.length) return;
+    try { fetch(NM_API, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ tipo: 'patrocinio_view', plataforma: plat, local: local, slugs: s }) }); } catch (e) {}
+  }
+  function varre() { rules.forEach(function (r) { document.querySelectorAll(r.sel).forEach(function (el) { if (el.__trk) return; el.__trk = { local: r.local, on: false, t: 0 }; if (io) io.observe(el); }); }); }
+  varre();
+  new MutationObserver(function () { clearTimeout(scTrackPatroc.t); scTrackPatroc.t = setTimeout(varre, 300); }).observe(document.body, { childList: true, subtree: true });
+}
+
+scTrackPatroc('site',[{sel:'.plmq',local:'home'},{sel:'.plgrid',local:'patrocinadores'}]);
+
 const NAV=[['inicio','Início'],['historia','História'],['times','Times'],['jogos','Jogos / Classificação'],['transmissao','Transmissão'],['galeria','Galeria'],['destaque','Atleta Destaque'],['regulamento','Regulamento'],['downloads','Downloads'],['feedback','Feedback'],['patrocinadores','Patrocinadores']];
 function route(){const h=(location.hash||'#inicio').slice(1);const k=P[h]?h:'inicio';document.getElementById('page').innerHTML=P[k]();document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.k===k));window.scrollTo(0,0);mosaic();clearInterval(window._poll);if(typeof AFTER!=="undefined"&&AFTER[k])AFTER[k]();const c=document.getElementById('cd');if(c)countdown(c);const v=document.getElementById('vh');const g=document.getElementById('gch');if(g)g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById('gtb').innerHTML=tabela(b.dataset.g)})}
 document.querySelectorAll('#lg,#lg2').forEach(i=>i.src=D.logo);document.getElementById('nav').innerHTML=NAV.map(n=>`<a href="#${n[0]}" data-k="${n[0]}">${n[1]}</a>`).join('')+`<a href="https://drdiegopadua.github.io/supercopa-app/" target="_blank" rel="noopener">App</a><a class="btn off" href="#inscricao" style="padding:10px 18px">Inscrições encerradas</a>`;
