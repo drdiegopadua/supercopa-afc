@@ -501,3 +501,14 @@ html{overflow-x:hidden}body{overflow-x:clip;max-width:100vw}
 #nbkApp{margin:0 -16px}
 
 .plgrid.pl-o{grid-template-columns:minmax(220px,300px)!important}
+
+/* Wallpapers (Central de downloads) */
+.wp-dica{margin:-6px 0 22px;font-size:14px;opacity:.75;max-width:680px}
+.wp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px}
+.wp-card{display:flex;flex-direction:column;gap:10px;padding:12px}
+.wp-card h3{font-size:15px;margin:0}
+.wp-ph{display:block;border-radius:12px;overflow:hidden;aspect-ratio:9/16;background:#0b1a4a}
+.wp-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.wp-ph:hover img{transform:scale(1.04)}
+.wp-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%}
+@media(max-width:560px){.wp-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
