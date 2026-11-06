@@ -141,8 +141,8 @@ ${D.ins.termos.map(t=>`<details class="termo"><summary>${escH(t.t)}</summary><di
 
 /* ===== versão real: dados ao vivo ===== */
 const API='https://hngwasixgyvnvfanpuax.supabase.co/functions/v1/api';
-const getJ=(q,ms)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),ms||15000);return fetch(API+'?'+q,{signal:c.signal}).then(r=>r.json()).finally(()=>clearTimeout(t))};
-const postJ=o=>fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}).then(r=>r.json());
+const TESTE=/[?&]teste=1/.test(location.search);const getJ=(q,ms)=>{if(TESTE&&/action=(votacao|rankingDestaque)/.test(q))q+='&teste=1';const c=new AbortController(),t=setTimeout(()=>c.abort(),ms||15000);return fetch(API+'?'+q,{signal:c.signal}).then(r=>r.json()).finally(()=>clearTimeout(t))};
+const postJ=o=>{if(TESTE&&o.acao==='votarDestaque'){o.teste=true;o.deviceId='teste-'+Math.random().toString(36).slice(2)}return postJ0(o)};const postJ0=o=>fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}).then(r=>r.json());
 const lsGet=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 const AFTER={};
@@ -221,9 +221,9 @@ P.times=(old=>()=>old().replace('<div class="grid g3">${D.teams','<div class="gr
 const VK='sc_voto_destaque',DK='sc_dev_id';
 const devId=()=>{try{let d=localStorage.getItem(DK);if(!d){d='d'+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(DK,d)}return d}catch(e){return ''}};
 function rankReal(d){const el=$id('dvrank');if(!el)return;if(!d||!d.ranking||!d.ranking.length){el.innerHTML='<p class="lead" style="color:#cdd9f7">Nenhum voto ainda. Seja o primeiro!</p>';return}const m=d.ranking[0].votos||1,med=['1','2','3'];el.innerHTML=`<div style="font-size:12px;color:#b9d0ff;margin-bottom:10px">${d.totalVotos} voto${d.totalVotos===1?'':'s'} no total</div>`+d.ranking.map((r,i)=>`<div style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;border:1.5px solid ${i<3?'#fff':'rgba(255,255,255,.3)'};padding:11px 14px;margin-bottom:8px"><i style="position:absolute;left:0;top:0;bottom:0;width:${Math.max(3,Math.round(r.votos/m*100))}%;background:rgba(255,255,255,.14)"></i><b style="position:relative;font:700 30px var(--display);width:30px;text-align:center">${r.pos}</b><div style="position:relative;flex:1;min-width:0"><b>${r.numero?'#'+escH(r.numero)+' ':''}${escH(r.nome)}</b><br><small style="color:#b9d0ff">${escH(r.equipe)}</small></div><b style="position:relative;font:700 28px var(--display)">${r.votos}<small style="font:600 10px var(--body);margin-left:4px;color:#b9d0ff">${r.pct}%</small></b></div>`).join('')}
-async function loadRank(){try{const d=await getJ('action=rankingDestaque');if(d.ok){lsSet('sc_rank',d);rankReal(d)}}catch(e){rankReal(lsGet('sc_rank'))}}
+async function loadRank(){try{const d=await getJ('action=rankingDestaque');if(d.ok){if(!TESTE)lsSet('sc_rank',d);rankReal(d)}}catch(e){rankReal(lsGet('sc_rank'))}}
 function voteReal(host){
- const meu=lsGet(VK);const done=m=>{host.innerHTML=`<div style="text-align:center;padding:24px"><div class="big" style="font-size:64px;color:#fff">✓</div><div class="h2" style="margin-top:6px">Voto registrado!</div><p class="lead" style="margin:10px auto;color:#cdd9f7">${m.numero?'#'+escH(m.numero)+' ':''}${escH(m.nome)}<br>${escH(m.equipe)}</p></div>`};
+ const meu=TESTE?null:lsGet(VK);const done=m=>{host.innerHTML=`<div style="text-align:center;padding:24px"><div class="big" style="font-size:64px;color:#fff">✓</div><div class="h2" style="margin-top:6px">Voto registrado!</div><p class="lead" style="margin:10px auto;color:#cdd9f7">${m.numero?'#'+escH(m.numero)+' ':''}${escH(m.nome)}<br>${escH(m.equipe)}</p></div>`};
  if(meu){done(meu);return}
  host.innerHTML='<p class="lead" style="color:#cdd9f7">Carregando…</p>';
  getJ('action=votacao').then(d=>{if(!d.ok)throw 0;
