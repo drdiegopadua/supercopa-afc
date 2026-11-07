@@ -4,7 +4,12 @@ const PH={"inicio": "novo/fotos/inicio.webp", "historia": "novo/fotos/historia.w
 const page=document.getElementById('page');
 const bar=document.createElement('div');bar.id='fxbar';document.body.appendChild(bar);
 const wipe=document.createElement('div');wipe.id='wipe';document.body.appendChild(wipe);
-const lb=document.createElement('div');lb.id='lb';lb.innerHTML='<img alt="">';document.body.appendChild(lb);lb.onclick=()=>lb.classList.remove('on');
+window.scSalvarFoto=async function(url,nome){
+ try{const b=await (await fetch(url)).blob();const f=new File([b],nome,{type:b.type||'image/jpeg'});
+  if(/iP(hone|ad|od)/.test(navigator.userAgent)&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}
+  const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=nome;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000)
+ }catch(e){if(e&&e.name==='AbortError')return;window.open(url,'_blank')}};
+const lb=document.createElement('div');lb.id='lb';lb.innerHTML='<img alt=""><button type="button" id="lbDl" style="position:absolute;left:50%;bottom:22px;transform:translateX(-50%);padding:12px 22px;border:0;background:#1b52e0;color:#fff;font-weight:700;font-size:15px;font-family:inherit;letter-spacing:1px;text-transform:uppercase;cursor:pointer">Baixar foto</button>';document.body.appendChild(lb);lb.onclick=()=>lb.classList.remove('on');lb.querySelector('#lbDl').onclick=e=>{e.stopPropagation();const u=lb.querySelector('img').src;scSalvarFoto(u,'supercopa-'+(u.split('/').pop().split('?')[0]||'foto.jpg'))};
 const top=document.getElementById('top');
 addEventListener('scroll',()=>{const m=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(m>0?scrollY/m:0)+')';(scrollY>120?top.classList.add('sm'):scrollY<20&&top.classList.remove('sm'));const p=document.querySelector('.fxph');if(p&&scrollY<900)p.style.translate='0 '+(scrollY*.18)+'px'},{passive:true});
 addEventListener('hashchange',()=>{wipe.classList.remove('go');void wipe.offsetWidth;wipe.classList.add('go')});
