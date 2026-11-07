@@ -147,7 +147,7 @@ const lsGet=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return n
 const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 const AFTER={};
 const escUrl=u=>{const m=/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?.*id=)([A-Za-z0-9_-]+)/.exec(u||'');return m?'https://lh3.googleusercontent.com/d/'+m[1]+'=w320':(u||'')};
-const $id=i=>document.getElementById(i);
+const $id=i=>document.getElementById(i)||document.createElement('div');
 /* ---- torneio ---- */
 window.__ESCN=lsGet('sc_escn')||{};
 async function carregaEscudos(){try{const r=await getJ('action=timesPublicos');const m={};(r.times||[]).forEach(t=>{let u=escUrl(t.escudo||'');if(/^uni[aã]o v[oô]lei$/i.test(t.nome))u='novo/escudos/uniao-volei.png';if(/^ct das montanhas$/i.test(t.nome))u='novo/escudos/ct-das-montanhas.png';if(u)m[String(t.nome).toLowerCase()]=u});window.__ESCN=m;lsSet('sc_escn',m)}catch(e){}}
