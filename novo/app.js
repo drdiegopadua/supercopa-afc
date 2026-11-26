@@ -230,9 +230,7 @@ function voteReal(host){
  const meu=TESTE?null:lsGet(VK);const done=m=>{host.innerHTML=`<div style="text-align:center;padding:24px"><div class="big" style="font-size:64px;color:#fff">✓</div><div class="h2" style="margin-top:6px">Voto registrado!</div><p class="lead" style="margin:10px auto;color:#cdd9f7">${m.numero?'#'+escH(m.numero)+' ':''}${escH(m.nome)}<br>${escH(m.equipe)}</p></div>`};
  if(meu){done(meu);return}
  host.innerHTML='<p class="lead" style="color:#cdd9f7">Carregando…</p>';
- const ATLETAS_TESTE=[{equipe:'ES Vôlei',atletas:[{nome:'João Pedro Silva',numero:'1'},{nome:'Carlos Oliveira',numero:'4'},{nome:'Lucas Martins',numero:'7'}]},{equipe:'CTV Arabôlei',atletas:[{nome:'Marcos Souza',numero:'2'},{nome:'Paulo Fernandes',numero:'5'},{nome:'André Lima',numero:'9'}]},{equipe:'Vôlei Serra',atletas:[{nome:'Thiago Alves',numero:'3'},{nome:'Bruno Santos',numero:'6'},{nome:'Felipe Nunes',numero:'8'}]}];
  getJ('action=votacao').then(d=>{if(!d.ok)throw 0;
-  if(TESTE){d.aberta=true;d.antes=false;if(!d.equipes.length)d.equipes=ATLETAS_TESTE;}
   if(!d.aberta){host.innerHTML=d.antes?'<p class="lead" style="color:#cdd9f7">A votação ainda não abriu. Ela abre em <b>'+(function(x){try{return new Date(x).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}).replace(',',' às')}catch(e){return '28/11 às 14:30'}})(d.abreEm)+'</b> e fecha no domingo às 14h.</p>':'<p class="lead" style="color:#cdd9f7">Votação encerrada. Confira o resultado ao lado.</p>';return}
   if(!d.equipes.length){host.innerHTML='<p class="lead" style="color:#cdd9f7">A votação abre com o primeiro jogo encerrado. Os atletas que jogaram aparecem aqui para você votar.</p>';return}
   let eq='',sel='';const nm=(()=>{try{return localStorage.getItem('galera_nome')||''}catch(e){return ''}})(),tl=(()=>{try{return localStorage.getItem('galera_tel')||''}catch(e){return ''}})();
